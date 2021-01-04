@@ -54,11 +54,11 @@ need more personalised help for a fee.
 - The home
 ![HomePage](# "Book view wireframe image")
 - Lessons can be browsed
-![LessonPage](https://github.com/KelvinHere/book-review-app/blob/master/readme-files/wireframes/wireframe-reveal-s.jpg "Book view revealed wireframe image")
+![LessonPage](# "Book view revealed wireframe image")
 - Buy time with instructor
-![InstructorPage](https://github.com/KelvinHere/book-review-app/blob/master/readme-files/wireframes/wireframe-reviews-s.jpg "View reviews wireframe image")
+![InstructorPage](# "View reviews wireframe image")
 - Merchandise
-![MerchangisePage](https://github.com/KelvinHere/book-review-app/blob/master/readme-files/wireframes/wireframe-add-review-s.jpg "Form wireframe image")
+![MerchangisePage](# "Form wireframe image")
  
 #### User Stories
 As a site user I want to
