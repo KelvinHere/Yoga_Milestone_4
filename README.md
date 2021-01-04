@@ -61,7 +61,11 @@ need more personalised help for a fee.
 ![MerchangisePage](https://github.com/KelvinHere/book-review-app/blob/master/readme-files/wireframes/wireframe-add-review-s.jpg "Form wireframe image")
  
 #### User Stories
- 
+As a site user I want to
+1. Be able to register to the site to save my info for future use
+2. Quickly log in or out of the site
+3. Be able to recover my password
+
 As a student user I want to
 1. View learn yoga by watching videos
 2. Get extra help with a lesson I am struggling with
