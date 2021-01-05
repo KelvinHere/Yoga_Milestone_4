@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from profiles.models import InstructorProfile, StudentProfile
+from django.contrib.auth.models import User
 
 
 class Lesson(models.Model):

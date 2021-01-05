@@ -17,7 +17,9 @@
         <div class="row h-100">
             <div class="col">
                 <h1>{{ user|title }}'s Profile</h1>
-                <form><input type="text"><input type="submit" value="Submit"></form>
+                <p>User last name {{ profile.last_name }}</p>
+                <p>is instructor {{ profile.is_instructor }}</p>
+                
             </div>
         </div>
     </div>
