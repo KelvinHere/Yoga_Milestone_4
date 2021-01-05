@@ -1,8 +1,8 @@
 # Social Yoga - Full Stack - Milestone 4
  
-This app allows users to sign up for simple yoga classes for free.  Users can then from a lesson 
-book video call time and with accredited instructor if they need more personal guidance for a fee.
-(if time permits a simple merchandise store will be attached)
+This app allows users to sign up for simple yoga classes that instructors can make available.  
+If the user likes the sample lesson, they can purchase futher/advanced lessons from the tutor.
+The user will also have the ability to book personal video calls with the tutor for a fee.
 
 * [Live link to site](#/ 'Heroku live link to app')
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
@@ -44,9 +44,10 @@ book video call time and with accredited instructor if they need more personal g
  
 #### Project Purpose
 
-The purpose of this app is to create a platform where students can learn yoga 
-remotely and buy video call time to accredited instructors if they 
-need more personalised help for a fee.
+The purpose of this app is to create a platform where students can learn yoga remotely and
+instructors can sell their lessons.  Users will be able to find an instructor and lessons 
+through reviews and types of yoga, for a fee the user will be able to book video call time
+through the website.
 
 
 #### Wireframe Designs
@@ -67,21 +68,21 @@ As a site user I want to
 3. Be able to recover my password
 
 As a student user I want to
-1. View learn yoga by watching videos
-2. Get extra help with a lesson I am struggling with
-3. See reviews of the instructors I am considering to use because I don't trust random people on the internet
+1. Have a free lesson to see if I like an instructor
+2. Find an instructor through reviews as I need to have some confidence before buying lessons
+3. Learn yoga by watching videos
+4. Get extra help with a lesson I am struggling with
 
 As an Instructor I want to
 1. Sell my services on this site to suppliment my income
 2. Set the price of my services because I know what my time is worth
-3. See a list of my booked times
+3. See a list of my booked times for video calls
  
 #### Business Goals
 
-The business purpose of this app is to engage the user with yoga lessons and if the user is finding
-a lesson too difficult, they can buy time with an instructor.  From an instructors point of view
-they can sell their services at a price they can set themselves.
-The website would charge a monthly fee to the instructors to have themselves displayed on the website.
+- RE: Students : the business purpose of this app is to engage the user with yoga lessons make money from selling lessons and video call time with instructors.
+
+- RE: Instructors : make money from instructors by taking a cut of lessons and video calls sold.
  
  
 #### Developer Goals
