@@ -247,7 +247,9 @@ A quick summary of instructions with basic configuration below.
 - This project was created by KelvinHere
  
 ### Media
- 
+
+* [Background image](https://nicoledoherty.com/nd/wp-content/uploads/2012/11/credit-cards-you-trust-yourself.jpg)
+
 ### Acknowledgements
  
 * [Django Documentation](https://docs.djangoproject.com/en/3.1/).

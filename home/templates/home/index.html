@@ -1,6 +1,27 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block page_header %}
+    <div class="container container-header">
+        <div class="row">
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
-<h1 class="display">HOME</h1>
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="col-12 my-auto text-center">
+                <h1 class="display-4 me-auto my-4">Breathe deep and begin your Yoga journey here!</h1>
+                <div>
+                    <h2>
+                        <a href="#" class="find-lesson-button btn btn-lg btn-warning rounded-20 py-3 my-4">Find a Lesson</a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
