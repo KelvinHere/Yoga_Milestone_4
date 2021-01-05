@@ -9,6 +9,10 @@ body {
     color: black;
 }
 
+.index-main-text {
+    background-color: rgba(255, 255, 255, .5);
+}
+
 .overlay {
     height: 100%;
     width: 100%;

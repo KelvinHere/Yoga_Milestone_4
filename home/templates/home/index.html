@@ -15,7 +15,12 @@
     <div class="container h-100">
         <div class="row h-100">
             <div class="col-12 my-auto text-center">
-                <h1 class="display-4 me-auto my-4">Breathe deep and begin your Yoga journey here!</h1>
+                {% if user.is_authenticated %}
+                <h1 class="display-4 me-auto my-4 mx-4 pb-2 index-main-text rounded shadow-sm">Breathe deep {{ user|title }} and continue your Yoga journey</h1>
+                {% else %}
+                <h1 class="display-4 me-auto my-4 mx-4 pb-2 index-main-text rounded shadow-sm">Breathe deep and begin your Yoga journey here</h1>
+                {% endif %}
+
                 <div>
                     <h2>
                         <a href="{% url 'lessons' %}" class="find-lesson-button btn btn-lg btn-warning rounded-20 py-3 my-4">Find a Lesson</a>

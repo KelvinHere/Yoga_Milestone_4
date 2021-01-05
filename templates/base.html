@@ -45,11 +45,17 @@
                 </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    My Account
+                    <strong>{% if user.is_authenticated %}{{ user|title }}'s{% else %}My{% endif %} Account</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu{-sm|-md|-lg|-xl|-xxl}-start." aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Sign Up</a></li>
-                    <li><a class="dropdown-item" href="#">Login</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="{% url 'account_signup' %}">Register</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign In</a></li>
+                    {% endif %}
+
                 </ul>
                 </li>
             </ul>
