@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class StudentProfile(models.Model):
+class InstructorProfile(models.Model):
     """
     An extended profile for students
     """
@@ -14,7 +14,7 @@ class StudentProfile(models.Model):
         return self.user.username
 
 
-class InstructorProfile(models.Model):
+class StudentProfile(models.Model):
     """
     An extended profile for students
     """

@@ -1,7 +1,7 @@
 import uuid
 
 from django.db import models
-from profiles.models import InstructorProfile
+from profiles.models import InstructorProfile, StudentProfile
 
 
 class Lesson(models.Model):
@@ -31,4 +31,15 @@ class Lesson(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.lesson_number
+        return self.lesson_name
+    
+    def get_instructor_name(self):
+        return self.instructor_name
+
+
+class LessonItem(models.Model):
+    """
+    A lesson item and its subscribed student
+    """
+    lesson = models.ForeignKey(Lesson, null=False, blank=False, on_delete=models.CASCADE, related_name='lessonitems')
+    user = models.ForeignKey(StudentProfile, null=False, blank=False, on_delete=models.CASCADE)

@@ -15,4 +15,5 @@ class InstructorProfileAdmin(admin.TabularInline):
     fields = ('user', 'first_name', 'last_name',)
 
 
-admin.site.register(StudentProfile, InstructorProfile)
+admin.site.register(StudentProfile)
+admin.site.register(InstructorProfile)
