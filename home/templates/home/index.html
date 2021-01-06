@@ -16,7 +16,7 @@
         <div class="row h-100">
             <div class="col-12 my-auto text-center">
                 {% if user.is_authenticated %}
-                <h1 class="display-4 me-auto my-4 mx-4 pb-2 index-main-text rounded shadow-sm">Breathe deep {{ user|title }} and continue your Yoga journey</h1>
+                <h1 class="display-4 me-auto my-4 mx-4 pb-2 index-main-text rounded shadow-sm">Breathe deep <strong>{{ user|title }}</strong> and continue your Yoga journey</h1>
                 {% else %}
                 <h1 class="display-4 me-auto my-4 mx-4 pb-2 index-main-text rounded shadow-sm">Breathe deep and begin your Yoga journey here</h1>
                 {% endif %}

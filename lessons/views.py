@@ -23,16 +23,11 @@ def my_lessons(request):
     profile = get_object_or_404(UserProfile, user=request.user)
     template = 'lessons/my_lessons.html'
 
-    # Get the lesson field only of the Lesson items linked to the current profile
-    # Get lesson items bound to student
     lessonItems = LessonItem.objects.filter(user=profile)
-    #lessons = []
-    #for lesson in lessonItems:
-    #    lessons.append(lesson.lesson)
 
     context = {
         'profile': profile,
-        #'lessons': lessons,
+        'lessons': lessons,
         'lesson_items': lessonItems,
     }
 
@@ -43,10 +38,7 @@ def instructor_created_lessons(request):
     """ View to return the lessons page """
 
     profile = get_object_or_404(UserProfile, user=request.user)
-
     template = 'lessons/instructor_created_lessons.html'
-
-    # Get the lesson field only of the Lesson items linked to the current profile
 
     # Get lesson items bound to student
     instructor_created_lessons = Lesson.objects.filter(instructor_name=profile)

@@ -5,7 +5,6 @@
     <div class="container container-header">
         <div class="row">
             <div class="col">
-
             </div>
         </div>
     </div>
@@ -20,8 +19,9 @@
                 <hr>
                 {% if lesson_items %}
                     {% for lesson in lesson_items %}
-                        <p><strong>Instructor Name:</strong> {{lesson.instructor_name}}  |  <strong>Lesson Name</strong> {{ lesson.lesson_name }}</p>
-                        <a class="text-danger" href="{% url 'unsubscribe_lesson' lesson.id %}">Unsubscribe {{ lesson.id }}</a>
+                        <p><strong>Instructor Name:</strong> {{lesson.lesson.instructor_name}}  |  <strong>Lesson Name</strong> {{ lesson.lesson.lesson_name }}</p>
+                        <a class="btn btn-danger" href="{% url 'unsubscribe_lesson' lesson.id %}" role="button">Unsubscribe (pk_id={{ lesson.id }})</a>
+                        <hr>
                     {% endfor %}
                 {% else %}
                     <p>You aren't subscribed to any lessons</p>
