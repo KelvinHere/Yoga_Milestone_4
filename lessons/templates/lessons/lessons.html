@@ -17,6 +17,11 @@
         <div class="row h-100">
             <div class="col">
                 <h1>All available lessons</h1>
+                {% for lesson in all_lessons %}
+                    <p>Lesson Name: {{ lesson.lesson_name }}</p>
+                    <p>Instructor Name: {{ lesson.instructor_name }}</p>
+                    <hr>
+                {% endfor %}
             </div>
         </div>
     </div>
