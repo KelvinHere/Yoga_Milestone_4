@@ -15,12 +15,25 @@
     <div class="overlay"></div>
     <div class="container h-100">
         <div class="row h-100">
-            <div class="col">
+            <div class="col-12">
                 <h1>All available lessons</h1>
                 {% for lesson in all_lessons %}
-                    <p>Lesson Name: {{ lesson.lesson_name }}</p>
-                    <p>Instructor Name: {{ lesson.instructor_name }}</p>
-                    <hr>
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="..." alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Lesson: {{ lesson.lesson_name }}</h5>
+                                    <h6>By: {{ lesson.instructor_name }}</h6>
+                                    <p class="card-text">{{ lesson.description }}</p>
+                                    <p class="card-text"><small class="text-muted">Yoga style</small></p>
+                                    <a class="text-primary" href="{% url 'subscribe_lesson' lesson.id %}">Subscribe {{ lesson.id }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>

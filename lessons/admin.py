@@ -5,6 +5,8 @@ from .models import Lesson, LessonItem
 class LessonItemAdmin(admin.ModelAdmin):
     model = LessonItem
 
+    readonly_fields = ('id',)
+
 
 class LessonAdmin(admin.ModelAdmin):
     inlines = (LessonItemAdmin)
@@ -21,4 +23,4 @@ class LessonAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Lesson)
-admin.site.register(LessonItem)
+admin.site.register(LessonItem, LessonItemAdmin)

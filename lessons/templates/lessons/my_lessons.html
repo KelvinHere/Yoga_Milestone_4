@@ -18,9 +18,10 @@
             <div class="col">
                 <h1>{{ profile }}'s subscribed lessons</h1>
                 <hr>
-                {% if lessons %}
-                    {% for lesson in lessons %}
+                {% if lesson_items %}
+                    {% for lesson in lesson_items %}
                         <p><strong>Instructor Name:</strong> {{lesson.instructor_name}}  |  <strong>Lesson Name</strong> {{ lesson.lesson_name }}</p>
+                        <a class="text-danger" href="{% url 'unsubscribe_lesson' lesson.id %}">Unsubscribe {{ lesson.id }}</a>
                     {% endfor %}
                 {% else %}
                     <p>You aren't subscribed to any lessons</p>
