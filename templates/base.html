@@ -43,6 +43,19 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'lessons' %}">All Lessons</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'my_lessons' %}">My Lessons</a>
+                </li>
+                {% endif %}
+                {% if profile.is_instructor %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'my_lessons' %}">My_Created_Lessons</a>
+                </li>
+                {% endif %}
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <strong>{% if user.is_authenticated %}{{ user|title }}'s{% else %}My{% endif %} Account</strong>
