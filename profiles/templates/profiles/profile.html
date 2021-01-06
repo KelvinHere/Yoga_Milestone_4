@@ -16,10 +16,22 @@
     <div class="container h-100">
         <div class="row h-100">
             <div class="col">
-                <h1>{{ user|title }}'s Profile</h1>
-                <p>User last name {{ profile.last_name }}</p>
-                <p>is instructor {{ profile.is_instructor }}</p>
-                
+                <h1>{{ profile.first_name|title }}'s Profile</h1>
+                <p>Welcome back {% if profile.is_instructor %}instructor{% else %}student{% endif %} {{ profile.first_name }}</p>
+                {% if lessons %}
+                    <hr>
+                    <p>Instructor created lessons</p>
+                    {% for lesson in lessons %}
+                    <p>
+                        <span>
+                            <strong>Name </strong>   {{ lesson.name }}
+                            <strong>| Description   </strong>{{ lesson.description }}
+                            <strong>| Link   </strong>{{ lesson.url }}
+                        </span>
+                    </p>
+                    {% endfor %}
+                {% endif %}
+
             </div>
         </div>
     </div>

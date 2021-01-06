@@ -1,19 +1,13 @@
 from django.contrib import admin
-from .models import StudentProfile, InstructorProfile
+from .models import UserProfile
 
 
-class StudentProfileAdmin(admin.TabularInline):
-    model = StudentProfile
+class UserProfileAdmin(admin.TabularInline):
+    model = UserProfile
 
-    fields = ('user', 'first_name', 'lesson_name',
-              'last_name',)
-
-
-class InstructorProfileAdmin(admin.TabularInline):
-    model = InstructorProfile
-
-    fields = ('user', 'first_name', 'last_name',)
+    fields = ('user', 'first_name', 'last_name',
+              'is_instructor',)
 
 
-admin.site.register(StudentProfile)
-admin.site.register(InstructorProfile)
+admin.site.register(UserProfile)
+

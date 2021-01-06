@@ -1,8 +1,8 @@
 import uuid
 
 from django.db import models
-from profiles.models import InstructorProfile, StudentProfile
 from django.contrib.auth.models import User
+from profiles.models import UserProfile
 
 
 class Lesson(models.Model):
@@ -10,11 +10,11 @@ class Lesson(models.Model):
     A lesson model
     """
     lesson_id = models.CharField(max_length=32, null=False, editable=False)
-    instructor_name = models.ForeignKey(InstructorProfile, on_delete=models.SET_NULL,
+    instructor_name = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                         null=True, blank=True, related_name='lessons')
-    lesson_name = models.CharField(max_length=32, null=False, editable=True)
+    name = models.CharField(max_length=32, null=False, editable=True)
     description = models.TextField(max_length=254)
-    lesson_url = models.URLField(max_length=1024, null=False, blank=False)
+    url = models.URLField(max_length=1024, null=False, blank=False)
 
     def _generate_lesson_id(self):
         """
@@ -33,7 +33,7 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.lesson_name
-    
+
     def get_instructor_name(self):
         return self.instructor_name
 
@@ -43,4 +43,4 @@ class LessonItem(models.Model):
     A lesson item and its subscribed student
     """
     lesson = models.ForeignKey(Lesson, null=False, blank=False, on_delete=models.CASCADE, related_name='lessonitems')
-    user = models.ForeignKey(StudentProfile, null=False, blank=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, null=False, blank=False, on_delete=models.CASCADE)
