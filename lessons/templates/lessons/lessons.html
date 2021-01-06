@@ -29,7 +29,12 @@
                                     <h6>By: {{ lesson.instructor_name }}</h6>
                                     <p class="card-text">{{ lesson.description }}</p>
                                     <p class="card-text"><small class="text-muted">Yoga style</small></p>
-                                    <a class="text-primary" href="{% url 'subscribe_lesson' lesson.id %}">Subscribe {{ lesson.id }}</a>
+                                    {% for lesson_item in subscribed_lessons %}
+                                        {% if lesson_item.lesson == lesson %}
+                                            <p class="bg-danger w-50">Already Subscribed</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a class="btn btn-primary" href="{% url 'subscribe_lesson' lesson.id %}" role="button">Subscribe</a>
                                 </div>
                             </div>
                         </div>

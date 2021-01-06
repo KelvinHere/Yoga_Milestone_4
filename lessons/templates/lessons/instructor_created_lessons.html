@@ -20,11 +20,17 @@
                 <hr>
                 {% if instructor_created_lessons %}
                     {% for lesson in instructor_created_lessons %}
-                        <p><strong>Instructor Name:</strong> {{lesson.instructor_name}}  |  <strong>Lesson Name</strong> {{ lesson.lesson_name }}</p>
+                        <p><strong>Lesson Name:</strong> {{ lesson.lesson_name }}</p>
+                        <span>
+                            <a class="btn btn-primary" href="#" role="button">Edit Lesson (todo)</a>
+                            <a class="btn btn-danger" href="#" role="button">Delete Button (todo)</a>
+                        </span>
+                        <hr>
                     {% endfor %}
                 {% else %}
                     <p>You aren't subscribed to any lessons</p>
                 {% endif %}
+                <a class="btn btn-secondary" href="#" role="button">Create New Lesson (todo)</a>
             </div>
         </div>
     </div>

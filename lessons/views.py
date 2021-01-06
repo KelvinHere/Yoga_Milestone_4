@@ -7,11 +7,12 @@ def lessons(request):
     """ View to return the lessons page """
     profile = get_object_or_404(UserProfile, user=request.user)
     all_lessons = Lesson.objects.all()
+    subscribed_lessons = LessonItem.objects.filter(user=profile)
     template = 'lessons/lessons.html'
     context = {
         'profile': profile,
-        'all_lessons': all_lessons
-
+        'all_lessons': all_lessons,
+        'subscribed_lessons': subscribed_lessons,
     }
 
     return render(request, template, context)
