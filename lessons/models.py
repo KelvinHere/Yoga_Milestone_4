@@ -12,7 +12,7 @@ class Lesson(models.Model):
     lesson_id = models.CharField(max_length=32, null=False, editable=False)
     instructor_name = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                         null=True, blank=True, related_name='lessons')
-    name = models.CharField(max_length=32, null=False, editable=True)
+    lesson_name = models.CharField(max_length=32, null=False, editable=True)
     description = models.TextField(max_length=254)
     url = models.URLField(max_length=1024, null=False, blank=False)
 
@@ -44,3 +44,6 @@ class LessonItem(models.Model):
     """
     lesson = models.ForeignKey(Lesson, null=False, blank=False, on_delete=models.CASCADE, related_name='lessonitems')
     user = models.ForeignKey(UserProfile, null=False, blank=False, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Lesson "{self.lesson.lesson_name}" subscribed to by "{self.user.first_name}"'
