@@ -30,7 +30,8 @@
                                     <p class="card-text">{{ lesson.description }}</p>
                                     <p class="card-text"><small class="text-muted">Yoga style</small></p>
                                     {% if lesson.lesson_id in subscribed_lesson_list %}
-                                        <a class="btn btn-secondary disabled" href="#" role="button">Subscribed!</a>
+                                        <a class="btn btn-danger disabled" href="#" role="button">Subscribed!</a>
+                                        <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Start Lesson</a>
                                     {% else %}
                                         <a class="btn btn-primary" href="{% url 'subscribe_lesson' lesson.id %}" role="button">Subscribe</a>
                                     {% endif %}
