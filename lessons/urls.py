@@ -7,5 +7,6 @@ urlpatterns = [
     path('instructor_created_lessons/', views.instructor_created_lessons, name='instructor_created_lessons'),
     path('unsubscribe_lesson/<int:id>', views.unsubscribe_lesson, name='unsubscribe_lesson'),
     path('subscribe_lesson/<int:id>', views.subscribe_lesson, name='subscribe_lesson'),
+    path('create_lesson/', views.create_lesson, name='create_lesson'),
 ]
 

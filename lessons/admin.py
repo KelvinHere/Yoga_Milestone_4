@@ -9,12 +9,10 @@ class LessonItemAdmin(admin.ModelAdmin):
 
 
 class LessonAdmin(admin.ModelAdmin):
-    inlines = (LessonItemAdmin)
-
-    readonly_fields = ('lesson_id')
+    readonly_fields = ('lesson_id',)
 
     fields = ('lesson_id', 'instructor_name', 'lesson_name',
-              'description', 'lesson_url',)
+              'description', 'url',)
 
     list_display = (
         'lesson_name',
@@ -22,5 +20,5 @@ class LessonAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(Lesson)
+admin.site.register(Lesson, LessonAdmin)
 admin.site.register(LessonItem, LessonItemAdmin)
