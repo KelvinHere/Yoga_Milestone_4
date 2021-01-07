@@ -16,37 +16,11 @@
     <div class="container h-100">
         <div class="row h-100">
             <div class="col">
-                <!-- Instructor -->
-                {% if lessons and profile.is_instructor %}
-                    <h1>{{ profile.first_name|title }}'s Profile</h1>
-                    <p>Welcome back instructor {{ profile.first_name }}</p>
-                    <hr>
-                    <p>Here is a list of your created lessons</p>
-                    {% for lesson in lessons %}
-                    <p>
-                        <span>
-                            <strong>Name </strong>   {{ lesson.lesson_name }}
-                            <strong>| Description   </strong>{{ lesson.description }}
-                            <strong>| Link   </strong>{{ lesson.url }}
-                        </span>
-                    </p>
-                    {% endfor %}
-                <!-- Student -->
-                {% else %}
-                    <h1>{{ profile.first_name|title }}'s Profile</h1>
-                    <p>Welcome back student {{ profile.first_name }}</p>
-                    <hr>
-                    <p>Here is a list of your subscribed lessons</p>
-                    {% for lesson in lessons %}
-                    <p>
-                        <span>
-                            <strong>Name </strong>   {{ lesson.lesson_name }}
-                            <strong>| Description   </strong>{{ lesson.description }}
-                            <strong>| Link   </strong>{{ lesson.url }}
-                        </span>
-                    </p>
-                    {% endfor %}
-                {% endif %}
+                <form method="POST" action="{% url 'profile' %}" class="form">
+                    {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Submit">
+                </form>
             </div>
         </div>
     </div>

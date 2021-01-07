@@ -1,27 +1,29 @@
-from django.shortcuts import render, get_object_or_404, HttpResponse
+from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
+
+from .forms import ProfileForm
 
 
 def profile(request):
     """ View to return the profile page """
     profile = get_object_or_404(UserProfile, user=request.user)
 
-    if profile.is_instructor:
-        lessons = Lesson.objects.filter(instructor_name=profile)
-    else:
-        # Get lesson items bound to student
-        lessonItems = LessonItem.objects.filter(user=profile)
-        # Put the lessons into lessons
-        lessons = []
-        for lesson in lessonItems:
-            lessons.append(lesson.lesson)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
 
-    context = {
-        'profile': profile,
-        'lessons': lessons,
-    }
-    return render(request, 'profiles/profile.html', context)
+        return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
+
+        context = {
+            'profile': profile,
+            'form': form,
+
+        }
+        return render(request, 'profiles/profile.html', context)
 
 
 def instructors(request):

@@ -130,7 +130,10 @@ HTML, CSS, Gunicorn, Stripe payments and how they all interact to form a final p
 ## Testing
  
 [Testing Documentation](#) - Documentation for testing
- 
+
+## Dependancies
+- `pip3 install pillow` image field
+
 ## Technologies Used
  
 - **HTML5/CSS3**
