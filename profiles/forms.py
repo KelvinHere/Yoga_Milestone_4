@@ -10,7 +10,8 @@ class ProfileForm(forms.ModelForm):
         fields = '__all__'
 
     # Over-ride init
-    #def __init__(self, *args, **kwargs): 
-    #    super(LessonForm, self).__init__(*args, **kwargs)  
-    #    #instructor_profile = forms.CharField(widget=forms.HiddenInput())
-    #    self.fields['instructor_profile'].disabled = True 
+    def __init__(self, *args, **kwargs): 
+        super(ProfileForm, self).__init__(*args, **kwargs)  
+        #instructor_profile = forms.CharField(widget=forms.HiddenInput())
+        self.fields['user'].disabled = True
+        self.fields['is_instructor'].disabled = True

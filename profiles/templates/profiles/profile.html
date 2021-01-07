@@ -16,7 +16,7 @@
     <div class="container h-100">
         <div class="row h-100">
             <div class="col">
-                <form method="POST" action="{% url 'profile' %}" class="form">
+                <form method="POST" action="{% url 'profile' %}" class="form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form }}
                     <input type="submit" value="Submit">

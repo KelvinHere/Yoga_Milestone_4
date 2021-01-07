@@ -20,9 +20,11 @@
                 <div class="card-group">
                     {% for instructor in instructor_list %}
                     <div class="card">
-                        <img src="{{ instructor.image_url }}" class="card-img-top" alt="...">
+                        {% if instructor.image %}
+                        <img src="{{ instructor.image.url }}" class="card-img-top" alt="{{ instructor.first_name }}">
+                        {% endif %}
                         <div class="card-body">
-                        <h5 class="card-title">{{ instructor }}</h5>
+                        <h5 class="card-title">{{ instructor.image }}</h5>
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p class="card-text"><a class="btn btn-primary" href="{% url 'instructor_profile' instructor.id %}" role="button">View Instructor</a></p>
                         </div>

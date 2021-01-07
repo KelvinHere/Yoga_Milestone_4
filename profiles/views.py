@@ -10,7 +10,7 @@ def profile(request):
     profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=profile)
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
 
@@ -29,9 +29,6 @@ def profile(request):
 def instructors(request):
     """ View to display list of instructors """
     instructor_list = UserProfile.objects.filter(is_instructor=True)
-
-    for instructor in instructor_list:
-        print(instructor)
 
     template = 'profiles/instructors.html'
     context = {
