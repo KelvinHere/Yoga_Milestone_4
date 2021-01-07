@@ -22,7 +22,7 @@
                     {% for lesson in instructor_created_lessons %}
                         <p><strong>Lesson Name:</strong> {{ lesson.lesson_name }}</p>
                         <span>
-                            <a class="btn btn-primary" href="#" role="button">Edit (todo)</a>
+                            <a class="btn btn-primary" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a>
                             <a class="btn btn-danger" href="{% url 'delete_instructor_created_lesson' lesson.lesson_id %}" role="button">Delete</a>
                         </span>
                         <hr>

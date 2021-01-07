@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
 
-from .forms import CreateLessonForm
+from .forms import LessonForm
 
 
 def lessons(request):
@@ -102,12 +102,10 @@ def create_lesson(request):
                                   url=url,
                                   )
         else:
-            print('DUPLICATE NAME')
-
-        return redirect('home')
+            return HttpResponse('<h1>You already have a lesson named this<h1>', status=500)
 
     else:
-        form = CreateLessonForm(initial={'instructor_profile':profile})
+        form = LessonForm(initial={'instructor_profile':profile})
         template = 'lessons/create_lesson.html'
         context = {
             'form': form
@@ -116,6 +114,7 @@ def create_lesson(request):
 
 
 def delete_instructor_created_lesson(request, id):
+    """ A view to delete a lesson given an id """
     profile = get_object_or_404(UserProfile, user=request.user)
     instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
 
@@ -126,3 +125,29 @@ def delete_instructor_created_lesson(request, id):
         return HttpResponse('<h1>Error, this user did not create the lesson, please log in with the correct profile to delete it<h1>', status=500)
 
     
+def edit_lesson(request, id):
+    """ A view to edit and update a lesson """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
+
+    if request.method == 'POST':
+        form = LessonForm(request.POST, instance=instructor_created_lesson)
+        if form.is_valid():
+            print('####valid')
+            form.save()
+        
+        return redirect('instructor_created_lessons')
+
+    else:
+        form = LessonForm(instance=instructor_created_lesson)
+
+        if instructor_created_lesson.instructor_profile == profile:
+            template = 'lessons/edit_lesson.html'
+            context = {
+                'profile': profile,
+                'lesson': instructor_created_lesson,
+                'form': form,
+            }
+            return render(request, template, context)
+        else:
+            return HttpResponse('<h1>You can only edit your own lessons, check your login details and try again<h1>', status=500)
