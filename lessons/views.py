@@ -83,15 +83,37 @@ def unsubscribe_lesson(request, id):
 
 def create_lesson(request):
     """ View to create a lesson """
-    print('#IN CREATE LESSON')
     profile = get_object_or_404(UserProfile, user=request.user)
-    form = CreateLessonForm(initial={'instructor_name':profile})
+
+    if request.method == 'POST':
+        # Get form data
+        lesson_name = request.POST.get('lesson_name')
+        description = request.POST.get('description')
+        url = request.POST.get('url')
+
+        # Check for duplicate names
+        instructor_created_lessons = Lesson.objects.filter(instructor_name=profile).values_list('lesson_name', flat=True)
     
+        if lesson_name not in instructor_created_lessons:
+            print('#SOLUTION#')
+            # Create lesson
+            Lesson.objects.create(instructor_name= profile,
+                                lesson_name= lesson_name,
+                                description= description,
+                                url= url,
+                                )
+        else:
+            print('DUPLICATE NAME')
+        
+        return redirect('home')
+    
+    else:
+        form = CreateLessonForm(initial={'instructor_name':profile})
+    
+        template = 'lessons/create_lesson.html'
 
-    template = 'lessons/create_lesson.html'
+        context = {
+            'form': form
+        }
 
-    context = {
-        'form': form
-    }
-
-    return render(request, template, context)
+        return render(request, template, context)
