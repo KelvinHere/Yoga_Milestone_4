@@ -18,10 +18,11 @@
                 <h1>{{ profile }}'s subscribed lessons</h1>
                 <hr>
                 {% if lesson_items %}
-                    {% for lesson in lesson_items %}
-                        <p><strong>Instructor Name:</strong> {{lesson.lesson.instructor_profile}}  |  <strong>Lesson Name</strong> {{ lesson.lesson.lesson_name }}</p>
-                        <a class="btn btn-danger" href="{% url 'unsubscribe_lesson' lesson.id %}" role="button">Unsubscribe</a>
-                        <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Start Lesson</a>
+                    {% for lesson_item in lesson_items %}
+                        <p><strong>Instructor Name:</strong> {{lesson_item.lesson.instructor_profile}}  |  <strong>Lesson Name</strong> {{ lesson_item.lesson.lesson_name }}</p>
+                        <a class="btn btn-danger" href="{% url 'unsubscribe_lesson' lesson_item.id %}" role="button">Unsubscribe</a>
+
+                        <a class="btn btn-primary" href="{% url 'studio' lesson_item.lesson.lesson_id %}" role="button">Start Lesson</a>
                         <hr>
                     {% endfor %}
                 {% else %}
