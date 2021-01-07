@@ -2,6 +2,13 @@
 
 ### Manual Tests
 
+- Users can:
+    - View a list of instructors
+    - View an instructors profile
+
+- Users cannot:
+    - View profiles of non-instructors
+
 - Instructor can:
     - Create a lesson
     - Delete a lesson

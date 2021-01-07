@@ -63,12 +63,12 @@ through the website.
  
 #### User Stories
 As a site user I want to
-1. Be able to register to the site to save my info for future use
-2. Quickly log in or out of the site
+1. Be able to register to the site to save my info for future use *
+2. Quickly log in or out of the site *
 3. Be able to recover my password
 
 As a student user I want to
-1. Have a free lesson to see if I like an instructor
+1. Have a free lesson to see if I like an instructor *
 2. Find an instructor through reviews as I need to have some confidence before buying lessons
 3. Learn yoga by watching videos
 4. Get extra help with a lesson I am struggling with

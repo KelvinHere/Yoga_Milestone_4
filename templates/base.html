@@ -50,10 +50,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'my_lessons' %}">My Lessons</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'instructors' %}">Instructors</a>
+                </li>
                 {% endif %}
                 {% if user.userprofile.is_instructor %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'instructor_created_lessons' %}">My_Created_Lessons</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'instructor_created_lessons' %}">Instructor Lesson Admin</a>
                 </li>
                 {% endif %}
                 <li class="nav-item dropdown">

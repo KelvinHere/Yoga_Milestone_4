@@ -133,9 +133,8 @@ def edit_lesson(request, id):
     if request.method == 'POST':
         form = LessonForm(request.POST, instance=instructor_created_lesson)
         if form.is_valid():
-            print('####valid')
             form.save()
-        
+
         return redirect('instructor_created_lessons')
 
     else:
