@@ -12,7 +12,8 @@ class LessonAdmin(admin.ModelAdmin):
     readonly_fields = ('lesson_id',)
 
     fields = ('lesson_id', 'instructor_profile', 'lesson_name',
-              'description', 'url',)
+              'description', 'url', 'image', 'image_url', 'rating',
+              'yoga_style',)
 
     list_display = (
         'lesson_name',

@@ -13,8 +13,13 @@ class Lesson(models.Model):
     instructor_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                         null=True, blank=True, related_name='lessons')
     lesson_name = models.CharField(max_length=32, null=False, editable=True)
+    card_description = models.TextField(max_length=512)
     description = models.TextField(max_length=254)
     url = models.URLField(max_length=1024, null=False, blank=False)
+    image = models.ImageField(null=True, blank=True, upload_to='lesson_images/')
+    image_url = models.URLField(max_length=1024, null=True, blank=True)
+    rating = models.DecimalField(max_digits=5, decimal_places=0, null=True, blank=True)
+    yoga_style = models.CharField(max_length=50, default='Yoga', null=False, blank=False)
 
     def _generate_lesson_id(self):
         """

@@ -86,26 +86,32 @@ def create_lesson(request):
     profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
-        # Get form data
+        # Get lesson name form data
         lesson_name = request.POST.get('lesson_name')
-        description = request.POST.get('description')
-        url = request.POST.get('url')
 
         # Check for duplicate names
         instructor_created_lessons = Lesson.objects.filter(instructor_profile=profile).values_list('lesson_name', flat=True)
 
         if lesson_name not in instructor_created_lessons:
             # Create lesson
-            Lesson.objects.create(instructor_profile=profile,
-                                  lesson_name=lesson_name,
-                                  description=description,
-                                  url=url,
-                                  )
+            form = LessonForm(request.POST, request.FILES)
+            if form.is_valid():
+                lesson = form.save(commit=False)  # Delay commit of for to enter profile on next line
+                lesson.instructor_profile = profile
+                lesson.save()
+                print(lesson.instructor_profile)
+                print('###############')
+                print(lesson)
+                print('#################')
+
+                return redirect('instructor_created_lessons')
+
+            return redirect('instructor_created_lessons')
         else:
             return HttpResponse('<h1>You already have a lesson named this<h1>', status=500)
 
     else:
-        form = LessonForm(initial={'instructor_profile':profile})
+        form = LessonForm(initial={'instructor_profile':profile})  # Insert current user in this field
         template = 'lessons/create_lesson.html'
         context = {
             'form': form
@@ -124,17 +130,15 @@ def delete_instructor_created_lesson(request, id):
     else:
         return HttpResponse('<h1>Error, this user did not create the lesson, please log in with the correct profile to delete it<h1>', status=500)
 
-    
+  
 def edit_lesson(request, id):
     """ A view to edit and update a lesson """
     profile = get_object_or_404(UserProfile, user=request.user)
     instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
-
     if request.method == 'POST':
-        form = LessonForm(request.POST, instance=instructor_created_lesson)
+        form = LessonForm(request.POST, request.FILES, instance=instructor_created_lesson)
         if form.is_valid():
             form.save()
-
         return redirect('instructor_created_lessons')
 
     else:
