@@ -49,7 +49,7 @@ def instructor_created_lessons(request):
     template = 'lessons/instructor_created_lessons.html'
 
     # Get lesson items bound to student
-    instructor_created_lessons = Lesson.objects.filter(instructor_name=profile)
+    instructor_created_lessons = Lesson.objects.filter(instructor_profile=profile)
 
 
     context = {
@@ -92,11 +92,11 @@ def create_lesson(request):
         url = request.POST.get('url')
 
         # Check for duplicate names
-        instructor_created_lessons = Lesson.objects.filter(instructor_name=profile).values_list('lesson_name', flat=True)
+        instructor_created_lessons = Lesson.objects.filter(instructor_profile=profile).values_list('lesson_name', flat=True)
 
         if lesson_name not in instructor_created_lessons:
             # Create lesson
-            Lesson.objects.create(instructor_name=profile,
+            Lesson.objects.create(instructor_profile=profile,
                                   lesson_name=lesson_name,
                                   description=description,
                                   url=url,
@@ -107,7 +107,7 @@ def create_lesson(request):
         return redirect('home')
 
     else:
-        form = CreateLessonForm(initial={'instructor_name':profile})
+        form = CreateLessonForm(initial={'instructor_profile':profile})
         template = 'lessons/create_lesson.html'
         context = {
             'form': form
@@ -119,7 +119,7 @@ def delete_instructor_created_lesson(request, id):
     profile = get_object_or_404(UserProfile, user=request.user)
     instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
 
-    if instructor_created_lesson.instructor_name == profile:
+    if instructor_created_lesson.instructor_profile == profile:
         instructor_created_lesson.delete()
         return redirect('instructor_created_lessons')
     else:

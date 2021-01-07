@@ -11,12 +11,12 @@ class LessonItemAdmin(admin.ModelAdmin):
 class LessonAdmin(admin.ModelAdmin):
     readonly_fields = ('lesson_id',)
 
-    fields = ('lesson_id', 'instructor_name', 'lesson_name',
+    fields = ('lesson_id', 'instructor_profile', 'lesson_name',
               'description', 'url',)
 
     list_display = (
         'lesson_name',
-        'get_instructor_name',
+        'get_instructor_profile',
     )
 
 

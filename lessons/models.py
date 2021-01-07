@@ -10,7 +10,7 @@ class Lesson(models.Model):
     A lesson model
     """
     lesson_id = models.CharField(max_length=32, null=False, editable=False)
-    instructor_name = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
+    instructor_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                         null=True, blank=True, related_name='lessons')
     lesson_name = models.CharField(max_length=32, null=False, editable=True)
     description = models.TextField(max_length=254)
@@ -34,8 +34,8 @@ class Lesson(models.Model):
     def __str__(self):
         return self.lesson_name
 
-    def get_instructor_name(self):
-        return self.instructor_name
+    def get_instructor_profile(self):
+        return self.instructor_profile
 
 
 class LessonItem(models.Model):

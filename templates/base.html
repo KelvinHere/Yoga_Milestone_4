@@ -51,7 +51,7 @@
                     <a class="nav-link active" aria-current="page" href="{% url 'my_lessons' %}">My Lessons</a>
                 </li>
                 {% endif %}
-                {% if profile.is_instructor %}
+                {% if user.userprofile.is_instructor %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'instructor_created_lessons' %}">My_Created_Lessons</a>
                 </li>

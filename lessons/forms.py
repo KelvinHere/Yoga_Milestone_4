@@ -12,5 +12,5 @@ class CreateLessonForm(forms.ModelForm):
     # Over-ride init
     def __init__(self, *args, **kwargs): 
         super(CreateLessonForm, self).__init__(*args, **kwargs)  
-        #instructor_name = forms.CharField(widget=forms.HiddenInput())
-        self.fields['instructor_name'].disabled = True 
+        #instructor_profile = forms.CharField(widget=forms.HiddenInput())
+        self.fields['instructor_profile'].disabled = True 
