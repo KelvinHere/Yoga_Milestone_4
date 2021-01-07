@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
 
@@ -93,27 +93,36 @@ def create_lesson(request):
 
         # Check for duplicate names
         instructor_created_lessons = Lesson.objects.filter(instructor_name=profile).values_list('lesson_name', flat=True)
-    
+
         if lesson_name not in instructor_created_lessons:
-            print('#SOLUTION#')
             # Create lesson
-            Lesson.objects.create(instructor_name= profile,
-                                lesson_name= lesson_name,
-                                description= description,
-                                url= url,
-                                )
+            Lesson.objects.create(instructor_name=profile,
+                                  lesson_name=lesson_name,
+                                  description=description,
+                                  url=url,
+                                  )
         else:
             print('DUPLICATE NAME')
-        
+
         return redirect('home')
-    
+
     else:
         form = CreateLessonForm(initial={'instructor_name':profile})
-    
         template = 'lessons/create_lesson.html'
-
         context = {
             'form': form
         }
-
         return render(request, template, context)
+
+
+def delete_instructor_created_lesson(request, id):
+    profile = get_object_or_404(UserProfile, user=request.user)
+    instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
+
+    if instructor_created_lesson.instructor_name == profile:
+        instructor_created_lesson.delete()
+        return redirect('instructor_created_lessons')
+    else:
+        return HttpResponse('<h1>Error, this user did not create the lesson, please log in with the correct profile to delete it<h1>', status=500)
+
+    

@@ -23,7 +23,7 @@
                         <p><strong>Lesson Name:</strong> {{ lesson.lesson_name }}</p>
                         <span>
                             <a class="btn btn-primary" href="#" role="button">Edit Lesson (todo)</a>
-                            <a class="btn btn-danger" href="#" role="button">Delete Button (todo)</a>
+                            <a class="btn btn-danger" href="{% url 'delete_instructor_created_lesson' lesson.lesson_id %}" role="button">Delete Button (todo)</a>
                         </span>
                         <hr>
                     {% endfor %}
