@@ -12,6 +12,7 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=50, null=False, blank=False)
     last_name = models.CharField(max_length=50, null=False, blank=False)
     is_instructor = models.BooleanField(default=False)
+    card_description = models.TextField(max_length=512)
     profile_description = models.TextField()
     image = models.ImageField(null=True, blank=True, upload_to='profile_images/')
     image_url = models.URLField(max_length=1024, null=True, blank=True)
