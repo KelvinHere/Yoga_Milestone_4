@@ -2,19 +2,24 @@ from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
 
+from yoga.utils import get_profile_or_none
+
 from .forms import LessonForm
 
 
 def lessons(request):
     """ View to return the lessons page """
-    profile = get_object_or_404(UserProfile, user=request.user)
+    profile = get_profile_or_none(request)
+
+    # Get all lessons
     all_lessons = Lesson.objects.all()
-    
-    # Get a list of subscribed lesson IDs for current user
-    subscribed_lessons = LessonItem.objects.filter(user=profile)
     subscribed_lesson_list = []
-    for each in subscribed_lessons:
-        subscribed_lesson_list.append(each.lesson.lesson_id)
+
+    # Get a list of subscribed lesson IDs for current user
+    if request.user.is_authenticated:
+        subscribed_lessons = LessonItem.objects.filter(user=profile)
+        for each in subscribed_lessons:
+            subscribed_lesson_list.append(each.lesson.lesson_id)
 
     template = 'lessons/lessons.html'
     context = {
