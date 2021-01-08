@@ -17,8 +17,8 @@ def lessons(request):
 
     # Get a list of subscribed lesson IDs for current user
     if request.user.is_authenticated:
-        subscribed_lessons = LessonItem.objects.filter(user=profile)
-        for each in subscribed_lessons:
+        lesson_items = LessonItem.objects.filter(user=profile)
+        for each in lesson_items:
             subscribed_lesson_list.append(each.lesson.lesson_id)
 
     template = 'lessons/lessons.html'
@@ -37,11 +37,15 @@ def my_lessons(request):
     template = 'lessons/my_lessons.html'
 
     lessonItems = LessonItem.objects.filter(user=profile)
+    subscribed_lesson_list = []
+    for each in lessonItems:
+        subscribed_lesson_list.append(each.lesson.lesson_id)
 
     context = {
         'profile': profile,
         'lessons': lessons,
         'lesson_items': lessonItems,
+        'subscribed_lesson_list': subscribed_lesson_list,
     }
 
     return render(request, template, context)
@@ -78,12 +82,13 @@ def subscribe_lesson(request, id):
     return redirect('lessons')
 
 
-def unsubscribe_lesson(request, id):
+def unsubscribe_lesson(request, lesson, origin):
     """ View to remove a subscribed lesson from a UserProfile """
-    unsubscribe = get_object_or_404(LessonItem, pk=id)
-
+    profile = get_object_or_404(UserProfile, user=request.user)
+    lesson_object = Lesson.objects.get(lesson_name=lesson)
+    unsubscribe = LessonItem.objects.filter(lesson=lesson_object, user=profile)
     unsubscribe.delete()
-    return redirect('my_lessons')
+    return redirect(f'{origin}')
 
 
 def create_lesson(request):
@@ -104,13 +109,7 @@ def create_lesson(request):
                 lesson = form.save(commit=False)  # Delay commit of for to enter profile on next line
                 lesson.instructor_profile = profile
                 lesson.save()
-                print(lesson.instructor_profile)
-                print('###############')
-                print(lesson)
-                print('#################')
-
                 return redirect('instructor_created_lessons')
-
             return redirect('instructor_created_lessons')
         else:
             return HttpResponse('<h1>You already have a lesson named this<h1>', status=500)

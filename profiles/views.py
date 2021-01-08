@@ -62,3 +62,11 @@ def instructor_profile(request, instructor_id):
         return render(request, template, context)
     else:
         return HttpResponse('This profile does not belong to an instructor', status=500)
+
+
+def instructor_page_unsubscribe_lesson(request, lesson_id):
+    """ Unsubscribes from a lesson without knowing Lesson_Item.id """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    lesson = Lesson.objects.get(lesson_id=lesson_id)
+
+    LessonItem.objects.filter(lesson_id=lesson_id, profile=profile)

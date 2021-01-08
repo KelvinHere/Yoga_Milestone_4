@@ -19,37 +19,22 @@
                 <h1>Instructor:  {{ instructor_profile }}</h1>
                 <div class="card-group">
                     {% for lesson in lessons %}
-                      <div class="card mb-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                {% if lesson.image %}
-                                    <img src="{{ lesson.image.url }}" alt="{{ lesson.lesson_name }}">
-                                {% endif %}
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Lesson: {{ lesson.lesson_name }}</h5>
-                                        <h6>By: {{ lesson.instructor_profile }}</h6>
-                                        <p class="card-text">{{ lesson.card_description }}</p>
-
-                                        <p class="card-text"><small class="text-muted">Yoga style</small></p>
-                                        {% if user.is_authenticated %}
-                                            {% if lesson.lesson_id in subscribed_lesson_list %}
-                                                <a class="btn btn-danger disabled" href="#" role="button">Subscribed!</a>
-                                                <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Start Lesson</a>
-                                            {% else %}
-                                                <a class="btn btn-primary" href="{% url 'subscribe_lesson' lesson.id %}" role="button">Subscribe to lesson</a>
-                                            {% endif %}
-                                        {% else %}
-                                            <a class="btn btn-warning" href="{% url 'studio' lesson.lesson_id %}" role="button">Preview Lesson</a>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% include 'lessons/snippets/lesson_card_snippet.html' %}
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $('.button-unsubscribe').hover(function() {
+            $(this).html('Unsubscribe')
+        }, function() {
+            $(this).html('Subscribed!')
+        })
+</script>
+
 {% endblock %}
