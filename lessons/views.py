@@ -10,9 +10,24 @@ from .forms import LessonForm
 def lessons(request):
     """ View to return the lessons page """
     profile = get_profile_or_none(request)
+    sort_type = None
+    direction = None
+    lesson_filter = None
 
+    lessons = Lesson.objects.all()
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'name':
+                sortkey = 'lesson_name'
+            if sortkey == 'instructor':
+                sortkey = 'instructor_profile'
+
+        lessons = lessons.order_by(sortkey)
+  
     # Get all lessons
-    all_lessons = Lesson.objects.all()
     subscribed_lesson_list = []
 
     # Get a list of subscribed lesson IDs for current user
@@ -24,7 +39,7 @@ def lessons(request):
     template = 'lessons/lessons.html'
     context = {
         'profile': profile,
-        'all_lessons': all_lessons,
+        'all_lessons': lessons,
         'subscribed_lesson_list': subscribed_lesson_list,
     }
 

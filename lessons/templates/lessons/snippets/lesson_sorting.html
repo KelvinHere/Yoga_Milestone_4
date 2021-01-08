@@ -1,0 +1,12 @@
+<ul class="nav justify-content-center">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Sort Lessons</a>
+        <ul class="dropdown-menu border-0" aria-labelledby="all-lessons">
+            <li><a href="{% url 'lessons' %}?sort=name&direction=asc" class="dropdown-item">By Name</a></li>
+            <li><a href="{% url 'lessons' %}?sort=rating&direction=desc" class="dropdown-item">By Rating</a></li>
+            <li><a href="{% url 'lessons' %}?sort=instructor&direction=desc" class="dropdown-item">By Instructor</a></li>
+            <li><a href="{% url 'lessons' %}?sort=subscripbers&direction=desc" class="dropdown-item">By Subscribers</a></li>
+            <li><a href="{% url 'lessons' %}?sort=price&direction=asc" class="dropdown-item">By Price</a></li>
+        </ul>
+    </li>
+</ul>
