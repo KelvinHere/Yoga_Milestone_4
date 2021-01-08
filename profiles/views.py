@@ -38,15 +38,20 @@ def instructors(request):
     return render(request, template, context)
 
 
-def instructor_profile(request, id):
+def instructor_profile(request, instructor_id):
     """ View to disply individual instructor """
-    profile = get_object_or_404(UserProfile, id=id)
+    instructor_profile = get_object_or_404(UserProfile, id=instructor_id)
 
-    if profile.is_instructor:
+    if instructor_profile.is_instructor:
+        lessons = Lesson.objects.filter(instructor_profile=instructor_profile)
+        
+
+
         template = 'profiles/instructor_profile.html'
         context = {
-            'profile': profile
+            'instructor_profile': instructor_profile,
+            'lessons': lessons,
         }
         return render(request, template, context)
     else:
-        return HttpResponse('This profile is not an instructor', status=500)
+        return HttpResponse('This profile does not belong to an instructor', status=500)

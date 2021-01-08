@@ -16,10 +16,37 @@
     <div class="container h-100">
         <div class="row h-100">
             <div class="col">
-                <h1>Instructor:  {{ profile }}</h1>
+                <h1>Instructor:  {{ instructor_profile }}</h1>
                 <div class="card-group">
-                    {% for instructor in instructor_list %}
+                    {% for lesson in lessons %}
+                    <div class="card mb-3" id="{{ lesson.lesson_id }}" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                {% if lesson.image %}
+                                    <img src="{{ lesson.image }}" alt="{{ lesson.lesson_name }}">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Lesson: {{ lesson.lesson_name }}</h5>
+                                    <h6>By: {{ lesson.instructor_profile }}</h6>
+                                    <p class="card-text">{{ lesson.card_description }}</p>
+                                    <p class="card-text"><small class="text-muted">Yoga style</small></p>
+                                    {% if user.is_authenticated %}
+                                        {% if lesson.lesson_id in subscribed_lesson_list %}
+                                            <a class="btn btn-danger disabled" href="#" role="button">Subscribed!</a>
+                                            <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Start Lesson</a>
+                                        {% else %}
+                                            <a class="btn btn-primary" href="{% url 'subscribe_lesson' lesson.id %}" role="button">Subscribe</a>
+                                        {% endif %}
+                                    {% else %}
+                                        <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">View Lesson</a>
+                                    {% endif %}
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>

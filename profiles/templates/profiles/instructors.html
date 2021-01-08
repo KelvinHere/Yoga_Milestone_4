@@ -30,7 +30,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ instructor }}</h5>
                                         <p class="card-text">{{ instructor.card_description }}</p>
-                                        <p class="card-text"><a class="btn btn-primary" href="{% url 'instructor_profile' instructor.id %}" role="button">View Instructor</a></p>
+                                        <p class="card-text"><a class="btn btn-primary w-100" href="{% url 'instructor_profile' instructor.id %}" role="button">{{ instructor }}'s Studio</a></p>
                                     </div>
                                 </div>
                             </div>
