@@ -24,6 +24,17 @@ def lessons(request):
                 sortkey = 'lesson_name'
             if sortkey == 'instructor':
                 sortkey = 'instructor_profile'
+            if sortkey == 'rating':
+                sortkey = 'rating'
+            if sortkey == 'subscribers':
+                sortkey = 'subscribers'
+            if sortkey == 'price':
+                sortkey = 'price'
+
+        if 'direction' in request.GET:
+            direction = request.GET['direction']
+            if direction == 'desc':
+                sortkey = f'-{sortkey}'
 
         lessons = lessons.order_by(sortkey)
   

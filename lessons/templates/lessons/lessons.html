@@ -7,13 +7,14 @@
     <div class="container container-header">
         <div class="row">
             <div class="col">
-                {% include 'lessons/snippets/lesson_sorting.html' %}
+
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
+{% include 'lessons/snippets/lesson_sorting.html' %}
     <div class="overlay"></div>
     <div class="container h-100">
         <div class="row h-100">
@@ -32,6 +33,7 @@
                                     <h5 class="card-title">Lesson: {{ lesson.lesson_name }}</h5>
                                     <h6>By: {{ lesson.instructor_profile }}</h6>
                                     <p class="card-text">{{ lesson.card_description }}</p>
+                                    <p class="card-text"><small class="text-muted">Rating: {{ lesson.rating }}</small></p>
                                     <p class="card-text"><small class="text-muted">Yoga style</small></p>
                                     {% if user.is_authenticated %}
                                         {% if lesson.lesson_id in subscribed_lesson_list %}
