@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="row">
-            <form method="POST" action="{% url 'edit_lesson' lesson.lesson_id %}" class="form">
+            <form method="POST" action="{% url 'edit_lesson' lesson.lesson_id %}" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form }}
                 <input type="submit" value="Submit">

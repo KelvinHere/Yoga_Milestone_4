@@ -136,24 +136,24 @@ def delete_instructor_created_lesson(request, id):
         return HttpResponse('<h1>Error, this user did not create the lesson, please log in with the correct profile to delete it<h1>', status=500)
 
   
-def edit_lesson(request, id):
+def edit_lesson(request, lesson_id):
     """ A view to edit and update a lesson """
     profile = get_object_or_404(UserProfile, user=request.user)
-    instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
+    instructor_lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
     if request.method == 'POST':
-        form = LessonForm(request.POST, request.FILES, instance=instructor_created_lesson)
+        form = LessonForm(request.POST, request.FILES, instance=instructor_lesson)
         if form.is_valid():
             form.save()
         return redirect('instructor_created_lessons')
 
     else:
-        form = LessonForm(instance=instructor_created_lesson)
+        form = LessonForm(instance=instructor_lesson)
 
-        if instructor_created_lesson.instructor_profile == profile:
+        if instructor_lesson.instructor_profile == profile:
             template = 'lessons/edit_lesson.html'
             context = {
                 'profile': profile,
-                'lesson': instructor_created_lesson,
+                'lesson': instructor_lesson,
                 'form': form,
             }
             return render(request, template, context)
