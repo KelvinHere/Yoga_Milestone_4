@@ -48,7 +48,7 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'my_lessons' %}">My Lessons</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'lessons'%}?filter=mylessons">My Lessons</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'lessons' %}">All Lessons</a>

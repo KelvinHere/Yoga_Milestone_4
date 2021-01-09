@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from django.db.models import Q
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
 
@@ -13,10 +14,12 @@ def lessons(request):
     sort_type = None
     direction = None
     lesson_filter = None
+    page_title = 'All Lessons'
 
     lessons = Lesson.objects.all()
 
     if request.GET:
+        # Sorting
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
             sort = sortkey
@@ -36,42 +39,41 @@ def lessons(request):
             if direction == 'desc':
                 sortkey = f'-{sortkey}'
 
-        lessons = lessons.order_by(sortkey)
-  
-    # Get all lessons
-    subscribed_lesson_list = []
+        # Filtering
+        if 'filter' in request.GET:
+            if request.GET['filter'] == 'mylessons':
+                page_title = 'My Lessons'
+                lesson_filter = 'my_lessons'
+
 
     # Get a list of subscribed lesson IDs for current user
+    subscribed_lesson_list = []
     if request.user.is_authenticated:
         lesson_items = LessonItem.objects.filter(user=profile)
         for each in lesson_items:
             subscribed_lesson_list.append(each.lesson.lesson_id)
+    print('##Lesson items = ')
+    print(lesson_items)
+    for each in lesson_items:
+        print(each)
+
+    # Apply any filters
+    if lesson_filter == 'my_lessons':
+        print('### Lessons =')
+        lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
+        #lessons = lesson_items.filter(lesson__in=lessons)
+        
+    for each in lessons:
+        print('#Lesson = ')
+        print(each)
+
 
     template = 'lessons/lessons.html'
     context = {
         'profile': profile,
         'all_lessons': lessons,
         'subscribed_lesson_list': subscribed_lesson_list,
-    }
-
-    return render(request, template, context)
-
-
-def my_lessons(request):
-    """ View to return the lessons page """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    template = 'lessons/my_lessons.html'
-
-    lessonItems = LessonItem.objects.filter(user=profile)
-    subscribed_lesson_list = []
-    for each in lessonItems:
-        subscribed_lesson_list.append(each.lesson.lesson_id)
-
-    context = {
-        'profile': profile,
-        'lessons': lessons,
-        'lesson_items': lessonItems,
-        'subscribed_lesson_list': subscribed_lesson_list,
+        'page_title': page_title
     }
 
     return render(request, template, context)
