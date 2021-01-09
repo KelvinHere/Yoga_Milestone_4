@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.db.models import Q
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
@@ -15,6 +15,7 @@ def lessons(request):
     direction = None
     lesson_filter = None
     page_title = 'All Lessons'
+    origin_of_button_click = 'lessons'
 
     lessons = Lesson.objects.all()
 
@@ -44,6 +45,7 @@ def lessons(request):
             if request.GET['filter'] == 'mylessons':
                 page_title = 'My Lessons'
                 lesson_filter = 'my_lessons'
+                origin_of_button_click = 'mylessons'
 
 
     # Get a list of subscribed lesson IDs for current user
@@ -61,7 +63,7 @@ def lessons(request):
     if lesson_filter == 'my_lessons':
         print('### Lessons =')
         lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
-        #lessons = lesson_items.filter(lesson__in=lessons)
+        
         
     for each in lessons:
         print('#Lesson = ')
@@ -73,7 +75,8 @@ def lessons(request):
         'profile': profile,
         'all_lessons': lessons,
         'subscribed_lesson_list': subscribed_lesson_list,
-        'page_title': page_title
+        'page_title': page_title,
+        'origin_of_button_click': origin_of_button_click,
     }
 
     return render(request, template, context)
@@ -116,7 +119,7 @@ def unsubscribe_lesson(request, lesson, origin):
     lesson_object = Lesson.objects.get(lesson_name=lesson)
     unsubscribe = LessonItem.objects.filter(lesson=lesson_object, user=profile)
     unsubscribe.delete()
-    return redirect(f'{origin}')
+    return redirect(reverse('lessons') + f'?filter={origin}')
 
 
 def create_lesson(request):
