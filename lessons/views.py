@@ -15,6 +15,7 @@ def lessons(request):
     direction = None
     lesson_filter = None
     page_title = 'All Lessons'
+    sub_title = None
     origin_of_button_click = 'lessons'
 
     lessons = Lesson.objects.all()
@@ -43,10 +44,7 @@ def lessons(request):
         # Filtering
         if 'filter' in request.GET:
             if request.GET['filter'] == 'mylessons':
-                page_title = 'My Lessons'
                 lesson_filter = 'my_lessons'
-                origin_of_button_click = 'mylessons'
-
 
     # Get a list of subscribed lesson IDs for current user
     subscribed_lesson_list = []
@@ -54,22 +52,18 @@ def lessons(request):
         lesson_items = LessonItem.objects.filter(user=profile)
         for each in lesson_items:
             subscribed_lesson_list.append(each.lesson.lesson_id)
-    print('##Lesson items = ')
-    print(lesson_items)
-    for each in lesson_items:
-        print(each)
 
-    # Apply any filters
+    # Apply any filters and set up redirect reverse for buttons and page title
     if lesson_filter == 'my_lessons':
-        print('### Lessons =')
         lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
-        
-        
-    for each in lessons:
-        print('#Lesson = ')
-        print(each)
+        if lessons:
+            page_title = 'My Lessons'
+        else:
+            page_title = 'My Lessons'
+            sub_title = 'You are currently not subscribed to any lessons'
+        origin_of_button_click = 'mylessons'
 
-
+    # Create template and context
     template = 'lessons/lessons.html'
     context = {
         'profile': profile,
@@ -77,6 +71,7 @@ def lessons(request):
         'subscribed_lesson_list': subscribed_lesson_list,
         'page_title': page_title,
         'origin_of_button_click': origin_of_button_click,
+        'sub_title': sub_title
     }
 
     return render(request, template, context)
@@ -100,26 +95,26 @@ def instructor_created_lessons(request):
     return render(request, template, context)
 
 
-def subscribe_lesson(request, id):
+def subscribe_lesson(request, lesson_id, origin):
     """ View to subscribe to a lesson """
     # Get needed fields
     profile = get_object_or_404(UserProfile, user=request.user)
-    lesson = get_object_or_404(Lesson, pk=id)
+    lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
 
     # Create LessonItem if it does not already exist
     if not LessonItem.objects.filter(lesson=lesson, user=profile).exists():
         LessonItem.objects.create(lesson=lesson, user=profile)
 
-    return redirect('lessons')
+    return redirect(reverse('lessons') + f'?filter={origin}#{lesson_id}')
 
 
-def unsubscribe_lesson(request, lesson, origin):
+def unsubscribe_lesson(request, lesson_id, origin):
     """ View to remove a subscribed lesson from a UserProfile """
     profile = get_object_or_404(UserProfile, user=request.user)
-    lesson_object = Lesson.objects.get(lesson_name=lesson)
+    lesson_object = Lesson.objects.get(lesson_id=lesson_id)
     unsubscribe = LessonItem.objects.filter(lesson=lesson_object, user=profile)
     unsubscribe.delete()
-    return redirect(reverse('lessons') + f'?filter={origin}')
+    return redirect(reverse('lessons') + f'?filter={origin}#{lesson_id}')
 
 
 def create_lesson(request):
@@ -189,3 +184,4 @@ def edit_lesson(request, lesson_id):
             return render(request, template, context)
         else:
             return HttpResponse('<h1>You can only edit your own lessons, check your login details and try again<h1>', status=500)
+            

@@ -20,6 +20,9 @@
         <div class="row h-100">
             <div class="col-12">
                 <h1>{{ page_title}}</h1>
+                {% if sub_title %}
+                    <p><strong>{{ sub_title }}</strong></p>
+                {% endif %}
                 {% for lesson in all_lessons %}
                     <div class="card mb-3" id="{{ lesson.lesson_id }}" style="max-width: 540px;">
                         <div class="row g-0">
@@ -37,10 +40,10 @@
                                     <p class="card-text"><small class="text-muted">Yoga style</small></p>
                                     {% if user.is_authenticated %}
                                         {% if lesson.lesson_id in subscribed_lesson_list %}
-                                            <a class="btn btn-danger button-unsubscribe" href="{% url 'unsubscribe_lesson' lesson.lesson_name origin_of_button_click %}" role="button">Subscribed!</a>
+                                            <a class="btn btn-danger button-unsubscribe" href="{% url 'unsubscribe_lesson' lesson.lesson_id origin_of_button_click %}" role="button">Subscribed!</a>
                                             <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Start Lesson</a>
                                         {% else %}
-                                            <a class="btn btn-primary" href="{% url 'subscribe_lesson' lesson.id %}" role="button">Subscribe to lesson</a>
+                                            <a class="btn btn-primary" href="{% url 'subscribe_lesson' lesson.lesson_id origin_of_button_click %}" role="button">Subscribe to lesson</a>
                                         {% endif %}
                                     {% else %}
                                         <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Preview Lesson</a>
