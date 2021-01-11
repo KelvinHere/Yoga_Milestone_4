@@ -2,7 +2,9 @@
     <div class="row g-0">
         <div class="col-md-4">
             {% if lesson.image %}
-                <img class="card-img-top" src="{{ lesson.image.url }}" alt="{{ lesson.lesson_name }}">
+                <div class="lesson-card-image-container">
+                    <img class="lesson-card-image" src="{{ lesson.image.url }}" alt="{{ lesson.lesson_name }}">
+                </div>
             {% endif %}
         </div>
         <div class="col-md-8">
