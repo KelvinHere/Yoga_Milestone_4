@@ -101,31 +101,27 @@ def instructor_created_lessons(request):
     return render(request, template, context)
 
 
-def subscribe_lesson(request, lesson_id, origin):
-    """ View to subscribe to a lesson """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
-
-    # Create LessonItem if it does not already exist
-    if not LessonItem.objects.filter(lesson=lesson, user=profile).exists():
-        LessonItem.objects.create(lesson=lesson, user=profile)
-    
-    return redirect(reverse('lessons') + f'?filter={origin}#{lesson_id}')
-
-
 def unsubscribe_lesson(request):
     """ View to remove a subscribed lesson from a UserProfile """
     if request.method == 'GET':
         lesson_id = request.GET['lesson_id']
         profile = get_object_or_404(UserProfile, user=request.user)
-        lesson_object = Lesson.objects.get(lesson_id=lesson_id)
-        
-        unsubscribe = LessonItem.objects.filter(lesson=lesson_object, user=profile)
-        unsubscribe.delete()
-        
-        json_response = json.dumps({'unsubscribed': True})
-    return HttpResponse(json_response, content_type='application/json')
+        lesson_object = Lesson.objects.get(lesson_id=lesson_id)        
 
+        if request.GET['subscribe'] == 'false':
+            unsubscribe = LessonItem.objects.filter(lesson=lesson_object, user=profile)
+            unsubscribe.delete()
+            json_response = json.dumps({'subscription_status': 'unsubscribed'})
+            return HttpResponse(json_response, content_type='application/json')
+
+        elif request.GET['subscribe'] == 'true':
+            if not LessonItem.objects.filter(lesson=lesson_object, user=profile).exists():
+                LessonItem.objects.create(lesson=lesson_object, user=profile)
+            json_response = json.dumps({'subscription_status': 'subscribed'})
+            return HttpResponse(json_response, content_type='application/json')
+
+        else:
+            return HttpResponse('<h1>Something went wrong, no lessons have been subscribed or unsubscribed to.</h1>', status=500)
 
 def create_lesson(request):
     """ View to create a lesson """
