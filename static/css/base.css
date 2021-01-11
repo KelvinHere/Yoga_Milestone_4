@@ -62,9 +62,11 @@ body {
     background-color: lightgray;
 }
 
+.instructor-page-profile-gallery-container {
+    height: 10vh;
+    background-color: darkgray;
+}
+
 .instructor-page-profile-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    object-position: center;
+    object-fit: cover;
 }

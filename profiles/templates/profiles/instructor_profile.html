@@ -18,7 +18,7 @@
         <!-- Title -->
         <div class="row">
             <div class="col">
-                <h1 class="text-center">Welcome to {{ instructor_profile }}'s studio</h1>
+                <h1 class="text-center my-3">Welcome to {{ instructor_profile }}'s studio</h1>
             </div>
         </div>
         <!-- Profile -->
@@ -29,7 +29,7 @@
                         <div class="row instructor-page-profile-image-container">
                             <img src="{{ instructor_profile.image.url }}" class="instructor-page-profile-image" alt="{{ instructor_profile }}'s profile image'">
                         </div>
-                        <div class="row">
+                        <div class="row instructor-page-profile-gallery-container">
                             <p class="text-center">GALLERY STUFF HERE</p>
                         </div>    
                     </div>
@@ -40,7 +40,7 @@
             </div>
         </div>
         <!-- Lessons -->                
-        <div class="row">
+        <div class="row mt-3">
             {% for lesson in lessons %}
                 {% include 'lessons/snippets/lesson_card.html' %}
             {% endfor %}  

@@ -19,9 +19,9 @@
     <div class="container h-100">
         <div class="row h-100">
             <div class="col-12">
-                <h1>{{ page_title}}</h1>
+                <h1 class="text-center my-3">{{ page_title}}</h1>
                 {% if sub_title %}
-                    <p><strong>{{ sub_title }}</strong></p>
+                    <p class="text-center my-3"><strong>{{ sub_title }}</strong></p>
                 {% endif %}
                 {% for lesson in all_lessons %}
                     {% include 'lessons/snippets/lesson_card.html' %}
