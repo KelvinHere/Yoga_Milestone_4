@@ -101,7 +101,7 @@ def instructor_created_lessons(request):
     return render(request, template, context)
 
 
-def unsubscribe_lesson(request):
+def subscriptions(request):
     """ View to remove a subscribed lesson from a UserProfile """
     if request.method == 'GET':
         lesson_id = request.GET['lesson_id']

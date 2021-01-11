@@ -37,10 +37,10 @@
         function subscribe(subscribe, lesson_id) {
             $.ajax({
                 type:"GET",
-                url:"/lessons/unsubscribe_lesson",
+                url:"/lessons/subscriptions",
                 data:{  
-                      subscribe: subscribe,
-                      lesson_id: lesson_id,
+                        subscribe: subscribe,
+                        lesson_id: lesson_id,
                     },
                 success: function(json_response){
                     if (json_response['subscription_status'] == 'unsubscribed') {
@@ -64,6 +64,7 @@
                 }
             })
         }
-    </script>
+        </script>
 
 {% endblock %}
+

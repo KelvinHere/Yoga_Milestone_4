@@ -17,12 +17,10 @@
                         <span class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}')" role="button">Unsubscribe</span>
                         <span hidden class="btn btn-danger" href="" id="subscribe_lesson_button_id_{{ lesson.lesson_id }}" onclick="javascript:subscribe('true', '{{ lesson.lesson_id }}')" role="button">Subscribe to lesson</span>
                         <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
-                        <p>subbed</p>
                     {% else %}
                         <span hidden class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}')" role="button">Unsubscribe</span>
                         <span class="btn btn-danger" href="" id="subscribe_lesson_button_id_{{ lesson.lesson_id }}" onclick="javascript:subscribe('true', '{{ lesson.lesson_id }}')" role="button">Subscribe to lesson</span>
                         <a hidden class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
-                        <p>unsubbed</p>
                     {% endif %}
                 {% else %}
                     <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Preview Lesson</a>
