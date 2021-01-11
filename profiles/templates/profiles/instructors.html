@@ -17,25 +17,24 @@
         <div class="row h-100">
             <div class="col">
                 <h1>Instructor List</h1>
-                    {% for instructor in instructor_list %}
-                        <div class="card mb-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                {% if instructor.image %}
-                                    <img src="{{ instructor.image.url }}" class="card-img-top" alt="{{ instructor.first_name }}">
-                                {% endif %}
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ instructor }}</h5>
-                                        <p class="card-text">{{ instructor.card_description }}</p>
-                                        <p class="card-text"><a class="btn btn-primary w-100" href="{% url 'instructor_profile' instructor.id %}" role="button">{{ instructor }}'s Studio</a></p>
-                                    </div>
+                {% for instructor in instructor_list %}
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                            {% if instructor.image %}
+                                <img src="{{ instructor.image.url }}" class="card-img-top" alt="{{ instructor.first_name }}">
+                            {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ instructor }}</h5>
+                                    <p class="card-text">{{ instructor.card_description }}</p>
+                                    <p class="card-text"><a class="btn btn-primary w-100" href="{% url 'instructor_profile' instructor.id %}" role="button">{{ instructor }}'s Studio</a></p>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -40,6 +40,7 @@ def instructors(request):
 
 def instructor_profile(request, instructor_id):
     """ View to disply individual instructor """
+    origin_of_button_click = 'instructor_profile'
     instructor_profile = get_object_or_404(UserProfile, id=instructor_id)
     profile = get_object_or_404(UserProfile, user=request.user)
 
@@ -55,7 +56,9 @@ def instructor_profile(request, instructor_id):
 
         template = 'profiles/instructor_profile.html'
         context = {
+            'profile': profile,
             'instructor_profile': instructor_profile,
+            'origin_of_button_click': origin_of_button_click,
             'lessons': lessons,
             'subscribed_lesson_list': subscribed_lesson_list,
         }

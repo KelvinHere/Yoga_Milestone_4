@@ -2,19 +2,18 @@
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Sort Lessons</a>
         <ul class="dropdown-menu border-0" aria-labelledby="all-lessons">
-            <li><a href="{% url 'lessons' %}?sort=rating&direction=desc" class="dropdown-item">By Rating: High to Low</a></li>
-            <li><a href="{% url 'lessons' %}?sort=rating&direction=asc" class="dropdown-item">By Rating: Low to High</a></li>
-            <li><a href="{% url 'lessons' %}?sort=name&direction=asc" class="dropdown-item">By Name: A-Z</a></li>
-            <li><a href="{% url 'lessons' %}?sort=name&direction=desc" class="dropdown-item">By Name: Z-A</a></li>
-            <li><a href="{% url 'lessons' %}?sort=instructor&direction=asc" class="dropdown-item">By Instructor: A-Z</a></li>
-            <li><a href="{% url 'lessons' %}?sort=instructor&direction=desc" class="dropdown-item">By Instructor: Z-A</a></li>
-            <li><a href="{% url 'lessons' %}?sort=subscripbers&direction=desc" class="dropdown-item">By Subscribers: High to Low</a></li>
-            <li><a href="{% url 'lessons' %}?sort=subscripbers&direction=asc" class="dropdown-item">By Subscribers: Low to High</a></li>
-            <li><a href="{% url 'lessons' %}?sort=price&direction=asc" class="dropdown-item">By Price: Low to High</a></li>
-            <li><a href="{% url 'lessons' %}?sort=price&direction=desc" class="dropdown-item">By Price: High to Low</a></li>
+            <li><a href="{% url 'lessons' %}?sort=rating&direction=desc&filter={{ current_filter }}" class="dropdown-item">By Rating: High to Low</a></li>
+            <li><a href="{% url 'lessons' %}?sort=rating&direction=asc&filter={{ current_filter }}" class="dropdown-item">By Rating: Low to High</a></li>
+            <li><a href="{% url 'lessons' %}?sort=name&direction=asc&filter={{ current_filter }}" class="dropdown-item">By Name: A-Z</a></li>
+            <li><a href="{% url 'lessons' %}?sort=name&direction=desc&filter={{ current_filter }}" class="dropdown-item">By Name: Z-A</a></li>
+            <li><a href="{% url 'lessons' %}?sort=instructor&direction=asc&filter={{ current_filter }}" class="dropdown-item">By Instructor: A-Z</a></li>
+            <li><a href="{% url 'lessons' %}?sort=instructor&direction=desc&filter={{ current_filter }}" class="dropdown-item">By Instructor: Z-A</a></li>
+            <li><a href="{% url 'lessons' %}?sort=subscripbers&direction=desc&filter={{ current_filter }}" class="dropdown-item">By Subscribers: High to Low</a></li>
+            <li><a href="{% url 'lessons' %}?sort=subscripbers&direction=asc&filter={{ current_filter }}" class="dropdown-item">By Subscribers: Low to High</a></li>
+            <li><a href="{% url 'lessons' %}?sort=price&direction=asc&filter={{ current_filter }}" class="dropdown-item">By Price: Low to High</a></li>
+            <li><a href="{% url 'lessons' %}?sort=price&direction=desc&filter={{ current_filter }}" class="dropdown-item">By Price: High to Low</a></li>
             <li><hr class="dropdown-divider"></li>
             <li></li>
-            
         </ul>
     </li>
 </ul>

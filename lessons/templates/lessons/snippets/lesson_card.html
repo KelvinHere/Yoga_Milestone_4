@@ -1,0 +1,28 @@
+                    <div class="card mb-3" id="{{ lesson.lesson_id }}" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                {% if lesson.image %}
+                                    <img class="card-img-top" src="{{ lesson.image.url }}" alt="{{ lesson.lesson_name }}">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Lesson: {{ lesson.lesson_name }}</h5>
+                                    <h6>By: {{ lesson.instructor_profile }}</h6>
+                                    <p class="card-text">{{ lesson.card_description }}</p>
+                                    <p class="card-text"><small class="text-muted">Rating: {{ lesson.rating }}</small></p>
+                                    <p class="card-text"><small class="text-muted">Yoga style</small></p>
+                                    {% if user.is_authenticated %}
+                                        {% if lesson.lesson_id in subscribed_lesson_list %}
+                                            <a class="btn btn-danger button-unsubscribe" href="{% url 'unsubscribe_lesson' lesson.lesson_id origin_of_button_click %}" role="button">Subscribed!</a>
+                                            <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Start Lesson</a>
+                                        {% else %}
+                                            <a class="btn btn-primary" href="{% url 'subscribe_lesson' lesson.lesson_id origin_of_button_click %}" role="button">Subscribe to lesson</a>
+                                        {% endif %}
+                                    {% else %}
+                                        <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Preview Lesson</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>

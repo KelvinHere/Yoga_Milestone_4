@@ -11,7 +11,7 @@ from .forms import LessonForm
 def lessons(request):
     """ View to return the lessons page """
     profile = get_profile_or_none(request)
-    sort_type = None
+    sortkey = 'lesson_name'  # Default sort parameter
     direction = None
     lesson_filter = None
     page_title = 'All Lessons'
@@ -44,9 +44,10 @@ def lessons(request):
         # Filtering
         if 'filter' in request.GET:
             if request.GET['filter'] == 'mylessons':
-                lesson_filter = 'my_lessons'
+                print('sett my lesson var')
+                lesson_filter = 'mylessons'
 
-    # Get a list of subscribed lesson IDs for current user
+    # If authenticated get a list of subscribed lesson IDs for current user
     subscribed_lesson_list = []
     if request.user.is_authenticated:
         lesson_items = LessonItem.objects.filter(user=profile)
@@ -54,7 +55,7 @@ def lessons(request):
             subscribed_lesson_list.append(each.lesson.lesson_id)
 
     # Apply any filters and set up redirect reverse for buttons and page title
-    if lesson_filter == 'my_lessons':
+    if lesson_filter == 'mylessons':
         lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
         if lessons:
             page_title = 'My Lessons'
@@ -62,6 +63,9 @@ def lessons(request):
             page_title = 'My Lessons'
             sub_title = 'You are currently not subscribed to any lessons'
         origin_of_button_click = 'mylessons'
+
+    # Sort
+    lessons = lessons.order_by(sortkey)
 
     # Create template and context
     template = 'lessons/lessons.html'
@@ -71,7 +75,8 @@ def lessons(request):
         'subscribed_lesson_list': subscribed_lesson_list,
         'page_title': page_title,
         'origin_of_button_click': origin_of_button_click,
-        'sub_title': sub_title
+        'sub_title': sub_title,
+        'current_filter': lesson_filter,
     }
 
     return render(request, template, context)
@@ -104,7 +109,7 @@ def subscribe_lesson(request, lesson_id, origin):
     # Create LessonItem if it does not already exist
     if not LessonItem.objects.filter(lesson=lesson, user=profile).exists():
         LessonItem.objects.create(lesson=lesson, user=profile)
-
+    
     return redirect(reverse('lessons') + f'?filter={origin}#{lesson_id}')
 
 
