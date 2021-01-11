@@ -13,16 +13,37 @@
 
 {% block content %}
     <div class="overlay"></div>
+    
     <div class="container h-100">
-        <div class="row h-100">
+        <!-- Title -->
+        <div class="row">
             <div class="col">
-                <h1>Instructor:  {{ instructor_profile }}</h1>
-                <div class="accordion" id="accordionExample">
-                    {% for lesson in lessons %}
-                        {% include 'lessons/snippets/lesson_card.html' %}
-                    {% endfor %}  
+                <h1 class="text-center">Welcome to {{ instructor_profile }}'s studio</h1>
+            </div>
+        </div>
+        <!-- Profile -->
+        <div class="row profile-container">
+            <div class="col-6">
+                <div class="row image-and-gallery-container">
+                    <div class="col-12">
+                        <div class="row instructor-page-profile-image-container">
+                            <img src="{{ instructor_profile.image.url }}" class="instructor-page-profile-image" alt="{{ instructor_profile }}'s profile image'">
+                        </div>
+                        <div class="row">
+                            <p class="text-center">GALLERY STUFF HERE</p>
+                        </div>    
+                    </div>
                 </div>
             </div>
+            <div class="col">
+                <p class="align-middle">{{ instructor_profile.profile_description }}</p>
+            </div>
+        </div>
+        <!-- Lessons -->                
+        <div class="row">
+            {% for lesson in lessons %}
+                {% include 'lessons/snippets/lesson_card.html' %}
+            {% endfor %}  
         </div>
     </div>
 {% endblock %}
