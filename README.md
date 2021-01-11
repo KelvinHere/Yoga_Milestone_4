@@ -256,6 +256,7 @@ A quick summary of instructions with basic configuration below.
 
 ### Acknowledgements
  
+* [Geeks for Geeks - Ajax information](https://www.geeksforgeeks.org/handling-ajax-request-in-django/)
 * [Django Documentation](https://docs.djangoproject.com/en/3.1/).
 * [Code Institute](https://codeinstitute.net/).
 * My mentor Spencer.

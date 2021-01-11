@@ -19,18 +19,7 @@
                 <h1>Instructor:  {{ instructor_profile }}</h1>
                 <div class="accordion" id="accordionExample">
                     {% for lesson in lessons %}
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="lesson_{{ lesson.lesson_id }}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ lesson.lesson_id }}" aria-expanded="false" aria-controls="{{ lesson.lesson_id }}">
-                                <p>{{ lesson.lesson_name }}?</p>
-                          </button>
-                        </h2>
-                        <div id="{{ lesson.lesson_id }}" class="accordion-collapse collapse" aria-labelledby="lesson_{{ lesson.lesson_name }}" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                {% include 'lessons/snippets/lesson_card.html' %}
-                            </div>
-                        </div>
-                    </div>
+                        {% include 'lessons/snippets/lesson_card.html' %}
                     {% endfor %}  
                 </div>
             </div>
@@ -42,11 +31,15 @@
 {% block postloadjs %}
     {{ block.super }}
     <script type="text/javascript">
-        $('.button-unsubscribe').hover(function() {
-            $(this).html('Unsubscribe')
-        }, function() {
-            $(this).html('Subscribed!')
-        })
-</script>
-
+        function unsubscribe(lesson_id) {
+            $.ajax({
+                type:"GET",
+                url:"/lessons/unsubscribe_lesson",
+                data:{lesson_id: lesson_id},
+                success: function(json_response){
+                    let win = True;
+                }
+            })
+        }
+    </script>
 {% endblock %}

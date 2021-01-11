@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpR
 from django.db.models import Q
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
+import json
 
 from yoga.utils import get_profile_or_none
 
@@ -102,7 +103,6 @@ def instructor_created_lessons(request):
 
 def subscribe_lesson(request, lesson_id, origin):
     """ View to subscribe to a lesson """
-    # Get needed fields
     profile = get_object_or_404(UserProfile, user=request.user)
     lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
 
@@ -113,13 +113,18 @@ def subscribe_lesson(request, lesson_id, origin):
     return redirect(reverse('lessons') + f'?filter={origin}#{lesson_id}')
 
 
-def unsubscribe_lesson(request, lesson_id, origin):
+def unsubscribe_lesson(request):
     """ View to remove a subscribed lesson from a UserProfile """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    lesson_object = Lesson.objects.get(lesson_id=lesson_id)
-    unsubscribe = LessonItem.objects.filter(lesson=lesson_object, user=profile)
-    unsubscribe.delete()
-    return redirect(reverse('lessons') + f'?filter={origin}#{lesson_id}')
+    if request.method == 'GET':
+        lesson_id = request.GET['lesson_id']
+        profile = get_object_or_404(UserProfile, user=request.user)
+        lesson_object = Lesson.objects.get(lesson_id=lesson_id)
+        
+        unsubscribe = LessonItem.objects.filter(lesson=lesson_object, user=profile)
+        unsubscribe.delete()
+        
+        json_response = json.dumps({'unsubscribed': True})
+    return HttpResponse(json_response, content_type='application/json')
 
 
 def create_lesson(request):
