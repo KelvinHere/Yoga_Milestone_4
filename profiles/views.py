@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
 
+from yoga.utils import get_profile_or_none
+
 from .forms import ProfileForm
 
 
@@ -28,31 +30,31 @@ def profile(request):
 
 def instructor_profile(request, instructor_id):
     """ View to disply an instructor and their lessons to a user """
-    origin_of_button_click = 'instructor_profile'
     instructor_profile = get_object_or_404(UserProfile, id=instructor_id)
-    profile = get_object_or_404(UserProfile, user=request.user)
+    profile = get_profile_or_none(request)
 
+    # Does profile belong to a instructor
     if instructor_profile.is_instructor:
         lessons = Lesson.objects.filter(instructor_profile=instructor_profile)
-    
-    subscribed_lesson_list = []
+    else:
+        return HttpResponse('This profile does not belong to an instructor', status=500)
+
     # Get a list of subscribed lesson IDs for current user
+    subscribed_lesson_list = []
     if request.user.is_authenticated:
         subscribed_lessons = LessonItem.objects.filter(user=profile)
         for each in subscribed_lessons:
             subscribed_lesson_list.append(each.lesson.lesson_id)
 
-        template = 'profiles/instructor_profile.html'
-        context = {
-            'profile': profile,
-            'instructor_profile': instructor_profile,
-            'origin_of_button_click': origin_of_button_click,
-            'lessons': lessons,
-            'subscribed_lesson_list': subscribed_lesson_list,
-        }
-        return render(request, template, context)
-    else:
-        return HttpResponse('This profile does not belong to an instructor', status=500)
+    template = 'profiles/instructor_profile.html'
+    context = {
+        'profile': profile,
+        'instructor_profile': instructor_profile,
+        'lessons': lessons,
+        'subscribed_lesson_list': subscribed_lesson_list,
+    }
+    return render(request, template, context)
+    
 
 
 def instructors(request):
