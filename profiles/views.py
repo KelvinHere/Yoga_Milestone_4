@@ -54,7 +54,6 @@ def instructor_profile(request, instructor_id):
         'subscribed_lesson_list': subscribed_lesson_list,
     }
     return render(request, template, context)
-    
 
 
 def instructors(request):

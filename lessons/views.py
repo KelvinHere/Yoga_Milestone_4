@@ -17,7 +17,6 @@ def lessons(request):
     lesson_filter = None
     page_title = 'All Lessons'
     sub_title = None
-    origin_of_button_click = 'lessons'
 
     lessons = Lesson.objects.all()
 
@@ -63,7 +62,6 @@ def lessons(request):
         else:
             page_title = 'My Lessons'
             sub_title = 'You are currently not subscribed to any lessons'
-        origin_of_button_click = 'mylessons'
 
     # Sort
     lessons = lessons.order_by(sortkey)
@@ -75,27 +73,8 @@ def lessons(request):
         'all_lessons': lessons,
         'subscribed_lesson_list': subscribed_lesson_list,
         'page_title': page_title,
-        'origin_of_button_click': origin_of_button_click,
         'sub_title': sub_title,
         'current_filter': lesson_filter,
-    }
-
-    return render(request, template, context)
-
-
-def instructor_created_lessons(request):
-    """ View to return the lessons page """
-
-    profile = get_object_or_404(UserProfile, user=request.user)
-    template = 'lessons/instructor_created_lessons.html'
-
-    # Get lesson items bound to student
-    instructor_created_lessons = Lesson.objects.filter(instructor_profile=profile)
-
-
-    context = {
-        'profile': profile,
-        'instructor_created_lessons': instructor_created_lessons,
     }
 
     return render(request, template, context)
@@ -123,8 +102,38 @@ def subscriptions(request):
         else:
             return HttpResponse('<h1>Something went wrong, no lessons have been subscribed or unsubscribed to.</h1>', status=500)
 
+
+def instructor_created_lessons(request):
+    """ View admin for lessons instructors have created """
+
+    profile = get_object_or_404(UserProfile, user=request.user)
+    template = 'lessons/instructor_created_lessons.html'
+
+    # Get lesson items bound to student
+    instructor_created_lessons = Lesson.objects.filter(instructor_profile=profile)
+
+    context = {
+        'profile': profile,
+        'instructor_created_lessons': instructor_created_lessons,
+    }
+
+    return render(request, template, context)
+
+
+def delete_instructor_created_lesson(request, id):
+    """ A view to delete a lesson given an id for instructor created lessons """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
+
+    if instructor_created_lesson.instructor_profile == profile:
+        instructor_created_lesson.delete()
+        return redirect('instructor_created_lessons')
+    else:
+        return HttpResponse('<h1>Error, this user did not create the lesson, please log in with the correct profile to delete it<h1>', status=500)
+
+
 def create_lesson(request):
-    """ View to create a lesson """
+    """ View to create an instructor lesson """
     profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
@@ -155,20 +164,8 @@ def create_lesson(request):
         return render(request, template, context)
 
 
-def delete_instructor_created_lesson(request, id):
-    """ A view to delete a lesson given an id """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
-
-    if instructor_created_lesson.instructor_profile == profile:
-        instructor_created_lesson.delete()
-        return redirect('instructor_created_lessons')
-    else:
-        return HttpResponse('<h1>Error, this user did not create the lesson, please log in with the correct profile to delete it<h1>', status=500)
-
-  
 def edit_lesson(request, lesson_id):
-    """ A view to edit and update a lesson """
+    """ A view to edit and update an instructors lesson """
     profile = get_object_or_404(UserProfile, user=request.user)
     instructor_lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
     if request.method == 'POST':
