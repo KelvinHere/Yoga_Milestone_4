@@ -28,15 +28,15 @@
                             <div class="col-md-4">
                             {% if instructor.image %}
                                 <div class="instructor-card-image-container">
-                                    <img src="{{ instructor.image.url }}" class="instructor-card-image" alt="{{ instructor.first_name }}">
+                                    <img src="{{ instructor.image.url }}" class="instructor-card-image img-fluid" alt="{{ instructor.first_name }}">
                                 </div>
                             {% endif %}
                             </div>
                             <div class="col-md-8">
-                                <div class="card-body">
+                                <div class="card-body h-100 d-flex flex-column">
                                     <h5 class="card-title">{{ instructor }}</h5>
                                     <p class="card-text">{{ instructor.card_description }}</p>
-                                    <p class="card-text"><a class="btn btn-primary w-100" href="{% url 'instructor_profile' instructor.id %}" role="button">{{ instructor }}'s Studio</a></p>
+                                    <p class="card-text mt-auto"><a class="btn btn-primary w-100" href="{% url 'instructor_profile' instructor.id %}" role="button">{{ instructor }}'s Studio</a></p>
                                 </div>
                             </div>
                         </div>

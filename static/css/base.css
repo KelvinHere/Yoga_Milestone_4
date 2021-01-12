@@ -29,18 +29,11 @@ body {
 
 /* -----------------------------------------  Card formatting */
 .lesson-card-image-container {
-    height: 35vh;
-    object-fit: contain;
-    background-color: lightgray;
-    overflow: hidden;
+
 }
 
 .lesson-card-image {
-    height: 100%;
-    width: auto;
-    display: block;
-    margin: auto;
-    background-position: 50%, 0;
+
 }
 
 /*.instructor-card-image-container {
