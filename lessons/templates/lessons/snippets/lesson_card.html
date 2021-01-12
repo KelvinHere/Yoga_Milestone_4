@@ -9,24 +9,26 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">Lesson: {{ lesson.lesson_name }}</h5>
+                <h5 class="card-title">{{ lesson.lesson_name }}</h5>
                 <h6>By: {{ lesson.instructor_profile }}</h6>
                 <p class="card-text">{{ lesson.card_description }}</p>
                 <p class="card-text"><small class="text-muted">Rating: {{ lesson.rating }}</small></p>
                 <p class="card-text"><small class="text-muted">Yoga style</small></p>
-                {% if user.is_authenticated %}
-                    {% if lesson.lesson_id in subscribed_lesson_list %}
-                        <span class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Unsubscribe</span>
-                        <span hidden class="btn btn-danger" href="" id="subscribe_lesson_button_id_{{ lesson.lesson_id }}" onclick="javascript:subscribe('true', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Subscribe to lesson</span>
-                        <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
+                <div class="lesson-card-button-container">
+                    {% if user.is_authenticated %}
+                        {% if lesson.lesson_id in subscribed_lesson_list %}
+                            <span class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Unsubscribe</span>
+                            <span hidden class="btn btn-danger" href="" id="subscribe_lesson_button_id_{{ lesson.lesson_id }}" onclick="javascript:subscribe('true', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Subscribe to lesson</span>
+                            <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
+                        {% else %}
+                            <span hidden class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Unsubscribe</span>
+                            <span class="btn btn-danger" href="" id="subscribe_lesson_button_id_{{ lesson.lesson_id }}" onclick="javascript:subscribe('true', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Subscribe to lesson</span>
+                            <a hidden class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
+                        {% endif %}
                     {% else %}
-                        <span hidden class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Unsubscribe</span>
-                        <span class="btn btn-danger" href="" id="subscribe_lesson_button_id_{{ lesson.lesson_id }}" onclick="javascript:subscribe('true', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Subscribe to lesson</span>
-                        <a hidden class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
+                        <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Preview Lesson</a>
                     {% endif %}
-                {% else %}
-                    <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Preview Lesson</a>
-                {% endif %}
+                </div>
             </div>
         </div>
     </div>

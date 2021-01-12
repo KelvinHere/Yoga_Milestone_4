@@ -253,6 +253,7 @@ A quick summary of instructions with basic configuration below.
 ### Media
 
 * [Background image](https://nicoledoherty.com/nd/wp-content/uploads/2012/11/credit-cards-you-trust-yourself.jpg)
+* [simple_stretching.jpg and stretching descriptions](https://www.realsimple.com/health/fitness-exercise/stretching-yoga/stretching-exercises)
 
 ### Acknowledgements
  
