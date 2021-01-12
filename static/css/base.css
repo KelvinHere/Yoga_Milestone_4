@@ -59,16 +59,22 @@ body {
 
 /* ---------------------------------------- Instructor profile page */
 
-.instructor-page-profile-image-container {
-    height: 60vh;
-    background-color: lightgray;
-}
-
 .instructor-page-profile-gallery-container {
     height: 10vh;
     background-color: darkgray;
 }
 
+.instructor-page-profile-image-container {
+    max-height: 60vh;
+    background-color: lightgray;
+    object-fit: fill;
+    overflow: hidden;
+}
+
 .instructor-page-profile-image {
-    object-fit: cover;
+
+}
+
+.instructor-profile-description-container {
+
 }

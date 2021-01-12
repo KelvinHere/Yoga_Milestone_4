@@ -12,75 +12,78 @@
 {% endblock %}
 
 {% block content %}
+{% include 'lessons/snippets/lesson_sorting.html' %}
     <div class="overlay"></div>
-    
+
     <div class="container h-100">
-        <!-- Title -->
         <div class="row">
-            <div class="col">
+            <!-- Title -->
+            <div class="col-12">
                 <h1 class="text-center my-3">Welcome to {{ instructor_profile }}'s studio</h1>
             </div>
         </div>
         <!-- Profile -->
         <div class="row profile-container">
-            <div class="col-6">
-                <div class="row image-and-gallery-container">
-                    <div class="col-12">
-                        <div class="row instructor-page-profile-image-container">
-                            <img src="{{ instructor_profile.image.url }}" class="instructor-page-profile-image" alt="{{ instructor_profile }}'s profile image'">
-                        </div>
-                        <div class="row instructor-page-profile-gallery-container">
-                            <p class="text-center">GALLERY STUFF HERE</p>
-                        </div>    
+            <div class="col-12 col-lg-5">
+                <div class="row">
+                    <div class="container-fluid instructor-page-profile-image-container">
+                        <img src="{{ instructor_profile.image.url }}" class="instructor-page-profile-image img-fluid" alt="{{ instructor_profile }}'s profile image'">
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <!-- Lesson description -->
+            <div class="col-12 col-lg-7 instructor-profile-description-container">
                 <p class="align-middle">{{ instructor_profile.profile_description }}</p>
             </div>
         </div>
         <!-- Lessons -->                
         <div class="row mt-3">
             {% for lesson in lessons %}
-                {% include 'lessons/snippets/lesson_card.html' %}
+            {% include 'lessons/snippets/lesson_card.html' %}
             {% endfor %}  
         </div>
     </div>
-{% endblock %}
 
+
+{% endblock %}
 
 {% block postloadjs %}
     {{ block.super }}
     <script type="text/javascript">
-    function subscribe(subscribe, lesson_id) {
-        $.ajax({
-            type:"GET",
-            url:"/lessons/subscriptions",
-            data:{  
-                    subscribe: subscribe,
-                    lesson_id: lesson_id,
-                },
-            success: function(json_response){
-                if (json_response['subscription_status'] == 'unsubscribed') {
-                    // Unsub button
-                    $('#unsubscribe_lesson_button_id_'+lesson_id).hide();
-                    // Sub button
-                    $('#subscribe_lesson_button_id_'+lesson_id).removeAttr('hidden');
-                    $('#subscribe_lesson_button_id_'+lesson_id).show();
-                    // Start Lesson button
-                    $('#start_lesson_button_id_'+lesson_id).hide();
-                } else if (json_response['subscription_status'] == 'subscribed') {
-                    // Unsub button
-                    $('#unsubscribe_lesson_button_id_'+lesson_id).removeAttr('hidden');
-                    $('#unsubscribe_lesson_button_id_'+lesson_id).show();
-                    // Sub button
-                    $('#subscribe_lesson_button_id_'+lesson_id).hide();
-                    // Start Lesson button
-                    $('#start_lesson_button_id_'+lesson_id).removeAttr('hidden');
-                    $('#start_lesson_button_id_'+lesson_id).show();
+        function subscribe(subscribe, lesson_id, filter) {
+            $.ajax({
+                type:"GET",
+                url:"/lessons/subscriptions",
+                data:{  
+                        subscribe: subscribe,
+                        lesson_id: lesson_id,
+                    },
+                success: function(json_response){
+                    if (json_response['subscription_status'] == 'unsubscribed') {
+                        // Unsub button
+                        $('#unsubscribe_lesson_button_id_'+lesson_id).hide();
+                        // Sub button
+                        $('#subscribe_lesson_button_id_'+lesson_id).removeAttr('hidden');
+                        $('#subscribe_lesson_button_id_'+lesson_id).show();
+                        // Start Lesson button
+                        $('#start_lesson_button_id_'+lesson_id).hide();
+                        if (filter == 'mylessons') {
+                            $('#'+lesson_id).remove();
+                        }
+                    } else if (json_response['subscription_status'] == 'subscribed') {
+                        // Unsub button
+                        $('#unsubscribe_lesson_button_id_'+lesson_id).removeAttr('hidden');
+                        $('#unsubscribe_lesson_button_id_'+lesson_id).show();
+                        // Sub button
+                        $('#subscribe_lesson_button_id_'+lesson_id).hide();
+                        // Start Lesson button
+                        $('#start_lesson_button_id_'+lesson_id).removeAttr('hidden');
+                        $('#start_lesson_button_id_'+lesson_id).show();
+                    }
                 }
-            }
-        })
-    }
-    </script>
+            })
+        }
+        </script>
+
 {% endblock %}
+
