@@ -1,5 +1,9 @@
 .navbar-custom {
-    background-color: #c5e0b4;
+    background-color: #534a47;
+}
+
+.navbar-custom a{
+    color: #e0d8d0;
 }
 
 .header-container {
@@ -10,7 +14,7 @@ body {
     background: url('/media/background-image.jpg') no-repeat center center fixed;
     background-size: cover;
     height: calc(100vh - 164px);
-    color: black;
+    color: #e0d8d0;
 }
 
 .index-main-text {
