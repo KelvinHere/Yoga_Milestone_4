@@ -12,5 +12,9 @@ class LessonForm(forms.ModelForm):
 
     # Over-ride init
     def __init__(self, *args, **kwargs): 
-        super(LessonForm, self).__init__(*args, **kwargs)  
-        self.fields['instructor_profile'].disabled = True 
+        super(LessonForm, self).__init__(*args, **kwargs)
+        self.fields['instructor_profile'].disabled = True
+
+        # Add styling
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'custom-crispy-form-styling'

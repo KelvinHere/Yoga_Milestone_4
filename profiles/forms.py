@@ -8,10 +8,15 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = '__all__'
+        widgets = {
+                   'user': forms.HiddenInput,
+                   'is_instructor': forms.HiddenInput,
+                   'rating': forms.HiddenInput,
+                  }
 
     # Over-ride init
     def __init__(self, *args, **kwargs): 
         super(ProfileForm, self).__init__(*args, **kwargs)  
-        #instructor_profile = forms.CharField(widget=forms.HiddenInput())
         self.fields['user'].disabled = True
         self.fields['is_instructor'].disabled = True
+        self.fields['rating'].disabled = True

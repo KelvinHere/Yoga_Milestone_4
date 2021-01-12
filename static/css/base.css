@@ -14,7 +14,7 @@ body {
     background: url('/media/background-image.jpg') no-repeat center center fixed;
     background-size: cover;
     height: calc(100vh - 164px);
-    color: #e0d8d0;
+    color: #534a47;
 }
 
 .index-main-text {
@@ -35,7 +35,7 @@ body {
     z-index: -1;
 }
 
-/* -----------------------------------------  Card formatting */
+/* ---------------------------------------- Card formatting */
 .lesson-card-image-container {
     background-color: darkgray;
 }
@@ -45,7 +45,6 @@ body {
 }
 
 /* ---------------------------------------- Instructor profile page */
-
 .instructor-page-profile-gallery-container {
     height: 10vh;
     background-color: darkgray;
@@ -56,4 +55,9 @@ body {
     background-color: lightgray;
     object-fit: fill;
     overflow: hidden;
+}
+
+/* ---------------------------------------- Crispy form styling */
+.custom-crispy-form-styling {
+    border-color: #534a47;
 }
