@@ -254,6 +254,13 @@ A quick summary of instructions with basic configuration below.
 
 * [Background image](https://nicoledoherty.com/nd/wp-content/uploads/2012/11/credit-cards-you-trust-yourself.jpg)
 * [simple_stretching.jpg and stretching descriptions](https://www.realsimple.com/health/fitness-exercise/stretching-yoga/stretching-exercises)
+* [Instructor profile pictures from free images, contributor below](https://www.freeimages.com/)
+    - [Instructor 1 - By Matteo Canessa](https://www.freeimages.com/photo/yoga-relax-1556603)
+    - [Instructor 2 - By Aaron Neifer](https://www.freeimages.com/photo/yoga-1240391)
+    - [Instructor 3 - By Lorant Fulop ](https://www.freeimages.com/photo/yoga-1433499)
+    - [Instructor 4 - By Bimbo Cabochan](https://www.freeimages.com/photo/beach-yoga-1186865)
+    - [Instructor 5 - By Martin Louis](https://www.freeimages.com/photo/yoga-1482810)
+
 
 ### Acknowledgements
  

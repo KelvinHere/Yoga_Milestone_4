@@ -12,14 +12,66 @@
 {% endblock %}
 
 {% block content %}
+{% include 'lessons/snippets/lesson_sorting.html' %}
     <div class="overlay"></div>
-    <div class="container h-100">
-        <div class="row h-100">
-            <div class="col-12">
-                <h1>Welcome to  studio</h1>
-                <h2>Lesson: {{ lesson.lesson_name }}</h2>
 
+    <div class="container h-100">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center my-3" id="lesson-page-title">{{ lesson.lesson_name }}</h1>
+                <p class="text-center my-3">By {{ lesson.instructor_profile }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="{{ lesson.url }}" allowfullscreen></iframe>
+                </div>
+                <div class="lesson-description my-3">
+                    <p>{{ lesson.description }}</p>
+                </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+        function subscribe(subscribe, lesson_id, filter) {
+            $.ajax({
+                type:"GET",
+                url:"/lessons/subscriptions",
+                data:{  
+                        subscribe: subscribe,
+                        lesson_id: lesson_id,
+                    },
+                success: function(json_response){
+                    if (json_response['subscription_status'] == 'unsubscribed') {
+                        // Unsub button
+                        $('#unsubscribe_lesson_button_id_'+lesson_id).hide();
+                        // Sub button
+                        $('#subscribe_lesson_button_id_'+lesson_id).removeAttr('hidden');
+                        $('#subscribe_lesson_button_id_'+lesson_id).show();
+                        // Start Lesson button
+                        $('#start_lesson_button_id_'+lesson_id).hide();
+                        if (filter == 'mylessons') {
+                            $('#'+lesson_id).remove();
+                        }
+                    } else if (json_response['subscription_status'] == 'subscribed') {
+                        // Unsub button
+                        $('#unsubscribe_lesson_button_id_'+lesson_id).removeAttr('hidden');
+                        $('#unsubscribe_lesson_button_id_'+lesson_id).show();
+                        // Sub button
+                        $('#subscribe_lesson_button_id_'+lesson_id).hide();
+                        // Start Lesson button
+                        $('#start_lesson_button_id_'+lesson_id).removeAttr('hidden');
+                        $('#start_lesson_button_id_'+lesson_id).show();
+                    }
+                }
+            })
+        }
+        </script>
+
+{% endblock %}
+

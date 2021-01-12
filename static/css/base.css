@@ -2,8 +2,8 @@
     background-color: #c5e0b4;
 }
 
-.navbar-header-container {
-    width: 100%;
+.header-container {
+    margin-top: 56px;
 }
 
 body {
@@ -15,6 +15,10 @@ body {
 
 .index-main-text {
     background-color: rgba(255, 255, 255, .5);
+}
+
+.lesson-sort-bar {
+    width: 100%;
 }
 
 .overlay {
@@ -29,26 +33,12 @@ body {
 
 /* -----------------------------------------  Card formatting */
 .lesson-card-image-container {
-
+    background-color: darkgray;
 }
 
 .lesson-card-image {
 
 }
-
-/*.instructor-card-image-container {
-    height: 35vh;
-    object-fit: contain;
-    background-color: lightgray;
-    overflow: hidden;
-}
-.instructor-card-image {
-    height: 100%;
-    width: auto;
-    display: block;
-    margin: auto;
-    background-position: 50%, 0;
-}*/
 
 /* ---------------------------------------- Instructor profile page */
 
@@ -62,12 +52,4 @@ body {
     background-color: lightgray;
     object-fit: fill;
     overflow: hidden;
-}
-
-.instructor-page-profile-image {
-
-}
-
-.instructor-profile-description-container {
-
 }
