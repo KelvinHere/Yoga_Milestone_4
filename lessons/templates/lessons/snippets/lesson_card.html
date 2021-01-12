@@ -1,5 +1,5 @@
-<div class="card mb-3" id="{{ lesson.lesson_id }}">
-    <div class="row g-0">
+<div class="card mb-3" style="width: 100%;" id="{{ lesson.lesson_id }}">
+    <div class="row no-gutters">
         <div class="col-md-4">
             {% if lesson.image %}
                 <div class="lesson-card-image-container">
@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title">{{ lesson.lesson_name }}</h5>
-                <h6>By: {{ lesson.instructor_profile }}</h6>
+                <p class="card-text"><small>By: {{ lesson.instructor_profile }}</small></p>
                 <p class="card-text">{{ lesson.card_description }}</p>
                 <p class="card-text"><small class="text-muted">Rating: {{ lesson.rating }}</small></p>
                 <p class="card-text"><small class="text-muted">Yoga style</small></p>
