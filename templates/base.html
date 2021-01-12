@@ -63,7 +63,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                 {% if user.is_authenticated %}
-                                    <a class="nav-link active" aria-current="page" href="{% url 'instructor_created_lessons' %}">Instructor Admin</a>
+                                    <a class="dropdown-item" href="{% url 'instructor_created_lessons' %}">Instructor Admin</a>
                                 {% if user.userprofile.is_instructor %}
                                 {% endif %}
                                 <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
