@@ -42,17 +42,17 @@
                             <td><p>{{ profile.last_name }}</p></td>
                         </tr>
                         <tr>
-                            <td><p><strong>Is instructor</strong></p></td>
+                            <td><p><strong>Status</strong></p></td>
                             <td><p>:</p></td>
                             <td>
                                 {% if profile.is_instructor and profile.requested_instructor_status %}
-                                    <p>Yes</p>
+                                    <p>Instructor</p>
                                 {% endif %}
                                 {% if profile.is_instructor == False and profile.requested_instructor_status %}
-                                    <p>Pending</p>
+                                    <p>Instructor pending review</p>
                                 {% endif %}
                                 {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
-                                    <p>No</p>
+                                    <p>Student</p>
                                 {% endif %}
                             </td>
                         </tr>
