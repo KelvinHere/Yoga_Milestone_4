@@ -19,7 +19,14 @@
             <div class="col-12 col-lg-5">
                 <div class="row text-center">
                     <div class="container-fluid instructor-page-profile-image-container">
-                        <img src="{{ profile.image.url }}" class="instructor-page-profile-image img-fluid" alt="{{ profile }}'s profile image'">
+                        {{ MEDIA_URL }}
+                        {% if profile.image %}
+                            <img src="{{ profile.image.url }}" class="instructor-page-profile-image img-fluid" alt="{{ profile }}'s profile image'">
+                        {% else %}
+                            <img src="{{ MEDIA_URL }}/profile_images/no_profile_image.jpg" class="instructor-page-profile-image img-fluid" alt="{{ profile }}'s profile image'">
+                        {% endif %}
+                            <p>{{profile.is_instructor}}</p>
+                            <p>{{profile.requested_instructor_status}}</p>
                     </div>
                 </div>
             </div>
@@ -33,8 +40,23 @@
                     </tr>
                     <tr>
                         <td>Second Name</td>
-                        <td>  :  </td>
-                        <td>{{ profile.second_name }}</td>
+                        <td>:</td>
+                        <td>{{ profile.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Is instructor</td>
+                        <td>:</td>
+                        <td>
+                            {% if profile.is_instructor and profile.requested_instructor_status %}
+                                <p>Yes</p>
+                            {% endif %}
+                            {% if profile.is_instructor == False and profile.requested_instructor_status %}
+                                <p>Pending</p>
+                            {% endif %}
+                            {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
+                                <p>No</p>
+                            {% endif %}
+                        </td>
                     </tr>
                 </table>
                 <p class="align-middle">{{ profile.profile_description }}</p>

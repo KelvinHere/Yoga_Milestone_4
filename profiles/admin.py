@@ -10,13 +10,14 @@ class LessonItemAdmin(admin.TabularInline):
 
 
 class UserProfileAdmin(admin.ModelAdmin):
+    readonly_fields = ('requested_instructor_status',)
     inlines = (LessonItemAdmin,)
     
 
     model = UserProfile
 
     fields = ('user', 'first_name', 'last_name',
-              'requested_instructor_status', 
+              'requested_instructor_status',
               'is_instructor', 'card_description',
               'profile_description', 'image',
               'rating',)
