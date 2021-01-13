@@ -136,6 +136,7 @@ HTML, CSS, Gunicorn, Stripe payments and how they all interact to form a final p
 
 ## Dependancies
 - `pip3 install pillow` image field
+- `pip install django_resized` resize image field
 
 ## Technologies Used
  

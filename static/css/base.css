@@ -44,22 +44,6 @@ body {
     background-color: darkgray;
 }
 
-.lesson-card-image {
-
-}
-
-/* ---------------------------------------- Instructor profile page */
-.instructor-page-profile-gallery-container {
-    height: 10vh;
-    background-color: darkgray;
-}
-
-.instructor-page-profile-image-container {
-    max-height: 60vh;
-    background-color: lightgray;
-    object-fit: fill;
-    overflow: hidden;
-}
 
 /* ---------------------------------------- Crispy form styling */
 .custom-crispy-form-styling {

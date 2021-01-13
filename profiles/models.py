@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django_resized import ResizedImageField
+
 
 class UserProfile(models.Model):
     """
@@ -14,8 +16,7 @@ class UserProfile(models.Model):
     is_instructor = models.BooleanField(default=False)
     card_description = models.TextField(max_length=512)
     profile_description = models.TextField()
-    image = models.ImageField(null=True, blank=True, upload_to='profile_images/')
-    image_url = models.URLField(max_length=1024, null=True, blank=True)
+    image = ResizedImageField(size=[600, 600], quality=75, crop=['middle', 'center'], force_format='JPEG', null=True, blank=True, upload_to='profile_images/')
     rating = models.DecimalField(max_digits=5, decimal_places=0, null=True, blank=True)
 
     def __str__(self):
@@ -28,7 +29,6 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     Create or update the user profile through signals/reciever
     Needs post_save and reviever importing
     """
-    print('##### in signals')
     if created:
         UserProfile.objects.create(user=instance)
     # If user exists just save the profile

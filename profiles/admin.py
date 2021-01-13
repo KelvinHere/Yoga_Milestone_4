@@ -18,7 +18,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     fields = ('user', 'first_name', 'last_name',
               'is_instructor', 'card_description',
               'profile_description', 'image',
-              'image_url', 'rating',)
+              'rating',)
 
 
 admin.site.register(UserProfile, UserProfileAdmin)
