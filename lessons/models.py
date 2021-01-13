@@ -20,6 +20,7 @@ class Lesson(models.Model):
     image = ResizedImageField(size=[600, 600], quality=75, crop=['middle', 'center'], force_format='JPEG', null=True, blank=True, upload_to='lesson_images/')
     rating = models.DecimalField(max_digits=5, decimal_places=0, null=True, blank=True)
     yoga_style = models.CharField(max_length=50, default='Yoga', null=False, blank=False)
+    video_url = models.URLField(max_length=1024, null=True, blank=True)
     time = models.IntegerField(blank=True, null=True)
 
     def _generate_lesson_id(self):

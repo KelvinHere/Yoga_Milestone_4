@@ -265,6 +265,8 @@ A quick summary of instructions with basic configuration below.
     - [Instructor 4 - By Bimbo Cabochan](https://www.freeimages.com/photo/beach-yoga-1186865)
     - [Instructor 5 - By Martin Louis](https://www.freeimages.com/photo/yoga-1482810)
 * [Drawn lesson poses](https://www.tummee.com/)
+* [Lesson image poses prefixed self_](https://www.self.com/gallery/must-know-yoga-poses-for-beginners)
+* [Yoga studio image](https://classpass.com/classes/space-yoga-studio-brighton?page=37)
 
 
 ### Acknowledgements
