@@ -264,6 +264,7 @@ A quick summary of instructions with basic configuration below.
     - [Instructor 3 - By Lorant Fulop ](https://www.freeimages.com/photo/yoga-1433499)
     - [Instructor 4 - By Bimbo Cabochan](https://www.freeimages.com/photo/beach-yoga-1186865)
     - [Instructor 5 - By Martin Louis](https://www.freeimages.com/photo/yoga-1482810)
+* [Drawn lesson poses](https://www.tummee.com/)
 
 
 ### Acknowledgements

@@ -12,7 +12,7 @@ class LessonAdmin(admin.ModelAdmin):
     readonly_fields = ('lesson_id',)
 
     fields = ('lesson_id', 'instructor_profile', 'lesson_name',
-              'card_description', 'description', 'url', 'image',
+              'card_description', 'description', 'image',
               'image_url', 'rating', 'yoga_style',)
 
     list_display = (
