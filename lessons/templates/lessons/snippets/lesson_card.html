@@ -26,7 +26,7 @@
                             <a hidden class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
                         {% endif %}
                     {% else %}
-                        <a class="btn btn-primary" href="{% url 'studio' lesson.lesson_id %}" role="button">Preview Lesson</a>
+                        <a class="btn btn-primary" href="{% url 'account_signup' %}" role="button">Signup to view</a>
                     {% endif %}
                 </div>
             </div>
