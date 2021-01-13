@@ -10,9 +10,9 @@ class LessonItemAdmin(admin.TabularInline):
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    readonly_fields = ('requested_instructor_status',)
+    #readonly_fields = ('requested_instructor_status',)
     inlines = (LessonItemAdmin,)
-    
+
 
     model = UserProfile
 

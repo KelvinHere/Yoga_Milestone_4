@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
+from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
 
@@ -76,3 +76,16 @@ def instructors(request):
     }
 
     return render(request, template, context)
+
+def request_instructor_status(request, status):
+    """ View for user to request to become an instructor """
+    profile = get_object_or_404(UserProfile, user=request.user)
+
+    if status == 'request':
+        profile.requested_instructor_status = True
+        profile.save()
+    else:
+        profile.requested_instructor_status = False
+        profile.save()
+
+    return redirect(reverse('profile'))

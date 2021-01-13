@@ -13,7 +13,7 @@
 
 {% block content %}
     <div class="overlay"></div>
-    <div class="container page-contents">
+    <div class="container page-contents mt-4">
         <!-- Profile -->
         <div class="row profile-container">
             <div class="col-12 col-md-5 p-sm-0">
@@ -68,10 +68,10 @@
                     <a href="" class="index-main-button btn btn-lg btn-primary disabled rounded-20 py-3 my-4">Instructor Status Granted</a>
                 {% endif %}
                 {% if profile.is_instructor == False and profile.requested_instructor_status %}
-                    <a href="" class="index-main-button btn btn-lg btn-warning disabled rounded-20 py-3 my-4">Under Review</a>
+                    <a href="{% url 'request_instructor_status' 'unrequest'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Under Review</a>
                 {% endif %}
                 {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
-                    <a href="{% url 'edit_profile' %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Request Instructor Status</a>
+                    <a href="{% url 'request_instructor_status' 'request'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Request Instructor Status</a>
                 {% endif %}
             </div>
             <div class="col-12 col-md-6 px-sm-0 d-flex justify-content-center justify-content-md-end">
