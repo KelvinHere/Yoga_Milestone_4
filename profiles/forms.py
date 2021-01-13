@@ -12,6 +12,7 @@ class ProfileForm(forms.ModelForm):
             'user': forms.HiddenInput,
             'is_instructor': forms.HiddenInput,
             'rating': forms.HiddenInput,
+            'requested_instructor_status': forms.HiddenInput,
         }
         labels = {
             'card_description': 'Instructor card description'

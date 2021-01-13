@@ -16,49 +16,48 @@
     <div class="container page-contents">
         <!-- Profile -->
         <div class="row profile-container">
-            <div class="col-12 col-lg-5">
-                <div class="row text-center">
-                    <div class="container-fluid instructor-page-profile-image-container">
-                        {{ MEDIA_URL }}
+            <div class="col-12 col-md-5 p-sm-0">
+                <div class="row text-center m-0">
+                    <div class="container-fluid instructor-page-profile-image-container p-0">
                         {% if profile.image %}
                             <img src="{{ profile.image.url }}" class="instructor-page-profile-image img-fluid" alt="{{ profile }}'s profile image'">
                         {% else %}
                             <img src="{{ MEDIA_URL }}/profile_images/no_profile_image.jpg" class="instructor-page-profile-image img-fluid" alt="{{ profile }}'s profile image'">
                         {% endif %}
-                            <p>{{profile.is_instructor}}</p>
-                            <p>{{profile.requested_instructor_status}}</p>
                     </div>
                 </div>
             </div>
             <!-- Profile description -->
-            <div class="col-12 col-lg-7 instructor-profile-description-container mt-3">
-                <table>
-                    <tr>
-                        <td>First Name</td>
-                        <td>:</td>
-                        <td>{{ profile.first_name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Second Name</td>
-                        <td>:</td>
-                        <td>{{ profile.last_name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Is instructor</td>
-                        <td>:</td>
-                        <td>
-                            {% if profile.is_instructor and profile.requested_instructor_status %}
-                                <p>Yes</p>
-                            {% endif %}
-                            {% if profile.is_instructor == False and profile.requested_instructor_status %}
-                                <p>Pending</p>
-                            {% endif %}
-                            {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
-                                <p>No</p>
-                            {% endif %}
-                        </td>
-                    </tr>
-                </table>
+            <div class="col-12 col-md-7 instructor-profile-description-container mt-3 mt-md-0">
+                <div class="table-container d-flex justify-content-center justify-content-md-start">
+                    <table class="profile-table">
+                        <tr>
+                            <td><p><strong>First Name</strong></p></td>
+                            <td><p>:</p></td>
+                            <td><p>{{ profile.first_name }}</p></td>
+                        </tr>
+                        <tr>
+                            <td><p><strong>Second Name</strong></p></td>
+                            <td><p>:</p></td>
+                            <td><p>{{ profile.last_name }}</p></td>
+                        </tr>
+                        <tr>
+                            <td><p><strong>Is instructor</strong></p></td>
+                            <td><p>:</p></td>
+                            <td>
+                                {% if profile.is_instructor and profile.requested_instructor_status %}
+                                    <p>Yes</p>
+                                {% endif %}
+                                {% if profile.is_instructor == False and profile.requested_instructor_status %}
+                                    <p>Pending</p>
+                                {% endif %}
+                                {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
+                                    <p>No</p>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <p class="align-middle">{{ profile.profile_description }}</p>
             </div>
         </div>
