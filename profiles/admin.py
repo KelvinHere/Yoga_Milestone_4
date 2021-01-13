@@ -16,6 +16,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     model = UserProfile
 
     fields = ('user', 'first_name', 'last_name',
+              'requested_instructor_status', 
               'is_instructor', 'card_description',
               'profile_description', 'image',
               'rating',)

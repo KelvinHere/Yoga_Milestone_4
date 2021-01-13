@@ -8,7 +8,18 @@ from .forms import ProfileForm
 
 
 def profile(request):
-    """ View to return the personal profile page of the logged in user """
+    """ View to view the personal profile page of the logged in user """
+    profile = get_object_or_404(UserProfile, user=request.user)
+
+    template = 'profiles/profile.html'
+    context = {
+        'profile': profile
+    }
+    return render(request, template, context)
+
+
+def edit_profile(request):
+    """ View to edit the personal profile page of the logged in user """
     profile = get_object_or_404(UserProfile, user=request.user)
 
     if request.method == 'POST':
@@ -24,7 +35,7 @@ def profile(request):
             'profile': profile,
             'form': form,
         }
-        return render(request, 'profiles/profile.html', context)
+        return render(request, 'profiles/edit_profile.html', context)
 
 
 def instructor_profile(request, instructor_id):

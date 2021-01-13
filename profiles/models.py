@@ -14,8 +14,9 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=50, null=False, blank=False)
     last_name = models.CharField(max_length=50, null=False, blank=False)
     is_instructor = models.BooleanField(default=False)
+    requested_instructor_status = models.BooleanField(default=False)
     card_description = models.TextField(max_length=256, default='')
-    profile_description = models.TextField(max_length=512, default='')
+    profile_description = models.TextField(max_length=650, default='')
     image = ResizedImageField(size=[600, 600], quality=75, crop=['middle', 'center'], force_format='JPEG', null=True, blank=True, upload_to='profile_images/')
     rating = models.DecimalField(max_digits=5, decimal_places=0, null=True, blank=True)
 
