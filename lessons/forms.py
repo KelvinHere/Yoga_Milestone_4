@@ -10,13 +10,19 @@ class LessonForm(forms.ModelForm):
         fields = '__all__'
         widgets = {'instructor_profile': forms.HiddenInput,
                    'rating': forms.HiddenInput,
-                  }
+        }
+        labels = {
+            'card_description': 'Description for lesson card',
+            'description': 'Text under video',
+            'time': 'Estimated length of lesson',
+        }
 
     # Over-ride init
     def __init__(self, *args, **kwargs): 
         super(LessonForm, self).__init__(*args, **kwargs)
         self.fields['instructor_profile'].disabled = True
         self.fields['rating'].disabled = True
+        self.fields['card_description'].widget = forms.Textarea(attrs={'rows': 3, 'cols': 25, 'maxlength': 254})
 
         # Add styling
         for field_name, field in self.fields.items():

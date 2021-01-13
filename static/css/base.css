@@ -49,3 +49,9 @@ body {
 .custom-crispy-form-styling {
     border-color: #534a47;
 }
+
+@media (max-width: 991px) {
+    .index-main-text {
+        font-size: 2rem;
+    }
+}
