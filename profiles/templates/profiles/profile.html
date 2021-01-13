@@ -18,7 +18,15 @@
             <div class="col-12">
                 <form method="POST" action="{% url 'profile' %}" class="form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    {% for field in form %}
+                        {% if field.name != 'card_description' %}
+                            {{ field | as_crispy_field }}
+                        {% else %}
+                            {% if profile.is_instructor %}
+                                {{ field | as_crispy_field }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                     <input type="submit" value="Submit">
                 </form>
             </div>
