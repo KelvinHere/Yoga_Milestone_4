@@ -8,12 +8,15 @@ class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = '__all__'
-        widgets = {'instructor_profile': forms.HiddenInput}
+        widgets = {'instructor_profile': forms.HiddenInput,
+                   'rating': forms.HiddenInput,
+                  }
 
     # Over-ride init
     def __init__(self, *args, **kwargs): 
         super(LessonForm, self).__init__(*args, **kwargs)
         self.fields['instructor_profile'].disabled = True
+        self.fields['rating'].disabled = True
 
         # Add styling
         for field_name, field in self.fields.items():
