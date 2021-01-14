@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Env variables
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('YOGA_SECRET_KEY', '')
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
