@@ -65,21 +65,21 @@
         <div class="row mt-3">
             <div class="col-12 col-md-6 px-sm-0 d-flex justify-content-center justify-content-md-start">
                 {% if profile.is_instructor and profile.requested_instructor_status %}
-                    <a href="" class="index-main-button btn btn-lg btn-primary disabled rounded-20 py-3 my-4">Instructor Status Granted</a>
+                    <a href="" class="index-main-button btn btn-lg btn-primary disabled rounded-20 py-3 my-5 mx-5 btn-block">Instructor Status Granted</a>
                 {% endif %}
                 {% if profile.is_instructor == False and profile.requested_instructor_status %}
-                    <a href="{% url 'request_instructor_status' 'unrequest'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Under Review</a>
+                    <a href="{% url 'request_instructor_status' 'unrequest'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-1 my-5 mx-5 btn-block"><p class="my-0">Under Review</p><p class="my-0"><small>Press to Cancel Request</small></p></a>
                 {% endif %}
                 {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
                     {% if profile_complete %}
-                        <a href="{% url 'request_instructor_status' 'request'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Request Instructor Status</a>
+                        <a href="{% url 'request_instructor_status' 'request'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-5 mx-5 btn-block">Request Instructor Status</a>
                     {% else %}
-                        <a href="{% url 'profile' %}?error=profile_error" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Request Instructor Status</a>
+                        <a href="{% url 'profile' %}?error=profile_error" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-5 mx-5 btn-block">Request Instructor Status</a>
                     {% endif %}
                 {% endif %}
             </div>
             <div class="col-12 col-md-6 px-sm-0 d-flex justify-content-center justify-content-md-end">
-                <a href="{% url 'edit_profile' %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Edit Profile</a>
+                <a href="{% url 'edit_profile' %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-5 mx-5 btn-block">Edit Profile</a>
             </div>
         </div>
     </div>
