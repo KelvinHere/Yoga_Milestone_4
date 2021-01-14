@@ -182,11 +182,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if 'USE_BACKBLAZE' in os.environ:
     # Backblaze b2 bucket config
-    BB_STORAGE_BUCKET_NAME = 'ms4-yoga-kelvinhere'
-    BB_S3_REGION_NAME = 'us-west-000'
-    BB_ACCESS_KEY_ID = os.environ.get('BB_ACCESS_KEY_ID')
-    BB_SECRET_ACCESS_KEY = os.environ.get('BB_SECRET_ACCESS_KEY')
-    BB_S3_CUSTOM_DOMAIN = f'{BB_STORAGE_BUCKET_NAME}.s3.us-west-000.backblazeb2.com'
+    AWS_STORAGE_BUCKET_NAME = 'ms4-yoga-kelvinhere'
+    #AWS_S3_REGION_NAME = 'us-west-000'
+    AWS_ACCESS_KEY_ID = os.environ.get('BB_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('BB_SECRET_ACCESS_KEY')
+    AWS_S3_CUSTOM_DOMAIN = 'https://f000.backblazeb2.com/file/ms4-yoga-kelvinhere'
+    AWS_S3_ENDPOINT_URL = 'https://s3.us-west-000.backblazeb2.com'
 
     # Static files and media storage
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
