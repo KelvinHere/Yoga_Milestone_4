@@ -186,12 +186,12 @@ if 'USE_BACKBLAZE' in os.environ:
     BB_S3_REGION_NAME = 'us-west-000'
     BB_ACCESS_KEY_ID = os.environ.get('BB_ACCESS_KEY_ID')
     BB_SECRET_ACCESS_KEY = os.environ.get('BB_SECRET_ACCESS_KEY')
-    BB_S3_CUSTOM_DOMAIN = f'{BB_STORAGE_BUCKET_NAME}.s3.us-west-000.backblazeb2.com'
+    BB_S3_CUSTOM_DOMAIN = f'{BB_STORAGE_BUCKET_NAME}.s3.backblazeb2.com'
 
     # Static files and media storage
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
     STATICFILES_LOCATION = 'static'
-    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    MEDIAFILES_STORAGE = 'custom_storages.MediaStorage'
     MEDIAFILES_LOCATION = 'media'
 
     # Override static and media URLs in production
