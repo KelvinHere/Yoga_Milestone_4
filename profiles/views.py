@@ -10,10 +10,11 @@ from .forms import ProfileForm
 def profile(request):
     """ View to view the personal profile page of the logged in user """
     profile = get_object_or_404(UserProfile, user=request.user)
-
+    profile_complete = profile.test_profile_is_complete()
     template = 'profiles/profile.html'
     context = {
-        'profile': profile
+        'profile': profile,
+        'profile_complete': profile_complete,
     }
     return render(request, template, context)
 
