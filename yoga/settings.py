@@ -28,8 +28,7 @@ SECRET_KEY = os.environ.get('YOGA_SECRET_KEY', '')
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = 'DEVELOPMENT' in os.environ
 ALLOWED_HOSTS = []
 
 
