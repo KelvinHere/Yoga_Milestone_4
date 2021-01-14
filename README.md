@@ -169,60 +169,32 @@ The project was then deployed to [Heroku](https://www.heroku.com/) with media an
     - updating an out of date local branch with `git fetch origin` and pulling changes with `git pull origin`
  
 ### Local Deployment
- 
-* Requirements
-    - An Atlas MongoDB account with a database called `book_app_db` which has the collections `books` and `genres`
-    - An Atlas user profile called `root` with read/write access to the `book_app_db` database
-    - Local computer with an IDE, Python 3.8.6, git and pip.
- 
-Clone this repository to your local workspace :-
- 
-1. Open the [Book Review App](https://github.com/KelvinHere/book-review-app) repository.
-2. Click the 'Code' button and then copy the 'Clone with HTTPS' URL.
-3. From your IDE open a terminal.
-4. From inside the directory you want the clone, type `git clone` and paste the URL you copied from GitHub then press enter.  Example below.
- 
-- `git clone https://github.com/KelvinHere/book-review-app.git`
- 
-5. Cloning will be completed when your terminal is waiting for its next command.
-6. More information or changes in the cloning procedure at this link [Git Clone](https://github.com/git-guides/git-clone).
-7. Make sure pip is up to date `pip install --upgrade pip`
-8. Install the app requirements `pip install -r requirements.txt`
-9. Link the app to your Atlas MongoDb account through an environment variable
-    - Login to Atlas MongoDb
-    - Click Clusters > Overview > Connect
-    - Click 'connect your application'
-    - Select your driver and version ie 'Python' '3.6 or later'
-    - Copy the given "Connection String"
-    - Create env.py in the root of the local book app workspace and add the code below
-        - `import os`
-        - `os.environ.setdefault("MONGO_URI", )`
-    - Paste the Connection String inside os.environ.setdefault() and replace the <> markers with your Atlas details
-    - The contents of env.py should look similar to the code below
-        - `import os`
-        - `os.environ.setdefault("MONGO_URI", "mongodb+srv://root:MYPASSWORD@firstcluster.er9ib.mongodb.net/book_app_db?retryWrites=true&w=majority")`
-10. Run `python3 app.py` to start the app
-11. Open the given link in your IDE and you will be connected to your Atlas book_app_db and can start adding books.
- 
- 
+  
 ### Heroku Deployment
  
-The deployed version of 'Book Review' is hosted on Heroku and was deployed with the following steps.
+The deployed version of 'Social Yoga' is hosted on Heroku and was deployed with the following steps.
  
 * Requirements
     - A locally deployed version of the Book Review App from the instructions above
     - A Heroku account
+    - A postgresql addon from Heroku > Resources
     - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed locally, instructions in [this link](https://devcenter.heroku.com/articles/heroku-cli)
  
 1. Login to your Heroku account
 2. Click New > App
 3. Give the app a name, select a region and create the app
+
+4. Setup the database
+    4. The local app need 'dj_database_url' and 'psycopg2-binary' installing
+    4. free requirements
+
+
 4. Setup enviromental variables in Heroku :-
     - Select your app in Heroku and click settings
     - Under Config Vars set up the key value pairs as below
     - IP = 0.0.0.0
     - PORT = 5000
-    - MONGO_URI = The Atlas MongoDb Connection String as explained in [local deployment](#local-deployment) above
+    - 
 5. Login to Heroku from your terminal with `heroku login -i` then follow prompts
 6. `pip freeze --local > requirements.txt` to update your requirements.txt in case of new requirements
 7. `git init` if you have not initialised your git repo
