@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">Superuser Admin</h1>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container page-contents">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-3">User requests to become instructors</h2>
+                {% if user_requests %}
+                    {% for user in user_requests %}
+                        <p><span>Username : {{ user }}</span>
+                            <span>Email : {{ user.user.email }}</span>
+                            <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'accept' %}" role="button">Accept</a></span>
+                            <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'reject' %}" role="button">Reject</a></span>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-3">Active instructors</h2>
+                {% if instructors %}
+                    {% for instructor in instructors %}
+                        <p><span>Username : {{ instructor }}</span>
+                            <span>Email : {{ instructor.user.email }}</span>
+                            <span><a class="btn btn-danger" href="{% url 'update_instructor_status' instructor 'remove' %}" role="button">Remove instructor status</a></span>
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

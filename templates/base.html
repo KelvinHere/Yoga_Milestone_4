@@ -60,7 +60,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                 {% if user.is_superuser %}
-                                    <a class="dropdown-item" href="{% url 'profile' %}">Superuser Admin</a>
+                                    <a class="dropdown-item" href="{% url 'superuser_admin' %}">Superuser Admin</a>
                                 {% endif %}
                                 {% if user.userprofile.is_instructor %}
                                 <a class="dropdown-item" href="{% url 'instructor_created_lessons' %}">Instructor Admin</a>

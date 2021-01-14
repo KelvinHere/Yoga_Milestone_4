@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.db.models import Q
-from .models import UserProfile
+from .models import UserProfile, User
 from lessons.models import Lesson, LessonItem
 import json
 
