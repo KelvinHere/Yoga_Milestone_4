@@ -71,7 +71,11 @@
                     <a href="{% url 'request_instructor_status' 'unrequest'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Under Review</a>
                 {% endif %}
                 {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
-                    <a href="{% url 'request_instructor_status' 'request'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Request Instructor Status</a>
+                    {% if profile_complete %}
+                        <a href="{% url 'request_instructor_status' 'request'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Request Instructor Status</a>
+                    {% else %}
+                        <a href="{% url 'profile' %}?error=profile_error" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Request Instructor Status</a>
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="col-12 col-md-6 px-sm-0 d-flex justify-content-center justify-content-md-end">
@@ -79,4 +83,5 @@
             </div>
         </div>
     </div>
+
 {% endblock %}

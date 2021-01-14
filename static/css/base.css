@@ -61,6 +61,21 @@ body {
     border-color: #534a47;
 }
 
+.toast-topbar {
+    height: 3px;
+}
+
+.custom-toast {
+    overflow: visible;
+}
+
+.message-container {
+    position: fixed;
+    top: 40px;
+    right: 15px;
+    z-index: 99999999;
+}
+/* ---------------------------------------- Media Queries */
 @media (max-width: 991px) {
     .index-main-text {
         font-size: 2rem;

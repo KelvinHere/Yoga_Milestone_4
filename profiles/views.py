@@ -1,16 +1,21 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem
+from django.contrib import messages
 
 from yoga.utils import get_profile_or_none
 
 from .forms import ProfileForm
 
 
-def profile(request):
+def profile(request, show_profile_error_toast=False):
     """ View to view the personal profile page of the logged in user """
     profile = get_object_or_404(UserProfile, user=request.user)
     profile_complete = profile.test_profile_is_complete()
+
+    if 'error' in request.GET:
+        messages.warning(request, 'You must complete your profile first!')
+
     template = 'profiles/profile.html'
     context = {
         'profile': profile,
