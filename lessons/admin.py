@@ -13,7 +13,7 @@ class LessonAdmin(admin.ModelAdmin):
 
     fields = ('lesson_id', 'instructor_profile', 'lesson_name',
               'card_description', 'description', 'image',
-              'video_url' 'rating', 'yoga_style', 'time', )
+              'video_url', 'rating', 'yoga_style', 'time', )
 
     list_display = (
         'lesson_name',
