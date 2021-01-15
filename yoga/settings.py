@@ -180,7 +180,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-if 'USE_BACKBLAZE' in os.environ:
+if 'USE_AWS' in os.environ:
     # Backblaze b2 bucket config
     AWS_STORAGE_BUCKET_NAME = 'ms4-yoga-kelvinhere'
     #AWS_S3_REGION_NAME = 'us-west-000'
