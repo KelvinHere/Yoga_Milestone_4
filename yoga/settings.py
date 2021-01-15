@@ -133,7 +133,7 @@ else:
     }
 
 #DATABASES = {
-#    'default': dj_database_url.parse(DATABASE_URL)
+#    'default': dj_database_url.parse('')
 #}
 
 
@@ -181,6 +181,12 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if 'USE_AWS' in os.environ:
+    # Cache control
+    AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2099 21:00:00 GMT',
+        'CacheControl': 'max-age=90000000',
+    }
+
     # S3 Bucket config
     AWS_STORAGE_BUCKET_NAME = 'ms4-yoga-kelvinhere'
     AWS_S3_REGION_NAME = 'eu-west-1'
