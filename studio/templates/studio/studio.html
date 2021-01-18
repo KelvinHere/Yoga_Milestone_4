@@ -30,6 +30,9 @@
                 <div class="lesson-description my-3">
                     <p>{{ lesson.description }}</p>
                 </div>
+                <div class="review">
+                    <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Write Review</a>
+                </div>
             </div>
         </div>
     </div>

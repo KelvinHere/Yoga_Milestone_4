@@ -63,6 +63,11 @@ body {
     color: #534a47 !important;
 }
 
+/* ---------------------------------------- Nav */
+.nav-link-format {
+    text-decoration: none;
+}
+
 /* ---------------------------------------- Header */
 .header-container {
     margin-top: 56px;

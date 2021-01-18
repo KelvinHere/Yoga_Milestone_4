@@ -6,7 +6,7 @@ import json
 
 from yoga.utils import get_profile_or_none
 
-from .forms import LessonForm
+from .forms import LessonForm, ReviewForm
 
 
 def lessons(request):
@@ -195,4 +195,20 @@ def edit_lesson(request, lesson_id):
             return render(request, template, context)
         else:
             return HttpResponse('<h1>You can only edit your own lessons, check your login details and try again<h1>', status=500)
-            
+
+
+def review_lesson(request, lesson_id):
+    """ A view to create a profile """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+    
+    form = ReviewForm(initial={'profile':profile, 'lesson':lesson})  # Insert current user in this field
+
+    template = "lessons/create_review.html"
+    context = {
+        'profile': profile,
+        'lesson': lesson,
+        'form': form,
+    }
+
+    return render(request, template, context)
