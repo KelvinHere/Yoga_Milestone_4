@@ -58,15 +58,17 @@ through the website.
 
 #### Wireframe Designs
  
-- The home
-![HomePage](# "Book view wireframe image")
-- Lessons can be browsed
-![LessonPage](# "Book view revealed wireframe image")
-- Buy time with instructor
-![InstructorPage](# "View reviews wireframe image")
-- Merchandise
-![MerchangisePage](# "Form wireframe image")
- 
+- The home page
+![HomePage](# "Home page")
+- Signup / Register / Logout page
+![AccountsPage](# "Login / out / signup page")
+- Sortable list of instructors on the site
+![InstructorsPage](# "Instructors page")
+- An instructors page, includes profile and all lessons with ability to subscribe or buy
+![InstructorPage](# "Instructor page")
+- A typical lesson page, paid or free
+![LessonPage](# "Lesson page")
+
 #### User Stories
 As a site user I want to
 1. Be able to register to the site to save my info for future use *
@@ -83,6 +85,10 @@ As an Instructor I want to
 1. Sell my services on this site to suppliment my income
 2. Set the price of my services because I know what my time is worth
 3. See a list of my booked times for video calls
+
+As site admin I want to:
+1. See requests from instructors
+2. Change privilages for users and instructors
  
 #### Business Goals
 
@@ -102,29 +108,75 @@ To show an understanding of Django, Python, Postgres, Javascript, jQuery,
 HTML, CSS, Gunicorn, Stripe payments and how they all interact to form a final product.
  
 #### Design Choices
- 
+
 ##### General Design
- 
+
+Bootstrap with cards is used to create and app that will be intuative to use.  The site will
+keep a minimal clean look to keep information clear on smaller screens as this will be a responsive
+mobile first app, allowing larger screens to show more 'cards' (lessons/insctructors) at once.
+
+As the database of stuents and lessons grow, filtering and searching and subscribing to lessons/instructors
+will be available.
+
+Navigation and selection are consitent throughout the app.
+
 ##### Colours and Fonts
  
-**Font 1**
+**Font 1**  - Quicksand (BOLD) is used for branding, titles, a strong font that is not completely serious lines up with the sytle and feel of the apps content.  Content text is displayed in a non bolded Quicksand.
  
-**Font 2**
+**Font 2** - Poiret One is used for some smaller menu titles, ratings and subtitles.  A more delicate font that takes second seat to the more important information displayed in Quicksand.
  
-**Colours**
+**Colours** - Main colours of white (modern and clean) with blocks of medium brown (earth/nature) set the tone of mellow, natural and modern without resoring to garish colours.  Text will be brown on white or off-white on brown for consistancy.  The only strong colours are call to action and function buttons to help the user with the interface.  Any other colours will be light pastal.  All this will set the canvas for the instructor generated content and should not take away from their lesson and profile images.
  
 ## Features
  
 ### Existing Features
+
+- User can:
+    - Register / Sign In / Signout
+    - Fill in a profile
+        - Edit their profile
+    - Request to become an instructor
+    - Search available instructors
+        - View instructors profile and lessons
+    - Search available lessons
+        - Subscribe to a lesson
+        - Unsubscribe to a lesson
+        - Start a lesson
+        - Sort lessons by name / instructor / rating / price
+
+- Instructor can:
+    - Do anything a User can
+    - Create a lesson
+    - Delete a lesson
+    - Edit a lesson
+
+- Administrator can:
+    - Do anythng a User can
+    - View all requests to be an instructor
+        - Accept / Reject that request
+    - View a list of instructors
+        - Remove the instructor priveliage
+
   
 #### Sorting
- 
+
+- Lessons can be sorted on any page they appear by:
+    - Rating ascending or descending
+    - Lesson name ascending or descending
+    - Instructor ascending or descending
+
 #### Database
+ 
+ - The database is postgres, below is the final map, barring any development issues, of its construction.
+
  
 #### Backend
  
 #### Frontend
- 
+
+- Any computation involving rating is performed in the backend
+
 ### Changes during development
 
 ### Future Features
