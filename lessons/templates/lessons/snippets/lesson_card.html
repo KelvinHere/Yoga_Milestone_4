@@ -10,10 +10,13 @@
         <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title">{{ lesson.lesson_name }}</h5>
-                <p class="card-text"><small>By: {{ lesson.instructor_profile }}</small></p>
+                <p class="card-text mb-0"><small>By: {{ lesson.instructor_profile }} | Rating: {{ lesson.rating }}</small></p>
+                {% if lesson.price > 0 %}
+                    <p class="card-text"><small class="text-muted">Price: <strong>Free!</strong></small></p>
+                {% else %}
+                    <p class="card-text"><small class="text-muted">Price: {{ lesson.price }}</small></p>
+                {% endif %}
                 <p class="card-text alt-font">{{ lesson.card_description }}</p>
-                <p class="card-text"><small class="text-muted">Rating: {{ lesson.rating }}</small></p>
-                <p class="card-text"><small class="text-muted">Yoga style</small></p>
                 <div class="lesson-card-button-container">
                     {% if user.is_authenticated %}
                         {% if lesson.lesson_id in subscribed_lesson_list %}
