@@ -1,3 +1,19 @@
+html {
+    height: 100%
+}
+
+body {
+    background: url('/media/background-image.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 164px);
+    color: #534a47;
+    font-family: 'Quicksand';
+}
+
+.alt-font {
+    font-family: 'Lato';
+}
+
 .navbar-custom {
     background-color: #534a47;
 }
@@ -22,11 +38,8 @@
     margin-top: 56px;
 }
 
-body {
-    background: url('/media/background-image.jpg') no-repeat center center fixed;
-    background-size: cover;
-    height: calc(100vh - 164px);
-    color: #534a47;
+.account-container {
+    display: inline-block;
 }
 
 .index-main-text {
@@ -38,6 +51,16 @@ body {
 }
 
 .overlay {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: white;
+    z-index: -1;
+}
+
+.account-overlay {
     height: 100%;
     width: 100%;
     top: 0;
@@ -75,9 +98,37 @@ body {
     right: 15px;
     z-index: 99999999;
 }
-/* ---------------------------------------- Media Queries */
-@media (max-width: 991px) {
-    .index-main-text {
+
+.index-main-text {
         font-size: 2rem;
+    }
+/* ---------------------------------------- Media Queries */
+@media (min-width: 991px) {
+    .account-overlay {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background: url('/media/account-bg-blur.jpg') no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
+    }
+
+    .index-main-text {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 412px) {
+    .account-overlay {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background: url('/media/account-bg-blur.jpg') no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
     }
 }
