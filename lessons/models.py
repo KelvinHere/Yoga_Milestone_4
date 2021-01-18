@@ -22,6 +22,8 @@ class Lesson(models.Model):
     yoga_style = models.CharField(max_length=50, default='Yoga', null=False, blank=False)
     video_url = models.URLField(max_length=1024, null=True, blank=True)
     time = models.IntegerField(blank=True, null=True)
+    is_free = models.BooleanField(default=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
 
     def _generate_lesson_id(self):
         """

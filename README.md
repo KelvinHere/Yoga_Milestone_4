@@ -9,8 +9,8 @@ The user will also have the ability to book personal video calls with the tutor 
 
 ## ToDo
 - Create users subscribed to lesson number for lessons created by instructor page
-- put mobile first into readme
-- fix add lesson in admin
+- add real email to allauth
+
 
 
 ## Contents
