@@ -12,9 +12,9 @@
                 <h5 class="card-title">{{ lesson.lesson_name }}</h5>
                 <p class="card-text mb-0"><small>By: {{ lesson.instructor_profile }} | Rating: {{ lesson.rating }}</small></p>
                 {% if lesson.price > 0 %}
-                    <p class="card-text"><small class="text-muted">Price: <strong>Free!</strong></small></p>
+                    <p class="card-text"><small class="text-muted">Price: {{ lesson.price }}</small></p>                    
                 {% else %}
-                    <p class="card-text"><small class="text-muted">Price: {{ lesson.price }}</small></p>
+                    <p class="card-text"><small class="text-muted">Price: <strong>Free!</strong></small></p>
                 {% endif %}
                 <p class="card-text alt-font">{{ lesson.card_description }}</p>
                 <div class="lesson-card-button-container">
