@@ -23,6 +23,9 @@
                     {% else %}
                         <a href="{% url 'instructors' %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Find an instructor</a>
                     {% endif %}
+                    {% if profile.is_instructor %}
+                        <a href="{% url 'instructor_created_lessons' %}" class="index-main-button btn btn-lg btn-danger rounded-20 py-3 my-4">Instructor Admin</a>
+                    {% endif %}
                 </div>
                 {% else %}
                     <h1 class="display-4 me-auto my-4 mx-4 pb-2 index-main-text rounded shadow-sm alt-text">Breathe deep and begin your Yoga journey here</h1>
