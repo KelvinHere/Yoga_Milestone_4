@@ -54,6 +54,13 @@ def lessons(request):
         for each in lesson_items:
             subscribed_lesson_list.append(each.lesson.lesson_id)
 
+    # If authenticated get a list of paid lessons
+    paid_lesson_list = []
+    if request.user.is_authenticated:
+        lesson_items = LessonItem.objects.filter(user=profile, paid_for=True)
+        for lesson_item in lesson_items:
+            paid_lesson_list.append(lesson_item.lesson.lesson_id)
+
     # Apply any filters and set up redirect reverse for buttons and page title
     if lesson_filter == 'mylessons':
         lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
@@ -72,6 +79,7 @@ def lessons(request):
         'profile': profile,
         'all_lessons': lessons,
         'subscribed_lesson_list': subscribed_lesson_list,
+        'paid_lesson_list': paid_lesson_list,
         'page_title': page_title,
         'sub_title': sub_title,
         'current_filter': lesson_filter,
