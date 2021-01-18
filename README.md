@@ -59,15 +59,15 @@ through the website.
 #### Wireframe Designs
  
 - The home page
-![HomePage](# "Home page")
+![HomePage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/1-Index.jpg "Home page")
 - Signup / Register / Logout page
-![AccountsPage](# "Login / out / signup page")
+![AccountsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/2-Login_Out.jpg "Login / out / signup page")
 - Sortable list of instructors on the site
-![InstructorsPage](# "Instructors page")
+![InstructorsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/3-Instructors.jpg "Instructors page")
 - An instructors page, includes profile and all lessons with ability to subscribe or buy
-![InstructorPage](# "Instructor page")
+![InstructorPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/4-Instructor.jpg "Instructor page")
 - A typical lesson page, paid or free
-![LessonPage](# "Lesson page")
+![LessonPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/5-Lesson.jpg "Lesson page")
 
 #### User Stories
 As a site user I want to
@@ -169,6 +169,9 @@ Navigation and selection are consitent throughout the app.
 #### Database
  
  - The database is postgres, below is the final map, barring any development issues, of its construction.
+
+![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/database/db_design.jpg "Database design")
+
 
  
 #### Backend
