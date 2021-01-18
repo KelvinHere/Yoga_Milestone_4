@@ -1,3 +1,4 @@
+/* ---------------------------------------- Main */
 html {
     height: 100%
 }
@@ -10,10 +11,30 @@ body {
     font-family: 'Quicksand';
 }
 
+.index-main-text {
+    font-size: 2rem;
+}
+
+.lesson-sort-bar {
+    width: 100%;
+}
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: white;
+    z-index: -1;
+}
+
+/* ---------------------------------------- Fonts */
 .alt-font {
     font-family: 'Lato';
 }
 
+/* ---------------------------------------- Colours */
 .navbar-custom {
     background-color: #534a47;
 }
@@ -34,30 +55,22 @@ body {
     background-color: #e0d8d0;
 }
 
-.header-container {
-    margin-top: 56px;
-}
-
-.account-container {
-    display: inline-block;
-}
-
 .index-main-text {
     background-color: rgba(255, 255, 255, .5);
 }
 
-.lesson-sort-bar {
-    width: 100%;
+.colour-primary {
+    color: #534a47 !important;
 }
 
-.overlay {
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    position: fixed;
-    background: white;
-    z-index: -1;
+/* ---------------------------------------- Header */
+.header-container {
+    margin-top: 56px;
+}
+
+/* ---------------------------------------- Account pages */
+.account-container {
+    display: inline-block;
 }
 
 .account-overlay {
@@ -70,9 +83,11 @@ body {
     z-index: -1;
 }
 
+/* ---------------------------------------- Profiles pages */
 .profile-table td {
     padding-right: 20px;
 }
+
 /* ---------------------------------------- Card formatting */
 .lesson-card-image-container {
     background-color: darkgray;
@@ -84,6 +99,7 @@ body {
     border-color: #534a47;
 }
 
+/* ---------------------------------------- Toasts */
 .toast-topbar {
     height: 3px;
 }
@@ -99,9 +115,6 @@ body {
     z-index: 99999999;
 }
 
-.index-main-text {
-        font-size: 2rem;
-    }
 /* ---------------------------------------- Media Queries */
 @media (min-width: 991px) {
     .account-overlay {
