@@ -62,12 +62,20 @@ def instructor_profile(request, instructor_id):
         for each in subscribed_lessons:
             subscribed_lesson_list.append(each.lesson.lesson_id)
 
+    # If authenticated get a list of paid lessons
+    paid_lesson_list = []
+    if request.user.is_authenticated:
+        lesson_items = LessonItem.objects.filter(user=profile, paid_for=True)
+        for lesson_item in lesson_items:
+            paid_lesson_list.append(lesson_item.lesson.lesson_id)
+
     template = 'profiles/instructor_profile.html'
     context = {
         'profile': profile,
         'instructor_profile': instructor_profile,
         'lessons': lessons,
         'subscribed_lesson_list': subscribed_lesson_list,
+        'paid_lesson_list': paid_lesson_list,
     }
     return render(request, template, context)
 
