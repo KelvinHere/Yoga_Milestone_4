@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.db.models import Q
 from .models import UserProfile, User
-from lessons.models import Lesson, LessonItem
+from lessons.models import Lesson, LessonItem, LessonReview
 import json
 
 from yoga.utils import get_profile_or_none
@@ -155,7 +155,7 @@ def create_lesson(request):
             # Create lesson
             form = LessonForm(request.POST, request.FILES)
             if form.is_valid():
-                lesson = form.save(commit=False)  # Delay commit of for to enter profile on next line
+                lesson = form.save(commit=False)  # Delay commit of form to enter profile on next line
                 lesson.instructor_profile = profile
                 lesson.save()
                 return redirect('instructor_created_lessons')
@@ -201,14 +201,28 @@ def review_lesson(request, lesson_id):
     """ A view to create a profile """
     profile = get_object_or_404(UserProfile, user=request.user)
     lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
-    
-    form = ReviewForm(initial={'profile':profile, 'lesson':lesson})  # Insert current user in this field
 
-    template = "lessons/create_review.html"
-    context = {
-        'profile': profile,
-        'lesson': lesson,
-        'form': form,
-    }
+    if request.method == 'POST':
+        if not LessonReview.objects.filter(profile=profile, lesson=lesson):
+            form = ReviewForm(request.POST)
 
-    return render(request, template, context)
+            for each in form:
+                print(each)
+            if form.is_valid():
+                print('###valid')
+                form.save()
+            return redirect('studio', lesson.lesson_id)
+        else:
+            return HttpResponse('You already have a review of this lesson', status=500)
+
+    else:
+        form = ReviewForm(initial={'profile': profile, 'lesson': lesson})  # Insert current user in this field
+
+        template = "lessons/create_review.html"
+        context = {
+            'profile': profile,
+            'lesson': lesson,
+            'form': form,
+        }
+
+        return render(request, template, context)

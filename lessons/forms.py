@@ -42,8 +42,6 @@ class ReviewForm(forms.ModelForm):
     # Over-ride init
     def __init__(self, *args, **kwargs): 
         super(ReviewForm, self).__init__(*args, **kwargs)
-        self.fields['profile'].disabled = True
-        self.fields['lesson'].disabled = True
 
         # Add styling
         for field_name, field in self.fields.items():

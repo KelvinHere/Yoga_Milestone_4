@@ -81,7 +81,7 @@ class LessonReview(models.Model):
     lesson = models.ForeignKey(Lesson, null=False, blank=False, on_delete=models.CASCADE,
                                related_name='reviewedLesson')
     review = models.TextField(max_length=512)
-    rating = models.DecimalField(max_digits=5, decimal_places=0, null=True, blank=True)
+    rating = models.IntegerField()
 
     def __str__(self):
         return f'Review of "{self.lesson.lesson_name}" by "{self.profile}""'

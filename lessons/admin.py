@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Lesson, LessonItem
+from .models import Lesson, LessonItem, LessonReview
 
 
 class LessonItemAdmin(admin.ModelAdmin):
@@ -21,5 +21,11 @@ class LessonAdmin(admin.ModelAdmin):
     )
 
 
+class LessonReviewAdmin(admin.ModelAdmin):
+
+    fields = ('profile', 'lesson', 'review', 'rating')
+
+
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(LessonItem, LessonItemAdmin)
+admin.site.register(LessonReview, LessonReviewAdmin)
