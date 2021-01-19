@@ -9,12 +9,14 @@ def studio(request, id):
     profile = get_profile_or_none(request)
     lesson = get_object_or_404(Lesson, lesson_id=id)
     existing_review = LessonReview.objects.filter(profile=profile, lesson=lesson).first()
+    lesson_reviews = LessonReview.objects.filter(lesson=lesson)
 
     template = "studio/studio.html"
     context = {
         'profile': profile,
         'lesson': lesson,
         'existing_review': existing_review,
+        'lesson_reviews': lesson_reviews,
     }
 
     return render(request, template, context)

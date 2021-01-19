@@ -37,48 +37,14 @@
                         <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Write Review</a>
                     {% endif %}
                 </div>
+                <div class="reviews">
+                    {% for review in lesson_reviews %}
+                        {% include 'studio/snippets/review_card.html' %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
 {% endblock %}
 
-{% block postloadjs %}
-    {{ block.super }}
-    <script type="text/javascript">
-        function subscribe(subscribe, lesson_id, filter) {
-            $.ajax({
-                type:"GET",
-                url:"/lessons/subscriptions",
-                data:{  
-                        subscribe: subscribe,
-                        lesson_id: lesson_id,
-                    },
-                success: function(json_response){
-                    if (json_response['subscription_status'] == 'unsubscribed') {
-                        // Unsub button
-                        $('#unsubscribe_lesson_button_id_'+lesson_id).hide();
-                        // Sub button
-                        $('#subscribe_lesson_button_id_'+lesson_id).removeAttr('hidden');
-                        $('#subscribe_lesson_button_id_'+lesson_id).show();
-                        // Start Lesson button
-                        $('#start_lesson_button_id_'+lesson_id).hide();
-                        if (filter == 'mylessons') {
-                            $('#'+lesson_id).remove();
-                        }
-                    } else if (json_response['subscription_status'] == 'subscribed') {
-                        // Unsub button
-                        $('#unsubscribe_lesson_button_id_'+lesson_id).removeAttr('hidden');
-                        $('#unsubscribe_lesson_button_id_'+lesson_id).show();
-                        // Sub button
-                        $('#subscribe_lesson_button_id_'+lesson_id).hide();
-                        // Start Lesson button
-                        $('#start_lesson_button_id_'+lesson_id).removeAttr('hidden');
-                        $('#start_lesson_button_id_'+lesson_id).show();
-                    }
-                }
-            })
-        }
-        </script>
-
-{% endblock %}
 
