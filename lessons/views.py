@@ -213,7 +213,6 @@ def review_lesson(request, lesson_id):
         if not existing_review:
             form = ReviewForm(request.POST)
         else:
-            print('#######SAve over#')
             form = ReviewForm(request.POST, instance=existing_review)
         if form.is_valid():
             form.save()
@@ -224,7 +223,6 @@ def review_lesson(request, lesson_id):
     else:
         if existing_review:
             form = ReviewForm(instance=existing_review)
-            print('######ALREADY EXISTS')
             context['form'] = form
             return render(request, template, context)
         else:

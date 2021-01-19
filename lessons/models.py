@@ -36,7 +36,6 @@ class Lesson(models.Model):
         """
         Finds all reviews and updates average review
         """
-        print('#Fired in Lesson _update_rating')
         reviews = LessonReview.objects.filter(lesson=self)
         if reviews:
             total_rating = 0
@@ -45,9 +44,9 @@ class Lesson(models.Model):
                 total_rating += int(review.rating)
                 no_of_reviews += 1
             new_rating = total_rating / no_of_reviews
-        self.rating = new_rating
-        print(new_rating)
-        print('######')
+            self.rating = new_rating
+        else:
+            self.rating = None
         self.save()
 
     def save(self, *args, **kwargs):
@@ -105,9 +104,9 @@ class LessonReview(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Force parent lesson model to recalculate average score
+        Force linked lesson model to recalculate average
+        score after it has been saved
         """
-        print('#### updating')
         super().save(*args, **kwargs)
         self.lesson._update_rating()
 
