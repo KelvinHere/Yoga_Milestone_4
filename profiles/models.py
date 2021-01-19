@@ -30,6 +30,21 @@ class UserProfile(models.Model):
         else:
             return False
 
+    def _update_rating(self, lessons_by_this_instructor):
+        """ Update profile rating from lessons average score """
+        if lessons_by_this_instructor:
+            total_rating = 0
+            no_of_lessons_with_reviews = 0
+            for lesson in lessons_by_this_instructor:
+                if lesson.rating is not None:
+                    total_rating += lesson.rating
+                    no_of_lessons_with_reviews += 1
+            new_rating = total_rating / no_of_lessons_with_reviews
+            self.rating = new_rating
+        else:
+            self.rating = None
+        self.save()
+
 
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
@@ -41,3 +56,4 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
     # If user exists just save the profile
     instance.userprofile.save()
+

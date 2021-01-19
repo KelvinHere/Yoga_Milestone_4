@@ -20,6 +20,7 @@
             <!-- Title -->
             <div class="col-12">
                 <h1 class="text-center my-3">Welcome to {{ instructor_profile }}'s studio</h1>
+                <p class="text-muted text-center">Rating : {{ instructor_profile.rating }}{% if instructor_profile.rating %} / 10{% endif %}</p>
             </div>
         </div>
         <!-- Profile -->

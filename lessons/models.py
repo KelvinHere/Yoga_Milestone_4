@@ -48,6 +48,10 @@ class Lesson(models.Model):
         else:
             self.rating = None
         self.save()
+        #Send a list of all lessons by this instructor to its profile for rating update
+        lessons_by_this_instructor = Lesson.objects.filter(instructor_profile=self.instructor_profile)
+        self.instructor_profile._update_rating(lessons_by_this_instructor)
+
 
     def save(self, *args, **kwargs):
         """
