@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from profiles.models import UserProfile
 
 from django_resized import ResizedImageField
+from datetime import datetime
 
 
 class Lesson(models.Model):
@@ -82,6 +83,7 @@ class LessonReview(models.Model):
                                related_name='reviewedLesson')
     review = models.TextField(max_length=512)
     rating = models.IntegerField()
+    date = models.DateTimeField(default=datetime.now, blank=True)
 
     def __str__(self):
         return f'Review of "{self.lesson.lesson_name}" by "{self.profile}""'

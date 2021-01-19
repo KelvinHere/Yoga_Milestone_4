@@ -37,6 +37,7 @@ class ReviewForm(forms.ModelForm):
         fields = '__all__'
         widgets = {'profile': forms.HiddenInput,
                    'lesson': forms.HiddenInput,
+                   'date': forms.HiddenInput,
         }
 
     # Over-ride init

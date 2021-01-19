@@ -23,7 +23,7 @@ class LessonAdmin(admin.ModelAdmin):
 
 class LessonReviewAdmin(admin.ModelAdmin):
 
-    fields = ('profile', 'lesson', 'review', 'rating')
+    fields = ('profile', 'lesson', 'review', 'rating', 'date',)
 
 
 admin.site.register(Lesson, LessonAdmin)
