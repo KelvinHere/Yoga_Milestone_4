@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
-from django.db.models import Q
+from django.db.models import Q, F
 from .models import UserProfile, User
 from lessons.models import Lesson, LessonItem, LessonReview
 import json
@@ -14,6 +14,7 @@ def lessons(request):
     profile = get_profile_or_none(request)
     sortkey = 'lesson_name'  # Default sort parameter
     direction = None
+    sort_direction = 'asc'
     lesson_filter = None
     page_title = 'All Lessons'
     sub_title = None
@@ -39,7 +40,7 @@ def lessons(request):
         if 'direction' in request.GET:
             direction = request.GET['direction']
             if direction == 'desc':
-                sortkey = f'-{sortkey}'
+                sort_direction = 'desc'
 
         # Filtering
         if 'filter' in request.GET:
@@ -71,8 +72,11 @@ def lessons(request):
             sub_title = 'You are currently not subscribed to any lessons'
 
     # Sort
-    lessons = lessons.order_by(sortkey)
-
+    if sort_direction == 'asc':
+        lessons = lessons.order_by(F(sortkey).asc(nulls_last=True))
+    else:
+        lessons = lessons.order_by(F(sortkey).desc(nulls_last=True))
+        
     # Create template and context
     template = 'lessons/lessons.html'
     context = {

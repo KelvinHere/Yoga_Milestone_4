@@ -20,3 +20,8 @@
     - Edit another instructors lessons
 
  
+
+ ## Bugs
+
+ - Sort lesson by rating has all non-rated lessons at the top
+ 
