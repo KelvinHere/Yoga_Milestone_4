@@ -201,28 +201,33 @@ def review_lesson(request, lesson_id):
     """ A view to create a profile """
     profile = get_object_or_404(UserProfile, user=request.user)
     lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+    existing_review = LessonReview.objects.filter(profile=profile, lesson=lesson).first()
+
+    template = "lessons/create_review.html"
+    context = {
+        'profile': profile,
+        'lesson': lesson,
+    }
 
     if request.method == 'POST':
-        if not LessonReview.objects.filter(profile=profile, lesson=lesson):
+        if not existing_review:
             form = ReviewForm(request.POST)
-
-            for each in form:
-                print(each)
-            if form.is_valid():
-                print('###valid')
-                form.save()
+        else:
+            print('#######SAve over#')
+            form = ReviewForm(request.POST, instance=existing_review)
+        if form.is_valid():
+            form.save()
             return redirect('studio', lesson.lesson_id)
         else:
-            return HttpResponse('You already have a review of this lesson', status=500)
+            return HttpResponse('Error in review form', status=500)
 
     else:
-        form = ReviewForm(initial={'profile': profile, 'lesson': lesson})  # Insert current user in this field
-
-        template = "lessons/create_review.html"
-        context = {
-            'profile': profile,
-            'lesson': lesson,
-            'form': form,
-        }
-
-        return render(request, template, context)
+        if existing_review:
+            form = ReviewForm(instance=existing_review)
+            print('######ALREADY EXISTS')
+            context['form'] = form
+            return render(request, template, context)
+        else:
+            form = ReviewForm(initial={'profile': profile, 'lesson': lesson})  # Insert current user in this field
+            context['form'] = form
+            return render(request, template, context)
