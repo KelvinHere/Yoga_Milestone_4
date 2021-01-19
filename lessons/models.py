@@ -24,7 +24,7 @@ class Lesson(models.Model):
     video_url = models.URLField(max_length=1024, null=True, blank=True)
     time = models.IntegerField(blank=True, null=True)
     is_free = models.BooleanField(default=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+    price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
     def _generate_lesson_id(self):
         """
