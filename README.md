@@ -175,6 +175,12 @@ Navigation and selection are consitent throughout the app.
 
  
 #### Backend
+
+- Rating system
+    - Situation: I wanted a rating system for lessons that would show the average score of all the reviews, but at scale for example 1000 lessons each had 100 reviews, everytime a user requested this list there would be 1000 x 100 = 100,000 objects in the queryset returned.
+    - Task: To reduce the number of objects in the queryset needed to return the information requested by the user.
+    - Action: After a review is created and saved it will call its lesson to run a method to update its average score.  This is only done when a review is created
+    - Result: Now when a lesson list is called the average scores have been pre-calculated and only 100 objects in the queryset are returned as opposed to the theoretical 100,000
  
 #### Frontend
 

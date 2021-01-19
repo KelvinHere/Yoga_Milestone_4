@@ -32,6 +32,24 @@ class Lesson(models.Model):
         """
         return uuid.uuid4().hex.upper()
 
+    def _update_rating(self):
+        """
+        Finds all reviews and updates average review
+        """
+        print('#Fired in Lesson _update_rating')
+        reviews = LessonReview.objects.filter(lesson=self)
+        if reviews:
+            total_rating = 0
+            no_of_reviews = 0
+            for review in reviews:
+                total_rating += int(review.rating)
+                no_of_reviews += 1
+            new_rating = total_rating / no_of_reviews
+        self.rating = new_rating
+        print(new_rating)
+        print('######')
+        self.save()
+
     def save(self, *args, **kwargs):
         """
         Override the original save method to set the
@@ -47,7 +65,7 @@ class Lesson(models.Model):
     def get_instructor_profile(self):
         return self.instructor_profile
 
-
+    
 class LessonItem(models.Model):
     """
     A lesson item and its subscribed student
@@ -84,6 +102,14 @@ class LessonReview(models.Model):
     review = models.TextField(max_length=512)
     rating = models.IntegerField()
     date = models.DateTimeField(default=datetime.now, blank=True)
+
+    def save(self, *args, **kwargs):
+        """
+        Force parent lesson model to recalculate average score
+        """
+        print('#### updating')
+        super().save(*args, **kwargs)
+        self.lesson._update_rating()
 
     def __str__(self):
         return f'Review of "{self.lesson.lesson_name}" by "{self.profile}""'
