@@ -34,6 +34,12 @@ body {
     font-family: 'Lato';
 }
 
+/* ---------------------------------------- Links */
+.style-link {
+    color: #534a47;
+    text-decoration: none;
+}
+
 /* ---------------------------------------- Colours */
 .navbar-custom {
     background-color: #534a47;

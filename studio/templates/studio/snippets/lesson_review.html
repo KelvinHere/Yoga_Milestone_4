@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-2">
+        <img src="{{ review.profile.image.url }}" class="img-fluid rounded-circle" alt="{{ review.profile.image }}'s profile image">
+    </div>
+    <div class="col-10">
+        <h5 class="review-title mb-0">{{ review.profile }}'s Review</h5>
+        <p class="review-rating mb-2">{{ review.rating }} / 10</p>
+        <p class="review-text">{{ review.review }}</p>
+        <p class="review-text text-muted mt-2">{{ review.date }}</p>
+        <hr>
+    </div>
+</div>

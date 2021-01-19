@@ -18,7 +18,7 @@
     <div class="container h-100">
         <div class="row">
             <div class="col-12">
-                <h1 class="text-center my-3" id="lesson-page-title">{{ lesson.lesson_name }}</h1>
+                <h2 class="text-center my-3" id="lesson-page-title">{{ lesson.lesson_name }}</h2>
                 <p class="text-center my-3">By {{ lesson.instructor_profile }}</p>
             </div>
         </div>
@@ -30,16 +30,17 @@
                 <div class="lesson-description my-3">
                     <p>{{ lesson.description }}</p>
                 </div>
-                <div class="review">
+                <div class="review d-flex justify-content-center">
                     {% if existing_review %}
-                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Edit Review</a>
+                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-sm btn-warning rounded-20 py-1 my-2">Edit Review</a>
                     {% else %}    
-                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Write Review</a>
+                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-sm btn-warning rounded-20 py-1 my-2">Write Review</a>
                     {% endif %}
                 </div>
                 <div class="reviews">
+                    <h4 class="mb-4">Reviews</h4>
                     {% for review in lesson_reviews %}
-                        {% include 'studio/snippets/review_card.html' %}
+                        {% include 'studio/snippets/lesson_review.html' %}
                     {% endfor %}
                 </div>
             </div>
