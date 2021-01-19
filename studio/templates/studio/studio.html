@@ -31,7 +31,11 @@
                     <p>{{ lesson.description }}</p>
                 </div>
                 <div class="review">
-                    <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Write Review</a>
+                    {% if existing_review %}
+                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Edit Review</a>
+                    {% else %}    
+                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Write Review</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
