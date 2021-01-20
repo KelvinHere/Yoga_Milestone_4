@@ -1,6 +1,10 @@
 <div class="row">
     <div class="col-2">
-        <img src="{{ review.profile.image.url }}" class="img-fluid rounded-circle" alt="{{ review.profile.image }}'s profile image">
+        {% if review.profile.image %}
+            <img src="{{ review.profile.image.url }}" class="instructor-page-profile-image img-fluid" alt="{{ review.profile }}'s profile image'">
+        {% else %}
+            <img src="{{ MEDIA_URL }}profile_images/no_profile_image.jpg" class="instructor-page-profile-image img-fluid" alt="{{ review.profile }}'s profile image'">
+        {% endif %}
     </div>
     <div class="col-10">
         <h5 class="review-title mb-0">{{ review.profile }}'s Review</h5>
