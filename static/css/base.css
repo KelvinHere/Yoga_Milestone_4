@@ -44,6 +44,10 @@ body {
     text-decoration: none;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
 /* ---------------------------------------- Colours */
 .navbar-custom {
     background-color: #534a47;

@@ -35,7 +35,11 @@
                                     <div class="mx-2 mt-2">
                                         <p><strong>{{ item.lesson.lesson_name }}</strong></p>
                                         <p>By: {{item.lesson.instructor_profile }}</p>
-                                    </div>
+                                        <a class="remove-item cursor-pointer text-danger" id="remove_{{ item.lesson.lesson_id }}">
+                                            <span class="icon">
+                                                <i class="fas fa-small fa-trash-alt mb-2"></i>
+                                            </span>
+                                        </a>
                                 </td>
                                 <td class="w-price">
                                     <p class="text-right mx-2 mt-2"><strong>€{{ item.lesson.price }}</strong></p>
@@ -66,5 +70,21 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $('.remove-item').click(function(e) {
+        var csrfToken = "{{ csrf_token }}";
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var url = `/basket/remove/${itemId}`;
+        
+        $.post(url)
+        .done(function() {
+            location.reload();
+        })
+    })
+</script>
 {% endblock %}
 
