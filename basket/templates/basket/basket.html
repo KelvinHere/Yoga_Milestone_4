@@ -17,6 +17,14 @@
     <div class="row">
         <div class="col-12">
             {% if basket_items %}
+                {% for item in basket_items %}
+                    <p>{{ item }}</p>
+                {% endfor %}
+                <p>Total = {{ total|floatformat:2 }}</p>
+                <p>Discount = {{ discount|floatformat:2 }}</p>
+                <p>Grand Total = {{ grand_total|floatformat:2 }}</p>
+                <p>-</p>
+                <p>Spend {{ discount_delta|floatformat:2 }} more for a {{ discount_percentage }}% discount!</p>
             {% else %}
                 <p class="text-center"><strong>Your basket is empty.</strong></p>
             {% endif %}
