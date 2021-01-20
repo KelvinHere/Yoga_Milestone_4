@@ -37,6 +37,10 @@ body {
 /* ---------------------------------------- Links */
 .style-link {
     color: #534a47;
+}
+
+.style-link:hover {
+    color: #534a47;
     text-decoration: none;
 }
 
