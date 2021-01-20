@@ -79,10 +79,11 @@
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="btn btn-warning" href="{% url 'view_basket' %}" role="button"><span class="colour-primary">Basket</span>
+                            <a class="btn btn-warning" href="{% url 'view_basket' %}" role="button">
                                 <span class="icon">
-                                    <i class="fas fa-cart-plus colour-primary"></i>
+                                    <i class="fas {% if product_count > 0 %}fa-cart-plus{% else %}fa-shopping-cart{% endif %} colour-primary" id="nav-cart-icon"></i>
                                 </span>
+                                <span class="colour-primary" id="nav-cart-amount">{% if product_count > 0 %}+{{ product_count }}{% endif %}</span>
                             </a>
                         </li>
                     {% endif %}
