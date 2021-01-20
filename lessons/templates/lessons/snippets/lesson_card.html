@@ -25,11 +25,12 @@
                             <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
                         {% else %}
                             {% if lesson.lesson_id not in paid_lesson_list and lesson.is_free == False %}
-                                <a class="btn btn-warning" href="{% url 'add_to_basket' lesson.lesson_id %}" role="button"><span>€{{ lesson.price }}</span>
+                                <a class="btn btn-warning" href="" onclick="javascript:add_to_basket('{{ lesson.lesson_id }}')" role="button"><span>€{{ lesson.price }}</span>
                                     <span class="icon">
                                         <i class="fas fa-cart-plus"></i>
                                     </span>
                                 </a>
+
                             {% else %}
                                 <span hidden class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Unsubscribe</span>
                                 <span class="btn btn-danger" href="" id="subscribe_lesson_button_id_{{ lesson.lesson_id }}" onclick="javascript:subscribe('true', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Subscribe to lesson</span>

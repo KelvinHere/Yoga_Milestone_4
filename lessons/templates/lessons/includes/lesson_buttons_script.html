@@ -32,4 +32,26 @@
             }
         })
     }
+
+    function add_to_basket(lesson_id) {
+        var csrfToken = "{{ csrf_token }}";
+        event.preventDefault();
+        $.ajax({
+            type:"POST",
+            url:"/basket/add_to_basket/",
+            data:{  
+                'csrfmiddlewaretoken': csrfToken,
+                lesson_id: lesson_id,
+            },
+            success: function(json_response){
+                if (json_response['item_added'] == 'True'){
+                    alert('Added to basket');
+                } else if (json_response['item_added'] == 'already_added'){
+                    alert('Lesson already in basket');
+                } else {
+                    alert('Something went wrong in add_to_basket response');
+                }
+            }
+        })
+    }
 </script>

@@ -15,7 +15,6 @@ def basket_contents(request):
         lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
         total += lesson.price
         product_count += 1
-        print(lesson)
         basket_items.append({
             'lesson': lesson,
             'price': lesson.price,

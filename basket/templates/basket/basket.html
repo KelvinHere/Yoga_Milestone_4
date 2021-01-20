@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         {% for item in basket_items %}
-                            <tr class="bg-light my-5">
+                            <tr class="bg-light my-5" id="row_for_{{ item.lesson.lesson_id }}">
                                 <td class="w-image">
                                     <img src="{{ item.lesson.image.url }}" class="img-fluid" alt="{{ item.lesson.lesson_name }}'s image'">
                                 </td>
@@ -35,7 +35,7 @@
                                     <div class="mx-2 mt-2">
                                         <p><strong>{{ item.lesson.lesson_name }}</strong></p>
                                         <p>By: {{item.lesson.instructor_profile }}</p>
-                                        <a class="remove-item cursor-pointer text-danger" id="remove_{{ item.lesson.lesson_id }}">
+                                        <a class="remove-item cursor-pointer text-danger" href="" onclick="javascript:remove_from_basket('{{ item.lesson.lesson_id }}')"">
                                             <span class="icon">
                                                 <i class="fas fa-small fa-trash-alt mb-2"></i>
                                             </span>
@@ -75,16 +75,21 @@
 {% block postloadjs %}
 {{ block.super }}
 <script type="text/javascript">
-    $('.remove-item').click(function(e) {
+    function remove_from_basket(lesson_id) {
         var csrfToken = "{{ csrf_token }}";
-        var itemId = $(this).attr('id').split('remove_')[1];
-        var url = `/basket/remove/${itemId}`;
-        
-        $.post(url)
-        .done(function() {
-            location.reload();
+        event.preventDefault();
+        $.ajax({
+            type:"POST",
+            url:"/basket/remove_from_basket/",
+            data:{  
+                'csrfmiddlewaretoken': csrfToken,
+                lesson_id: lesson_id,
+            },
+            success: function(json_response){
+                location.reload();
+            }
         })
-    })
+    }
 </script>
 {% endblock %}
 
