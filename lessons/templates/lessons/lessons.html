@@ -22,10 +22,16 @@
     {% endif %}
     <div class="row">
         <div class="col-12">
-            {% include 'lessons/snippets/lesson_sorting.html' %}
-            {% for lesson in all_lessons %}
-                {% include 'lessons/snippets/lesson_card.html' %}
-            {% endfor %}
+            {% if all_lessons %}
+                {% include 'lessons/snippets/lesson_sorting.html' %}
+                {% for lesson in all_lessons %}
+                    {% include 'lessons/snippets/lesson_card.html' %}
+                {% endfor %}
+            {% else %}
+                {% if instructor_to_display %}
+                    <p class="text-center mt-5"><strong>{{instructor_to_display}} currently has no lessons available.</strong></p>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>

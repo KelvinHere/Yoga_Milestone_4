@@ -77,6 +77,15 @@
                             </div>
                         </div>
                     </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="btn btn-warning" href="{% url 'view_basket' %}" role="button"><span class="colour-primary">Basket</span>
+                                <span class="icon">
+                                    <i class="fas fa-cart-plus colour-primary"></i>
+                                </span>
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
