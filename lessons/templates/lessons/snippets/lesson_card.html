@@ -25,7 +25,7 @@
                             <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
                         {% else %}
                             {% if lesson.lesson_id not in paid_lesson_list and lesson.is_free == False %}
-                                <a class="btn btn-warning" href="" role="button"><span>€{{ lesson.price }}</span>
+                                <a class="btn btn-warning" href="{% url 'add_to_basket' lesson.lesson_id %}" role="button"><span>€{{ lesson.price }}</span>
                                     <span class="icon">
                                         <i class="fas fa-cart-plus"></i>
                                     </span>
