@@ -85,6 +85,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'basket.contexts.basket_contents',
             ],
             'builtins' : [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -210,3 +211,7 @@ if 'USE_AWS' in os.environ:
 
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Basket
+DISCOUNT_THRESHOLD = 20
+DISCOUNT_PERCENTAGE = 10

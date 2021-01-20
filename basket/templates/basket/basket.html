@@ -16,7 +16,10 @@
 <div class="container page-contents">
     <div class="row">
         <div class="col-12">
-
+            {% if basket_items %}
+            {% else %}
+                <p class="text-center"><strong>Your basket is empty.</strong></p>
+            {% endif %}
         </div>
     </div>
 </div>
