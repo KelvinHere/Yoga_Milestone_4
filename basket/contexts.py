@@ -17,8 +17,7 @@ def basket_contents(request):
         product_count += 1
         print(lesson)
         basket_items.append({
-            'lesson_id': lesson.lesson_id,
-            'lesson_name': lesson.lesson_name,
+            'lesson': lesson,
             'price': lesson.price,
         })
 
