@@ -114,6 +114,24 @@ body {
     border-color: #534a47;
 }
 
+/* ---------------------------------------- Basket table */
+.basket-item-table {
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+.w-image {
+    width: 15%
+}
+
+.w-name {
+    width: 65%
+}
+
+.w-price {
+    width: 20%
+}
+
 /* ---------------------------------------- Toasts */
 .toast-topbar {
     height: 3px;

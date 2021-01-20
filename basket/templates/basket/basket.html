@@ -18,24 +18,27 @@
         <div class="col-12">
             {% if basket_items %}
             <div class="table-responsive">
-                <table class="table table-sm">
+                <table class="table table-sm table-borderless basket-item-table">
                     <thead>
-                        <tr>
+                        <tr class="bg-light">
+                            <th scope="col" class="text-left"><strong class="mx-2 mt-2">Lesson</strong></th>
                             <th scope="col"></th>
-                            <th scope="col">Lesson</th>
-                            <th scope="col">Price</th>
+                            <th scope="col" class="text-right"><strong class="mx-2 mt-2">Price</strong></th>
                         </tr>
                     </thead>
                     {% for item in basket_items %}
-                        <tr>
-                            <td class="w-25">
+                        <tr class="bg-light my-5">
+                            <td class="w-image">
                                 <img src="{{ item.lesson.image.url }}" class="img-fluid" alt="{{ item.lesson.lesson_name }}'s image'">
                             </td>
-                            <td class="w-50">
-                                <p>{{ item.lesson.lesson_name }}</p>
+                            <td class="w-name">
+                                <div class="mx-2 mt-2">
+                                    <p><strong>{{ item.lesson.lesson_name }}</strong></p>
+                                    <p>By: {{item.lesson.instructor_profile }}</p>
+                                </div>
                             </td>
-                            <td class="w-25">
-                                <p>{{ item.lesson.price }}</p>
+                            <td class="w-price">
+                                <p class="text-right mx-2 mt-2"><strong>€{{ item.lesson.price }}</strong></p>
                             </td>
                         </tr>
                         {% endfor %}
@@ -49,6 +52,14 @@
                             </td>
                         </tr>
                     </table>
+                </div>
+                <div class="checkout-button my-4">
+                    <a class="btn btn-warning" href="" role="button">
+                        <span>Checkout</span>
+                        <span class="icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </span>
+                    </a>
                 </div>
             {% else %}
                 <p class="text-center"><strong>Your basket is empty.</strong></p>
