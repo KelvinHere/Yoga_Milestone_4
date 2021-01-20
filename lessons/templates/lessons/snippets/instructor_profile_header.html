@@ -1,0 +1,13 @@
+<div class="row profile-container">
+    <div class="col-12 col-lg-5">
+        <div class="row text-center">
+            <div class="container-fluid instructor-page-profile-image-container">
+                <img src="{{ instructor_to_display.image.url }}" class="instructor-page-profile-image img-fluid rounded" alt="{{ instructor_to_display }}'s profile image'">
+            </div>
+        </div>
+    </div>
+    <!-- Profile description -->
+    <div class="col-12 col-lg-7 instructor-profile-description-container mt-3">
+        <p class="align-middle alt-font">{{ instructor_to_display.profile_description }}</p>
+    </div>
+</div>

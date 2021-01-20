@@ -18,6 +18,8 @@ def lessons(request):
     lesson_filter = None
     page_title = 'All Lessons'
     sub_title = None
+    instructor_to_display = None
+    subscribed_lesson_list = []
 
     lessons = Lesson.objects.all()
 
@@ -48,8 +50,15 @@ def lessons(request):
                 print('sett my lesson var')
                 lesson_filter = 'mylessons'
 
+        # Instructor header
+        if 'instructor' in request.GET:
+            if request.GET['instructor']:
+                instructor_id = request.GET['instructor']
+                instructor_to_display = get_object_or_404(UserProfile, id=instructor_id)
+                page_title = f"Welcome to {instructor_to_display}'s Studio"
+                lessons = lessons.filter(instructor_profile=instructor_to_display)
+
     # If authenticated get a list of subscribed lesson IDs for current user
-    subscribed_lesson_list = []
     if request.user.is_authenticated:
         lesson_items = LessonItem.objects.filter(user=profile)
         for each in lesson_items:
@@ -87,6 +96,7 @@ def lessons(request):
         'page_title': page_title,
         'sub_title': sub_title,
         'current_filter': lesson_filter,
+        'instructor_to_display': instructor_to_display
     }
 
     return render(request, template, context)

@@ -5,7 +5,6 @@
 <div class="container header-container">
     <div class="row">
         <div class="col">
-            {% include 'lessons/snippets/lesson_sorting.html' %}
             <h1 class="text-center my-3" id="lesson-page-title">{{ page_title}}</h1>
             {% if sub_title %}
                 <p class="text-center my-3"><strong>{{ sub_title }}</strong></p>
@@ -18,14 +17,18 @@
 {% block content %}
 <div class="overlay"></div>
 <div class="container page-contents">
-        <div class="row">
-            <div class="col-12">
-                {% for lesson in all_lessons %}
-                    {% include 'lessons/snippets/lesson_card.html' %}
-                {% endfor %}
-            </div>
+    {% if instructor_to_display %}
+        {% include 'lessons/snippets/instructor_profile_header.html' %}
+    {% endif %}
+    <div class="row">
+        <div class="col-12">
+            {% include 'lessons/snippets/lesson_sorting.html' %}
+            {% for lesson in all_lessons %}
+                {% include 'lessons/snippets/lesson_card.html' %}
+            {% endfor %}
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block postloadjs %}

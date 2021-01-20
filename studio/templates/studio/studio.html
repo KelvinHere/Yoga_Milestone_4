@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-12">
                 <h2 class="text-center my-3" id="lesson-page-title">{{ lesson.lesson_name }}</h2>
-                <p class="text-center my-3">By <a href="{% url 'instructor_profile' lesson.instructor_profile.id %}">{{ lesson.instructor_profile }}</a></p>
+                <p class="text-center my-3">By <a href="{% url 'lessons' %}?instructor={{ lesson.instructor_profile.id }}">{{ lesson.instructor_profile }}</a></p>
             </div>
         </div>
         <div class="row">
