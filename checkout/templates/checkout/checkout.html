@@ -25,7 +25,9 @@
                     <form method="POST" action="{% url 'checkout' %}" id="payment-form" class="form">
                         {% csrf_token %}
                         {{ order_form|crispy}}
-                        <input type="submit" value="Submit">
+                        <a href=""></a>
+                        <input class="btn btn-primary" type="submit" value="Complete Order">
+                        <a href="{% url 'view_basket' %}" class="btn btn-primary">Back to basket</a>
                     </form>
                 </div>
             </div>
