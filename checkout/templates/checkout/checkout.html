@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="account-overlay"></div>
+    <div class="account-container pt-4 d-flex justify-content-center">
+        <div class="row bg-white py-4 px-2 account-border">
+            <div class="col-12">
+                <h1 class="text-center my-3" id="lesson-page-title">Checkout</h1>
+                <p class="text-center mb-0"><strong>Total: €{{ grand_total|floatformat:2 }}</strong></p>
+                <p class="text-center text-muted">For {{ product_count }} item{% if product_count > 1 %}s{% endif %}</p>
+                <hr>
+                <p class="text-center">Please fill out the form below to complete your order</p>
+                <div class="form-container">
+                    <form method="POST" action="{% url 'checkout' %}" id="payment-form" class="form">
+                        {% csrf_token %}
+                        {{ order_form|crispy}}
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
