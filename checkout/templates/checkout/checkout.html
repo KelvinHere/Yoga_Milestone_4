@@ -33,9 +33,12 @@
                         <div id="card-label">
                             <p class="mb-2">Card Details *</p>
                         </div>
-                        <div class="mb-5" id="card-element"></div>
-                        <input class="btn btn-primary" type="submit" value="Complete Order">
-                        <a href="{% url 'view_basket' %}" class="btn btn-primary">Back to basket</a>
+                        <div class="mb-0" id="card-element"></div>
+                        <div class="mb-0" id="card-error-messages"></div>
+                        <div class="checkout-buttons mt-5">
+                            <input class="btn btn-primary" type="submit" value="Complete Order">
+                            <a href="{% url 'view_basket' %}" class="btn btn-primary">Back to basket</a>
+                        </div>
                     </form>
                 </div>
             </div>

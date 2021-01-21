@@ -19,3 +19,19 @@ var style = {
 };
 var card = elements.create('card', {style: style});
 card.mount('#card-element');
+
+//Handle realitime card validation errors, display under card element
+card.addEventListener('change', function(event) {
+    var errorMessageDiv = document.getElementById('card-error-messages');
+    if (event.error) {
+        var html = `
+            <span class="icon" role="alert">
+                <i class="fas fa-exclamation-circle"></i>
+            </span>
+            <span>${event.error.message}</span>
+        `;
+        $(errorMessageDiv).html(html);
+    } else {
+        errorMessageDiv.textContent = '';
+    }
+})
