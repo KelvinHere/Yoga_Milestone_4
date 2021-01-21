@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
 {% block page_header %}
 <div class="container header-container">
     <div class="row">
@@ -26,6 +30,10 @@
                         {% csrf_token %}
                         {{ order_form|crispy}}
                         <a href=""></a>
+                        <div id="card-label">
+                            <p class="mb-2">Card Details *</p>
+                        </div>
+                        <div class="mb-5" id="card-element"></div>
                         <input class="btn btn-primary" type="submit" value="Complete Order">
                         <a href="{% url 'view_basket' %}" class="btn btn-primary">Back to basket</a>
                     </form>
@@ -37,3 +45,9 @@
 
 {% endblock %}
 
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+{% endblock %}
