@@ -3,14 +3,15 @@ from django.dispatch import receiver
 
 from .models import OrderLineItem
 
-@reciever(post_save, sender=OrderLineItem)
+@receiver(post_save, sender=OrderLineItem)
 def update_on_save(sender, instance, created, **kwargs):
     """
     Update order total on lineitem update/create
     """
+    print('#### Reciever fired')
     instance.order.update_total()
 
-@reciever(post_delete, sender=OrderLineItem)
+@receiver(post_delete, sender=OrderLineItem)
 def update_on_delete(sender, instance, created, **kwargs):
     """
     Update order total on lineitem delete

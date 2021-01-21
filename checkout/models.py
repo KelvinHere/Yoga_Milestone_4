@@ -9,7 +9,7 @@ from lessons.models import Lesson
 
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
-    user = models.ForeignKey(UserProfile, null=False, blank=False, on_delete=models.CASCADE)
+    profile = models.ForeignKey(UserProfile, null=False, blank=False, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     date = models.DateTimeField(auto_now_add=True)
@@ -27,7 +27,7 @@ class Order(models.Model):
         """
         Update grand total including discount
         """
-        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum']
+        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         if self.order_total < settings.DISCOUNT_THRESHOLD:
             discount_amount = 0
         else:
@@ -51,7 +51,7 @@ class Order(models.Model):
 class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
     lesson = models.ForeignKey(Lesson, null=False, blank=False, on_delete=models.CASCADE)
-    user = models.ForeignKey(UserProfile, null=False, blank=False, on_delete=models.CASCADE)
+    profile = models.ForeignKey(UserProfile, null=False, blank=False, on_delete=models.CASCADE)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):

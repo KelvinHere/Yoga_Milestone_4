@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="account-overlay"></div>
+    <div class="account-container pt-4 d-flex justify-content-center">
+        <div class="row bg-white py-4 px-2 account-border">
+            <div class="col-12">
+                <h1 class="text-center my-3" id="lesson-page-title">Order Placed!</h1>
+                <p class="text-center mb-0"><strong>Thankyou!</strong></p>
+                <hr>
+                <p class="text-center">Your order was successfully placed, below is your order information</p>
+                <hr>
+                <p>Name: {{ order.full_name }}</p>
+                <p>Email: {{ order.email }}</p>
+                <p>Order Number: {{ order.order_number }}</p>
+                <p>Total: €{{ order.grand_total|floatformat:2 }}</p>
+                {% if discount > 0 %}
+                <p>You saved: {{ order.discount }} on this order</p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+{% endblock %}
