@@ -22,7 +22,6 @@ def lessons(request):
     instructor_to_display = None
     subscribed_lesson_list = []
     paid_lesson_list = []
-    lessons_in_basket = []
 
     lessons = Lesson.objects.all()
 

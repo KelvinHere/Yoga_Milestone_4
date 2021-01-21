@@ -23,7 +23,6 @@ def studio(request, id):
     }
 
     if paid_lessons.filter(lesson=lesson) or lesson.is_free:
-        print('###paid one here')
         return render(request, template, context)
     else:
         return HttpResponse('You do not own this lesson', status=500)

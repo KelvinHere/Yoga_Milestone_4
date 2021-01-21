@@ -77,7 +77,7 @@ class LessonItem(models.Model):
     paid_for = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'Lesson "{self.lesson.lesson_name}" subscribed to by "{self.user.first_name}"'
+        return f'Lesson "{self.lesson.lesson_name}" subscribed to by "{self.user}"'
 
     def _is_lesson_free(self):
         """

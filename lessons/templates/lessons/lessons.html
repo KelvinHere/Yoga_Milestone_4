@@ -17,6 +17,7 @@
 {% block content %}
 <div class="overlay"></div>
 <div class="container page-contents">
+    {{ paid_lesson_list }}
     {% if instructor_to_display %}
         {% include 'lessons/snippets/instructor_profile_header.html' %}
     {% endif %}
