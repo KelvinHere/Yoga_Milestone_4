@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpR
 from django.db.models import Q, F
 from .models import UserProfile, User
 from lessons.models import Lesson, LessonItem, LessonReview
+from checkout.models import OrderLineItem
 import json
 
 from yoga.utils import get_profile_or_none
@@ -20,6 +21,8 @@ def lessons(request):
     sub_title = None
     instructor_to_display = None
     subscribed_lesson_list = []
+    paid_lesson_list = []
+    lessons_in_basket = []
 
     lessons = Lesson.objects.all()
 
@@ -58,18 +61,18 @@ def lessons(request):
                 page_title = f"Welcome to {instructor_to_display}'s Studio"
                 lessons = lessons.filter(instructor_profile=instructor_to_display)
 
-    # If authenticated get a list of subscribed lesson IDs for current user
+    # If authenticated
     if request.user.is_authenticated:
-        lesson_items = LessonItem.objects.filter(user=profile)
-        for each in lesson_items:
-            subscribed_lesson_list.append(each.lesson.lesson_id)
+    
+        # Get a list of subscribed lesson IDs for current user
+        subscribed_lessons = LessonItem.objects.filter(user=profile)
+        for subscribed_lesson in subscribed_lessons:
+            subscribed_lesson_list.append(subscribed_lesson.lesson.lesson_id)
 
-    # If authenticated get a list of paid lessons
-    paid_lesson_list = []
-    if request.user.is_authenticated:
-        lesson_items = LessonItem.objects.filter(user=profile, paid_for=True)
-        for lesson_item in lesson_items:
-            paid_lesson_list.append(lesson_item.lesson.lesson_id)
+        # Get a list of paid lessons
+        paid_lessons = OrderLineItem.objects.filter(profile=profile)
+        for paid_lesson in paid_lessons:
+            paid_lesson_list.append(paid_lesson.lesson.lesson_id)
 
     # Apply any filters and set up redirect reverse for buttons and page title
     if lesson_filter == 'mylessons':

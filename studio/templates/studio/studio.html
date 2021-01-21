@@ -31,7 +31,7 @@
                     <p>{{ lesson.description }}</p>
                 </div>
                 <div class="review d-flex justify-content-center">
-                    {% if existing_review %}
+                    {% if existing_user_review %}
                         <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-sm btn-warning rounded-20 py-1 my-2">Edit Review</a>
                     {% else %}    
                         <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-sm btn-warning rounded-20 py-1 my-2">Write Review</a>
