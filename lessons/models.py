@@ -52,11 +52,10 @@ class Lesson(models.Model):
         lessons_by_this_instructor = Lesson.objects.filter(instructor_profile=self.instructor_profile)
         self.instructor_profile._update_rating(lessons_by_this_instructor)
 
-
     def save(self, *args, **kwargs):
         """
         Override the original save method to set the
-        lesson_id if it hant already been set
+        lesson_id if it hasn't already been set
         """
         if not self.lesson_id:
             self.lesson_id = self._generate_lesson_id()

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'profiles',
     'studio',
     'basket',
+    'checkout',
 
     'storages',
 ]

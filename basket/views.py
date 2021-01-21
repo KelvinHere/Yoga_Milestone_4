@@ -33,7 +33,7 @@ def remove_from_basket(request):
     """ Removes item from basket """
     basket = request.session.get('basket', {})
 
-    if request.method == 'POST':
+    try:
         if 'lesson_id' in request.POST:
             lesson_id = request.POST.get('lesson_id')
             basket.pop(lesson_id)
@@ -42,5 +42,5 @@ def remove_from_basket(request):
             return HttpResponse(json_response, content_type='application/json')
         else:
             return HttpResponse('Error: No lesson_id in POST', status=500)
-    else:
-        return HttpResponse('Error: Not POST', status=500)
+    except Exception as e:
+        return HttpResponse(e, status=500)
