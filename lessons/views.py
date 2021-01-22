@@ -21,7 +21,7 @@ def lessons(request):
     sub_title = None
     instructor_to_display = None
     subscribed_lesson_list = []
-    paid_lesson_list = []
+    paid_lesson_list = None
 
     lessons = Lesson.objects.all()
 
@@ -49,8 +49,9 @@ def lessons(request):
         # Filtering
         if 'filter' in request.GET:
             if request.GET['filter'] == 'mylessons':
-                print('sett my lesson var')
                 lesson_filter = 'mylessons'
+            if request.GET['filter'] == 'paidlessons':
+                lesson_filter = 'paidlessons'
 
         # Instructor header
         if 'instructor' in request.GET:
@@ -70,6 +71,7 @@ def lessons(request):
 
         # Get a list of paid lessons
         paid_lessons = OrderLineItem.objects.filter(profile=profile)
+        paid_lesson_list = []
         for paid_lesson in paid_lessons:
             paid_lesson_list.append(paid_lesson.lesson.lesson_id)
 
@@ -82,12 +84,21 @@ def lessons(request):
             page_title = 'My Lessons'
             sub_title = 'You are currently not subscribed to any lessons'
 
+    if lesson_filter == "paidlessons":
+        if paid_lesson_list:
+            lessons = lessons.filter(lesson_id__in=paid_lesson_list)
+            if lessons:
+                page_title = 'My Purchased Lessons'
+        else:
+            page_title = 'Purchased Lessons'
+            sub_title = 'You have not purchased any lessons'
+
     # Sort
     if sort_direction == 'asc':
         lessons = lessons.order_by(F(sortkey).asc(nulls_last=True))
     else:
         lessons = lessons.order_by(F(sortkey).desc(nulls_last=True))
-        
+
     # Create template and context
     template = 'lessons/lessons.html'
     context = {
