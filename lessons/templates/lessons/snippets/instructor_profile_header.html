@@ -9,5 +9,6 @@
     <!-- Profile description -->
     <div class="col-12 col-lg-7 instructor-profile-description-container mt-3">
         <p class="align-middle alt-font">{{ instructor_to_display.profile_description }}</p>
+        <p class="text-muted">Rating: {{ instructor_to_display.rating }}{% if instructor_to_display.rating %}/10{% endif %}</p>
     </div>
 </div>
