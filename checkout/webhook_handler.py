@@ -33,10 +33,6 @@ class StripeWH_Handler:
         payment_intent_id = intent.id
         basket = intent.metadata.basket
         username = intent.metadata.user
-        print('#Username')
-        print(username)
-        print('#basket')
-        print(basket)
 
         billing_details = intent.charges.data[0].billing_details
         grand_total = round(intent.charges.data[0].amount / 100, 2)
@@ -45,40 +41,33 @@ class StripeWH_Handler:
         attempt = 1
         while attempt <= 5:
             try:
-                print('#Try to find order')
-                print(payment_intent_id)
-                print(basket)
                 order = Order.objects.get(
                     stripe_id=payment_intent_id,
                     original_basket=basket,)
                 order_exists = True
                 break
             except Order.DoesNotExist:
-                print('#order not found')
                 attempt += 1
-                print(f'Attempt {attempt}')
                 time.sleep(1)
         if order_exists:
-            print('#Order found')
             return HttpResponse(
                     content=f'Webhook received: {event["type"]} | SUCCESS: Order already in database',
                     status=200)
         else:
-            print('#Order was not found after 5 attempts')
             order = None
             try:
-                print('#Trying to create order')
-                order = Order.objects.create(
-)
-                print('#Trying to get user')
                 user = get_object_or_404(User, username=username)
-                print('#user')
-                print(user)
                 profile = get_object_or_404(UserProfile, user=user)
-                print('#Profile')
-                print(profile)
-                for item in json.loads(basket):
-                    lesson = get_object_or_404(Lesson, lesson_id=item[0])
+                order = Order.objects.create(
+                    profile=profile,
+                    stripe_id=payment_intent_id,
+                    original_basket=basket,
+                    full_name=intent.charges.data[0]['billing_details']['name'],
+                    email=intent.charges.data[0]['billing_details']['email'],
+                )
+                a = json.loads(basket)
+                for lesson_id, value in json.loads(basket).items():
+                    lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
                     order_line_item = OrderLineItem(
                         order=order,
                         lesson=lesson,
