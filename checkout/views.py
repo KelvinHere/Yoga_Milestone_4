@@ -23,6 +23,9 @@ def checkout(request):
         order_form = OrderForm(request.POST)
         if order_form.is_valid():
             order = order_form.save(commit=False)
+            payment_intent_id = request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_id = payment_intent_id
+            order.original_basket = json.dumps(basket)
             order.profile = profile
             order.save()
             for item in basket.items():
@@ -46,7 +49,7 @@ def checkout(request):
             messages.error(request, "Your basket is empty")
             return redirect(reverse('index'))
 
-        #Prepare grand total for stripe and create payment intent
+        # Prepare grand total for stripe and create payment intent
         current_basket = basket_contents(request)
         total = current_basket['grand_total']
         stripe_total = round(total * 100)
@@ -55,12 +58,12 @@ def checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY
         )
-    
+
         order_form = OrderForm()
 
     if not stripe_public_key:
         messages.warning(request, 'Missing public key for stripe')
-    
+
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
@@ -70,9 +73,9 @@ def checkout(request):
 
     return render(request, template, context)
 
+
 def checkout_success(request, order_number):
     """ Handle successful checkouts """
-    save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
     messages.success(request, f'Order number successfully processed! \
         Order number : {order_number} \

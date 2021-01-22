@@ -10,7 +10,6 @@ def update_on_save(sender, instance, created, **kwargs):
     """
     Update order total on lineitem update/create
     """
-    print('#### Reciever fired')
     instance.order.update_total()
     lesson_subscription = LessonItem(lesson=instance.lesson, user=instance.profile)
     lesson_subscription.save()
