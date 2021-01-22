@@ -1,3 +1,4 @@
+//Create and style card element
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
@@ -26,7 +27,7 @@ card.addEventListener('change', function(event) {
     if (event.error) {
         var html = `
             <span class="icon" role="alert">
-                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-exclamation-circle text-warning"></i>
             </span>
             <span>${event.error.message}</span>
         `;
@@ -45,16 +46,21 @@ form.addEventListener('submit', function(event) {
     $('#submit-button').attr('disabled', true);
     $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
+    
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
+            billing_details: {
+                name: $.trim(form.full_name.value),
+                email: $.trim(form.email.value),
+            }
         }
     }).then(function(result) {
         if (result.error) {
             var errorMessageDiv = document.getElementById('card-error-messages');
             var html = `
                 <span class="icon" role="alert">
-                <i class="fas fa-exclamation-circle"></i>
+                <i class="fas fa-exclamation-circle text-warning"></i>
                 </span>
                 <span>${result.error.message}</span>
             `;
