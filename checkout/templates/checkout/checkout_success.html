@@ -36,11 +36,14 @@
                 <p class="text-center"><strong>Summary</strong></p>
                 <div class="row order-items mt-4 mx-3">
                     {% for item in order.lineitems.all %}
-                        <div class="col-10">
+                        <div class="col-8">
                             <p class="text-muted text-left mb-1">{{ item.lesson.lesson_name }}</p>
                         </div>
                         <div class="col-2">
                             <p class="text-muted text-right mb-1">€{{ item.lesson.price }}</p>
+                        </div>
+                        <div class="col-2">
+                            <a class="btn btn-sm btn-success" href="{% url 'studio' item.lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Begin</a>
                         </div>
                     {% endfor %}
                 </div>

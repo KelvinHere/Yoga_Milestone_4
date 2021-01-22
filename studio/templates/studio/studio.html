@@ -2,20 +2,17 @@
 {% load static %}
 
 {% block page_header %}
-    <div class="container container-header">
+    <div class="container header-container">
         <div class="row">
             <div class="col">
-
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-{% include 'lessons/snippets/lesson_sorting.html' %}
     <div class="overlay"></div>
-
-    <div class="container h-100">
+    <div class="container page-contents">
         <div class="row">
             <div class="col-12">
                 <h2 class="text-center my-3" id="lesson-page-title">{{ lesson.lesson_name }}</h2>
