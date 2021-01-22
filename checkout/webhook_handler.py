@@ -65,7 +65,6 @@ class StripeWH_Handler:
                     full_name=intent.charges.data[0]['billing_details']['name'],
                     email=intent.charges.data[0]['billing_details']['email'],
                 )
-                a = json.loads(basket)
                 for lesson_id, value in json.loads(basket).items():
                     lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
                     order_line_item = OrderLineItem(
