@@ -12,6 +12,8 @@ def update_on_save(sender, instance, created, **kwargs):
     """
     print('#### Reciever fired')
     instance.order.update_total()
+    lesson_subscription = LessonItem(lesson=instance.lesson, user=instance.profile)
+    lesson_subscription.save()
 
 
 @receiver(post_delete, sender=OrderLineItem)
@@ -27,6 +29,4 @@ def delete_associated_subscriptions(sender, instance, using, **kwargs):
     """
     Delete all subscriptions to paid lesson being deleted
     """
-    print('#Pre delete')
-    print(instance)
     LessonItem.objects.filter(user=instance.profile, lesson=instance.lesson).delete()
