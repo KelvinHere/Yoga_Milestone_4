@@ -159,12 +159,17 @@ Navigation and selection are consitent throughout the app.
         - Remove the instructor priveliage
 
   
-#### Sorting
+#### Sorting & Filtering
 
-- Lessons can be sorted on any page they appear by:
-    - Rating ascending or descending
-    - Lesson name ascending or descending
-    - Instructor ascending or descending
+- If viewing lessons or instructors with a lesson list below
+    - lessons can be sorted by
+        - Rating ascending or descending
+        - Lesson name ascending or descending
+        - Instructor name ascending or descending
+    - Lessons can be filtered by
+        - All
+        - Subscribed
+        - Purchased
 
 #### Database
  
