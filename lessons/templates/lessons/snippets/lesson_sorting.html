@@ -7,7 +7,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=None{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">All lessons  {% if current_filter == None %}<i class="fas fa-check">{% endif %}</i></a>
                 <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=mylessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">Subscribed Lessons  {% if current_filter == 'mylessons' %}<i class="fas fa-check">{% endif %}</i></a>
-                {% if paid_lesson_list %}<a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=paidlessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">Purchased Lessons {% if current_filter == 'paidlessons' %}<i class="fas fa-check">{% endif %}</i></a>{% endif %}
+                {% if purchased_lessons %}<a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=paidlessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">Purchased Lessons {% if current_filter == 'paidlessons' %}<i class="fas fa-check">{% endif %}</i></a>{% endif %}
             </div>
         </div>
     </div>
