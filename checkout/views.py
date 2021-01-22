@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 
@@ -9,6 +10,7 @@ from lessons.models import Lesson
 from profiles.models import UserProfile
 
 import stripe
+import json
 
 
 def checkout(request):
@@ -85,3 +87,21 @@ def checkout_success(request, order_number):
     }
 
     return render(request, template, context)
+
+
+@require_POST
+def attach_basket_to_intent(request):
+    try:
+        payment_intent_id = request.POST.get('client_secret').split('_secret')[0]
+        # Setup stripe with secret key so payment intent can be modified
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(payment_intent_id, metadata={
+            'user': request.user,
+            'basket': json.dumps(request.session.get('basket', {})),
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, 'Sorry, your payment cannot be processed. \
+            please try again later. \
+            You have NOT been charged for this transaction.')
+        return HttpResponse(content=e, status=400)

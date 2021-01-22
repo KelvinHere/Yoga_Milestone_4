@@ -47,32 +47,45 @@ form.addEventListener('submit', function(event) {
     $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
     
-    stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-            card: card,
-            billing_details: {
-                name: $.trim(form.full_name.value),
-                email: $.trim(form.email.value),
+    // Prepare data to be posted to attach_basket_to_intent view
+    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    var postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret
+    };
+    var url = '/checkout/attach_basket_to_intent/';
+
+    $.post(url, postData).done(function() {
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: $.trim(form.full_name.value),
+                    email: $.trim(form.email.value),
+                }
             }
-        }
-    }).then(function(result) {
-        if (result.error) {
-            var errorMessageDiv = document.getElementById('card-error-messages');
-            var html = `
-                <span class="icon" role="alert">
-                <i class="fas fa-exclamation-circle text-warning"></i>
-                </span>
-                <span>${result.error.message}</span>
-            `;
-            $(errorMessageDiv).html(html);
-            $('#payment-form').fadeToggle(100);
-            $('#loading-overlay').fadeToggle(100);
-            card.update({ 'disabled': false});
-            $('#submit-button').attr('disabled', false);
-        } else {
-            if (result.paymentIntent.status === 'succeeded') {
-                form.submit();
+        }).then(function(result) {
+            if (result.error) {
+                var errorMessageDiv = document.getElementById('card-error-messages');
+                var html = `
+                    <span class="icon" role="alert">
+                    <i class="fas fa-exclamation-circle text-warning"></i>
+                    </span>
+                    <span>${result.error.message}</span>
+                `;
+                $(errorMessageDiv).html(html);
+                $('#payment-form').fadeToggle(100);
+                $('#loading-overlay').fadeToggle(100);
+                card.update({ 'disabled': false});
+                $('#submit-button').attr('disabled', false);
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+                    form.submit();
+                }
             }
-        }
+        });
+    }).fail(function() {
+        // Reload the page to show the passed error message from attach_basket_to_intent
+        location.reload();
     });
 });
