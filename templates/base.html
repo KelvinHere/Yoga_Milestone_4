@@ -49,11 +49,19 @@
                         <a class="nav-link active mx-1" aria-current="page" href="{% url 'instructors' %}">Instructors</a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link active mx-1" aria-current="page" href="{% url 'lessons'%}?filter=mylessons">My Lessons</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active mx-1" aria-current="page" href="{% url 'lessons' %}">All Lessons</a>
+                    <li class="d-flex align-items-center">
+                        <div class="nav-item dropdown">
+                            <a class="dropdown-toggle mx-1 p-2 nav-link-format" href="#" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Lessons
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item colour-primary" aria-current="page" href="{% url 'lessons' %}">All Lessons</a>
+                                <a class="dropdown-item colour-primary" aria-current="page" href="{% url 'lessons' %}?filter=mylessons">Subscribed Lessons</a>
+                                {% if paid_lesson_list %}
+                                    <a class="dropdown-item colour-primary" aria-current="page" href="{% url 'lessons' %}?filter=paidlessons">Purchased Lessons</a>
+                                {% endif %}
+                            </div>
+                        </div>
                     </li>
                     {% endif %}
                     <li class="d-flex align-items-center">

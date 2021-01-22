@@ -79,16 +79,16 @@ def lessons(request):
     if lesson_filter == 'mylessons':
         lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
         if lessons:
-            page_title = 'My Lessons'
+            page_title = 'Subscribed Lessons'
         else:
-            page_title = 'My Lessons'
+            page_title = 'Subscribed Lessons'
             sub_title = 'You are currently not subscribed to any lessons'
 
     if lesson_filter == "paidlessons":
         if paid_lesson_list:
             lessons = lessons.filter(lesson_id__in=paid_lesson_list)
             if lessons:
-                page_title = 'My Purchased Lessons'
+                page_title = 'Purchased Lessons'
         else:
             page_title = 'Purchased Lessons'
             sub_title = 'You have not purchased any lessons'
