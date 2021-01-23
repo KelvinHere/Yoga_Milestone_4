@@ -21,7 +21,7 @@
                     {% if user.is_authenticated %}
                         {% if lesson.lesson_id not in paid_lesson_list and lesson.is_free == False %}
                         <!-- Lesson has not been bought and is not free -->
-                            <a class="btn btn-warning" href="" onclick="javascript:add_to_basket('{{ lesson.lesson_id }}')" role="button"><span>€{{ lesson.price }}</span>
+                        <a class="btn btn-warning" href="" onclick="javascript:add_to_basket('{{ lesson.lesson_id }}')" id="add_{{ lesson.lesson_id }}" role="button"><span>{% if lesson.lesson_id in basket_item_ids %}In basket{% else %}€{{ lesson.price }}{% endif %}</span>
                                 <span class="icon">
                                     <i class="fas fa-cart-plus"></i>
                                 </span>

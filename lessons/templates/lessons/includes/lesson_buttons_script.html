@@ -1,4 +1,5 @@
 <script type="text/javascript">
+    // Handle subscribe / unsubscribe / start_lesson buttons
     function subscribe(subscribe, lesson_id, filter) {
         $.ajax({
             type:"GET",
@@ -33,6 +34,15 @@
         })
     }
 
+    // Create added to basket popover
+    $('#navbar-basket').popover({
+        content: "Your lesson has been added to the basket",
+        html: true,
+        placement: 'bottom',
+        trigger: 'manual'
+    });
+
+    // Handle add to basket requests via AJAX
     function add_to_basket(lesson_id) {
         let csrfToken = "{{ csrf_token }}";
         event.preventDefault();
@@ -45,6 +55,7 @@
             },
             success: function(json_response){
                 if (json_response['item_added'] == 'True'){
+                    // Increment item count on navbar basket button
                     let count = String($('#nav-cart-amount').text());
                     count = count.replace('+', '');
                     count = parseInt(count);
@@ -54,6 +65,18 @@
                         count = count + 1;
                     }
                     $('#nav-cart-amount').text('+'+count);
+                    $('#add_'+lesson_id).text('Added')
+                    // Popover to confirm item has been added
+                    $('#navbar-basket').popover('toggle');
+                } else if (json_response['item_added'] == 'already_added'){
+                    // Create already_added to basket popover
+                    $('#add_'+lesson_id).popover({
+                        content: "You have already added this to your basket",
+                        html: true,
+                        placement: 'bottom',
+                        trigger: 'manual'
+                    });
+                   $('#add_'+lesson_id).popover('toggle');
                 }
             }
         })

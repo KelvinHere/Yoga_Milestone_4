@@ -7,6 +7,7 @@ from lessons.models import Lesson
 def basket_contents(request):
 
     basket_items = []
+    basket_item_ids = []
     total = 0
     product_count = 0
     basket = request.session.get('basket', {})
@@ -19,6 +20,7 @@ def basket_contents(request):
             'lesson': lesson,
             'price': lesson.price,
         })
+        basket_item_ids.append(lesson.lesson_id)
 
 
     if total >= settings.DISCOUNT_THRESHOLD:
@@ -31,6 +33,7 @@ def basket_contents(request):
 
     context = {
         'basket_items': basket_items,
+        'basket_item_ids': basket_item_ids,
         'total': total,
         'product_count': product_count,
         'discount': discount,

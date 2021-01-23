@@ -88,7 +88,7 @@
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="btn btn-warning" href="{% url 'view_basket' %}" role="button">
+                            <a class="btn btn-warning" href="{% url 'view_basket' %}" id="navbar-basket" role="button">
                                 <span class="icon">
                                     <i class="fas {% if product_count > 0 %}fa-cart-plus{% else %}fa-shopping-cart{% endif %} colour-primary" id="nav-cart-icon"></i>
                                 </span>
@@ -128,7 +128,11 @@
         {% block postloadjs %}
         <script type="text/javascript">
             $('.toast').toast('show');
+            $(function () {
+                $('[data-toggle="popover"]').popover()
+            })
         </script>
+        
         {% endblock %}
 
 </body>
