@@ -19,6 +19,7 @@ def lessons(request):
     lesson_filter = None
     page_title = 'All Lessons'
     sub_title = None
+    filter_title = 'All Lessons'
     instructor_to_display = None
     subscribed_lesson_list = []
     paid_lesson_list = None
@@ -76,22 +77,27 @@ def lessons(request):
             paid_lesson_list.append(paid_lesson.lesson.lesson_id)
 
     # Apply any filters and set up redirect reverse for buttons and page title
-    if lesson_filter == 'mylessons':
-        lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
-        if lessons:
+    if lesson_filter:
+        if lesson_filter == 'mylessons':
+            lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
+            if not lessons:
+                sub_title = 'You are currently not subscribed to any lessons'
             page_title = 'Subscribed Lessons'
-        else:
-            page_title = 'Subscribed Lessons'
-            sub_title = 'You are currently not subscribed to any lessons'
+            filter_title = page_title
 
-    if lesson_filter == "paidlessons":
-        if paid_lesson_list:
-            lessons = lessons.filter(lesson_id__in=paid_lesson_list)
-            if lessons:
+        if lesson_filter == "paidlessons":
+            if paid_lesson_list:
+                lessons = lessons.filter(lesson_id__in=paid_lesson_list)
+                if lessons:
+                    page_title = 'Purchased Lessons'
+            else:
                 page_title = 'Purchased Lessons'
-        else:
-            page_title = 'Purchased Lessons'
-            sub_title = 'You have not purchased any lessons'
+                sub_title = 'You have not purchased any lessons'
+            filter_title = 'Purchaed Lessons'
+        
+        # If viewing an instructor and also filtering
+        if instructor_to_display:
+            page_title = f"Welcome to {instructor_to_display}'s Studio"
 
     # Sort
     if sort_direction == 'asc':
@@ -108,6 +114,7 @@ def lessons(request):
         'paid_lesson_list': paid_lesson_list,
         'page_title': page_title,
         'sub_title': sub_title,
+        'filter_title': filter_title,
         'current_filter': lesson_filter,
         'instructor_to_display': instructor_to_display
     }
