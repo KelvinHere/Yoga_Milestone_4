@@ -8,12 +8,17 @@ def purchased_lessons(request):
 
     profile = get_profile_or_none(request)
     purchased = None
+    purchased_lesson_ids = []
 
     if profile:
         purchased = OrderLineItem.objects.filter(profile=profile)
+        if purchased:
+            for item in purchased:
+                purchased_lesson_ids.append(item.lesson.lesson_id)
 
     context = {
-        'purchased_lessons': purchased
+        'purchased_lessons': purchased,
+        'purchased_lesson_ids': purchased_lesson_ids,
     }
     print(purchased)
 
