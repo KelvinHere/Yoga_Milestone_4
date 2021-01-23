@@ -110,6 +110,13 @@ body {
 
 .profile-buttons a {
     width: 100%;
+    max-width: 425px;
+    text-align: center;
+}
+
+.profile-image {
+    max-width: 120px;
+    border-radius: 50%;
 }
 
 /* ---------------------------------------- Card formatting */
@@ -158,6 +165,7 @@ body {
 }
 
 /* ---------------------------------------- Media Queries */
+/* ----------------- Bootstrap SM breakpoint */
 @media (min-width: 412px) {
     .account-overlay {
         height: 100%;
@@ -191,8 +199,16 @@ body {
     .index-main-text {
         font-size: 3rem;
     }
+
+    .profile-image {
+        width: 100%;
+        max-width: 425px;
+        border-radius: 0%;
+        overflow: hidden;
+    }
 }
-    
+
+/* ----------------- Desktop breakpoint */
 @media (min-width: 1200px) {
         .paget-contents {
             max-width: 1800px;
