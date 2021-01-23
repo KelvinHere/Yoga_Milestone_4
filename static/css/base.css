@@ -11,8 +11,13 @@ body {
     font-family: 'Quicksand';
 }
 
+.title-text {
+    font-size: 2rem;
+}
+
 .index-main-text {
     font-size: 2rem;
+    background-color: rgba(255, 255, 255, .5);
 }
 
 .lesson-sort-bar {
@@ -69,10 +74,6 @@ body {
     background-color: #e0d8d0;
 }
 
-.index-main-text {
-    background-color: rgba(255, 255, 255, .5);
-}
-
 .colour-primary {
     color: #534a47 !important;
 }
@@ -105,6 +106,10 @@ body {
 /* ---------------------------------------- Profiles pages */
 .profile-table td {
     padding-right: 20px;
+}
+
+.profile-buttons a {
+    width: 100%;
 }
 
 /* ---------------------------------------- Card formatting */
@@ -153,23 +158,6 @@ body {
 }
 
 /* ---------------------------------------- Media Queries */
-@media (min-width: 991px) {
-    .account-overlay {
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        position: fixed;
-        background: url('/media/account-bg-blur.jpg') no-repeat center center fixed;
-        background-size: cover;
-        z-index: -1;
-    }
-
-    .index-main-text {
-        font-size: 3rem;
-    }
-}
-
 @media (min-width: 412px) {
     .account-overlay {
         height: 100%;
@@ -181,8 +169,34 @@ body {
         background-size: cover;
         z-index: -1;
     }
-
     .account-border {
         border: solid 1px #534a47;
     }
+}
+
+/* ----------------- Bootstrap MD breakpoint */
+@media (min-width: 768px) {
+    .account-overlay {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background: url('/media/account-bg-blur.jpg') no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
+    }
+
+    .title-text,
+    .index-main-text {
+        font-size: 3rem;
+    }
+}
+    
+@media (min-width: 1200px) {
+        .paget-contents {
+            max-width: 1800px;
+        }
+
+
 }

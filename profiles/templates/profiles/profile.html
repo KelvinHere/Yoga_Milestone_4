@@ -5,7 +5,7 @@
     <div class="container header-container">
         <div class="row">
             <div class="col">
-                <h1 class="text-center mb-3">{{ profile|title }}'s profile</h1>
+               <h1 class="text-center mb-4 mt-4 title-text">{{ profile|title }}'s profile</h1>
             </div>
         </div>
     </div>
@@ -13,75 +13,86 @@
 
 {% block content %}
     <div class="overlay"></div>
-    <div class="container page-contents mt-4">
-        <!-- Profile -->
-        <div class="row profile-container">
-            <div class="col-12 col-md-5 p-sm-0">
-                <div class="row text-center m-0">
-                    <div class="container-fluid instructor-page-profile-image-container p-0">
-                        {% if profile.image %}
-                            <img src="{{ profile.image.url }}" class="instructor-page-profile-image img-fluid" alt="{{ profile }}'s profile image'">
-                        {% else %}
-                            <img src="{{ MEDIA_URL }}profile_images/no_profile_image.jpg" class="instructor-page-profile-image img-fluid" alt="{{ profile }}'s profile image'">
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <!-- Profile description -->
-            <div class="col-12 col-md-7 instructor-profile-description-container mt-3 mt-md-0">
-                <div class="table-container d-flex justify-content-center justify-content-md-start">
-                    <table class="profile-table">
-                        <tr>
-                            <td><p><strong>First Name</strong></p></td>
-                            <td><p>:</p></td>
-                            <td><p>{{ profile.first_name }}</p></td>
-                        </tr>
-                        <tr>
-                            <td><p><strong>Second Name</strong></p></td>
-                            <td><p>:</p></td>
-                            <td><p>{{ profile.last_name }}</p></td>
-                        </tr>
-                        <tr>
-                            <td><p><strong>Status</strong></p></td>
-                            <td><p>:</p></td>
-                            <td>
-                                {% if profile.is_instructor and profile.requested_instructor_status %}
-                                    <p>Instructor</p>
-                                {% endif %}
-                                {% if profile.is_instructor == False and profile.requested_instructor_status %}
-                                    <p>Instructor pending review</p>
-                                {% endif %}
-                                {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
-                                    <p>Student</p>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <p class="text-center text-md-left alt-font">{{ profile.profile_description }}</p>
-            </div>
-        </div>
-        <!-- Buttons -->                
-        <div class="row mt-3">
-            <div class="col-12 col-md-6 px-sm-0 d-flex justify-content-center justify-content-md-start">
-                {% if profile.is_instructor and profile.requested_instructor_status %}
-                    <a href="" class="index-main-button btn btn-lg btn-primary disabled rounded-20 py-3 my-5 mx-5 btn-block">Instructor Status Granted</a>
-                {% endif %}
-                {% if profile.is_instructor == False and profile.requested_instructor_status %}
-                    <a href="{% url 'request_instructor_status' 'unrequest'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-1 my-5 mx-5 btn-block"><p class="my-0">Under Review</p><p class="my-0"><small>Press to Cancel Request</small></p></a>
-                {% endif %}
-                {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
-                    {% if profile_complete %}
-                        <a href="{% url 'request_instructor_status' 'request'%}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-5 mx-5 btn-block">Request Instructor Status</a>
+    <div class="container-fluid page-contents">
+        <div class="row mx-1 mx-lg-4 mt-1 mt-lg-5">
+            <div class="col-12 col-lg-6">
+                <!-- Profile -->
+                <div class="container-fluid p-0 p-md-3">
+                    {% if profile.image %}
+                        <img src="{{ profile.image.url }}" class="img-fluid" alt="{{ profile }}'s profile image'">
                     {% else %}
-                        <a href="{% url 'profile' %}?error=profile_error" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-5 mx-5 btn-block">Request Instructor Status</a>
+                        <img src="{{ MEDIA_URL }}profile_images/no_profile_image.jpg" class="img-fluid" alt="{{ profile }}'s profile image'">
                     {% endif %}
-                {% endif %}
+                    <div class="table-container d-flex justify-content-center justify-content-md-start mt-4">
+                        <div class="table-container"></div>
+                            <table class="profile-table">
+                                <tr>
+                                    <td><p><strong>Name</strong></p></td>
+                                    <td><p>:</p></td>
+                                    <td><p>{{ profile.first_name }} {{ profile.last_name }}</p></td>
+                                </tr>
+                                <tr>
+                                    <td><p><strong>Status</strong></p></td>
+                                    <td><p>:</p></td>
+                                    <td>
+                                    {% if profile.is_instructor and profile.requested_instructor_status %}
+                                    <p>Instructor</p>
+                                    {% endif %}
+                                    {% if profile.is_instructor == False and profile.requested_instructor_status %}
+                                        <p>Instructor pending review</p>
+                                    {% endif %}
+                                    {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
+                                        <p>Student</p>
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- Buttons -->                
+                        <div class="profile-buttons">
+                            {% if profile.is_instructor and profile.requested_instructor_status %}
+                            <p><a href="" class="index-main-button btn btn-lg btn-primary disabled rounded-20">Instructor Status Granted</a></p>
+                            {% endif %}
+                            {% if profile.is_instructor == False and profile.requested_instructor_status %}
+                            <p><a href="{% url 'request_instructor_status' 'unrequest'%}" class="index-main-button btn btn-lg btn-warning rounded-20"><p class="my-0">Under Review</p><p class="my-0"><small>Press to Cancel Request</small></p></a></p>
+                            {% endif %}
+                            {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
+                            {% if profile_complete %}
+                            <p><a href="{% url 'request_instructor_status' 'request'%}" class="index-main-button btn btn-lg btn-warning rounded-20">Request Instructor Status</a></p>
+                            {% else %}
+                            <p><a href="{% url 'profile' %}?error=profile_error" class="index-main-button btn btn-lg btn-warning rounded-20">Request Instructor Status</a></p>
+                            {% endif %}
+                            {% endif %}
+                            <p><a href="{% url 'edit_profile' %}" class="index-main-button btn btn-lg btn-warning rounded-20">Edit Profile</a></p>
+                        </div>
+                </div>
             </div>
-            <div class="col-12 col-md-6 px-sm-0 d-flex justify-content-center justify-content-md-end">
-                <a href="{% url 'edit_profile' %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-5 mx-5 btn-block">Edit Profile</a>
+            <div class="col-12 col-lg-6">
+                <p><strong>Order History</strong></p>
+                {% if Users_OrderdLineItems %}
+                    {% for item in Users_OrderdLineItems %}
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="text-muted text-left mb-1">{{ item.lesson.lesson_name }}</p>
+                            </div>
+                            <div class="col-2">
+                                <p class="text-muted text-right mb-1">€{{ item.lesson.price }}</p>
+                            </div>
+                            <div class="col-2">
+                                <a class="btn btn-sm btn-success" href="{% url 'studio' item.lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Begin</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>You have no purchased lessons yet.</p>
+                {% endif %}
             </div>
         </div>
     </div>
+
+    <p class="text-center text-md-left alt-font">{{ profile.profile_description }}</p>
+
+            
+
 
 {% endblock %}

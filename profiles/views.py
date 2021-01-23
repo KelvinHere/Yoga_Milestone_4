@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
 from .models import UserProfile
-from lessons.models import Lesson, LessonItem
 from django.contrib import messages
+
+from lessons.models import Lesson, LessonItem
+from checkout.models import OrderLineItem
 
 from yoga.utils import get_profile_or_none
 
@@ -12,6 +14,7 @@ def profile(request, show_profile_error_toast=False):
     """ View to view the personal profile page of the logged in user """
     profile = get_object_or_404(UserProfile, user=request.user)
     profile_complete = profile.test_profile_is_complete()
+    Users_OrderdLineItems = OrderLineItem.objects.filter(profile=profile)
 
     if 'error' in request.GET:
         messages.warning(request, 'You must complete your profile first!')
@@ -20,6 +23,7 @@ def profile(request, show_profile_error_toast=False):
     context = {
         'profile': profile,
         'profile_complete': profile_complete,
+        'Users_OrderdLineItems': Users_OrderdLineItems,
     }
     return render(request, template, context)
 
