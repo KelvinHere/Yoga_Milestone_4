@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse
-
+from django.contrib.auth.decorators import login_required
 from lessons.models import Lesson, LessonReview
 from checkout.models import OrderLineItem
 
 from yoga.utils import get_profile_or_none
 
 
+@login_required
 def studio(request, id):
     """ A view for the studio """
     profile = get_profile_or_none(request)

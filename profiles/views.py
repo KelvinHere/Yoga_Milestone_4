@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
+from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from django.contrib import messages
 
@@ -10,6 +11,7 @@ from yoga.utils import get_profile_or_none
 from .forms import ProfileForm
 
 
+@login_required
 def profile(request, show_profile_error_toast=False):
     """ View to view the personal profile page of the logged in user """
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -28,6 +30,7 @@ def profile(request, show_profile_error_toast=False):
     return render(request, template, context)
 
 
+@login_required
 def edit_profile(request):
     """ View to edit the personal profile page of the logged in user """
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -48,6 +51,7 @@ def edit_profile(request):
         return render(request, 'profiles/edit_profile.html', context)
 
 
+@login_required
 def instructor_profile(request, instructor_id):
     """ View to disply an instructor and their lessons to a user """
     instructor_profile = get_object_or_404(UserProfile, id=instructor_id)
@@ -95,6 +99,8 @@ def instructors(request):
 
     return render(request, template, context)
 
+
+@login_required
 def request_instructor_status(request, status):
     """ View for user to request to become an instructor """
     profile = get_object_or_404(UserProfile, user=request.user)
