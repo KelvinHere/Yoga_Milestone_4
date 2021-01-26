@@ -62,7 +62,14 @@ def lessons(request):
         if 'instructor' in request.GET:
             if request.GET['instructor']:
                 instructor_id = request.GET['instructor']
-                instructor_to_display = get_object_or_404(UserProfile, id=instructor_id)
+                try:
+                    instructor_to_display = get_object_or_404(UserProfile, id=instructor_id)
+                    if not instructor_to_display.is_instructor:
+                        messages.error(request, 'This user is not an instructor, please pick one from the instructor list.')
+                        return redirect(reverse('instructors'))
+                except Exception as e:
+                    messages.error(request, 'This instructor was not found, please pick one from the instructor list.')
+                    return redirect(reverse('instructors'))
                 page_title = f"Welcome to {instructor_to_display}'s Studio"
                 lessons = lessons.filter(instructor_profile=instructor_to_display)
 
