@@ -1,0 +1,1 @@
+Order Confirmed: Social Yoga order number {{ order.order_number }}

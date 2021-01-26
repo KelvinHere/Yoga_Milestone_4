@@ -1,0 +1,23 @@
+Hi {{ order.funn_name }}
+
+This is confirmation of your Social Yoga Order.
+
+Order Number: {{ order.order_number }}
+Order Date: {{ order.date }}
+
+{% if discount %}
+Order Total: €{{ order.order_total }}
+discount: €{{ order.discount }}
+{% endif %}
+Grand Total: {{ order.grand_total }}
+
+A subscription to the lesson has been created, you can find it in "Subscribed Lessons" under the "Lessons" link.
+Alternitavley you can find it in your profile.
+
+If you have any questions, you can contact us at {{ contact_email }}.
+
+Thankyou for your order!
+
+Sincerley,
+
+Social Yoga
