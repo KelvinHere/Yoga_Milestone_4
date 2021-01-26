@@ -1,13 +1,16 @@
 from django.shortcuts import render, HttpResponse
+from django.contrib.auth.decorators import login_required
 import json
 
 
+@login_required
 def view_basket(request):
     """ A view to view the basket """
     template = 'basket/basket.html'
     return render(request, template)
 
 
+@login_required
 def add_to_basket(request):
     """ Add a lesson to the basket """
     basket = request.session.get('basket', {})
@@ -29,6 +32,7 @@ def add_to_basket(request):
         return HttpResponse('Error: Not POST', status=500)
 
 
+@login_required
 def remove_from_basket(request):
     """ Removes item from basket """
     basket = request.session.get('basket', {})

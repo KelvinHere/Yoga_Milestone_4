@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
+from django.contrib.auth.decorators import login_required
 from lessons.models import LessonItem
 from profiles.models import UserProfile, User
 
@@ -22,6 +23,7 @@ def index(request):
     return render(request, template, context)
 
 
+@login_required
 def superuser_admin(request):
     """ View for superuser admin, shows user requests """
     profile = get_profile_or_none(request)
