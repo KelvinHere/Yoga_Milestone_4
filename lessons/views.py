@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.db.models import Q, F
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile, User
 from lessons.models import Lesson, LessonItem, LessonReview
@@ -24,6 +25,7 @@ def lessons(request):
     instructor_to_display = None
     subscribed_lesson_list = []
     paid_lesson_list = None
+    valid_sort_values = ['name', 'instructor', 'rating', 'price']
 
     lessons = Lesson.objects.all()
 
@@ -31,15 +33,16 @@ def lessons(request):
         # Sorting
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
-            sort = sortkey
+            if sortkey not in valid_sort_values:
+                messages.error(request, 'Invalid sort value, displaying all lessons by name in ascending order')
+                return redirect(reverse('lessons'))
+
             if sortkey == 'name':
                 sortkey = 'lesson_name'
             if sortkey == 'instructor':
                 sortkey = 'instructor_profile'
             if sortkey == 'rating':
                 sortkey = 'rating'
-            if sortkey == 'subscribers':
-                sortkey = 'subscribers'
             if sortkey == 'price':
                 sortkey = 'price'
 
@@ -92,6 +95,7 @@ def lessons(request):
                 if lessons:
                     page_title = 'Purchased Lessons'
             else:
+                lessons = lessons.filter(lesson_id__in=paid_lesson_list)
                 page_title = 'Purchased Lessons'
                 sub_title = 'You have not purchased any lessons'
             filter_title = 'Purchaed Lessons'

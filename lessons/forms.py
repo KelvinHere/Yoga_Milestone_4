@@ -1,4 +1,6 @@
 from django import forms
+from django_resized import ResizedImageField
+from .widgets import CustomClearableFileInput
 from .models import Lesson, LessonReview
 
 
@@ -16,6 +18,8 @@ class LessonForm(forms.ModelForm):
             'description': 'Text under video',
             'time': 'Estimated length of lesson',
         }
+
+        image = forms.ImageField(label='image', required=False, widget=CustomClearableFileInput)
 
     # Over-ride init
     def __init__(self, *args, **kwargs): 

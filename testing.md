@@ -19,7 +19,25 @@
     - Create two lessons with the same name
     - Edit another instructors lessons
 
- 
+#### Home Page
+- While logged out, users cannot access the following views
+    - `/superuser_admin` - Result "Error message - Sorry only administrators can do this"
+    - `/update_instructor_status/<user_to_update>/<status>` - Result "Error message - Sorry only administrators can do this"
+
+
+- While logged in, non superusers cannot access the following views
+    - `/superuser_admin` - Result: Redirect to login page
+    - `/update_instructor_status/<user_to_update>/<status>` - Result: Redirect to login page
+
+#### Pages with Lessons
+- Filters
+    - `/lessons/?filter=AN_INVALID_FILTER` - Invalid filters default to showing all lessons and will not return an error message
+    - `/lessons/?filter=paidlessons` - paidlesson filter when user has none will show the warning "You have not purchased any lessons"
+    - `/lessons/?filter=mylessons` - mylessons (subscribed lessons) when user has none will show the warning "You are currently not subscribed to any lessons"
+
+- Sort direction
+    - `lessons/?direction=INVALID_DIRECTION` - Invalid direction argument will default the sort to descending
+    - 
 
  ## Bugs
 
