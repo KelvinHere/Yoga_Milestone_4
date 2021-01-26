@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.db.models import Q, F
+from django.contrib.auth.decorators import login_required
 from .models import UserProfile, User
 from lessons.models import Lesson, LessonItem, LessonReview
 from checkout.models import OrderLineItem
@@ -122,6 +123,7 @@ def lessons(request):
     return render(request, template, context)
 
 
+@login_required
 def subscriptions(request):
     """ View to remove a subscribed lesson from a UserProfile """
     if request.method == 'GET':
@@ -145,6 +147,7 @@ def subscriptions(request):
             return HttpResponse('<h1>Something went wrong, no lessons have been subscribed or unsubscribed to.</h1>', status=500)
 
 
+@login_required
 def instructor_created_lessons(request):
     """ View admin for lessons instructors have created """
 
@@ -162,6 +165,7 @@ def instructor_created_lessons(request):
     return render(request, template, context)
 
 
+@login_required
 def delete_instructor_created_lesson(request, id):
     """ A view to delete a lesson given an id for instructor created lessons """
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -174,6 +178,7 @@ def delete_instructor_created_lesson(request, id):
         return HttpResponse('<h1>Error, this user did not create the lesson, please log in with the correct profile to delete it<h1>', status=500)
 
 
+@login_required
 def create_lesson(request):
     """ View to create an instructor lesson """
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -206,6 +211,7 @@ def create_lesson(request):
         return render(request, template, context)
 
 
+@login_required
 def edit_lesson(request, lesson_id):
     """ A view to edit and update an instructors lesson """
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -231,6 +237,7 @@ def edit_lesson(request, lesson_id):
             return HttpResponse('<h1>You can only edit your own lessons, check your login details and try again<h1>', status=500)
 
 
+@login_required
 def review_lesson(request, lesson_id):
     """ A view to create a profile """
     profile = get_object_or_404(UserProfile, user=request.user)
