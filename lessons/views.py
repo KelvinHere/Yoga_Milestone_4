@@ -117,6 +117,11 @@ def lessons(request):
     else:
         lessons = lessons.order_by(F(sortkey).desc(nulls_last=True))
 
+    print(lessons)
+    for item in lessons:
+        print(item)
+        print(type(item))
+
     # Create template and context
     template = 'lessons/lessons.html'
     context = {

@@ -42,25 +42,17 @@
                         {% if profile.is_instructor == False and profile.requested_instructor_status %}
                         <p class="text-center">
                             <a href="{% url 'request_instructor_status' 'unrequest'%}" class="index-main-button btn btn-sm btn-md-lg  btn-warning rounded-20">
-                                <p class="my-0">Under Review</p>
-                                <p class="my-0"><small>Press to Cancel Request</small></p>
+                                <span class="my-0">Under Review:</span>
+                                <span class="my-0"><small>Press to Cancel</small></span>
                             </a>
                         </p>
                         {% endif %}
                         {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
-                            {% if profile_complete %}
-                            <p class="text-center">
-                                <a href="{% url 'request_instructor_status' 'request'%}" class="index-main-button btn btn-sm btn-md-lg btn-warning rounded-20">
-                                    Request Instructor Status
-                                </a>
-                            </p>
-                            {% else %}
-                            <p class="text-center">
-                                <a href="{% url 'profile' %}?error=profile_error" class="index-main-button btn btn-sm btn-md-lg btn-warning rounded-20">
-                                    Request Instructor Status
-                                </a>
-                            </p>
-                            {% endif %}
+                        <p class="text-center">
+                            <a href="{% url 'request_instructor_status' 'request'%}" class="index-main-button btn btn-sm btn-md-lg btn-warning rounded-20">
+                                Request Instructor Status
+                            </a>
+                        </p>
                         {% endif %}
                     </div>
                 </div>

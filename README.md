@@ -13,6 +13,7 @@ The user will also have the ability to book personal video calls with the tutor 
 ## Bugs
 If you close down the browser while buying, the basket is not emptied, you could potentially buy the same item twice
 add to basket when navbar is collapsed shows on top left - move basket to collapsed nav
+format accounts/confirm-email/
 
 
 

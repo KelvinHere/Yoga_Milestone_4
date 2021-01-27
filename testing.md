@@ -127,8 +127,25 @@
     - User who passes an invalid lesson_id will be redirected home with the error "Cannot create/edit a review for an invalid lesson."
     - User who submits an invalid form are redirected back to the current lesson they were creating a review for with the error message "Error in review form: {form.errors}"
 
+#### Profile Page
+1. **profile view**
+- **Valid requests**
+    - GET requests given a valid lesson_id will display a pre-filled lesson form ready for editing
+    - POST requests will update a lesson with the new form data
 
- ## Bugs
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+
+2. **request_instructor_status**
+- **Valid requests**
+    - If user profile is complete and status is "request" profile is updated to `profile.requested_instructor_status: True`
+    - If user profile is complete and status is anything but "request" profile is updated to `profile.requested_instructor_status: False`
+
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+    - If user profile is not completed user is redirected back to profile page with the error message "Error, you must complete your profile first."
+
+## Bugs
 
 - **'Sort lesson by rating - high to low' feature had all non-rated lessons listed at the top**
 - Situation - Code would show unrated lessons higher than rated lessons, original code below

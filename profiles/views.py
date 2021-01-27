@@ -12,10 +12,11 @@ from .forms import ProfileForm
 
 
 @login_required
-def profile(request, show_profile_error_toast=False):
+def profile(request):
     """ View to view the personal profile page of the logged in user """
     profile = get_object_or_404(UserProfile, user=request.user)
     profile_complete = profile.test_profile_is_complete()
+    # Get purchased lessons
     Users_OrderdLineItems = OrderLineItem.objects.filter(profile=profile)
 
     if 'error' in request.GET:
@@ -104,6 +105,11 @@ def instructors(request):
 def request_instructor_status(request, status):
     """ View for user to request to become an instructor """
     profile = get_object_or_404(UserProfile, user=request.user)
+
+    profile_complete = profile.test_profile_is_complete()
+    if not profile_complete:
+        messages.error(request, 'Error, you must complete your profile first.')
+        return redirect(reverse('profile'))
 
     if status == 'request':
         profile.requested_instructor_status = True
