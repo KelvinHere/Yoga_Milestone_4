@@ -128,6 +128,7 @@
     - User who submits an invalid form are redirected back to the current lesson they were creating a review for with the error message "Error in review form: {form.errors}"
 
 #### Profile Page
+
 1. **profile view**
 - **Valid requests**
     - GET requests given a valid lesson_id will display a pre-filled lesson form ready for editing
@@ -138,24 +139,41 @@
 
 2. **edit_profile view**
 - **Valid requests**
-    - GET requests will render a template with a profile form `edit_profile.html`, pre-filled if any data exists on that profile
+    - GET requests will render a template with a profile form `profiles/edit_profile.html`, pre-filled if any data exists on that profile
     - POST requests will update a profile with the new form data and return the user to their profile page (`profile` view)
 
 - **Error and Invalid request handling**
     - Users who are not logged in are redirected to signin page
     - User who submits invalid form will be redirected to the profile page with the error "There was an error in your profile data: {error}, please try again."
 
+3. **instructors**
+- **Valid requests**
+    - Request will render a template with a card list of all instructors `profiles/instructors.html`
 
+- **Error and Invalid request handling**
+    - None needed
 
-
-3. **request_instructor_status**
+4. **request_instructor_status**
 - **Valid requests**
     - If user profile is complete and status is "request" profile is updated to `profile.requested_instructor_status: True`
     - If user profile is complete and status is anything but "request" profile is updated to `profile.requested_instructor_status: False`
 
 - **Error and Invalid request handling**
     - Users who are not logged in are redirected to signin page
-    - If user profile is not completed user is redirected back to profile page with the error message "Error, you must complete your profile first."
+    - If user profile is not completed user is redirected back to profile page with the error message "You must complete your profile first."
+
+#### Studio Page
+
+1. **studio view**
+- **Valid requests**
+    - Requests given a valid lesson_id will display the lesson if it is free or has been purchased
+
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+    - User who submits an invalid lesson_id will be redirected `home` with the error message "Error, Invalid lesson"
+    - User who submits a paid lesson_id they have not purchased will be redirected `home` with the error message "You do not own this lesson"
+
+#### Basket Page
 
 
 
