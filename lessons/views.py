@@ -211,6 +211,9 @@ def delete_instructor_created_lesson(request, id):
 def create_lesson(request):
     """ View to create an instructor lesson """
     profile = get_object_or_404(UserProfile, user=request.user)
+    if not profile.is_instructor:
+        messages.error(request, 'Only instructors can do this.')
+        return redirect('home')
 
     if request.method == 'POST':
         # Get lesson name form data
@@ -229,7 +232,8 @@ def create_lesson(request):
                 return redirect('instructor_created_lessons')
             return redirect('instructor_created_lessons')
         else:
-            return HttpResponse('<h1>You already have a lesson named this<h1>', status=500)
+            messages.error(request, 'You already have a lesson named this.')
+            return redirect(reverse('instructor_created_lessons'))
 
     else:
         form = LessonForm(initial={'instructor_profile':profile})  # Insert current user in this field
@@ -244,7 +248,16 @@ def create_lesson(request):
 def edit_lesson(request, lesson_id):
     """ A view to edit and update an instructors lesson """
     profile = get_object_or_404(UserProfile, user=request.user)
-    instructor_lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+    if not profile.is_instructor:
+        messages.error(request, 'Only instructors can do this.')
+        return redirect('home')
+
+    try:
+        instructor_lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+    except Exception as e:
+        messages.error(request, 'Invalid lesson ID, no lessons were updated.')
+        return redirect(reverse('instructor_created_lessons'))
+    
     if request.method == 'POST':
         form = LessonForm(request.POST, request.FILES, instance=instructor_lesson)
         if form.is_valid():
@@ -263,15 +276,24 @@ def edit_lesson(request, lesson_id):
             }
             return render(request, template, context)
         else:
-            return HttpResponse('<h1>You can only edit your own lessons, check your login details and try again<h1>', status=500)
+            messages.error(request, 'You can only edit your own lessons, please check your username.')
+            return redirect(reverse('instructor_created_lessons'))
 
 
 @login_required
 def review_lesson(request, lesson_id):
     """ A view to create a profile """
     profile = get_object_or_404(UserProfile, user=request.user)
-    lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+    try:
+        lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+    except Exception as e:
+        messages.error(request, 'Cannot create/edit a review for an invalid lesson.')
+        return redirect(reverse('home'))
+
     existing_review = LessonReview.objects.filter(profile=profile, lesson=lesson).first()
+    if not profile == existing_review.profile:
+        messages.error(request, 'Cannot complete request, this review is not yours.')
+        return redirect(reverse('home'))
 
     template = "lessons/create_review.html"
     context = {
@@ -288,7 +310,9 @@ def review_lesson(request, lesson_id):
             form.save()
             return redirect('studio', lesson.lesson_id)
         else:
-            return HttpResponse('Error in review form', status=500)
+            error = form.errors
+            messages.error(request, f'Error in review form: {error}')
+            return redirect(reverse('studio', lesson_id))
 
     else:
         if existing_review:
