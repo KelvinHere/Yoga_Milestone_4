@@ -40,6 +40,9 @@ def edit_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
+        else:
+            error = form.errors
+            messages.error(request, f'There was an error in your profile data: {error}, please try again.')
         return redirect('profile')
 
     else:
@@ -50,43 +53,6 @@ def edit_profile(request):
             'form': form,
         }
         return render(request, 'profiles/edit_profile.html', context)
-
-
-@login_required
-def instructor_profile(request, instructor_id):
-    """ View to disply an instructor and their lessons to a user """
-    instructor_profile = get_object_or_404(UserProfile, id=instructor_id)
-    profile = get_profile_or_none(request)
-
-    # Does profile belong to a instructor
-    if instructor_profile.is_instructor:
-        lessons = Lesson.objects.filter(instructor_profile=instructor_profile)
-    else:
-        return HttpResponse('This profile does not belong to an instructor', status=500)
-
-    # Get a list of subscribed lesson IDs for current user
-    subscribed_lesson_list = []
-    if request.user.is_authenticated:
-        subscribed_lessons = LessonItem.objects.filter(user=profile)
-        for each in subscribed_lessons:
-            subscribed_lesson_list.append(each.lesson.lesson_id)
-
-    # If authenticated get a list of paid lessons
-    paid_lesson_list = []
-    if request.user.is_authenticated:
-        lesson_items = LessonItem.objects.filter(user=profile, paid_for=True)
-        for lesson_item in lesson_items:
-            paid_lesson_list.append(lesson_item.lesson.lesson_id)
-
-    template = 'profiles/instructor_profile.html'
-    context = {
-        'profile': profile,
-        'instructor_profile': instructor_profile,
-        'lessons': lessons,
-        'subscribed_lesson_list': subscribed_lesson_list,
-        'paid_lesson_list': paid_lesson_list,
-    }
-    return render(request, template, context)
 
 
 def instructors(request):
