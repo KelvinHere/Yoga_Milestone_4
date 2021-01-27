@@ -168,6 +168,10 @@ def instructor_created_lessons(request):
     """ View admin for lessons instructors have created """
 
     profile = get_object_or_404(UserProfile, user=request.user)
+    if not profile.is_instructor:
+        messages.error(request, 'Only instructors can do this.')
+        return redirect('home')
+    
     template = 'lessons/instructor_created_lessons.html'
 
     # Get lesson items bound to student

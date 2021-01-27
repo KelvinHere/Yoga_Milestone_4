@@ -75,6 +75,13 @@
 - Trying alter subscription status of a lesson using something other than `true` or `false` returns the user to lessons page and gives the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
 - A nonsense request with invalid GET keys passed returns user to the lesson page with an error message "Invalid request, no lessons have been subscribed or unsubscribed to."
 
+3. **instructor created lessons view**
+- **Valid requests**
+    - Displays a list of lessons the logged in instructor has created or a prompt "You have not created any lessons yet"
+
+- **Error and Invalid request handling**
+- If user is not an instructor they are returned to the homepage with the error message "Only instructors can do this"
+
 
  ## Bugs
 
