@@ -189,13 +189,22 @@ def instructor_created_lessons(request):
 def delete_instructor_created_lesson(request, id):
     """ A view to delete a lesson given an id for instructor created lessons """
     profile = get_object_or_404(UserProfile, user=request.user)
-    instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
+    if not profile.is_instructor:
+        messages.error(request, 'Only instructors can do this.')
+        return redirect('home')
+
+    try:
+        instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
+    except Exception as e:
+        messages.error(request, 'Invalid lesson ID, no lessons were deleted.')
+        return redirect(reverse('instructor_created_lessons'))
 
     if instructor_created_lesson.instructor_profile == profile:
         instructor_created_lesson.delete()
         return redirect('instructor_created_lessons')
     else:
-        return HttpResponse('<h1>Error, this user did not create the lesson, please log in with the correct profile to delete it<h1>', status=500)
+        messages.error(request, 'This lesson does not belong to you and has not been deleted, please check your username and try again.')
+        return redirect(reverse('instructor_created_lessons'))
 
 
 @login_required

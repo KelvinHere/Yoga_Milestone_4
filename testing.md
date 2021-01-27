@@ -71,17 +71,25 @@
         - `subscribe=false` the user is unsubscribed to the lessons and JS updates the buttons from "Unsubscribed" and "Start Lesson" to "Subscribe"
 
 - **Error and Invalid request handling**
-- Trying to submit an invalid lesson_id `/lessons/subscriptions/?subscribe=true&lesson_id=INVALID_LESSON_ID` returns user to lessons page with the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
-- Trying alter subscription status of a lesson using something other than `true` or `false` returns the user to lessons page and gives the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
-- A nonsense request with invalid GET keys passed returns user to the lesson page with an error message "Invalid request, no lessons have been subscribed or unsubscribed to."
+    - Trying to submit an invalid lesson_id `/lessons/subscriptions/?subscribe=true&lesson_id=INVALID_LESSON_ID` returns user to lessons page with the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
+    - Trying alter subscription status of a lesson using something other than `true` or `false` returns the user to lessons page and gives the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
+    - A nonsense request with invalid GET keys passed returns user to the lesson page with an error message "Invalid request, no lessons have been subscribed or unsubscribed to."
 
-3. **instructor created lessons view**
+3. **instructor_created_lessons view**
 - **Valid requests**
     - Displays a list of lessons the logged in instructor has created or a prompt "You have not created any lessons yet"
 
 - **Error and Invalid request handling**
-- If user is not an instructor they are returned to the homepage with the error message "Only instructors can do this"
+    - If user is not an instructor they are returned to the homepage with the error message "Only instructors can do this"
 
+4. **delete_instructor_created_lesson view**
+- **Valid requests**
+    - If an instructor passes a valid lesson_id and the logged in profile matches the profile of the lesson creator, the lesson is delete_instructor_created_lesson
+
+- **Error and Invalid request handling**
+    - If a user who is not an instructor tries to access this view they are directed to the home page with the error "Only instructors can do this."
+    - If an instructor tries to pass the lesson_id from a lesson they did not create they are given the error message "This lesson does not belong to you and has not been deleted, please check your username and try again."
+    - If an instructor tries tp pass an invalid lesson_id they are given the error message "Invalid lesson ID, no lessons were deleted."
 
  ## Bugs
 
