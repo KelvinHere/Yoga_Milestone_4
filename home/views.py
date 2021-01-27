@@ -43,9 +43,6 @@ def superuser_admin(request):
     }
     return render(request, template, context)
 
-        
-
-
 
 @login_required
 def update_instructor_status(request, user_to_update, status):

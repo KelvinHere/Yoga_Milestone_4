@@ -138,9 +138,13 @@ def lessons(request):
 def subscriptions(request):
     """ View to remove a subscribed lesson from a UserProfile """
     if request.method == 'GET':
-        lesson_id = request.GET['lesson_id']
         profile = get_object_or_404(UserProfile, user=request.user)
-        lesson_object = Lesson.objects.get(lesson_id=lesson_id)        
+        try:
+            lesson_id = request.GET['lesson_id']
+            lesson_object = Lesson.objects.get(lesson_id=lesson_id)
+        except Exception as e:
+            messages.error(request, 'Invalid request, no lessons have been subscribed or unsubscribed to.')
+            return redirect(reverse('lessons'))
 
         if request.GET['subscribe'] == 'false':
             unsubscribe = LessonItem.objects.filter(lesson=lesson_object, user=profile)
@@ -155,7 +159,8 @@ def subscriptions(request):
             return HttpResponse(json_response, content_type='application/json')
 
         else:
-            return HttpResponse('<h1>Something went wrong, no lessons have been subscribed or unsubscribed to.</h1>', status=500)
+            messages.error(request, 'Invalid request, no lessons have been subscribed or unsubscribed to.')
+            return redirect(reverse('lessons'))
 
 
 @login_required

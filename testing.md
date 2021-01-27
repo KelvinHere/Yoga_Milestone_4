@@ -20,29 +20,61 @@
     - Edit another instructors lessons
 
 #### Home Page
+
+- **Valid requests**
+- While logged in, superusers can access "Superuser admin" where they can
+    - Accept/reject users requests to become an instructor
+    - Remove instructor status from an instructor
+
+- **Error and Invalid request handling**
 - While logged out, users cannot access the following views
     - `/superuser_admin` - Result "Error message - Sorry only administrators can do this"
     - `/update_instructor_status/<user_to_update>/<status>` - Result "Error message - Sorry only administrators can do this"
-
 
 - While logged in, non superusers cannot access the following views
     - `/superuser_admin` - Result: Redirect to login page
     - `/update_instructor_status/<user_to_update>/<status>` - Result: Redirect to login page
 
 #### Lessons Page
+
+1. **lessons view**
+- **Valid requests**
+- Filters
+    - When directed to the lesson page from the instructors page you are shown the instructor profile with their (sortable and filterable) lessons underneath.
+    - Subscribed Lessons filter `/lessons/?filter=mylessons` only displays lessons currently subscribed to, a message of "You are currently not subscribed to any lessons"
+    - Purchased Lessons filter `/lessons/?filter=paidlessons` only displays purchased lessons, when a user has none it show the warning "You have not purchased any lessons"
+    - All Lessons filter `/lessons/?filter=None` displays all lessons
+
+- Stacked Filters
+    - When viewing an instructors lessons
+        - All lessons filter will only show lessons by that instructor as default
+        - Purchased lessons filter will only show lessons purchased from that instructor
+        - Subscribed lessons filter will only show lessons subscribed to from that instructor
+
+
+- **Error and Invalid request handling**
 - Filters
     - `/lessons/?filter=AN_INVALID_FILTER` - Invalid filters default to showing all lessons and will not return an error message
-    - `/lessons/?filter=paidlessons` - paidlesson filter when user has none will show the warning "You have not purchased any lessons"
-    - `/lessons/?filter=mylessons` - mylessons (subscribed lessons) when user has none will show the warning "You are currently not subscribed to any lessons"
 
 - Sort direction
     - `lessons/?direction=INVALID_DIRECTION` - Invalid direction argument will default the sort to descending
     - `lessons/?sort=INVALID_SORT_ARGUMENT` - Invalid sort arguments will warn the user "Invalid sort value, displaying all lessons by name in ascending order"
 
 - Instructor
-    - When directed to the lesson page from the instructors page you are shown the instructor profile with their (sort and filterable )lessons underneath
-    - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passed a user that is not an instructor, user redirected to instructors page with error "This user is not an instructor, please pick one from the instructor list."
-    - `lessons/?instructor=INVALID_USER` Passed a user that does not exist, user redirected to instructor page with error "This instructor was not found, please pick one from the instructor list."
+    - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passed a user that is not an instructor, user redirected to instructors page error message "This user is not an instructor, please pick one from the instructor list."
+    - `lessons/?instructor=INVALID_USER` Passed a user that does not exist, user redirected to instructor page with error message "This instructor was not found, please pick one from the instructor list."
+
+2. **subscribe view**
+- **Valid Requests**
+    - When passed a valid lesson_id along with
+        - `subscribe=true` the user is subscribed to the lesson and JS updates the buttons from "Subscribe" to "Unsubscribe" and "Sart Lesson"
+        - `subscribe=false` the user is unsubscribed to the lessons and JS updates the buttons from "Unsubscribed" and "Start Lesson" to "Subscribe"
+
+- **Error and Invalid request handling**
+- Trying to submit an invalid lesson_id `/lessons/subscriptions/?subscribe=true&lesson_id=INVALID_LESSON_ID` returns user to lessons page with the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
+- Trying alter subscription status of a lesson using something other than `true` or `false` returns the user to lessons page and gives the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
+- A nonsense request with invalid GET keys passed returns user to the lesson page with an error message "Invalid request, no lessons have been subscribed or unsubscribed to."
+
 
  ## Bugs
 
