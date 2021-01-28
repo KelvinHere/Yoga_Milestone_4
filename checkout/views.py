@@ -43,13 +43,14 @@ def checkout(request):
                     messages.error(request, "One of the lessons was not found please contact us for assistance")
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
-            messages.error(request, 'There was an error with your form.')
+            messages.error(request, 'There was an error with your form, no charges have been made.')
+            return redirect(reverse('checkout'))
 
     else:
         basket = request.session.get('basket', {})
         if not basket:
             messages.error(request, "Your basket is empty")
-            return redirect(reverse('index'))
+            return redirect(reverse('home'))
 
         # Prepare grand total for stripe and create payment intent
         current_basket = basket_contents(request)
@@ -79,7 +80,17 @@ def checkout(request):
 @login_required
 def checkout_success(request, order_number):
     """ Handle successful checkouts """
-    order = get_object_or_404(Order, order_number=order_number)
+    try:
+        order = get_object_or_404(Order, order_number=order_number)
+    except Exception as e:
+        messages.error(request, f"This order was not found, please contact {settings.DEFAULT_FROM_EMAIL} for support.")
+        return redirect(reverse('home'))
+
+    profile = get_object_or_404(UserProfile, user=request.user)
+    if profile != order.profile:
+        messages.error(request, f"This order does not belong to this account, if this is an misake please contact {settings.DEFAULT_FROM_EMAIL} for support.")
+        return redirect(reverse('home'))
+
     messages.success(request, f'Order number successfully processed! \
         Order number : {order_number} \
         An email has been sent to {order.email}.')

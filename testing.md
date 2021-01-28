@@ -175,6 +175,67 @@
 
 #### Basket Page
 
+1. **view_basket**
+- **Valid requests**
+    - Renders `basket/basket.html` which shows all items currently in users basket (sessions)
+    
+
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+
+
+2. **add_to_basket**
+- **Valid requests**
+    - Adds an item to the session basket
+    
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+    - Users who try a GET request are redirected to the home page with the error "Invalid request, please select lessons from the lessons page"
+    - Users who post incorrect POST data are redirected to the home page with the error "Invalid request, please select lessons from the lessons page"
+    - If a lesson_id is invalid users will be redirected to the home page with the error "Invalid lesson, please select lessons from the lessons page"
+
+2. **add_to_basket**
+- **Valid requests**
+    - Removed an item from the session basket
+    
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+    - Users who POST invalid data/lesson_id are returned to the basket with the error "Invalid request, no lesson was specified for deletion"
+    - If the removal fails for any other reason the user is returned to the basket with the error "Something went wrong, please contact {settings.DEFAULT_FROM_EMAIL} if you need assistance."
+
+
+#### Checkout Page
+
+1. **checkout**
+- **Valid requests**
+    - GET request renders `checkout/checkout.html` with the checkout form and card payment option
+    - POST request creates OrderForm and associated LineItems
+    
+
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+    - GET:  Users who manually go to checkout with nothing in their basket are redirected home with the error message "Your basket is empty"
+    - POST:  Users who submit an invalid basket are redirected back to the checkout page with the error "There was an error with your form, no charges have been made."
+    - POST:  While the order form and its associated lineitems are being created, If a lesson does not exist they are warned of that on the checkout success page
+
+2. **checkout_success**
+- **Valid requests**
+    - Renders `checkout/checkout_success.html` with confirmation of order and order details
+
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+    - Users who pass invalid order number are redirected home with the error message "This order was not found, please contact {settings.DEFAULT_FROM_EMAIL} for support."
+    - Users who try to view someone elses order number through this view are given the error message "This order does not belong to this account, if this is an misake please contact {settings.DEFAULT_FROM_EMAIL} for support."
+
+3. **attach_to_basket_intent**
+- **Valid requests**
+    - POST:  Sets up Stripe keys and adds metadata to Stripe payment intent
+
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+    - Users who try to GET request this page are handled by the django @require_POST decorator
+    - If the logic of this view fails, users are given the message "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction."
+
 
 
 ## Bugs
