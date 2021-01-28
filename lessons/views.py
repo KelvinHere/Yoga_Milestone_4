@@ -336,6 +336,7 @@ def review_lesson(request, lesson_id):
     else:
         if existing_review:
             form = ReviewForm(instance=existing_review)
+            form.fields["rating_dropdown"].initial = existing_review.rating
             context['form'] = form
             return render(request, template, context)
         else:
