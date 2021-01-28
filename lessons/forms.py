@@ -1,7 +1,7 @@
 from django import forms
-from django_resized import ResizedImageField
 from .widgets import CustomClearableFileInput
 from .models import Lesson, LessonReview
+
 
 class LessonForm(forms.ModelForm):
     """ A form for the 'Create Lesson' page """
@@ -18,14 +18,20 @@ class LessonForm(forms.ModelForm):
             'time': 'Estimated length of lesson',
         }
 
-        image = forms.ImageField(label='image', required=False, widget=CustomClearableFileInput)
+        image = forms.ImageField(label='image',
+                                 required=False,
+                                 widget=CustomClearableFileInput)
 
     # Over-ride init
-    def __init__(self, *args, **kwargs): 
+    def __init__(self, *args, **kwargs):
         super(LessonForm, self).__init__(*args, **kwargs)
         self.fields['instructor_profile'].disabled = True
         self.fields['rating'].disabled = True
-        self.fields['card_description'].widget = forms.Textarea(attrs={'rows': 3, 'cols': 25, 'maxlength': 254})
+        self.fields['card_description'].widget = forms.Textarea(attrs={
+            'rows': 3,
+            'cols': 25,
+            'maxlength': 254
+            })
 
         # Add styling
         for field_name, field in self.fields.items():
@@ -47,7 +53,9 @@ class ReviewForm(forms.ModelForm):
         (9, '9'),
         (10, '10'),
     )
-    rating_dropdown = forms.ChoiceField(choices=RATING_CHOICES, label="Rating out of 10")  
+    rating_dropdown = forms.ChoiceField(choices=RATING_CHOICES,
+                                        label="Rating out of 10")
+
     class Meta:
         model = LessonReview
         fields = '__all__'
@@ -56,10 +64,9 @@ class ReviewForm(forms.ModelForm):
                    'date': forms.HiddenInput,
                    'rating': forms.HiddenInput,
         }
-        
 
     # Over-ride init
-    def __init__(self, *args, **kwargs): 
+    def __init__(self, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
 
         # Add styling
