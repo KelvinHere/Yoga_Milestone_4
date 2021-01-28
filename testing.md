@@ -239,6 +239,50 @@
 
 
 ## Bugs
+- **Instructor deletes lesson that is already a users basket**
+- Situation - If an instructor deletes a lesson that is already in a users basket the user will receive a 404 error whenever the basket context processor is called because of this line `lesson = get_object_or_404(Lesson, lesson_id=lesson_id)`
+
+- Task - Have the context processor handle lessons that have become invalid.
+
+- Action - An `if` statemenet with djangos built in `.exists()` method checks to see if a lesson is still valid, if it is not the lesson_id is added to a list to be dealt with once the basket has been itterated through.  I did this as removing elements from a dictionary while itterating through it is a bad idea.  Once this is done lesson_ids in the invalid lessons list are popped off the basket session.
+
+    - Code Before
+    ```
+    for lesson_id in basket:
+    lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+    total += lesson.price
+    product_count += 1
+    basket_items.append({
+        'lesson': lesson,
+        'price': lesson.price,
+    })
+    basket_item_ids.append(lesson.lesson_id)
+    ```
+
+    - Code After
+    ```
+    for lesson_id in basket:
+    # Check lesson_id is valid, remove from basket if not
+    if not Lesson.objects.filter(lesson_id=lesson_id).exists():
+        invalid_lessons_to_remove.append(lesson_id)
+    # Add lesson to basket items
+    else:
+        lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+        total += lesson.price
+        product_count += 1
+        basket_items.append({
+            'lesson': lesson,
+            'price': lesson.price,
+        })
+        basket_item_ids.append(lesson.lesson_id)
+
+    # Remove any invalid lessons
+    if invalid_lessons_to_remove:
+        for invalid_lesson in invalid_lessons_to_remove:
+            basket.pop(invalid_lesson)
+        invalid_lessons_to_remove = []
+    ```
+
 
 - **'Sort lesson by rating - high to low' feature had all non-rated lessons listed at the top**
 - Situation - Code would show unrated lessons higher than rated lessons, original code below
