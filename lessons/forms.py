@@ -3,7 +3,6 @@ from django_resized import ResizedImageField
 from .widgets import CustomClearableFileInput
 from .models import Lesson, LessonReview
 
-
 class LessonForm(forms.ModelForm):
     """ A form for the 'Create Lesson' page """
 
@@ -43,6 +42,7 @@ class ReviewForm(forms.ModelForm):
                    'lesson': forms.HiddenInput,
                    'date': forms.HiddenInput,
         }
+        
 
     # Over-ride init
     def __init__(self, *args, **kwargs): 

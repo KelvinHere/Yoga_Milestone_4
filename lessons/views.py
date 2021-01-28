@@ -289,6 +289,7 @@ def edit_lesson(request, lesson_id):
 def review_lesson(request, lesson_id):
     """ A view to create a profile """
     profile = get_object_or_404(UserProfile, user=request.user)
+    # Make sure lesson is valid
     try:
         lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
     except Exception as e:
@@ -296,9 +297,11 @@ def review_lesson(request, lesson_id):
         return redirect(reverse('home'))
 
     existing_review = LessonReview.objects.filter(profile=profile, lesson=lesson).first()
-    if not profile == existing_review.profile:
-        messages.error(request, 'Cannot complete request, this review is not yours.')
-        return redirect(reverse('home'))
+    # Check existing review belongs to current users profile
+    if existing_review:
+        if not existing_review.profile == profile:
+            messages.error(request, 'Cannot complete request, this review is not yours.')
+            return redirect(reverse('home'))
 
     template = "lessons/create_review.html"
     context = {
@@ -306,6 +309,7 @@ def review_lesson(request, lesson_id):
         'lesson': lesson,
     }
 
+    # Create a new review
     if request.method == 'POST':
         if not existing_review:
             form = ReviewForm(request.POST)
@@ -318,7 +322,7 @@ def review_lesson(request, lesson_id):
             error = form.errors
             messages.error(request, f'Error in review form: {error}')
             return redirect(reverse('studio', lesson_id))
-
+    # Update existing review
     else:
         if existing_review:
             form = ReviewForm(instance=existing_review)
