@@ -309,20 +309,30 @@ def review_lesson(request, lesson_id):
         'lesson': lesson,
     }
 
-    # Create a new review
+    # Submit review form
     if request.method == 'POST':
+        # Validate rating
+        rating_value = request.POST['rating_dropdown']
+        if int(rating_value) not in range(1, 11):
+            messages.error(request, 'You entered an invalid rating, please try again.')
+            return redirect('studio', lesson.lesson_id)
+
+        rating_value = int(rating_value)
+
         if not existing_review:
             form = ReviewForm(request.POST)
         else:
             form = ReviewForm(request.POST, instance=existing_review)
         if form.is_valid():
-            form.save()
+            review = form.save(commit=False)
+            review.rating = rating_value
+            review.save()
             return redirect('studio', lesson.lesson_id)
         else:
             error = form.errors
             messages.error(request, f'Error in review form: {error}')
             return redirect(reverse('studio', lesson_id))
-    # Update existing review
+    # Send user to create/update review form
     else:
         if existing_review:
             form = ReviewForm(instance=existing_review)

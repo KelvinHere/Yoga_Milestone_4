@@ -9,7 +9,7 @@ class LessonItemAdmin(admin.ModelAdmin):
 
 
 class LessonAdmin(admin.ModelAdmin):
-    readonly_fields = ('lesson_id',)
+    readonly_fields = ('lesson_id', 'rating')
 
     fields = ('lesson_id', 'instructor_profile', 'lesson_name',
               'card_description', 'description', 'image',

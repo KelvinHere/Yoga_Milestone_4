@@ -34,13 +34,27 @@ class LessonForm(forms.ModelForm):
 
 class ReviewForm(forms.ModelForm):
     """ A review form """
-
+    RATING_CHOICES = (
+        ('', 'Choose a rating out of 10'),
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10'),
+    )
+    rating_dropdown = forms.ChoiceField(choices=RATING_CHOICES, label="Rating out of 10")  
     class Meta:
         model = LessonReview
         fields = '__all__'
         widgets = {'profile': forms.HiddenInput,
                    'lesson': forms.HiddenInput,
                    'date': forms.HiddenInput,
+                   'rating': forms.HiddenInput,
         }
         
 
