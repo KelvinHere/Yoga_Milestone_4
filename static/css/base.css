@@ -119,11 +119,11 @@ body {
     border-radius: 50%;
 }
 
-/* ---------------------------------------- Card formatting */
-.lesson-card-image-container {
-    background-color: darkgray;
+/* ---------------------------------------- Lesson Cards */
+.lesson-card-image {
+    max-width: 120px;
+    border-radius: 7%;
 }
-
 
 /* ---------------------------------------- Crispy form styling */
 .custom-crispy-form-styling {
@@ -204,6 +204,12 @@ body {
         width: 100%;
         max-width: 425px;
         border-radius: 0%;
+        overflow: hidden;
+    }
+
+    .lesson-card-image {
+        width: 100%;
+        max-width: 425px;
         overflow: hidden;
     }
 }
