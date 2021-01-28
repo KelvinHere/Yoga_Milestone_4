@@ -24,9 +24,20 @@
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="{{ lesson.video_url }}" allowfullscreen></iframe>
                 </div>
+                <!-- Lesson description collapsed -->
                 <div class="lesson-description my-3">
-                    <p>{{ lesson.description }}</p>
+                    <p class="text-center">
+                        <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#lesson_description_text" role="button" aria-expanded="false" aria-controls="collapse_lesson_description">
+                            Lesson Description
+                        </a>
+                        </p>
+                        <div class="collapse" id="lesson_description_text">
+                        <div class="card card-body">
+                            <p>{{ lesson.description }}</p>
+                        </div>
+                        </div>
                 </div>
+                <!-- Review Buttons -->
                 <div class="review d-flex justify-content-center">
                     {% if existing_user_review %}
                         <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-sm btn-warning rounded-20 py-1 my-2">Edit Review</a>
@@ -34,6 +45,7 @@
                         <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-sm btn-warning rounded-20 py-1 my-2">Write Review</a>
                     {% endif %}
                 </div>
+                <!-- Reviews -->
                 <div class="reviews">
                     <h4 class="mb-4">Reviews</h4>
                     {% for review in lesson_reviews %}

@@ -14,7 +14,7 @@ class LessonForm(forms.ModelForm):
         }
         labels = {
             'card_description': 'Description for lesson card',
-            'description': 'Text under video',
+            'description': 'Large description',
             'time': 'Estimated length of lesson',
         }
 
