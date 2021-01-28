@@ -285,25 +285,39 @@
 
 
 - **'Sort lesson by rating - high to low' feature had all non-rated lessons listed at the top**
-- Situation - Code would show unrated lessons higher than rated lessons, original code below
-    - `lessons = lessons.order_by(sortkey)`
+- Situation - Code would show unrated lessons higher than rated lessons
 
 - Task - Get unrated lessons to appear at the bottom of the sorted list
 
 - Action - I used djangos F() expresson and nulls_last argument to sort null/None items to the bottom of the list, new code below
-    - `if sort_direction == 'asc':`
-        - `lessons = lessons.order_by(F(sortkey).asc(nulls_last=True))`
-    - `else:`
-        - `lessons = lessons.order_by(F(sortkey).desc(nulls_last=True))`
-
+    - Code Before
+    ```
+    lessons = lessons.order_by(sortkey)
+    ```
+    - Code After
+    ```
+    if sort_direction == 'asc':
+        lessons = lessons.order_by(F(sortkey).asc(nulls_last=True))
+    else:
+        lessons = lessons.order_by(F(sortkey).desc(nulls_last=True))
+    ```
 - Result - The lessons are now sorted correctly, though I cant append a simple tag `-` to reverse the sort direction so an if else statement is used instead
 
-- **User not logged in**
+- **Anonymous users**
 - Situation - A lot of features on this site require a user profile to function properly, catering to anonymous users involved a lot of code to `try:` getting the userprofile with `get_object_or_404` bloating code
 
 - Task - Reduce this pattern in the code by following the DRY principle
 
-- Action - I created a utility in the main app directory `yoga.utils.py` that contains a function that recieves a request and tries to get a profile from it or returns none.
+- Action - I created a utility in the main app directory `yoga.utils.py` that contains a function that recieves a request and tries to get a profile from it or return `None`.
+    - Code
+    ```
+    def get_profile_or_none(request):
+    """ Function returns a valid UserProfile or None """
+    try:
+        return UserProfile.objects.get(user=request.user)
+    except:
+        return None
+    ```
 
 - Result - Any part of the app where it matters if a user is logged in or not will use a single line `get_profile_or_none(request)` to return a valid profile or a None object, reducing patterns in the code.
 
