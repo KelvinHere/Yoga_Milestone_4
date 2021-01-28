@@ -1,25 +1,42 @@
 # Testing Documentation for Social Yoga
 
-### Manual Tests
+INDEX  
+Index Here  
 
-- Users can:
+
+## Manual Tests
+***
+## **Site Actions**
+- **Users can:**
     - View a list of instructors
-    - View an instructors profile
+    - View lessons by instructor
+    - Filter lessons by All / Purchased / Subscribed
+    - Sort lessons by price / rating / instructor / name
+    - Subscribe / Unsubscribe to a lesson
+    - Create / Edit a review for a lesson
+    - Access free lessons and lessons they have paid for
+    - Add / Remove a lesson from their basket
+    - Purchase a lesson
+    - Request / Unrequest instructor status
 
-- Users cannot:
-    - View profiles of non-instructors
+- **Users cannot:**
+    - Create / Edit someone elses review of a lesson
+    - Access paid lessons they have not purchased
 
-- Instructor can:
+- **Instructor can / users cannot:**
     - Create a lesson
-    - Delete a lesson
     - Create a lesson with the same name as another instructor (ie, 'Introduction Lesson')
-    - Edit their own lessons
+    - Edit / Delete their own lessons
 
-- Instructor cannot:
+- **Instructor cannot:**
     - Create two lessons with the same name
-    - Edit another instructors lessons
+    - Edit / Delete another instructors lessons
 
-#### Home Page
+- **Superusers can**
+    - View a list of user requests to become an instructor
+    - Grand / Remove instructor status from users
+
+## **Home Page**
 
 - **Valid requests**
 - While logged in, superusers can access "Superuser admin" where they can
@@ -35,34 +52,34 @@
     - `/superuser_admin` - Result: Redirect to login page
     - `/update_instructor_status/<user_to_update>/<status>` - Result: Redirect to login page
 
-#### Lessons Page
+## **Lessons Page**
 
 1. **lessons view**
 - **Valid requests**
-- Filters
-    - When directed to the lesson page from the instructors page you are shown the instructor profile with their (sortable and filterable) lessons underneath.
-    - Subscribed Lessons filter `/lessons/?filter=mylessons` only displays lessons currently subscribed to, a message of "You are currently not subscribed to any lessons"
-    - Purchased Lessons filter `/lessons/?filter=paidlessons` only displays purchased lessons, when a user has none it show the warning "You have not purchased any lessons"
-    - All Lessons filter `/lessons/?filter=None` displays all lessons
+    - Filters
+        - When directed to the lesson page from the instructors page you are shown the instructor profile with their (sortable and filterable) lessons underneath.
+        - Subscribed Lessons filter `/lessons/?filter=mylessons` only displays lessons currently subscribed to, or a message of "You are currently not subscribed to any lessons"
+        - Purchased Lessons filter `/lessons/?filter=paidlessons` only displays purchased lessons, or a message "You have not purchased any lessons"
+        - All Lessons filter `/lessons/?filter=None` displays all lessons
 
-- Stacked Filters
-    - When viewing an instructors lessons
-        - All lessons filter will only show lessons by that instructor as default
-        - Purchased lessons filter will only show lessons purchased from that instructor
-        - Subscribed lessons filter will only show lessons subscribed to from that instructor
+    - Stacked Filters
+        - When viewing an instructors lessons
+            - All lessons filter will only show lessons by that instructor as default
+            - `/lessons/?filter=paidlessons` filter will only show lessons purchased from that instructor
+            - `/lessons/?filter=mylessons` subscribed lessons filter will only show lessons subscribed to from that instructor
 
 
 - **Error and Invalid request handling**
-- Filters
-    - `/lessons/?filter=AN_INVALID_FILTER` - Invalid filters default to showing all lessons and will not return an error message
+    - Filters
+        - `/lessons/?filter=AN_INVALID_FILTER` - Invalid filters default to showing all lessons and will not return an error message
 
-- Sort direction
-    - `lessons/?direction=INVALID_DIRECTION` - Invalid direction argument will default the sort to descending
-    - `lessons/?sort=INVALID_SORT_ARGUMENT` - Invalid sort arguments will warn the user "Invalid sort value, displaying all lessons by name in ascending order"
+    - Sort direction
+        - `lessons/?direction=INVALID_DIRECTION` - Invalid direction argument will default the sort to descending
+        - `lessons/?sort=INVALID_SORT_ARGUMENT` - Invalid sort arguments will warn the user "Invalid sort value, displaying all lessons by name in ascending order"
 
-- Instructor
-    - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passed a user that is not an instructor, user redirected to instructors page error message "This user is not an instructor, please pick one from the instructor list."
-    - `lessons/?instructor=INVALID_USER` Passed a user that does not exist, user redirected to instructor page with error message "This instructor was not found, please pick one from the instructor list."
+    - Instructor
+        - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passed a user that is not an instructor, user redirected to instructors page error message "This user is not an instructor, please pick one from the instructor list."
+        - `lessons/?instructor=INVALID_USER` Passed a user that does not exist, user redirected to instructor page with error message "This instructor was not found, please pick one from the instructor list."
 
 2. **subscribe view**
 - **Valid Requests**
@@ -127,7 +144,7 @@
     - User who passes an invalid lesson_id will be redirected home with the error "Cannot create/edit a review for an invalid lesson."
     - User who submits an invalid form are redirected back to the current lesson they were creating a review for with the error message "Error in review form: {form.errors}"
 
-#### Profile Page
+## **Profile Page**
 
 1. **profile view**
 - **Valid requests**
@@ -162,7 +179,7 @@
     - Users who are not logged in are redirected to signin page
     - If user profile is not completed user is redirected back to profile page with the error message "You must complete your profile first."
 
-#### Studio Page
+## **Studio Page**
 
 1. **studio view**
 - **Valid requests**
@@ -173,7 +190,7 @@
     - User who submits an invalid lesson_id will be redirected `home` with the error message "Error, Invalid lesson"
     - User who submits a paid lesson_id they have not purchased will be redirected `home` with the error message "You do not own this lesson"
 
-#### Basket Page
+## **Basket Page**
 
 1. **view_basket**
 - **Valid requests**
@@ -194,7 +211,7 @@
     - Users who post incorrect POST data are redirected to the home page with the error "Invalid request, please select lessons from the lessons page"
     - If a lesson_id is invalid users will be redirected to the home page with the error "Invalid lesson, please select lessons from the lessons page"
 
-2. **add_to_basket**
+2. **remove_from_basket**
 - **Valid requests**
     - Removed an item from the session basket
     
@@ -203,8 +220,7 @@
     - Users who POST invalid data/lesson_id are returned to the basket with the error "Invalid request, no lesson was specified for deletion"
     - If the removal fails for any other reason the user is returned to the basket with the error "Something went wrong, please contact {settings.DEFAULT_FROM_EMAIL} if you need assistance."
 
-
-#### Checkout Page
+## **Checkout Page**
 
 1. **checkout**
 - **Valid requests**
@@ -237,8 +253,8 @@
     - If the logic of this view fails, users are given the message "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction."
 
 
-
 ## Bugs
+***
 - **Instructor deletes lesson that is already a users basket**
 - Situation - If an instructor deletes a lesson that is already in a users basket the user will receive a 404 error whenever the basket context processor is called because of this line `lesson = get_object_or_404(Lesson, lesson_id=lesson_id)`
 
@@ -282,7 +298,6 @@
             basket.pop(invalid_lesson)
         invalid_lessons_to_remove = []
     ```
-
 
 - **'Sort lesson by rating - high to low' feature had all non-rated lessons listed at the top**
 - Situation - Code would show unrated lessons higher than rated lessons
