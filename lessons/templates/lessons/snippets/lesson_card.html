@@ -23,7 +23,9 @@
                     <p class="card-text"><small class="text-muted">Price: <strong>Free!</strong></small></p>
                 {% endif %}
                 <p class="card-text alt-font">{{ lesson.card_description }}</p>
-                <p class="card-text alt-font mb-2 mt-auto text-center text-info"><a href="" class=""><strong>More Details</strong></a></p>
+                
+                <p class="card-text alt-font mb-2 mt-auto text-center text-info"><a href="" onclick="javascript:get_modal_data('{{ lesson.lesson_id }}')" class=""><strong>More Details</strong></a></p>
+
                 <div class="lesson-card-button-container mt-0 w-100 d-flex">
                     <div class="buttons mx-auto">
                         {% if user.is_authenticated %}

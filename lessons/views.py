@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpR
 from django.db.models import Q, F
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 from .models import UserProfile
 from lessons.models import Lesson, LessonItem, LessonReview
 from checkout.models import OrderLineItem
@@ -368,3 +369,29 @@ def review_lesson(request, lesson_id):
             form = ReviewForm(initial={'profile': profile, 'lesson': lesson})
             context['form'] = form
             return render(request, template, context)
+
+
+def get_modal_data(request):
+    """ Get data for lesson extra detail modal """
+    if request.method == 'POST':
+        if 'lesson_id' in request.POST:
+            lesson_id = request.POST['lesson_id']
+            # Get lesson, pass it to lesson_modal template and turn to string
+            if not Lesson.objects.filter(lesson_id=lesson_id).exists():
+                json_response = json.dumps({'status': 'invalid_lesson'})
+                return HttpResponse(json_response, content_type='application/json')
+            lesson = Lesson.objects.get(lesson_id=lesson_id)
+            modal_string = render_to_string(
+                'lessons/snippets/lesson_modal.html',
+                {'lesson': lesson}
+            )
+            json_response = json.dumps({'status': 'valid_lesson',
+                                        'modal': modal_string,
+                                        })
+            return HttpResponse(json_response, content_type='application/json')
+        else:
+            json_response = json.dumps({'status': 'invalid_request'})
+            return HttpResponse(json_response, content_type='application/json')
+    else:
+        messages.error(request, 'You cannot perform this action')
+        return redirect(reverse('home'))

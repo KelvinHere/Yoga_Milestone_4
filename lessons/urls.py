@@ -9,5 +9,5 @@ urlpatterns = [
     path('edit_lesson/<lesson_id>', views.edit_lesson, name='edit_lesson'),
     path('delete_instructor_created_lesson/<id>', views.delete_instructor_created_lesson, name='delete_instructor_created_lesson'),
     path('review_lesson/<lesson_id>', views.review_lesson, name='review_lesson'),
+    path('get_modal_data/', views.get_modal_data, name='get_modal_data'),
 ]
-

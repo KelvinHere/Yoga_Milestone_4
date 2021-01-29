@@ -24,7 +24,7 @@ def add_to_basket(request):
         if 'lesson_id' in request.POST:
             lesson_id = request.POST.get('lesson_id')
             # If lesson id is invalid
-            if not Lesson.objects.get(lesson_id=lesson_id):
+            if not Lesson.objects.get(lesson_id=lesson_id).exists():
                 messages.error(request, f"Invalid lesson, please select lessons from the lessons page")
                 return redirect(reverse('home'))
             # If lesson is not in basket
