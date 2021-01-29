@@ -19,6 +19,7 @@ class UserProfile(models.Model):
     profile_description = models.TextField(max_length=650, default='')
     image = ResizedImageField(size=[600, 600], quality=75, crop=['middle', 'center'], force_format='JPEG', null=True, blank=True, upload_to='profile_images/')
     rating = models.DecimalField(max_digits=5, decimal_places=0, null=True, blank=True)
+    lesson_count = models.IntegerField(default=0, editable=False)
 
     def __str__(self):
         return self.user.username
@@ -43,6 +44,11 @@ class UserProfile(models.Model):
             self.rating = new_rating
         else:
             self.rating = None
+        self.save()
+
+    def _update_lesson_count(self, total_lessons):
+        """ Update lesson count """
+        self.lesson_count = total_lessons
         self.save()
 
 

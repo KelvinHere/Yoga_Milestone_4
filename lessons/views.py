@@ -216,7 +216,10 @@ def delete_instructor_created_lesson(request, id):
         return redirect(reverse('instructor_created_lessons'))
 
     if instructor_created_lesson.instructor_profile == profile:
+        instructor_profile = instructor_created_lesson.instructor_profile
         instructor_created_lesson.delete()
+        total_lessons = Lesson.objects.filter(instructor_profile=instructor_profile).count()
+        instructor_profile._update_lesson_count(total_lessons)
         return redirect('instructor_created_lessons')
     else:
         messages.error(request, 'This lesson does not belong to you and has \
