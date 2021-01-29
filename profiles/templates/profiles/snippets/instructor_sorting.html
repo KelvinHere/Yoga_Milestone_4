@@ -1,0 +1,15 @@
+<div class="dropdown d-flex justify-content-center my-2">
+    <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+        <a href="{% url 'instructors' %}?sort=name&direction=asc" class="dropdown-item">By Name: A-Z</a>
+        <a href="{% url 'instructors' %}?sort=name&direction=desc" class="dropdown-item">By Name: Z-A</a>
+        <hr>
+        <a href="{% url 'instructors' %}?sort=rating&direction=desc" class="dropdown-item">By Rating: High to Low</a>
+        <a href="{% url 'instructors' %}?sort=rating&direction=asc" class="dropdown-item">By Rating: Low to High</a>
+        <hr>
+        <a href="{% url 'instructors' %}?sort=lessons&direction=desc" class="dropdown-item">By Available Lessons: High to Low</a>
+        <a href="{% url 'instructors' %}?sort=lessons&direction=asc" class="dropdown-item">By Available Lessons: Low to High</a>
+    </div>
+</div>

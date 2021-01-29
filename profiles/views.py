@@ -57,7 +57,32 @@ def edit_profile(request):
 
 def instructors(request):
     """ View to display list of instructors """
+    valid_sort_values = ['name', 'rating', 'lessons']
+    sort_direction = 'asc'
+
     instructor_list = UserProfile.objects.filter(is_instructor=True)
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            if sortkey not in valid_sort_values:
+                messages.error(request, 'Invalid sort value, displaying all \
+                                         instructors by name in ascending order')
+                return redirect(reverse('instructors'))
+
+            if sortkey == 'name':
+                sortkey = 'user__email'
+            if sortkey == 'lessons':
+                sortkey = 'lesson_count'
+
+        if 'direction' in request.GET:
+            direction = request.GET['direction']
+            if direction == 'desc':
+                sortkey = f'-{sortkey}'
+
+        print('##')
+        print(sortkey)
+        instructor_list = instructor_list.order_by(sortkey)
 
     template = 'profiles/instructors.html'
     context = {
