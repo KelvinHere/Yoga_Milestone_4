@@ -97,6 +97,7 @@
                 if (json_response['status'] = 'valid_lesson'){
                     $('#modal-container').empty();
                     $('#modal-container').html(json_response['modal']);
+                    console.log(json_response['modal'])
                     $('#moreDetailsModal').modal('show');
                 }
             }

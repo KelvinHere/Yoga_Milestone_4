@@ -14,7 +14,7 @@
         <p class="text-muted mb-1">Rating: {{ lesson.rating }}{% if lesson.rating %}/10{% endif %}</p>
         <p class="text-muted mb-1">Time: {{ lesson.time }} minuets</p>
         <hr>
-        {{ lesson.description }}
+        {{ lesson.description|linebreaks }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
