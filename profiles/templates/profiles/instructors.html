@@ -21,20 +21,20 @@
                 {% for instructor in instructor_list %}
                     <div class="card mb-3 border custom-border">
                         <div class="row mx-auto w-100">
-                            <div class="col-md-4 my-auto">
+                            <div class="col-md-3 my-auto">
                             {% if instructor.image %}
                                 <div class="my-3 d-flex justify-content-center">
                                     <img src="{{ instructor.image.url }}" class="instructor-card-image profile-image img-fluid" alt="{{ instructor.first_name }}">
                                 </div>
                             {% endif %}
                             </div>
-                            <div class="col-md-8">
-                                <div class="card-body h-100 d-flex flex-column">
-                                    <h5 class="card-title"><a href="{% url 'lessons' %}?instructor={{ instructor.id }}" class="style-link">{{ instructor }}</a></h5>
-                                    <p class="text-muted mb-0">Rating : {{ instructor.rating }}{% if instructor.rating %} / 10{% endif %}</p>
-                                    <p class="text-muted">Lessons available : {{ instructor.lesson_count }}</p>
+                            <div class="col-md-9">
+                                <div class="card-body h-100 d-flex flex-column p-2">
+                                    <h5 class="card-title mb-1"><a href="{% url 'lessons' %}?instructor={{ instructor.id }}" class="style-link">{{ instructor }}</a></h5>
+                                    <p class="text-muted mb-0"><small>Rating : {{ instructor.rating }}{% if instructor.rating %} / 10{% endif %}</small></p>
+                                    <p class="text-muted mb-2"><small>Lessons available : {{ instructor.lesson_count }}</small></p>
                                     <p class="card-text alt-font">{{ instructor.card_description }}</p>
-                                    <p class="card-text mt-auto"><a class="btn btn-primary w-100" href="{% url 'lessons' %}?instructor={{ instructor.id }}" role="button">{{ instructor }}'s Studio</a></p>
+                                    <p class="card-text mt-auto d-flex justify-content-center"><a class="btn btn-primary btn-sm w-50" href="{% url 'lessons' %}?instructor={{ instructor.id }}" role="button">Enter Studio</a></p>
                                 </div>
                             </div>
                         </div>

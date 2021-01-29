@@ -210,7 +210,7 @@ body {
 
     .profile-image {
         width: 100%;
-        max-width: 425px;
+        max-width: 200px;
         border-radius: 0%;
         overflow: hidden;
     }
