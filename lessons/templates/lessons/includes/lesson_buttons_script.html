@@ -69,9 +69,18 @@
                     // Popover to confirm item has been added
                     $('#navbar-basket').popover('toggle');
                 } else if (json_response['item_added'] == 'already_added'){
-                    // Create already_added to basket popover
+                    // Create already_added to button popover
                     $('#add_'+lesson_id).popover({
                         content: "You have already added this to your basket",
+                        html: true,
+                        placement: 'bottom',
+                        trigger: 'manual'
+                    });
+                   $('#add_'+lesson_id).popover('toggle');
+                } else {
+                    // Item does not exist to button popover
+                    $('#add_'+lesson_id).popover({
+                        content: "There is a problem with this lesson, please refresh your browser and try again",
                         html: true,
                         placement: 'bottom',
                         trigger: 'manual'
@@ -97,7 +106,6 @@
                 if (json_response['status'] = 'valid_lesson'){
                     $('#modal-container').empty();
                     $('#modal-container').html(json_response['modal']);
-                    console.log(json_response['modal'])
                     $('#moreDetailsModal').modal('show');
                 }
             }

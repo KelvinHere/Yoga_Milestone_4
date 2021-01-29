@@ -24,9 +24,9 @@ def add_to_basket(request):
         if 'lesson_id' in request.POST:
             lesson_id = request.POST.get('lesson_id')
             # If lesson id is invalid
-            if not Lesson.objects.get(lesson_id=lesson_id).exists():
-                messages.error(request, f"Invalid lesson, please select lessons from the lessons page")
-                return redirect(reverse('home'))
+            if not Lesson.objects.filter(lesson_id=lesson_id).exists():
+                json_response = json.dumps({'item_added': 'invalid_item'})
+                return HttpResponse(json_response, content_type='application/json')
             # If lesson is not in basket
             if lesson_id not in list(basket.keys()):
                 basket[lesson_id] = 1
@@ -39,8 +39,8 @@ def add_to_basket(request):
                 return HttpResponse(json_response, content_type='application/json')
         # If incorrect POST data
         else:
-            messages.error(request, f"Invalid request, please select lessons from the lessons page")
-            return redirect(reverse('home'))
+            json_response = json.dumps({'item_added': 'invalid_item'})
+            return HttpResponse(json_response, content_type='application/json')
     # If not post request
     else:
         messages.error(request, f"Invalid request, please select lessons from the lessons page")

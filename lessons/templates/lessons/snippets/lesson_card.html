@@ -16,7 +16,7 @@
                         {% if lesson.lesson_id in purchased_lesson_ids %}
                             <span class="text-success"><strong>Purchased!</strong></small></span>
                         {% else %}
-                            <span> {{ lesson.price }}</small></span>
+                            <span> €{{ lesson.price }}</small></span>
                         {% endif %}
                     </p>
                 {% else %}
