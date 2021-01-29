@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-12">
                 {% for instructor in instructor_list %}
-                    <div class="card mb-3">
+                    <div class="card mb-3 border custom-border">
                         <div class="row g-0">
                             <div class="col-md-4">
                             {% if instructor.image %}
@@ -30,7 +30,7 @@
                             <div class="col-md-8">
                                 <div class="card-body h-100 d-flex flex-column">
                                     <h5 class="card-title"><a href="{% url 'lessons' %}?instructor={{ instructor.id }}" class="style-link">{{ instructor }}</a></h5>
-                                    <p class="text-muted">Rating : {{ instructor.rating }}{% if instructor.rating %} / 10{% endif %}</p>
+                                    <p class="text-muted mb-0">Rating : {{ instructor.rating }}{% if instructor.rating %} / 10{% endif %}</p>
                                     <p class="text-muted">Lessons available : {{ instructor.lesson_count }}</p>
                                     <p class="card-text alt-font">{{ instructor.card_description }}</p>
                                     <p class="card-text mt-auto"><a class="btn btn-primary w-100" href="{% url 'lessons' %}?instructor={{ instructor.id }}" role="button">{{ instructor }}'s Studio</a></p>

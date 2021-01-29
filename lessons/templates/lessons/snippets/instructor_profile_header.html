@@ -1,14 +1,17 @@
-<div class="row profile-container">
-    <div class="col-12 col-lg-5">
-        <div class="row text-center">
-            <div class="container-fluid instructor-page-profile-image-container">
-                <img src="{{ instructor_to_display.image.url }}" class="instructor-page-profile-image img-fluid rounded" alt="{{ instructor_to_display }}'s profile image'">
+<div class="container">
+    <div class="row profile-container border custom-border py-3">
+        <div class="col-12 col-lg-5">
+            <div class="row text-center">
+                <div class="container-fluid instructor-page-profile-image-container">
+                    <img src="{{ instructor_to_display.image.url }}" class="instructor-page-profile-image img-fluid rounded" alt="{{ instructor_to_display }}'s profile image'">
+                </div>
             </div>
         </div>
-    </div>
-    <!-- Profile description -->
-    <div class="col-12 col-lg-7 instructor-profile-description-container mt-3">
-        <p class="align-middle alt-font">{{ instructor_to_display.profile_description }}</p>
-        <p class="text-muted">Rating: {{ instructor_to_display.rating }}{% if instructor_to_display.rating %}/10{% endif %}</p>
+        <!-- Profile description -->
+        <div class="col-12 col-lg-7 instructor-profile-description-container mt-3">
+            <p class="text-muted mb-0">Rating: {{ instructor_to_display.rating }}{% if instructor_to_display.rating %}/10{% endif %}</p>
+            <p class="text-muted">Lessons Available: {{ instructor_to_display.lesson_count }}</p>
+            <p class="align-middle alt-font">{{ instructor_to_display.profile_description }}</p>
+        </div>
     </div>
 </div>

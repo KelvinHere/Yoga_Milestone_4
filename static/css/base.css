@@ -78,6 +78,13 @@ body {
     color: #534a47 !important;
 }
 
+/* ---------------------------------------- Global */
+.custom-border {
+    border: solid 1px #534a47;
+    border-radius: .25rem;
+    
+}
+
 /* ---------------------------------------- Nav */
 .nav-link-format {
     text-decoration: none;
@@ -177,6 +184,7 @@ body {
         background-size: cover;
         z-index: -1;
     }
+
     .account-border {
         border: solid 1px #534a47;
     }
