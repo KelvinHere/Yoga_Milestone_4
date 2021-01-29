@@ -16,7 +16,7 @@ class Lesson(models.Model):
                                         null=True, blank=True, related_name='lessons')
     lesson_name = models.CharField(max_length=32, null=False, editable=True)
     card_description = models.TextField(max_length=254)
-    description = models.TextField(max_length=512)
+    description = models.TextField(max_length=2048)
     image = ResizedImageField(size=[600, 600], quality=75, crop=['middle', 'center'], force_format='JPEG', null=True, blank=True, upload_to='lesson_images/')
     rating = models.DecimalField(max_digits=5, decimal_places=0, null=True, blank=True)
     yoga_style = models.CharField(max_length=50, default='Yoga', null=False, blank=False)

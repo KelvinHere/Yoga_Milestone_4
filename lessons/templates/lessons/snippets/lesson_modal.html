@@ -4,12 +4,16 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="moreDetailsModalLabel">{{ lesson.lesson_name }}</h5>
+          <h5 class="modal-title" id="moreDetailsModalLabel">{{ lesson.lesson_name }}</h5><br />
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" id="modalBody">
+        <p class="text-muted mb-1">By: {{ lesson.instructor_profile }}</p>
+        <p class="text-muted mb-1">Rating: {{ lesson.rating }}{% if lesson.rating %}/10{% endif %}</p>
+        <p class="text-muted mb-1">Time: {{ lesson.time }} minuets</p>
+        <hr>
         {{ lesson.description }}
       </div>
       <div class="modal-footer">
