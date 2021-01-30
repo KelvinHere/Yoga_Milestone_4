@@ -25,7 +25,13 @@
                 <form method="POST" action="{% url 'review_lesson' lesson.lesson_id%}" class="form">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <input type="submit" value="Submit">
+                    <a href="{% url 'studio' lesson.lesson_id %}" class="btn btn-lg btn-custom-invert">
+                        <span class="icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>    
+                        <span class="text-uppercase">Back</span>
+                    </a>
+                    <input type="submit" value="Submit" class="btn btn-lg btn-custom-darken">
                 </form>
             </div>
         </div>
