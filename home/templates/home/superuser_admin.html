@@ -19,7 +19,7 @@
                 <hr>
                 <p class="text-center mb-3"><strong>User requests to become instructors</strong></p>
                 {% if user_requests %}
-                <!-- Active instructors collapsed -->
+                <!-- User requests to become instructor collapsed -->
                     <div class="active-instructors my-3">
                         <p class="text-center">
                             <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#instructor-requests" role="button" aria-expanded="false" aria-controls="instructor-requests-control">
@@ -69,7 +69,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                <!-- Accept / Reject -->
+                                <!-- Accept / Reject request to become admin -->
                                     <div class="row w-100">
                                         <div class="col d-flex">
                                             <div class="mx-auto">
@@ -89,9 +89,10 @@
         </div>
         <div class="row mx-auto">
             <div class="col-12">
+                <hr>
                 <p class="text-center mb-3"><strong>Active instructors</strong></p>
                 {% if instructors %}
-                    <!-- Active instructors collapsed -->
+                    <!-- List of active instructors collapsed -->
                     <div class="active-instructors my-3">
                         <p class="text-center">
                             <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#active-instructors" role="button" aria-expanded="false" aria-controls="active-instructors-control">
