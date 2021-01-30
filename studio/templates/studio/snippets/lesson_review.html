@@ -1,16 +1,15 @@
-<div class="row">
-    <div class="col-2">
+<div class="row lesson-review-div mb-4">
+    <div class="col-3 col-sm-2 col-lg-1 pt-3">
         {% if review.profile.image %}
-            <img src="{{ review.profile.image.url }}" class="instructor-page-profile-image img-fluid" alt="{{ review.profile }}'s profile image'">
+            <img src="{{ review.profile.image.url }}" class="review-image rounded-circle" alt="{{ review.profile }}'s profile image'">
         {% else %}
-            <img src="{{ MEDIA_URL }}profile_images/no_profile_image.jpg" class="instructor-page-profile-image img-fluid" alt="{{ review.profile }}'s profile image'">
+            <img src="{{ MEDIA_URL }}profile_images/no_profile_image.jpg" class="review-image rounded-circle" alt="{{ review.profile }}'s profile image'">
         {% endif %}
     </div>
-    <div class="col-10">
-        <h5 class="review-title mb-0">{{ review.profile }}'s Review</h5>
-        <p class="review-rating mb-2">{{ review.rating }} / 10</p>
-        <p class="review-text">{{ review.review }}</p>
-        <p class="review-text text-muted mt-2">{{ review.date }}</p>
-        <hr>
+    <div class="col">
+        <p class="review-title my-0"><strong>{{ review.profile }}'s Review</strong></p>
+        <p class="text-muted my-0"><small><strong>{{ review.rating }} / 10</strong></small></p>
+        <p class="review-text mb-0 mt-2">{{ review.review }}</p>
+        <p class="review-text text-muted my-0"><small>{{ review.date }}</small></p>
     </div>
 </div>
