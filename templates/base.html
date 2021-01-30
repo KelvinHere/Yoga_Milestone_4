@@ -38,6 +38,16 @@
     <header class="container-fluid fixed-top p-0">
         <nav class="navbar navbar-expand-lg navbar-custom">
             <a class="navbar-brand" href="{% url 'home' %}">Social Yoga</a>
+            {% if user.is_authenticated %}
+            <div class="order-0 order-lg-1 ml-auto">
+                <a class="btn btn-warning" href="{% url 'view_basket' %}" id="navbar-basket" role="button">
+                    <span class="icon">
+                        <i class="fas {% if product_count > 0 %}fa-cart-plus{% else %}fa-shopping-cart{% endif %} colour-primary" id="nav-cart-icon"></i>
+                    </span>
+                    <span class="colour-primary" id="nav-cart-amount">{% if product_count > 0 %}+{{ product_count }}{% endif %}</span>
+                </a>
+            </div>
+            {% endif %}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon d-flex align-items-center">
                     <i class="fas fa-bars icon-colour-white mx-auto"></i>
@@ -86,16 +96,6 @@
                             </div>
                         </div>
                     </li>
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="btn btn-warning" href="{% url 'view_basket' %}" id="navbar-basket" role="button">
-                                <span class="icon">
-                                    <i class="fas {% if product_count > 0 %}fa-cart-plus{% else %}fa-shopping-cart{% endif %} colour-primary" id="nav-cart-icon"></i>
-                                </span>
-                                <span class="colour-primary" id="nav-cart-amount">{% if product_count > 0 %}+{{ product_count }}{% endif %}</span>
-                            </a>
-                        </li>
-                    {% endif %}
                 </ul>
             </div>
         </nav>
