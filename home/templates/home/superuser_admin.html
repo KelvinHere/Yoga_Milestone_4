@@ -5,7 +5,7 @@
     <div class="container header-container">
         <div class="row">
             <div class="col">
-                <h1 class="text-center">Superuser Admin</h1>
+                <h1 class="text-center title-text my-3">Superuser Admin</h1>
             </div>
         </div>
     </div>
@@ -13,32 +13,66 @@
 
 {% block content %}
     <div class="overlay"></div>
-    <div class="container page-contents">
-        <div class="row">
+    <div class="container mx-auto page-contents">
+        <div class="row mx-auto">
             <div class="col-12">
-                <h2 class="text-center mb-3">User requests to become instructors</h2>
+                <hr>
+                <p class="text-center mb-3"><strong>User requests to become instructors</strong></p>
                 {% if user_requests %}
-                    {% for user in user_requests %}
-                        <p><span>Username : {{ user }}</span>
-                            <span>Email : {{ user.user.email }}</span>
-                            <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'accept' %}" role="button">Accept</a></span>
-                            <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'reject' %}" role="button">Reject</a></span>
+                <!-- Active instructors collapsed -->
+                    <div class="active-instructors my-3">
+                        <p class="text-center">
+                            <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#instructor-requests" role="button" aria-expanded="false" aria-controls="instructor-requests-control">
+                                Show / Hide
+                            </a>
                         </p>
-                    {% endfor %}
+                        <div class="collapse" id="instructor-requests">
+                            {% for user in user_requests %}
+                                <div class="row">
+                                    <div class="col">
+                                        <p><span>Username : {{ user }}</span>
+                                            <span>Email : {{ user.user.email }}</span>
+                                            <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'accept' %}" role="button">Accept</a></span>
+                                            <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'reject' %}" role="button">Reject</a></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-center">No requests</p>
                 {% endif %}
             </div>
         </div>
         <hr>
-        <div class="row">
+        <div class="row mx-auto">
             <div class="col-12">
-                <h2 class="text-center mb-3">Active instructors</h2>
+                <p class="text-center mb-3"><strong>Active instructors</strong></p>
                 {% if instructors %}
-                    {% for instructor in instructors %}
-                        <p><span>Username : {{ instructor }}</span>
-                            <span>Email : {{ instructor.user.email }}</span>
-                            <span><a class="btn btn-danger" href="{% url 'update_instructor_status' instructor 'remove' %}" role="button">Remove instructor status</a></span>
+                    <!-- Active instructors collapsed -->
+                    <div class="active-instructors my-3">
+                        <p class="text-center">
+                            <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#active-instructors" role="button" aria-expanded="false" aria-controls="active-instructors-control">
+                                Show / Hide
+                            </a>
                         </p>
-                    {% endfor %}
+                        <div class="collapse" id="active-instructors">
+                            {% for instructor in instructors %}
+                                <div class="row border custom-border my-2">
+                                    <div class="col-12 col-sm-8 p-2">
+                                        <p class="m-0 pl-2">Username : {{ instructor }}</p>
+                                        <p class="m-0 pl-2">Email : {{ instructor.user.email }}</p>
+                                    </div>
+                                    <div class="col-12 col-sm-4 p-2 d-flex">
+                                        <p class="m-auto"><a class="btn btn-danger" href="{% url 'update_instructor_status' instructor 'remove' %}" role="button">Remove</a></p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                        <p>No instructors</p>
                 {% endif %}
             </div>
         </div>
