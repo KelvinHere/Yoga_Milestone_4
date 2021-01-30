@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Lesson, LessonItem, LessonReview
+from .models import Lesson, LessonItem, LessonReview, LessonReviewFlagged
 
 
 class LessonItemAdmin(admin.ModelAdmin):
@@ -27,6 +27,13 @@ class LessonReviewAdmin(admin.ModelAdmin):
     fields = ('profile', 'lesson', 'review', 'rating', 'date',)
 
 
+class LessonReviewFlaggedAdmin(admin.ModelAdmin):
+    readonly_fields = ('profile', 'review')
+
+    fields = ('profile', 'review',)
+
+
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(LessonItem, LessonItemAdmin)
 admin.site.register(LessonReview, LessonReviewAdmin)
+admin.site.register(LessonReviewFlagged, LessonReviewFlaggedAdmin)

@@ -117,7 +117,7 @@ class LessonReview(models.Model):
         self.lesson._update_rating()
 
     def __str__(self):
-        return f'Review of "{self.lesson.lesson_name}" by "{self.profile}""'
+        return f'Review of "{self.lesson.lesson_name}" by "{self.profile}"'
 
 
 class LessonReviewFlagged(models.Model):
@@ -131,4 +131,7 @@ class LessonReviewFlagged(models.Model):
                                related_name='flaggedReview')
 
     def __str__(self):
-        return f'Review of "{self.review.lesson.lesson_name}" flagged by "{self.profile}""'
+        return f'Review of "{self.review.lesson.lesson_name}" flagged by "{self.profile}"'
+
+    class Meta:
+        verbose_name_plural = "Lesson Reviews Flagged"

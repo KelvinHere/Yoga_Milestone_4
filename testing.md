@@ -134,7 +134,7 @@ Index Here
     - If an instructor tries to POST data to an invalid lesson_id they are redirected to their created lessons page with the error message "Invalid lesson ID, no lessons were updated."
     - if an instructor tried to GET another instructors lesson_id they are redirected to their created lessons page with the error message "You can only edit your own lessons, please check your username."
 
-7. **review_lesson**
+7. **review_lesson view**
 - **Valid requests**
     - GET request will display a review form for the lesson or pre-fill the form with the existing review for editing
     - POST request will create a new review or update an existing review if available
@@ -144,6 +144,14 @@ Index Here
     - User who passes an invalid lesson_id will be redirected home with the error "Cannot create/edit a review for an invalid lesson."
     - User who submits an invalid form are redirected back to the current lesson they were creating a review for with the error message "Error in review form: {form.errors}"
     - POSTs with an invalid rating out the range of 1-10 will be directed back to the lesson page with the error message "You entered an invalid rating, please try again."
+
+8. **flag_review view**
+- **Valid requests**
+    - GET request with a valid review.pk will create a flag for the review in question to be reviewd by an administrator, the user will be redirected back to the lesson page with a success message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
+
+- **Error and Invalid request handling**
+    - Users who pass an invalid review.pk will be taken back to the lesson page with an error message "Invalid review, please contact support if you think this is an error"
+    - Users who try to flag a review multiple times will be taken back to the lesson page with the error message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
 
 ## **Profile Page**
 

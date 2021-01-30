@@ -12,6 +12,7 @@ The user will also have the ability to book personal video calls with the tutor 
 instructor sorting
 format accounts/confirm-email/
 delete/edit review error redirect back to lesson
+contact page
 ## Bugs
 add to basket when navbar is collapsed shows on top left - move basket to collapsed nav
 messages not showing color on topbar

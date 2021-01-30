@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from .models import UserProfile
-from lessons.models import Lesson, LessonItem, LessonReview
+from lessons.models import Lesson, LessonItem, LessonReview, LessonReviewFlagged
 from checkout.models import OrderLineItem
 import json
 
@@ -398,6 +398,26 @@ def delete_review(request, lesson_id):
         messages.error(request, 'Cannot delete review, it does not belong to this account.')
         return redirect(reverse('studio', args=(lesson_id,)))
 
+
+@login_required
+def flag_review(request, review_pk, lesson_id):
+    """ Allows user to flag a review to admin """
+    profile = get_object_or_404(UserProfile, user=request.user)
+
+    try:
+        review = get_object_or_404(LessonReview, pk=review_pk)
+    except Exception as e:
+        messages.error(request, "Invalid review, please contact support if you think this is an error")
+        return redirect(reverse('studio', args=(lesson_id,)))
+
+    if LessonReviewFlagged.objects.filter(profile=profile, review=review).exists():
+        messages.error(request, f"You have already flagged {review.profile}'s review, it will be reviewd by an administrator soon")
+        return redirect(reverse('studio', args=(review.lesson.lesson_id,)))
+
+    flag = LessonReviewFlagged(profile=profile, review=review)
+    flag.save()
+    messages.success(request, f"{review.profile}'s review has been flagged and will be reviewed by an administrator soon")
+    return redirect(reverse('studio', args=(review.lesson.lesson_id,)))
 
 def get_modal_data(request):
     """ Get data for lesson extra detail modal """

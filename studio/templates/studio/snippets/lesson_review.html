@@ -22,6 +22,12 @@
                     <i class="fas fa-trash"></i>
                 </span>
             </a>
+            {% else %}
+            <a href="{% url 'flag_review' review.pk lesson.lesson_id %}" class=" btn btn-sm text-warning py-0 pl-4 my-0">
+                <span class="icon">
+                    <i class="fas fa-flag"></i>
+                </span>
+            </a>
             {% endif %}
         </p>
     </div>
