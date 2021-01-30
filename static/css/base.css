@@ -91,6 +91,16 @@ body {
     text-decoration: none;
 }
 
+.nav-link-format:hover {
+    text-decoration: none;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
 /* ---------------------------------------- Header */
 .header-container {
     margin-top: 56px;
