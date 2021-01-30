@@ -118,3 +118,17 @@ class LessonReview(models.Model):
 
     def __str__(self):
         return f'Review of "{self.lesson.lesson_name}" by "{self.profile}""'
+
+
+class LessonReviewFlagged(models.Model):
+    """
+    A flag for a lesson review that may
+    contain inapropriate content
+    """
+    profile = models.ForeignKey(UserProfile, null=False, on_delete=models.CASCADE,
+                                blank=False, related_name='profileThatFlaggedReview')
+    review = models.ForeignKey(LessonReview, null=False, blank=False, on_delete=models.CASCADE,
+                               related_name='flaggedReview')
+
+    def __str__(self):
+        return f'Review of "{self.review.lesson.lesson_name}" flagged by "{self.profile}""'
