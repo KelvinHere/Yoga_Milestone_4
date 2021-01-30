@@ -103,7 +103,7 @@ body {
 }
 /* ---------------------------------------- Header */
 .header-container {
-    margin-top: 56px;
+    margin-top: 0px;
 }
 
 /* ---------------------------------------- Account pages */
@@ -249,5 +249,15 @@ body {
             max-width: 1800px;
         }
 
+        .header-container {
+            margin-top: 56px;
+        }
 
+        .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 9999;
+        }
 }
