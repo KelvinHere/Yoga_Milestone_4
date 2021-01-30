@@ -144,6 +144,11 @@ body {
     border-radius: 7%;
 }
 
+.lesson-admin-images {
+    width: 100%;
+    max-width: 150px;
+}
+
 /* ---------------------------------------- Crispy form styling */
 .custom-crispy-form-styling {
     border-color: #534a47;

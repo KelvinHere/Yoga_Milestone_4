@@ -14,22 +14,43 @@
 {% block content %}
     <div class="overlay"></div>
     <div class="container page-contents">
-        <div class="row">
+        <div class="row mx-auto">
             <div class="col-12">
-                <hr>
                 {% if instructor_created_lessons %}
                     {% for lesson in instructor_created_lessons %}
-                        <p><strong>Lesson Name:</strong> {{ lesson.lesson_name }}</p>
-                        <span>
-                            <a class="btn btn-primary" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a>
-                            <a class="btn btn-danger" href="{% url 'delete_instructor_created_lesson' lesson.lesson_id %}" role="button">Delete</a>
-                        </span>
-                        <hr>
+                        <div class="row border custom-border mb-3">
+                            <div class="col-12 col-md-4">
+                                {% if lesson.image %}
+                                    <div class="lesson-card-image-container m-auto p-3 text-center">
+                                        <img class="img-fluid lesson-admin-images" src="{{ lesson.image.url }}" alt="{{ lesson.lesson_name }}">
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12 col-md-8 p-3 d-flex flex-column">
+                                <p><strong>Lesson Name:</strong> {{ lesson.lesson_name }}</p>
+                                <p class="card-text mb-0"><small><strong>Rating: {{ lesson.rating }}{% if lesson.rating %}/10{% endif %}</strong></small></p>
+                                {% if lesson.price > 0 %}
+                                    <p class="card-text"><small class="text-muted">Price: €{{ lesson.price }}</small></p>
+                                {% else %}
+                                    <p class="card-text"><small class="text-muted">Price: <strong>Free!</strong></small></p>
+                                {% endif %}
+                                <div class="row mt-auto">
+                                    <div class="col-6">
+                                        <p class="text-left mb-0"><a class="btn btn-primary" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a></p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-right mb-0"><a class="btn btn-danger" href="{% url 'delete_instructor_created_lesson' lesson.lesson_id %}" role="button">Delete</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
                 {% else %}
                     <p>You have not created any lessons yet</p>
                 {% endif %}
-                <a class="btn btn-info" href="{% url 'create_lesson' %}" role="button">Create New Lesson</a>
+                <div class="div">
+                    <p class="text-center"><a class="btn btn-info mt-2 mb-4" href="{% url 'create_lesson' %}" role="button">Create New Lesson</a></p>
+                </div>
             </div>
         </div>
     </div>
