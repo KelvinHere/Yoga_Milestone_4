@@ -39,10 +39,8 @@
                 </div>
                 <!-- Review Buttons -->
                 <div class="review d-flex justify-content-center">
-                    {% if existing_user_review %}
-                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-sm btn-warning rounded-20 py-1 my-2">Edit Review</a>
-                    {% else %}    
-                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="index-main-button btn btn-sm btn-warning rounded-20 py-1 my-2">Write Review</a>
+                    {% if not existing_user_review %}
+                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="btn btn-sm btn-warning rounded-20 py-1 my-2">Write Review</a>
                     {% endif %}
                 </div>
                 <!-- Reviews -->
@@ -54,9 +52,17 @@
                         {% endfor %}
                     {% endif %}
                     <p class="mt-0 my-2"><strong>Reviews</strong></p>
-                    {% for review in lesson_reviews %}
-                        {% include 'studio/snippets/lesson_review.html' %}
-                    {% endfor %}
+                    {% if lesson_reviews %}
+                        {% for review in lesson_reviews %}
+                            {% include 'studio/snippets/lesson_review.html' %}
+                        {% endfor %}
+                    {% else %}
+                        {% if my_review %}
+                            <p>No more reviews</p>
+                        {% else %}
+                            <p>No reviews, why dont you write one?</p>
+                        {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
