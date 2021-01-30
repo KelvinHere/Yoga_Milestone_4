@@ -27,14 +27,56 @@
                             </a>
                         </p>
                         <div class="collapse" id="instructor-requests">
-                            {% for user in user_requests %}
-                                <div class="row">
-                                    <div class="col">
-                                        <p><span>Username : {{ user }}</span>
-                                            <span>Email : {{ user.user.email }}</span>
-                                            <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'accept' %}" role="button">Accept</a></span>
-                                            <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'reject' %}" role="button">Reject</a></span>
-                                        </p>
+                            {% for request in user_requests %}
+                                <!-- User requesting instructor status-->
+                                <div class="row mx-1 mx-lg-4 mt-1 mt-lg-3 p-3 border custom-border">
+                                    <div class="col-12 col-md-4">
+                                        <div class="container-fluid p-0 p-md-3">
+                                            <!-- request image -->
+                                            <div class="d-flex justify-content-center">
+                                                {% if request.image %}
+                                                    <img src="{{ request.image.url }}" class="img-fluid profile-image" alt="{{ request }}'s profile image'">
+                                                {% else %}
+                                                    <img src="{{ MEDIA_URL }}profile_images/no_profile_image.jpg" class="img-fluid profile-image" alt="{{ request }}'s profile image'">
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Profile info-->
+                                    <div class="col-12 col-md-8 my-2">
+                                        <div class="row">
+                                            <div class="col-12 col-md-3 col-lg-2">
+                                                <p class="text-center text-md-left m-0 px-0"><strong>Username</strong>:</p>
+                                            </div>
+                                            <div class="col-12 col-md">
+                                                <p class="text-center text-md-left m-0 px-0">{{ request }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-3 col-lg-2">
+                                                <p class="text-center text-md-left m-0 px-0"><strong>Email</strong>:</p>
+                                            </div>
+                                            <div class="col-12 col-md">
+                                                <p class="text-center text-md-left m-0 px-0">{{ request.user.email }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-3 col-lg-2">
+                                                <p class="text-center text-md-left m-0 px-0"><strong>Profile</strong>:</p>
+                                            </div>
+                                            <div class="col-12 col-md">
+                                                <p class="text-center text-md-left m-0 px-0">{{ request.profile_description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- Accept / Reject -->
+                                    <div class="row w-100">
+                                        <div class="col d-flex">
+                                            <div class="mx-auto">
+                                                <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'accept' %}" role="button">Accept</a></span>
+                                                <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'reject' %}" role="button">Reject</a></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -45,7 +87,6 @@
                 {% endif %}
             </div>
         </div>
-        <hr>
         <div class="row mx-auto">
             <div class="col-12">
                 <p class="text-center mb-3"><strong>Active instructors</strong></p>
