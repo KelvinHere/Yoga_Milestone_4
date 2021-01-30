@@ -19,8 +19,10 @@ def studio(request, id):
         return redirect('home')
 
     existing_user_review = LessonReview.objects.filter(profile=profile, lesson=lesson).first()
-    lesson_reviews = LessonReview.objects.filter(lesson=lesson)
     paid_lessons = OrderLineItem.objects.filter(profile=profile)
+    # Get and sort reviews
+    lesson_reviews = LessonReview.objects.filter(lesson=lesson)
+    lesson_reviews = lesson_reviews.order_by('-date')
 
     template = "studio/studio.html"
     context = {
