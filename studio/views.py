@@ -21,8 +21,9 @@ def studio(request, id):
     existing_user_review = LessonReview.objects.filter(profile=profile, lesson=lesson).first()
     paid_lessons = OrderLineItem.objects.filter(profile=profile)
     # Get and sort reviews
-    lesson_reviews = LessonReview.objects.filter(lesson=lesson)
+    lesson_reviews = LessonReview.objects.filter(lesson=lesson).exclude(profile=profile)
     lesson_reviews = lesson_reviews.order_by('-date')
+    my_review = LessonReview.objects.filter(lesson=lesson, profile=profile)
 
     template = "studio/studio.html"
     context = {
@@ -30,6 +31,7 @@ def studio(request, id):
         'lesson': lesson,
         'existing_user_review': existing_user_review,
         'lesson_reviews': lesson_reviews,
+        'my_review': my_review,
     }
 
     if paid_lessons.filter(lesson=lesson) or lesson.is_free:
