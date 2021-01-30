@@ -118,5 +118,15 @@
                 {% endif %}
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <hr>
+                {% if flagged_reviews %}
+                    {% for review in flagged_reviews %}
+                        {{ review }}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}

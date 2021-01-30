@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from lessons.models import LessonItem
+from lessons.models import LessonItem, LessonReviewFlagged
 from profiles.models import UserProfile, User
 
 from yoga.utils import get_profile_or_none
@@ -35,11 +35,13 @@ def superuser_admin(request):
     template = "home/superuser_admin.html"
     user_requests = UserProfile.objects.filter(is_instructor=False, requested_instructor_status=True)
     instructors = UserProfile.objects.filter(is_instructor=True)
+    flagged_reviews = LessonReviewFlagged.objects.all()
 
     context = {
         'profile': profile,
         'user_requests': user_requests,
-        'instructors': instructors
+        'instructors': instructors,
+        'flagged_reviews': flagged_reviews,
     }
     return render(request, template, context)
 
