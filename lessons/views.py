@@ -48,6 +48,7 @@ def lessons(request):
             if sortkey == 'price':
                 sortkey = 'price'
 
+        # Direction of resuluts
         if 'direction' in request.GET:
             direction = request.GET['direction']
             if direction == 'desc':
@@ -334,19 +335,23 @@ def review_lesson(request, lesson_id):
 
     # Submit review form
     if request.method == 'POST':
+        post_data = request.POST.copy()
         # Validate rating
         rating_value = request.POST['rating_dropdown']
         if int(rating_value) not in range(1, 11):
             messages.error(request, 'You entered an invalid rating, \
                                      please try again.')
             return redirect('studio', lesson.lesson_id)
-
-        rating_value = int(rating_value)
-
-        if not existing_review:
-            form = ReviewForm(request.POST)
         else:
-            form = ReviewForm(request.POST, instance=existing_review)
+            rating_value = int(rating_value)
+            post_data.update({'rating': rating_value})
+
+        # Create or fetch existing review       
+        if not existing_review:
+            form = ReviewForm(post_data)
+        else:
+            form = ReviewForm(post_data, instance=existing_review)
+        # Update form or return error message
         if form.is_valid():
             review = form.save(commit=False)
             review.rating = rating_value
@@ -355,7 +360,7 @@ def review_lesson(request, lesson_id):
         else:
             error = form.errors
             messages.error(request, f'Error in review form: {error}')
-            return redirect(reverse('studio', lesson_id))
+            return redirect('studio', lesson.lesson_id)
     # Send user to create/update review form
     else:
         if existing_review:
