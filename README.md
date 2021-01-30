@@ -11,6 +11,7 @@ The user will also have the ability to book personal video calls with the tutor 
 - add real email to allauth
 instructor sorting
 format accounts/confirm-email/
+delete/edit review error redirect back to lesson
 ## Bugs
 add to basket when navbar is collapsed shows on top left - move basket to collapsed nav
 messages not showing color on topbar
@@ -296,6 +297,9 @@ A quick summary of instructions with basic configuration below.
 8. The app should now be on heroku running on gunicorn
  
 ## Credits
+
+- Colour scheme inspired by [icolorpalette](https://icolorpalette.com/palette-by-themes/yoga)
+
 ### Content
  
 - This project was created by KelvinHere

@@ -374,6 +374,31 @@ def review_lesson(request, lesson_id):
             return render(request, template, context)
 
 
+@login_required
+def delete_review(request, lesson_id):
+    profile = get_object_or_404(UserProfile, user=request.user)
+    try:
+        lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+    except Exception as e:
+        messages.error(request, 'Cannot delete review, invalid lesson.')
+        return redirect(reverse('home'))
+
+    try:
+        review = LessonReview.objects.get(profile=profile, lesson=lesson)
+    except LessonReview.DoesNotExist:
+        messages.error(request, 'Cannot delete review, no review exists for this lesson.')
+        return redirect(reverse('studio', args=(lesson_id,)))
+
+    if profile == profile or request.user.is_superuser:
+        review.delete()
+        messages.success(request, 'Review deleted.')
+        lesson._update_rating()
+        return redirect(reverse('studio', args=(lesson_id,)))
+    else:
+        messages.error(request, 'Cannot delete review, it does not belong to this account.')
+        return redirect(reverse('studio', args=(lesson_id,)))
+
+
 def get_modal_data(request):
     """ Get data for lesson extra detail modal """
     if request.method == 'POST':

@@ -39,7 +39,7 @@ def checkout(request):
                         profile=profile,
                     )
                     order_line_item.save()
-                except Lesson.DoesNotExist:
+                except Lesson.DoesNotExist: #IS THIS RIGHT? Should it be OrderLineItem?
                     messages.error(request, "One of the lessons was not found please contact us for assistance")
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
