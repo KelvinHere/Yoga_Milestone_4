@@ -5,7 +5,8 @@
     <div class="container header-container">
         <div class="row">
             <div class="col">
-                <h1 class="text-center title-text my-3">Lessons created by {{ profile }}</h1>
+                <h1 class="text-center title-text mt-3 mb-0">Lesson Admin for {{ profile }}</h1>
+                <p class="text-center mb-3">Create / Edit / Delete your lessons here</p>
             </div>
         </div>
     </div>
@@ -18,7 +19,7 @@
             <div class="col-12">
                 {% if instructor_created_lessons %}
                     {% for lesson in instructor_created_lessons %}
-                        <div class="row border custom-border mb-3">
+                        <div class="row border custom-border mb-3 instructor-admin-card-text">
                             <div class="col-12 col-md-4">
                                 {% if lesson.image %}
                                     <div class="lesson-card-image-container m-auto p-3 text-center">
@@ -27,19 +28,20 @@
                                 {% endif %}
                             </div>
                             <div class="col-12 col-md-8 p-3 d-flex flex-column">
-                                <p><strong>Lesson Name:</strong> {{ lesson.lesson_name }}</p>
+                                <p class="mb-0"><strong>{{ lesson.lesson_name }}</strong></p>
                                 <p class="card-text mb-0"><small><strong>Rating: {{ lesson.rating }}{% if lesson.rating %}/10{% endif %}</strong></small></p>
                                 {% if lesson.price > 0 %}
-                                    <p class="card-text"><small class="text-muted">Price: €{{ lesson.price }}</small></p>
+                                    <p class="card-text mb-0"><small class="text-muted">Price: €{{ lesson.price }}</small></p>
                                 {% else %}
-                                    <p class="card-text"><small class="text-muted">Price: <strong>Free!</strong></small></p>
+                                    <p class="card-text mb-0"><small class="text-muted">Price: <strong>Free!</strong></small></p>
                                 {% endif %}
+                                <p class="card-text alt-font mt-2">{{ lesson.card_description }}</p>
                                 <div class="row mt-auto">
                                     <div class="col-6">
-                                        <p class="text-left mb-0"><a class="btn btn-primary" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a></p>
+                                        <p class="text-left mb-0"><a class="btn btn-primary instructor-admin-button" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a></p>
                                     </div>
                                     <div class="col-6">
-                                        <p class="text-right mb-0"><a class="btn btn-danger" href="{% url 'delete_instructor_created_lesson' lesson.lesson_id %}" role="button">Delete</a></p>
+                                        <p class="text-right mb-0"><a class="btn btn-danger instructor-admin-button" href="{% url 'delete_instructor_created_lesson' lesson.lesson_id %}" role="button">Delete</a></p>
                                     </div>
                                 </div>
                             </div>

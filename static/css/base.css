@@ -172,16 +172,23 @@ body {
     width: 20%
 }
 
-/* ---------------------------------------- Studop & Reviews */
+/* ---------------------------------------- Studo & Reviews */
 .review-image {
     width: 100%;
     max-width: 70px;
 }
 
+.instructor-admin-card-text p,
 .lesson-review-div p:not(:first-child) {
     line-height: 1.3;
     font-size: 14px;
 }
+
+/* ---------------------------------------- Instructor Admin */
+.instructor-admin-button {
+    width: 75%;
+}
+
 /* ---------------------------------------- Toasts */
 .toast-topbar {
     height: 3px;
@@ -215,6 +222,10 @@ body {
     .account-border {
         border: solid 1px #534a47;
     }
+
+    .instructor-admin-button {
+            width: 50%;
+        }
 }
 
 /* ----------------- Bootstrap MD breakpoint */
@@ -265,5 +276,9 @@ body {
         right: 0;
         left: 0;
         z-index: 9999;
+        }
+
+        .instructor-admin-button {
+            width: 25%;
         }
 }
