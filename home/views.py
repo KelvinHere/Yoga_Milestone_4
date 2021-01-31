@@ -52,8 +52,7 @@ def update_instructor_status(request, user_to_update, status):
     if not request.user.is_superuser:
         messages.error(request, 'Sorry only administrators can do this')
         return redirect(reverse('home'))
-    
-    profile = get_object_or_404(UserProfile, user=request.user)
+
     update_user = User.objects.get(username=user_to_update)
     update_profile = UserProfile.objects.get(user=update_user)
     if status == 'accept':

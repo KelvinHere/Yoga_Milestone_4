@@ -147,13 +147,26 @@ Index Here
 
 8. **flag_review view**
 - **Valid requests**
-    - GET request with a valid review.pk will create a flag for the review in question to be reviewd by an administrator, the user will be redirected back to the lesson page with a success message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
+    - Request with a valid review.pk will create a flag for the review in question to be reviewd by an administrator, the user will be redirected back to the lesson page with a success message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
 
 - **Error and Invalid request handling**
     - Users who pass an invalid review.pk will be taken back to the lesson page with an error message "Invalid review, please contact support if you think this is an error"
     - Users who try to flag a review multiple times will be taken back to the lesson page with the error message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
 
+9. **delete_review view**
 ## **Profile Page**
+- **Valid requests**
+    - Request from a user will delete their review (and any associated flags against that review) and redirect them to the current lesson with a success message of "Review deleted"
+    - Request from superuser in superuser_admin.html are handled by ajax and will delete the review (and any associated flags agains that review) and update request card without reloading with the message "Review deleted"
+
+- **Error and Invalid request handling**
+    - Superusers whos ajax request does not return {'success': 'True} are given the message in the request card "Error: Please check this item in djangos admin panel"
+    - Users who submit a review to delete that does not exists are returned to the home page (as the lesson its self may be invalid now) and given the error message "Cannot delete review, review does not exist"
+    - Users who submit a review to delete that does not belong to them are returned to the lesson page with the error message "Cannot delete review, it does not belong to this account."
+    
+
+- **Error and Invalid request handling**
+    - Users who pass an invalid review.pk will be taken back to the lesson page with an error message "Invalid review, please contact support if you think this is an error"
 
 1. **profile view**
 - **Valid requests**

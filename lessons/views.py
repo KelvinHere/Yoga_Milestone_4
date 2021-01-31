@@ -375,28 +375,31 @@ def review_lesson(request, lesson_id):
 
 
 @login_required
-def delete_review(request, lesson_id):
+def delete_review(request, review_pk):
     profile = get_object_or_404(UserProfile, user=request.user)
+
+    # Get review
     try:
-        lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
+        review = get_object_or_404(LessonReview, pk=review_pk)
+        lesson = review.lesson
     except Exception as e:
-        messages.error(request, 'Cannot delete review, invalid lesson.')
+        messages.error(request, 'Cannot delete review, review not found.')
         return redirect(reverse('home'))
 
-    try:
-        review = LessonReview.objects.get(profile=profile, lesson=lesson)
-    except LessonReview.DoesNotExist:
-        messages.error(request, 'Cannot delete review, no review exists for this lesson.')
-        return redirect(reverse('studio', args=(lesson_id,)))
-
-    if profile == profile or request.user.is_superuser:
+    if review.profile == profile or request.user.is_superuser:
         review.delete()
-        messages.success(request, 'Review deleted.')
         lesson._update_rating()
-        return redirect(reverse('studio', args=(lesson_id,)))
+        if request.user.is_superuser and request.method == 'POST':
+            # Stay on superuser admin page
+            json_response = json.dumps({'success': 'True'})
+            return HttpResponse(json_response, content_type='application/json')
+        else:
+            # Reload lesson page
+            messages.success(request, 'Review deleted.')
+            return redirect(reverse('studio', args=(lesson.lesson_id,)))
     else:
         messages.error(request, 'Cannot delete review, it does not belong to this account.')
-        return redirect(reverse('studio', args=(lesson_id,)))
+        return redirect(reverse('studio', args=(lesson.lesson_id,)))
 
 
 @login_required

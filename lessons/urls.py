@@ -9,7 +9,7 @@ urlpatterns = [
     path('edit_lesson/<lesson_id>', views.edit_lesson, name='edit_lesson'),
     path('delete_instructor_created_lesson/<id>', views.delete_instructor_created_lesson, name='delete_instructor_created_lesson'),
     path('review_lesson/<lesson_id>', views.review_lesson, name='review_lesson'),
-    path('delete_review/<lesson_id>', views.delete_review, name='delete_review'),
+    path('delete_review/<review_pk>', views.delete_review, name='delete_review'),
     path('flag_review/<review_pk>/<lesson_id>', views.flag_review, name='flag_review'),
     path('get_modal_data/', views.get_modal_data, name='get_modal_data'),
 ]

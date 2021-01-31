@@ -93,7 +93,7 @@
                 <p class="text-center mb-3"><strong>Active instructors</strong></p>
                 {% if instructors %}
                     <!-- List of active instructors collapsed -->
-                    <div class="active-instructors my-3">
+                    <div class="my-3">
                         <p class="text-center">
                             <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#active-instructors" role="button" aria-expanded="false" aria-controls="active-instructors-control">
                                 Show / Hide
@@ -118,15 +118,49 @@
                 {% endif %}
             </div>
         </div>
-        <div class="row">
-            <div class="col">
+         <div class="row mx-auto">
+            <div class="col-12">
                 <hr>
+                <p class="text-center mb-3"><strong>Flagged Reviews</strong></p>
                 {% if flagged_reviews %}
-                    {% for review in flagged_reviews %}
-                        {{ review }}
-                    {% endfor %}
+                    <!-- Flagged reviews -->
+                    <div class="my-3">
+                        <p class="text-center">
+                            <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#flagged-reviews" role="button" aria-expanded="false" aria-controls="flagged-reviews-control">
+                                Show / Hide
+                            </a>
+                        </p>
+                        <div class="collapse" id="flagged-reviews">
+                            {% for flagged in flagged_reviews %}
+                                <div class="row border custom-border my-2 py-2" id="flagged_div_{{ flagged.pk }}">
+                                    <div class="col-12">
+                                        <p class="m-0"><strong>Review of : {{ flagged.review.lesson.lesson_name }}</strong></p>
+                                        <p class="m-0 text-muted"><small>By: {{ flagged.review.profile }}</small></p>
+                                        <p class="m-0 text-muted"><small>Flagged By: {{ flagged.profile }}</small></p>
+                                        <p class="mx-0 my-3">{{ flagged.review.review }}</p>
+                                    </div>
+                                    <!-- Flagged review buttons -->
+                                    <div class="row w-100">
+                                        <div class="col d-flex" id="flagged_buttons_{{ flagged.pk }}">
+                                            <div class="mx-auto">
+                                                <span><a class="btn btn-sm btn-primary" href="javascript:delete_review('{{ flagged.pk }}', '{{ flagged.review.pk }}')" role="button">Ignore</a></span>
+                                                <span><a class="btn btn-sm btn-danger" href="javascript:delete_review('{{ flagged.pk }}', '{{ flagged.review.pk }}')" role="button">Remove Review</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                        <p>No instructors</p>
                 {% endif %}
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+    {% include 'home/includes/superuser_admin_js.html' %}
 {% endblock %}
