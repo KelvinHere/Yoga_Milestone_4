@@ -422,6 +422,33 @@ def flag_review(request, review_pk, lesson_id):
     messages.success(request, f"{review.profile}'s review has been flagged and will be reviewed by an administrator soon")
     return redirect(reverse('studio', args=(review.lesson.lesson_id,)))
 
+
+@login_required
+def remove_flag(request):
+    """ Removes a flag from a review """
+    if not request.user.is_superuser:
+        messages.error('Only administrators can perform this action.')
+        return redirect(reverse('home'))
+
+    if request.method == 'POST':
+        try:
+            flagged_pk = request.POST['flagged_pk']
+            flagged = get_object_or_404(LessonReviewFlagged, pk=flagged_pk)
+            review_to_ignore = flagged.review
+        except Exception as e:
+            json_response = json.dumps({'message': 'No lesson flag found with that primary key'})
+            return HttpResponse(json_response, content_type='application/json')
+        
+        # Remove all flags for this review
+        LessonReviewFlagged.objects.filter(review=review_to_ignore).delete()
+        json_response = json.dumps({'message': 'All flags for this review have been removed'})
+        return HttpResponse(json_response, content_type='application/json')
+
+    else:
+        messages.error(request, "Remove flag does not accept GET requests")
+        return redirect(reverse('superuser_admin'))
+
+
 def get_modal_data(request):
     """ Get data for lesson extra detail modal """
     if request.method == 'POST':

@@ -35,14 +35,33 @@ def superuser_admin(request):
     template = "home/superuser_admin.html"
     user_requests = UserProfile.objects.filter(is_instructor=False, requested_instructor_status=True)
     instructors = UserProfile.objects.filter(is_instructor=True)
-    flagged_reviews = LessonReviewFlagged.objects.all()
-
+    flagged_reviews = LessonReviewFlagged.objects.all().order_by('review')
+    
+    # Split results into dict of reviews that contains the users who flagged them
+    sorted_flagged_reviews = {}
+    for flagged in flagged_reviews:
+        if flagged.review.pk not in sorted_flagged_reviews:
+            sorted_flagged_reviews[flagged.review.pk] = {'review_pk' : flagged.review.pk,
+                                                 'lesson_name' : flagged.review.lesson.lesson_name,
+                                                 'reviewer' : flagged.review.profile.user.username,
+                                                 'review': flagged.review.review,
+                                                 'flaggers' : []
+                                                }
+        
+        sorted_flagged_reviews[flagged.review.pk]['flaggers'].append(flagged.profile.user.username)
+        print('#')
+        print(f' add {flagged.profile} as flagger to {flagged.review.lesson.lesson_name}')
+        print(sorted_flagged_reviews[flagged.review.pk]['flaggers'])
+    print('##')
+    print(sorted_flagged_reviews)
     context = {
         'profile': profile,
         'user_requests': user_requests,
         'instructors': instructors,
         'flagged_reviews': flagged_reviews,
+        'sorted_flagged_reviews': sorted_flagged_reviews,
     }
+
     return render(request, template, context)
 
 

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    // Handle superuser flagged review buttons
+    // Remove flagged review
     function delete_review(flagged_pk, review_pk) {
         let csrfToken = "{{ csrf_token }}";
         $.ajax({
@@ -11,6 +11,37 @@
             },
             success: function(json_response){
                 if (json_response['success'] == 'True') {
+                    $('#flagged_div_'+flagged_pk).empty();
+                    $('#flagged_div_'+flagged_pk).append(`<div class="col">
+                                                            <div class="w-100">
+                                                                <p class="text-center m-0">Review removed</p>
+                                                            </div>
+                                                          </div>`);
+                } else {
+                    let target = '#flagged_div_' + flagged_pk +' #flagged_buttons_' + flagged_pk
+                    $(target).empty();
+                    $(target).append(`<div class="w-100">
+                                        <p class="text-center text-danger">
+                                            <strong>Error: Please check this item in djangos admin panel</strong>
+                                        </p>
+                                       </div>`);
+                }
+            }
+        })
+    }
+
+    // Ignore flagged review
+    function ignore_flag(flagged_pk, review_pk) {
+        let csrfToken = "{{ csrf_token }}";
+        $.ajax({
+            type:"POST",
+            url:"/lessons/delete_review/"+review_pk,
+            data:{
+                'csrfmiddlewaretoken': csrfToken,
+                flagged_pk: flagged_pk,
+            },
+            success: function(json_response){
+                if (json_response['removed_flag'] == 'True') {
                     $('#flagged_div_'+flagged_pk).empty();
                     $('#flagged_div_'+flagged_pk).append(`<div class="col">
                                                             <div class="w-100">

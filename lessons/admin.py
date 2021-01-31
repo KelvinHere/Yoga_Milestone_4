@@ -28,7 +28,7 @@ class LessonReviewAdmin(admin.ModelAdmin):
 
 
 class LessonReviewFlaggedAdmin(admin.ModelAdmin):
-    readonly_fields = ('profile', 'review')
+    #readonly_fields = ('profile', 'review')
 
     fields = ('profile', 'review',)
 

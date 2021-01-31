@@ -122,7 +122,7 @@
             <div class="col-12">
                 <hr>
                 <p class="text-center mb-3"><strong>Flagged Reviews</strong></p>
-                {% if flagged_reviews %}
+                {% if sorted_flagged_reviews %}
                     <!-- Flagged reviews -->
                     <div class="my-3">
                         <p class="text-center">
@@ -131,19 +131,19 @@
                             </a>
                         </p>
                         <div class="collapse" id="flagged-reviews">
-                            {% for flagged in flagged_reviews %}
+                            {% for key, flagged in sorted_flagged_reviews.items %}
                                 <div class="row border custom-border my-2 py-2" id="flagged_div_{{ flagged.pk }}">
                                     <div class="col-12">
-                                        <p class="m-0"><strong>Review of : {{ flagged.review.lesson.lesson_name }}</strong></p>
-                                        <p class="m-0 text-muted"><small>By: {{ flagged.review.profile }}</small></p>
-                                        <p class="m-0 text-muted"><small>Flagged By: {{ flagged.profile }}</small></p>
-                                        <p class="mx-0 my-3">{{ flagged.review.review }}</p>
+                                        <p class="m-0"><strong>Review of : {{ flagged.lesson_name }}</strong></p>
+                                        <p class="m-0 text-muted"><small>Reviewer: {{ flagged.reviewer }}</small></p>
+                                        <p class="m-0 text-muted"><small>Flagged By: {{ flagged.flaggers|join:" / " }}</small></p>
+                                        <p class="mx-0 my-3">{{ flagged.review }}</p>
                                     </div>
                                     <!-- Flagged review buttons -->
                                     <div class="row w-100">
                                         <div class="col d-flex" id="flagged_buttons_{{ flagged.pk }}">
                                             <div class="mx-auto">
-                                                <span><a class="btn btn-sm btn-primary" href="javascript:delete_review('{{ flagged.pk }}', '{{ flagged.review.pk }}')" role="button">Ignore</a></span>
+                                                <span><a class="btn btn-sm btn-primary" href="javascript:ignore_flag('{{ flagged.pk }}')" role="button">Ignore</a></span>
                                                 <span><a class="btn btn-sm btn-danger" href="javascript:delete_review('{{ flagged.pk }}', '{{ flagged.review.pk }}')" role="button">Remove Review</a></span>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                         </div>
                     </div>
                 {% else %}
-                        <p>No instructors</p>
+                        <p>No flagged reviews</p>
                 {% endif %}
             </div>
         </div>
