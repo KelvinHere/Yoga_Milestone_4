@@ -14,147 +14,137 @@
 {% block content %}
     <div class="overlay"></div>
     <div class="container mx-auto page-contents">
-        <div class="row mx-auto">
-            <div class="col-12">
-                <hr>
-                <p class="text-center mb-3"><strong>User requests to become instructors</strong></p>
-                {% if user_requests %}
-                <!-- User requests to become instructor collapsed -->
-                    <div class="active-instructors my-3">
-                        <p class="text-center">
-                            <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#instructor-requests" role="button" aria-expanded="false" aria-controls="instructor-requests-control">
-                                Show / Hide
-                            </a>
-                        </p>
-                        <div class="collapse" id="instructor-requests">
-                            {% for request in user_requests %}
-                                <!-- User requesting instructor status-->
-                                <div class="row mx-1 mx-lg-4 mt-1 mt-lg-3 p-3 border custom-border">
-                                    <div class="col-12 col-md-4">
-                                        <div class="container-fluid p-0 p-md-3">
-                                            <!-- request image -->
-                                            <div class="d-flex justify-content-center">
-                                                {% if request.image %}
-                                                    <img src="{{ request.image.url }}" class="img-fluid profile-image" alt="{{ request }}'s profile image'">
-                                                {% else %}
-                                                    <img src="{{ MEDIA_URL }}profile_images/no_profile_image.jpg" class="img-fluid profile-image" alt="{{ request }}'s profile image'">
-                                                {% endif %}
+        <div class="">
+            <ul class="nav nav-tabs" id="adminTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="requests-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="requests" aria-selected="true">Requests <span class="text-warning">+{{ user_requests|length }}</span></a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="instructors-tab" data-toggle="tab" href="#instructors" role="tab" aria-controls="instructors" aria-selected="false">Instructors</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="flagged-tab" data-toggle="tab" href="#flagged" role="tab" aria-controls="flagged" aria-selected="false">Flagged {% if total_flags > 0 %}<span class="text-warning">+{{ total_flags }}{% endif %}</span></a>
+                </li>
+            </ul>
+            <div class="tab-content" id="adminTabContent">
+                <div class="tab-pane fade show active" id="requests" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row mx-auto">
+                        <div class="col-12">
+                            <!-- User requesting instructor status-->
+                            <p class="text-center mb-3"><strong>User requests to become instructors</strong></p>
+                            {% if user_requests %}
+                                {% for request in user_requests %}
+                                    <div class="row mx-1 mx-lg-4 mt-1 mt-lg-3 p-3 border custom-border">
+                                        <div class="col-12 col-md-4">
+                                            <div class="container-fluid p-0 p-md-3">
+                                                <!-- Request image -->
+                                                <div class="d-flex justify-content-center">
+                                                    {% if request.image %}
+                                                        <img src="{{ request.image.url }}" class="img-fluid profile-image" alt="{{ request }}'s profile image'">
+                                                    {% else %}
+                                                        <img src="{{ MEDIA_URL }}profile_images/no_profile_image.jpg" class="img-fluid profile-image" alt="{{ request }}'s profile image'">
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Request Profile info-->
+                                        <div class="col-12 col-md-8 my-2">
+                                            <div class="row">
+                                                <div class="col-12 col-md-3 col-lg-2">
+                                                    <p class="text-center text-md-left m-0 px-0"><strong>Username</strong>:</p>
+                                                </div>
+                                                <div class="col-12 col-md">
+                                                    <p class="text-center text-md-left m-0 px-0">{{ request }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-md-3 col-lg-2">
+                                                    <p class="text-center text-md-left m-0 px-0"><strong>Email</strong>:</p>
+                                                </div>
+                                                <div class="col-12 col-md">
+                                                    <p class="text-center text-md-left m-0 px-0">{{ request.user.email }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-md-3 col-lg-2">
+                                                    <p class="text-center text-md-left m-0 px-0"><strong>Profile</strong>:</p>
+                                                </div>
+                                                <div class="col-12 col-md">
+                                                    <p class="text-center text-md-left m-0 px-0">{{ request.profile_description }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Request Accept / Reject buttons -->
+                                        <div class="row w-100">
+                                            <div class="col d-flex">
+                                                <div class="mx-auto">
+                                                    <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'accept' %}" role="button">Accept</a></span>
+                                                    <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'reject' %}" role="button">Reject</a></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Profile info-->
-                                    <div class="col-12 col-md-8 my-2">
-                                        <div class="row">
-                                            <div class="col-12 col-md-3 col-lg-2">
-                                                <p class="text-center text-md-left m-0 px-0"><strong>Username</strong>:</p>
-                                            </div>
-                                            <div class="col-12 col-md">
-                                                <p class="text-center text-md-left m-0 px-0">{{ request }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 col-md-3 col-lg-2">
-                                                <p class="text-center text-md-left m-0 px-0"><strong>Email</strong>:</p>
-                                            </div>
-                                            <div class="col-12 col-md">
-                                                <p class="text-center text-md-left m-0 px-0">{{ request.user.email }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 col-md-3 col-lg-2">
-                                                <p class="text-center text-md-left m-0 px-0"><strong>Profile</strong>:</p>
-                                            </div>
-                                            <div class="col-12 col-md">
-                                                <p class="text-center text-md-left m-0 px-0">{{ request.profile_description }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <!-- Accept / Reject request to become admin -->
-                                    <div class="row w-100">
-                                        <div class="col d-flex">
-                                            <div class="mx-auto">
-                                                <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'accept' %}" role="button">Accept</a></span>
-                                                <span><a class="btn btn-primary" href="{% url 'update_instructor_status' user 'reject' %}" role="button">Reject</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-center">No requests</p>
+                            {% endif %}
                         </div>
                     </div>
-                {% else %}
-                    <p class="text-center">No requests</p>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row mx-auto">
-            <div class="col-12">
-                <hr>
-                <p class="text-center mb-3"><strong>Active instructors</strong></p>
-                {% if instructors %}
-                    <!-- List of active instructors collapsed -->
-                    <div class="my-3">
-                        <p class="text-center">
-                            <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#active-instructors" role="button" aria-expanded="false" aria-controls="active-instructors-control">
-                                Show / Hide
-                            </a>
-                        </p>
-                        <div class="collapse" id="active-instructors">
-                            {% for instructor in instructors %}
-                                <div class="row border custom-border my-2">
-                                    <div class="col-12 col-sm-8 p-2">
-                                        <p class="m-0 pl-2">Username : {{ instructor }}</p>
-                                        <p class="m-0 pl-2">Email : {{ instructor.user.email }}</p>
+                </div>
+                <div class="tab-pane fade" id="instructors" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row mx-auto">
+                        <div class="col-12">
+                            <!-- List of active instructors -->
+                            <p class="text-center mb-3"><strong>Active instructors</strong></p>
+                            {% if instructors %}
+                                {% for instructor in instructors %}
+                                    <div class="row border custom-border my-2">
+                                        <div class="col-12 col-sm-8 p-2">
+                                            <p class="m-0 pl-2">Username : {{ instructor }}</p>
+                                            <p class="m-0 pl-2">Email : {{ instructor.user.email }}</p>
+                                        </div>
+                                        <div class="col-12 col-sm-4 p-2 d-flex">
+                                            <p class="m-auto"><a class="btn btn-danger" href="{% url 'update_instructor_status' instructor 'remove' %}" role="button">Remove</a></p>
+                                        </div>
                                     </div>
-                                    <div class="col-12 col-sm-4 p-2 d-flex">
-                                        <p class="m-auto"><a class="btn btn-danger" href="{% url 'update_instructor_status' instructor 'remove' %}" role="button">Remove</a></p>
-                                    </div>
-                                </div>
-                            {% endfor %}
+                                {% endfor %}
+                            {% else %}
+                                <p>No instructors</p>
+                            {% endif %}
                         </div>
                     </div>
-                {% else %}
-                        <p>No instructors</p>
-                {% endif %}
-            </div>
-        </div>
-         <div class="row mx-auto">
-            <div class="col-12">
-                <hr>
-                <p class="text-center mb-3"><strong>Flagged Reviews</strong></p>
-                {% if sorted_flagged_reviews %}
-                    <!-- Flagged reviews -->
-                    <div class="my-3">
-                        <p class="text-center">
-                            <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#flagged-reviews" role="button" aria-expanded="false" aria-controls="flagged-reviews-control">
-                                Show / Hide
-                            </a>
-                        </p>
-                        <div class="collapse" id="flagged-reviews">
-                            {% for key, flagged in sorted_flagged_reviews.items %}
-                                <div class="row border custom-border my-2 py-2" id="flagged_div_{{ flagged.pk }}">
-                                    <div class="col-12">
-                                        <p class="m-0"><strong>Review of : {{ flagged.lesson_name }}</strong></p>
-                                        <p class="m-0 text-muted"><small>Reviewer: {{ flagged.reviewer }}</small></p>
-                                        <p class="m-0 text-muted"><small>Flagged By: {{ flagged.flaggers|join:" / " }}</small></p>
-                                        <p class="mx-0 my-3">{{ flagged.review }}</p>
-                                    </div>
-                                    <!-- Flagged review buttons -->
-                                    <div class="row w-100">
-                                        <div class="col d-flex" id="flagged_buttons_{{ flagged.pk }}">
-                                            <div class="mx-auto">
-                                                <span><a class="btn btn-sm btn-primary" href="javascript:ignore_flag('{{ flagged.pk }}')" role="button">Ignore</a></span>
-                                                <span><a class="btn btn-sm btn-danger" href="javascript:delete_review('{{ flagged.pk }}', '{{ flagged.review.pk }}')" role="button">Remove Review</a></span>
+                </div>
+                <div class="tab-pane fade" id="flagged" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="row mx-auto">
+                        <div class="col-12">
+                            <!-- Flagged Reviews -->
+                            <p class="text-center mb-3"><strong>Flagged Reviews</strong></p>
+                            {% if sorted_flagged_reviews %}
+                                {% for key, flagged in sorted_flagged_reviews.items %}
+                                    <div class="row border custom-border my-2 py-2" id="flagged_div_{{ flagged.review_pk }}">
+                                        <div class="col-12">
+                                            <p class="m-0"><strong>Review by : {{ flagged.reviewer }}</strong></p>
+                                            <p class="m-0 text-muted"><small>On lesson: {{ flagged.lesson_name }}</small></p>
+                                            <p class="m-0 text-muted"><small>Flagged By: {{ flagged.flaggers|join:" / " }}</small></p>
+                                            <p class="mx-0 my-3">{{ flagged.review }}</p>
+                                        </div>
+                                        <!-- Flagged review buttons -->
+                                        <div class="row w-100">
+                                            <div class="col d-flex" id="flagged_buttons_{{ flagged.review_pk }}">
+                                                <div class="mx-auto">
+                                                    <span><a class="btn btn-sm btn-primary" href="javascript:remove_flag('{{ flagged.review_pk }}')" role="button">Ignore</a></span>
+                                                    <span><a class="btn btn-sm btn-danger" href="javascript:delete_review('{{ flagged.review_pk }}')" role="button">Remove Review</a></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            {% endfor %}
+                                {% endfor %}
+                            {% else %}
+                                <p>No flagged reviews</p>
+                            {% endif %}
                         </div>
                     </div>
-                {% else %}
-                        <p>No flagged reviews</p>
-                {% endif %}
+                </div>
             </div>
         </div>
     </div>

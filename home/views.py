@@ -39,16 +39,18 @@ def superuser_admin(request):
     
     # Split results into dict of reviews that contains the users who flagged them
     sorted_flagged_reviews = {}
+    total_flags = 0
     for flagged in flagged_reviews:
         if flagged.review.pk not in sorted_flagged_reviews:
-            sorted_flagged_reviews[flagged.review.pk] = {'review_pk' : flagged.review.pk,
-                                                 'lesson_name' : flagged.review.lesson.lesson_name,
-                                                 'reviewer' : flagged.review.profile.user.username,
+            sorted_flagged_reviews[flagged.review.pk] = {'review_pk': flagged.review.pk,
+                                                 'lesson_name': flagged.review.lesson.lesson_name,
+                                                 'reviewer': flagged.review.profile.user.username,
                                                  'review': flagged.review.review,
-                                                 'flaggers' : []
+                                                 'flaggers': [],
                                                 }
-        
+
         sorted_flagged_reviews[flagged.review.pk]['flaggers'].append(flagged.profile.user.username)
+        total_flags += 1
         print('#')
         print(f' add {flagged.profile} as flagger to {flagged.review.lesson.lesson_name}')
         print(sorted_flagged_reviews[flagged.review.pk]['flaggers'])
@@ -60,7 +62,8 @@ def superuser_admin(request):
         'instructors': instructors,
         'flagged_reviews': flagged_reviews,
         'sorted_flagged_reviews': sorted_flagged_reviews,
-    }
+        'total_flags': total_flags,
+        }
 
     return render(request, template, context)
 

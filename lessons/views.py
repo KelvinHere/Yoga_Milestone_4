@@ -424,24 +424,28 @@ def flag_review(request, review_pk, lesson_id):
 
 
 @login_required
-def remove_flag(request):
-    """ Removes a flag from a review """
+def remove_flag(request, flagged_review_pk):
+    """ Removes all flags from a review """
     if not request.user.is_superuser:
         messages.error('Only administrators can perform this action.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
         try:
-            flagged_pk = request.POST['flagged_pk']
-            flagged = get_object_or_404(LessonReviewFlagged, pk=flagged_pk)
-            review_to_ignore = flagged.review
+            print('#in try')
+            flagged_review_pk = request.POST['flagged_review_pk']
+            print('#flagged review pk')
+            print(flagged_review_pk)
+            review_to_ignore = get_object_or_404(LessonReview, pk=flagged_review_pk)
+            print('#flagged review to ignore')
+            print(review_to_ignore)
         except Exception as e:
-            json_response = json.dumps({'message': 'No lesson flag found with that primary key'})
+            json_response = json.dumps({'removed_flag': 'False'})
             return HttpResponse(json_response, content_type='application/json')
-        
+
         # Remove all flags for this review
         LessonReviewFlagged.objects.filter(review=review_to_ignore).delete()
-        json_response = json.dumps({'message': 'All flags for this review have been removed'})
+        json_response = json.dumps({'removed_flag': 'True'})
         return HttpResponse(json_response, content_type='application/json')
 
     else:

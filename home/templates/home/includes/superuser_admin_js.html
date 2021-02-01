@@ -1,24 +1,24 @@
 <script type="text/javascript">
     // Remove flagged review
-    function delete_review(flagged_pk, review_pk) {
+    function delete_review(review_pk) {
         let csrfToken = "{{ csrf_token }}";
         $.ajax({
             type:"POST",
             url:"/lessons/delete_review/"+review_pk,
             data:{
                 'csrfmiddlewaretoken': csrfToken,
-                review_pk: review_pk,
+                'review_pk': review_pk,
             },
             success: function(json_response){
                 if (json_response['success'] == 'True') {
-                    $('#flagged_div_'+flagged_pk).empty();
-                    $('#flagged_div_'+flagged_pk).append(`<div class="col">
+                    $('#flagged_div_'+review_pk).empty();
+                    $('#flagged_div_'+review_pk).append(`<div class="col">
                                                             <div class="w-100">
                                                                 <p class="text-center m-0">Review removed</p>
                                                             </div>
                                                           </div>`);
                 } else {
-                    let target = '#flagged_div_' + flagged_pk +' #flagged_buttons_' + flagged_pk
+                    let target = '#flagged_div_' + review_pk +' #flagged_buttons_' + review_pk
                     $(target).empty();
                     $(target).append(`<div class="w-100">
                                         <p class="text-center text-danger">
@@ -30,26 +30,26 @@
         })
     }
 
-    // Ignore flagged review
-    function ignore_flag(flagged_pk, review_pk) {
+    // Remove all flags for this review
+    function remove_flag(review_pk) {
         let csrfToken = "{{ csrf_token }}";
         $.ajax({
             type:"POST",
-            url:"/lessons/delete_review/"+review_pk,
+            url:"/lessons/remove_flag/"+review_pk,
             data:{
                 'csrfmiddlewaretoken': csrfToken,
-                flagged_pk: flagged_pk,
+                'flagged_review_pk': review_pk,
             },
             success: function(json_response){
                 if (json_response['removed_flag'] == 'True') {
-                    $('#flagged_div_'+flagged_pk).empty();
-                    $('#flagged_div_'+flagged_pk).append(`<div class="col">
+                    $('#flagged_div_'+review_pk).empty();
+                    $('#flagged_div_'+review_pk).append(`<div class="col">
                                                             <div class="w-100">
-                                                                <p class="text-center m-0">Review removed</p>
+                                                                <p class="text-center m-0">Removed flags for this review</p>
                                                             </div>
                                                           </div>`);
                 } else {
-                    let target = '#flagged_div_' + flagged_pk +' #flagged_buttons_' + flagged_pk
+                    let target = '#flagged_div_' + review_pk +' #flagged_buttons_' + review_pk
                     $(target).empty();
                     $(target).append(`<div class="w-100">
                                         <p class="text-center text-danger">
