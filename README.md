@@ -1,8 +1,8 @@
 # Social Yoga - Full Stack - Milestone 4
  
 This app allows users to sign up for simple yoga classes that instructors can make available.  
-If the user likes the sample lesson, they can purchase futher/advanced lessons from the tutor.
-The user will also have the ability to book personal video calls with the tutor for a fee.
+If the user likes the free lessons an instructor created, they can purchase other paid lessons
+from them.
 
 * [Live link to site](#/ 'Heroku live link to app')
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
@@ -13,12 +13,11 @@ format accounts/confirm-email/
 contact page
 add ticks to instructor sorting
 add ticks to lesson sort
+add reviews to lesson through rating link
 ## Bugs
 add to basket when navbar is collapsed shows on top left - move basket to collapsed nav
 messages not showing color on topbar
-
-
-
+Error on stripe checkout when checking out on deployed version
 
 ## Contents
  
@@ -59,8 +58,7 @@ messages not showing color on topbar
 
 The purpose of this app is to create a platform where students can learn yoga remotely and
 instructors can sell their lessons.  Users will be able to find an instructor and lessons 
-through reviews and types of yoga, for a fee the user will be able to book video call time
-through the website.
+through reviews and types of yoga, instructors can also create paid lessons for users to buy.
 
 
 #### Wireframe Designs
@@ -88,22 +86,23 @@ As a student user I want to
 3. Learn yoga by watching videos
 4. Be able to buy a lesson I like the look of
 5. Be able to get extra information about a lesson before I use / buy it
+6. Leave a review of a lesson because I may like or dislike it enough to comment on it
 
 As an Instructor I want to
-1. Sell my services on this site to suppliment my income
-2. Set the price of my services because I know what my time is worth
-3. See a list of my booked times for video calls
+1. Create lessons free lessons to get student interested in me as an instructor
+2. Create paid lessons to make some money
 
 As site admin I want to:
 1. See requests from instructors
 2. Change privilages for users and instructors
+3. View reviews that users flag as innapropriate because I want to keep my website family friendly
  
 #### Business Goals
 
-- RE: Students : the business purpose of this app is to engage the user with yoga lessons make money from selling lessons and video call time with instructors.
-
-- RE: Instructors : make money from instructors by taking a cut of lessons and video calls sold.
- 
+The business goal of this site is to sell yoga lessons to students.  The lessons will be created by instructors who
+would like to join the site, who can create free lessons and more advanced paid lessons.  The website will take a 
+cut of the lessons sold.  It will create a safe marketplace where users can get feedback by ratings and reviews of
+instructors before buying lessons through a secure service.
  
 #### Developer Goals
  
@@ -112,33 +111,35 @@ Each feature must be well programmed, function properly and tested to be bug fre
 This project will display I have an understanding of full stack development from inception
 to deployment.
  
-To show an understanding of Django, Python, Postgres, Javascript, jQuery,
-HTML, CSS, Gunicorn, Stripe payments and how they all interact to form a final product.
+Show an understanding of Django, Python, Postgres, Javascript, jQuery,
+HTML, CSS, Gunicorn, Stripe payments and more, and how they all interact to form a final product.
  
 #### Design Choices
 
 ##### General Design
 
-Bootstrap with cards is used to create and app that will be intuative to use.  The site will
-keep a minimal clean look to keep information clear on smaller screens as this will be a responsive
-mobile first app, allowing larger screens to show more 'cards' (lessons/insctructors) at once.
+Bootstrap is my chosen framework to create the app, it will follow common design principles so it will
+be familliar and intuative to use.  The site will keep a minimal clean look to keep information clear on 
+smaller screens as this will be a responsive mobile first app.
 
-As the database of stuents and lessons grow, filtering and searching and subscribing to lessons/instructors
+As the database of stuents and lessons grow, filtering, searching and subscribing to lessons & instructors
 will be available.
 
-Navigation and selection are consitent throughout the app.
+Navigation and selection will be consitent throughout the app, with no need to use the browser back button.
 
 ##### Colours and Fonts
  
-**Font 1**  - Quicksand (BOLD) is used for branding, titles, a strong font that is not completely serious lines up with the sytle and feel of the apps content.  Content text is displayed in a non bolded Quicksand.
+**Font 1**  - Lato is used for branding, titles, a strong font that is not completely serious lines up with the sytle and feel of this apps.
  
-**Font 2** - Poiret One is used for some smaller menu titles, ratings and subtitles.  A more delicate font that takes second seat to the more important information displayed in Quicksand.
+**Font 2** - Quicksand is used for content.  A more delicate font that takes second seat to the more important information displayed in Lato.
  
 **Colours** - Main colours of white (modern and clean) with blocks of medium brown (earth/nature) set the tone of mellow, natural and modern without resoring to garish colours.  Text will be brown on white or off-white on brown for consistancy.  The only strong colours are call to action and function buttons to help the user with the interface.  Any other colours will be light pastal.  All this will set the canvas for the instructor generated content and should not take away from their lesson and profile images.
  
 ## Features
 
-### Base Features
+### Quick feature breakdown
+
+A quickreview of features on the site, more detailed descriptions futher down.
 
 - User can:
     - Register / Sign In / Signout / Confirm Email
@@ -209,7 +210,7 @@ case "Instructor deletes lesson that is already a users basket"
 - Personalised Toast to show login success in unobtrusive position
 
 
-### Superuser_admin.html page
+### Superuser_admin page
 
 Allows an administrator to easily deal with user requests and privalages without using the django /admin page.
 It consists of three tabs, Request, All Instructors, Flagged.
@@ -249,7 +250,7 @@ The page is responsive, the tabs are collapsed to a vertical arrangement on mobi
     - **Responsiveness**
     - None needed
 
-### Instructors.html page
+### Instructors page
 
 This page gives the user a list of instructors, by default they are sorted by rating high to low.
 
@@ -261,7 +262,21 @@ This page gives the user a list of instructors, by default they are sorted by ra
 - On small screens the instructor card is vertically stacked with a small profile image
 - Larger screens the card is layed out horizontally with a larger profile image
 
-### Lessons.html page
+### Instructor Admin page
+
+This page will let the instructor view lessons they have created and also create new lessons.  Each lesson will be displayed as a card with extra information such as how many students have bought or are subscribed
+to it.
+
+- **Functionality**
+- lessons are sorted by date added, newest first
+- 'Edit' button allows user to edit a lesson
+- 'Delete' button allows an instructor to delete a lesson as long as no one has bought it
+- 'Create lesson' allows an instructor to make a new lesson
+- **Responsiveness**
+- On small screens the lesson card is vertically stacked with a small profile image
+- Larger screens the card is layed out horizontally with a larger profile image
+
+### Lessons page
 
 This page shows a list of lessons, they can be filtered and sorted.
 
@@ -298,7 +313,25 @@ A lesson card contains a lesson image, name, instructor, price, small descriptio
     - The json data contains a status key and a modal that is inserted into the page and activated with jQuery
     - The modal is created by using render_to_string on a snippet called lesson_modal.html that is given the context 'lesson instance' from the lesson_id. 
 
-### Profile.html page
+### Studio page
+
+This is the page where the actual lesson happens, it has the lesson name, the embedded video, a dropdown for description and reviews underneath.
+
+- **Functionality**
+    - Embeded video can be viewed on this page
+    - Users who have no bought a paid lesson will be refused access to this page with an error message "You do not own this lesson"
+    - A description button hides a collapsed description
+    - If no current user review exists a 'Write review' buton exists which takes the user to a form to Write a lesson and give it a score out of technologies
+    - If a current user review exists that review will be displayed at the top of the reviews with an edit and delete icon to perform those actions
+    - If no reviews exist (discounting the current user) a prompt of "No more reviews exist" is displayed
+    - If other reviews exist they will be displayed in date order (newest first)
+    - Flag icon
+        - Reviews that do not belong to the logged in user have a flag icon to report the review to an administrator
+        - Administrators can see all flagged reviews on the superuser_admin.html (/home/superuser_admin view)page
+        - If a user flags a review they will receive a success message "{{ User }}'s review has been flagged and will be reviewed by an administrator soon."
+        - If a user tries to flag a review more than once they will receive the error message "You have already flagged {{ User }}'s review it will be reviewed by an administrator soon."
+
+### Profile page
 
 The profile page shows the user their profile, lets them edit it and request to become an instructor.  A list of purchased lessons and buttons to start them are also on this page.
 
@@ -370,7 +403,8 @@ Also a list of all items ordered with buttons to start these lessons
     - Using django signals each lesson item that is purchased will automatically create a subscription for that lesson so the user can find it easily and begin right away
     - "Begin" button on each bought lesson item will start that purchased lesson
 - **Responsiveness**
-
+    - On larger screens the checkout window sits on top of a blured yoga studio image as there is little information on this screen and having it all white was too jarring.
+    - On smaller screens the checkout window takes the full screen
 
 Regarging signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a signal (pre_delete) is used to delete the subscriptions that user may have for the lesson.
 
@@ -389,19 +423,19 @@ Regarging signals, if for any reason an `OrderLineItem` (the database entry that
     - Task: To reduce the number of objects in the queryset needed to return the information requested by the user.
     - Action: After a review is created and saved it will call its lesson to run a method to update its average score.  This is only done when a review is created, once the lesson rating is updated it will call the Instructor that created it to run a method that updates their score from all their (precalculated) lesson ratings.
     - Result: Now when a lesson list is called the average scores have been pre-calculated and in this example only 100 objects in the queryset are returned as opposed to 100,000
- 
-#### Frontend
-
-- Any computation involving rating is performed in the backend
 
 ### Changes during development
+As this was a learning project some changes were made in development for me to get the most out of it.  Most notibly I changed the "book video time" feature with a tutor to a "paid lesson" feature, this allowed me to make a more comprehensive "store", with adding / removing from a basket, and creating a system where once paid for lessons are unlocked for users.  I feel that over the
+development of this project it was a better idea and allowed me to use many more features of Django.
 
 ### Future Features
- 
+
 ##### Near Future
- 
+- Use a private video hosting service to give the site more control and better security for paid lessons.
+
 ##### Far Future
- 
+- Create live-streaming paid lessons, where an instructor can sell positions to join realtime lessons with direct tutor feedback.
+
 ## Testing
  
 [Testing Documentation](#) - Documentation for testing
