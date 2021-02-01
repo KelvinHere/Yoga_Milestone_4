@@ -136,27 +136,40 @@ Navigation and selection are consitent throughout the app.
 **Colours** - Main colours of white (modern and clean) with blocks of medium brown (earth/nature) set the tone of mellow, natural and modern without resoring to garish colours.  Text will be brown on white or off-white on brown for consistancy.  The only strong colours are call to action and function buttons to help the user with the interface.  Any other colours will be light pastal.  All this will set the canvas for the instructor generated content and should not take away from their lesson and profile images.
  
 ## Features
- 
-### Existing Features
+
+### Base Features
 
 - User can:
-    - Register / Sign In / Signout
-    - Fill in a profile
+    - Register / Sign In / Signout / Confirm Email
+    - View their profile
         - Edit their profile
-    - Request to become an instructor
+        - Request to become an instructor
+        - View a list of purchased lessons
     - Search available instructors
-        - View instructors profile and lessons
-    - Search available lessons
-        - Subscribe to a lesson
-        - Unsubscribe to a lesson
-        - Start a lesson
-        - Sort lessons by name / instructor / rating / price
+        - Sort instructors by Name / Rating / Number of lessons available
+    - View lessons
+        - By Instructor
+        - Filter lessons by All / Purchased / Subscribed
+        - Sort lessons by Name / Instructor / Rating / Price
+        - Search lessons
+        - Subscribe / Unsubscribe to a lesson
+        - Start a lesson that is free or they own
+    - Buy lessons
+        - Add a lesson they do not own to the basket
+        - Remove a lesson from their basket
+        - See if they qualify for a discount
+        - See the cost of each lesson and mini-description in thier basket
+        - See a grand total
+        - Checkout with Stripe
+        - Start their lessons right from the checkout page
+    - Review lessons
+        - Create / Edit / Delete thier reviews
+        - Flag a review for administrator review
 
 - Instructor can:
     - Do anything a User can
-    - Create a lesson
-    - Delete a lesson
-    - Edit a lesson
+    - View a list of lessons they created
+        - Create / Edit / Delete a lesson
 
 - Administrator can:
     - Do anythng a User can
@@ -164,20 +177,75 @@ Navigation and selection are consitent throughout the app.
         - Accept / Reject that request
     - View a list of instructors
         - Remove the instructor priveliage
+    - View a list of flagged reviews
+        - Ignore the flag or delete the review
 
+#### Nav bar
+
+- Logo Brand is always a link home
+- Navbar expands from burger button on larger screens
+- If logged in shopping cart is always on the navbar and never collapses
+- Shopping cart has "+n" where n is equal to the number of items in it
+- 'Instructors' link takes user to a list of instructors to chose from
+- If logged in 'Lessons' dropdown gives choice of All / Subscribed / Purchased lessons
+- 'Account' link is personalised if user is logged in and has the following options
+    - Logged out: Register / Signin
+    - Logged in User: My Profile / Logout
+    - Logged in Instructor: Instructor Admin / My Profile / Logout
+    - Logged in Administrator: Superuser Admin / My Profile / Logout
+
+#### Home page
+
+- Website main text is personalised to the user if logged in
+- "Your subscribed lessons" call to action button if logged in to promote engagement
+- "Instructor admin" call to action button if user is an Instructor to promote engagement
+- Personalised Toast to show login success in unobtrusive position
+
+
+#### Superuser_admin.html page
+
+Allows an administrator to easily deal with user requests and privalages without using the django /admin page.
+It consists of three tabs, Request, All Instructors, Flagged.
+
+The page is responsive, the tabs are collapsed to a vertical arrangement on mobile and horizontal on larger screens.
+
+- Requests - User requests to become instructors
+    - **Functionality**
+    - This tab displays current amount of user requests to be dealt with using a styled red icon, ie 'Requests **+2**'
+    - Each card under this shows the profile picture, Username, Profile and Email link so an administrator can contact them and decide to 'Accept' of 'Reject' the request from the buttons below the request.
+    - If accepted the user is granted instructor status which gives access to the Instructor Admin page to create / edit / delete lessons.  The request is removed from the superuser_admin page
+    - If rejected the users request is set back to standard user and the request is removed from the superuser_admin page
+    - **Responsiveness**
+    - The user request changes layout between small and large screens for easier viewing
+
+- All Instructors - A list of all instructors
+    - **Functionality**
+    - This tab displays a list of all instructors
+    - A button to remove instructor status is on each instructor if needed
+    - **Responisivness**
+    - Items change layout from small to larger screens for easier viewing
+
+- Flagged - Flagged reviews
+    - **Functionality**
+    - This tab displays a list of flagged reviews
+    - The flagged review cards show
+        - Who created the review
+        - The lesson it was created for
+        - The review content
+        - A list of people who flagged the review
+        - An 'Ignore' button if the review is fine
+        - A 'Remove Review' button to remove the review from the database
+    - `LessonReviewFlagged` is the model used to handle flags
+        - It contains two foreign key fields `Profile` of the user who flagged the review and `LessonReview` the actual review
+        - If a flag is ignored all entries of `LessonReviewFlagged` that contain the `LessonReview` in question are deleted to save the administrator having to delete them individually or them staying redundantly in the database forever.
+        - If a `LessonReview` is deleted all entries of `lessonReviewFlagged` that contain the foreign key `LessonReview` are removed as the field is set to on_delete=models.CASCADE.
+    - **Responsiveness**
+    - None needed
+
+#### Instructors.html page
+
+This page gives the user a list of instructors 
   
-#### Sorting & Filtering
-
-- If viewing lessons or instructors with a lesson list below
-    - lessons can be sorted by
-        - Rating ascending or descending
-        - Lesson name ascending or descending
-        - Instructor name ascending or descending
-    - Lessons can be filtered by
-        - All
-        - Subscribed
-        - Purchased
-
 #### Database
  
  - The database is postgres, below is the final map, barring any development issues, of its construction.
@@ -186,13 +254,13 @@ Navigation and selection are consitent throughout the app.
 
 
  
-#### Backend
+#### Performance
 
 - Rating system
-    - Situation: I wanted a rating system for lessons that would show the average score of all the reviews, but at scale for example 1000 lessons each had 100 reviews, everytime a user requested this list there would be 1000 x 100 = 100,000 objects in the queryset returned.
+    - Situation: I wanted a rating system for Instructors and Lessons that would show the average score of each instructor by lessons and each lesson by their reviews, but at scale for example 1000 lessons each had 100 reviews, everytime a user would request a list of all lessons there would be 1000 x 100 = 100,000 objects in the queryset returned to get all the review ratings.
     - Task: To reduce the number of objects in the queryset needed to return the information requested by the user.
-    - Action: After a review is created and saved it will call its lesson to run a method to update its average score.  This is only done when a review is created
-    - Result: Now when a lesson list is called the average scores have been pre-calculated and only 100 objects in the queryset are returned as opposed to the theoretical 100,000
+    - Action: After a review is created and saved it will call its lesson to run a method to update its average score.  This is only done when a review is created, once the lesson rating is updated it will call the Instructor that created it to run a method that updates their score from all their (precalculated) lesson ratings.
+    - Result: Now when a lesson list is called the average scores have been pre-calculated and in this example only 100 objects in the queryset are returned as opposed to 100,000
  
 #### Frontend
 

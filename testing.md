@@ -275,8 +275,7 @@ Index Here
     - If the logic of this view fails, users are given the message "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction."
 
 
-## Bugs
-***
+## Solved Interesting Bugs
 - **Instructor deletes lesson that is already a users basket**
 - Situation - If an instructor deletes a lesson that is already in a users basket the user will receive a 404 error whenever the basket context processor is called because of this line `lesson = get_object_or_404(Lesson, lesson_id=lesson_id)`
 

@@ -62,7 +62,7 @@
                                                     <p class="text-center text-md-left m-0 px-0"><strong>Email</strong>:</p>
                                                 </div>
                                                 <div class="col-12 col-md">
-                                                    <p class="text-center text-md-left m-0 px-0">{{ request.user.email }}</p>
+                                                    <p class="text-center text-md-left m-0 px-0"><a href="mailto:{{ request.user.email }}">{{ request.user.email }}</a></p>
                                                 </div>
                                             </div>
                                             <div class="row">
