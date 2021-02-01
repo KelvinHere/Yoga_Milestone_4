@@ -17,7 +17,7 @@
         <div class="">
             <ul class="nav nav-tabs mb-2 flex-column flex-sm-row" id="adminTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="requests-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="requests" aria-selected="true">Requests <span class="text-white bg-danger rounded px-2 py-1">+{{ user_requests|length }}</span></a>
+                    <a class="nav-link active" id="requests-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="requests" aria-selected="true">Requests {% if user_requests %}<span class="text-white bg-danger rounded px-2 py-1">+{{ user_requests|length }}{% endif %}</span></a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="instructors-tab" data-toggle="tab" href="#instructors" role="tab" aria-controls="instructors" aria-selected="false">All Instructors</a>
