@@ -15,15 +15,15 @@
     <div class="overlay"></div>
     <div class="container mx-auto page-contents">
         <div class="">
-            <ul class="nav nav-tabs" id="adminTab" role="tablist">
+            <ul class="nav nav-tabs mb-2 flex-column flex-sm-row" id="adminTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="requests-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="requests" aria-selected="true">Requests <span class="text-warning">+{{ user_requests|length }}</span></a>
+                    <a class="nav-link active" id="requests-tab" data-toggle="tab" href="#requests" role="tab" aria-controls="requests" aria-selected="true">Requests <span class="text-white bg-danger rounded px-2 py-1">+{{ user_requests|length }}</span></a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="instructors-tab" data-toggle="tab" href="#instructors" role="tab" aria-controls="instructors" aria-selected="false">Instructors</a>
+                    <a class="nav-link" id="instructors-tab" data-toggle="tab" href="#instructors" role="tab" aria-controls="instructors" aria-selected="false">All Instructors</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="flagged-tab" data-toggle="tab" href="#flagged" role="tab" aria-controls="flagged" aria-selected="false">Flagged {% if total_flags > 0 %}<span class="text-warning">+{{ total_flags }}{% endif %}</span></a>
+                    <a class="nav-link" id="flagged-tab" data-toggle="tab" href="#flagged" role="tab" aria-controls="flagged" aria-selected="false">Flagged {% if total_flags > 0 %}<span class="text-white bg-danger rounded px-2 py-1">+{{ total_flags }}{% endif %}</span></a>
                 </li>
             </ul>
             <div class="tab-content" id="adminTabContent">
@@ -34,7 +34,7 @@
                             <p class="text-center mb-3"><strong>User requests to become instructors</strong></p>
                             {% if user_requests %}
                                 {% for request in user_requests %}
-                                    <div class="row mx-1 mx-lg-4 mt-1 mt-lg-3 p-3 border custom-border">
+                                    <div class="row mt-1 mt-lg-3 p-3 border custom-border">
                                         <div class="col-12 col-md-4">
                                             <div class="container-fluid p-0 p-md-3">
                                                 <!-- Request image -->
