@@ -60,8 +60,6 @@ class Lesson(models.Model):
             self.lesson_id = self._generate_lesson_id()
         super().save(*args, **kwargs)
         total_lessons = Lesson.objects.filter(instructor_profile=self.instructor_profile).count()
-        print('##')
-        print(total_lessons)
         self.instructor_profile._update_lesson_count(total_lessons)
 
     def __str__(self):

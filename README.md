@@ -183,10 +183,16 @@ Navigation and selection are consitent throughout the app.
 
 ### Nav bar
 
+The nav bar appears on every page, it is locked to the top on larger screens and can be scrolled away on smaller screens.  The basket will display how many
+items it has inside.  Each time the navbar is loaded it uses a variable in a context processor in the checkout app called `product_count`, which allows the navbar
+to always have the information needed, this context processor is documented in the 
+[Solved Interesting Bugs](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/testing.md#solved-interesting-bugs) section of testing.md as an interesting 
+case "Instructor deletes lesson that is already a users basket"
+
 - Logo Brand is always a link home
 - Navbar expands from burger button on larger screens
-- If logged in shopping cart is always on the navbar and never collapses
-- Shopping cart has "+n" where n is equal to the number of items in it
+- If logged in basket is always on the navbar and never collapses
+- basket has "+n" where n is equal to the number of items in it
 - 'Instructors' link takes user to a list of instructors to chose from
 - If logged in 'Lessons' dropdown gives choice of All / Subscribed / Purchased lessons
 - 'Account' link is personalised if user is logged in and has the following options
@@ -307,7 +313,66 @@ The profile page shows the user their profile, lets them edit it and request to 
 - On small screens the instructor profile is vertically stacked with a small profile image and purchased lessons underneath
 - Larger screens the instructor profile is layed out horizontally with a larger profile image and purchased lessons underneath
 
+### Instructor created lesons page
 
+This page gives a list of lessons the logged in instructor has created , they are prompted "You have not created any lessons yet" if they have made none.  'Create new lesson' button available under the list of lessons.
+Each created lesson has its own card with the lesson image, title, rating, price, short description, edit and delete button.
+
+- **Functionality**
+- 'Edit' button takes instructor to a pre-filled form with the completed lesson data in it, this can be edited and submitted to update the lesson.
+- 'Delete' button deletes the lesson from the database
+    - After lesson is deleted, the a method is called in the instructors `UserProfile` to update the amount of lessons they have created
+- 'Create new lesson' button takes the instructor to a form that will create a new lesson if submitted
+    - After lesson is created the lesson finds out how many lessons were made by this instructor can passes it to the instructor profile method `_update_lesson_count()`
+- Instructor cant make two lessons with the same name
+- Instructor can make a lesson with the same name as another instructor to prevent 'name reserving'
+- **Responsiveness**
+- On small screens the instructor profile is vertically stacked with a small profile image and purchased lessons underneath
+- Larger screens the instructor profile is layed out horizontally with a larger profile image and purchased lessons underneath
+
+
+### Basket page
+
+The basket page shows cards of items added to the basket with image, title, instructor, price and a delete button.
+The Total, any discount and grand total are shown with a prompt of how much more they need to spend to avail of a discount if they have
+not reached that amount yet.
+Finally a checkout button at the bottom.
+
+- **Functionality**
+    - A button stlyed as a red trash can icon will remove the item from the basket
+    - The checkout button will take the user to the checkout page ready for card payment
+- **Responsiveness**
+    - The table resizes its self to fit nicely on any size screen over 300px wide.
+
+### Checkout page
+
+The checkout page displays a the total that will be charged to the user and how many items they are buying, for example "Total: €8.99 \ For 2 items"
+A form asks for a full name and email-address where a confirmation email will be sent and a card number.
+
+- **Functionality**
+    - Email address has to be valid format
+    - Card details are checked on the fly and any error message from invalid input is displayed below
+    - 'Complete order' button starts the process of placing the order through Stripe and unlocking the lesson for the user
+    - See checkout testing in testing.md for information on webhooks used to validate order
+    - 'Back to basket' button takes the user back to their basket
+    - If an order fails to process the user is given the error message that the order failed and they were not charged
+- **Responsiveness**
+    - On larger screens the checkout window sits on top of a blured yoga studio image as there is little information on this screen and having it all white was too jarring.
+    - On smaller screens the checkout window takes the full screen
+
+
+### Checkout success page
+
+The checkout success page tells the user their order was successful and gives them their order information of, name, email, order number, total, discount if applicable.
+Also a list of all items ordered with buttons to start these lessons
+
+- **Functionality**
+    - Using django signals each lesson item that is purchased will automatically create a subscription for that lesson so the user can find it easily and begin right away
+    - "Begin" button on each bought lesson item will start that purchased lesson
+- **Responsiveness**
+
+
+Regarging signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a signal (pre_delete) is used to delete the subscriptions that user may have for the lesson.
 
 #### Database
  

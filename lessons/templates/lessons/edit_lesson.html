@@ -15,7 +15,7 @@
     <div class="overlay"></div>
     <div class="container page-contents">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 mb-3">
                 <form method="POST" action="{% url 'edit_lesson' lesson.lesson_id %}" class="form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
