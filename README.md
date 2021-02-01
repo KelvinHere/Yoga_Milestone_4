@@ -9,10 +9,10 @@ The user will also have the ability to book personal video calls with the tutor 
 
 ## ToDo
 - add real email to allauth
-instructor sorting
 format accounts/confirm-email/
-delete/edit review error redirect back to lesson
 contact page
+add ticks to instructor sorting
+add ticks to lesson sort
 ## Bugs
 add to basket when navbar is collapsed shows on top left - move basket to collapsed nav
 messages not showing color on topbar
@@ -181,7 +181,7 @@ Navigation and selection are consitent throughout the app.
     - View a list of flagged reviews
         - Ignore the flag or delete the review
 
-#### Nav bar
+### Nav bar
 
 - Logo Brand is always a link home
 - Navbar expands from burger button on larger screens
@@ -195,7 +195,7 @@ Navigation and selection are consitent throughout the app.
     - Logged in Instructor: Instructor Admin / My Profile / Logout
     - Logged in Administrator: Superuser Admin / My Profile / Logout
 
-#### Home page
+### Home page
 
 - Website main text is personalised to the user if logged in
 - "Your subscribed lessons" call to action button if logged in to promote engagement
@@ -203,7 +203,7 @@ Navigation and selection are consitent throughout the app.
 - Personalised Toast to show login success in unobtrusive position
 
 
-#### Superuser_admin.html page
+### Superuser_admin.html page
 
 Allows an administrator to easily deal with user requests and privalages without using the django /admin page.
 It consists of three tabs, Request, All Instructors, Flagged.
@@ -243,10 +243,72 @@ The page is responsive, the tabs are collapsed to a vertical arrangement on mobi
     - **Responsiveness**
     - None needed
 
-#### Instructors.html page
+### Instructors.html page
 
-This page gives the user a list of instructors 
-  
+This page gives the user a list of instructors, by default they are sorted by rating high to low.
+
+- **Functionality**
+- Instructors can be sorted by Rating / Name / Number of lessons available
+- The user can press the "Enter Studio" button to get more information about an instructor and a list of ther lessons to start / subscribe / buy
+    - With this page the user can filter **and** sort this particular instructors lessons
+- **Responsiveness**
+- On small screens the instructor card is vertically stacked with a small profile image
+- Larger screens the card is layed out horizontally with a larger profile image
+
+### Lessons.html page
+
+This page shows a list of lessons, they can be filtered and sorted.
+
+To save on repeat code (DRY principle) the 'instructor studio' uses this lessons page with an 'instructor_profile_header' snippet activated by context to display instructor information over their filtered lessons.
+
+- **Sorting / Filtering**
+- Lesons can be filtered and sorted
+    - Filter by All / Subscribed / Purchased
+        - A tick shows which filter is currently applied
+    - Sort by Rating / Name / Price / Instructor Name
+        - All sorting can be reversed
+ 
+**Lesson cards**
+A lesson card contains a lesson image, name, instructor, price, small description, more details button and context sensitve buttons.
+- **Main functions**
+    - Logged out users: A call to action button "Signup to view" encourages the user to join the site and directs them to the Signup page
+    - Logged in users :-
+        - Paid Lessons that are unpurchased will show an add to basket button ie "€5.99" with an add to basket icon.
+        - Lessons that are free or purchased that are not subscribed to show a red "Subscribe to lesson" button.
+        - Lessons that are subscribed to show an Unsubscribe and Start Lesson button.
+- **Buttons**
+    - Clicking 'Subscribe to lesson' repalces that button using JS to the 'Unsubscribe' and 'Start Lesson' buttons
+    - Clicking 'Unsubscribe' replaces itself and the 'Start Lesson' button using JS with the 'Subscribe' button.
+    - Clicking 'Start Lesson' starts the lesson
+    - Clicking a buy lesson button adds the lesson to the basket, uses JS to change the button to "Added" created a popover on the basket saying "Your lesson has been added to the basket" and adds +1 to the basket icon on the navbar.
+    - Clicking the button "Added" uses JS to create a popover saying "You have already added this to your basket"
+- **Dynamic**
+    - The rating is an average of all the reviews the lesson has, if there are no reviews the lesson says Rating: None so the user knows it isn't an aweful 0 rated lesson.
+    - Paid lessons that have been purchased have their price changed to a green "Purchased" to inform the user is one of their purchased lessons.
+    - On mobile the lesson cards are vertically stacked with a small image
+    - On larger screens the cards are layed out horizontally with a larger image
+- **Modal**
+    - The More Details link uses Ajax to POST a csrf token and lesson_id to a get_modal_data view, if valid the view will return json data
+    - The json data contains a status key and a modal that is inserted into the page and activated with jQuery
+    - The modal is created by using render_to_string on a snippet called lesson_modal.html that is given the context 'lesson instance' from the lesson_id. 
+
+### Profile.html page
+
+The profile page shows the user their profile, lets them edit it and request to become an instructor.  A list of purchased lessons and buttons to start them are also on this page.
+
+- **Functionality**
+- An 'Edit Profile' button takes the user to a form where they can edit their profile information and change their picture
+- When pressed the 'Request Instructor Status' button :-
+    - Will put a flag on the Userprofile that they want to be an instructor, this request can be seen by administrators on superuser_admin.html and change the button via JS to "Under Review: Press to cancel" and thier profile status to "Under review".
+    - Pressing "Under Review: Press to cancel" removes the flag and cancels the request
+    - If the user has not finished their user profile will be prompted by toat "Error, you must complete your profile first."
+    - If the users request is granted the button is disabled changed color and displays "Instructor Status Granted" the profile status is changed to "Instructor"
+- **Responsiveness**
+- On small screens the instructor profile is vertically stacked with a small profile image and purchased lessons underneath
+- Larger screens the instructor profile is layed out horizontally with a larger profile image and purchased lessons underneath
+
+
+
 #### Database
  
  - The database is postgres, below is the final map, barring any development issues, of its construction.
