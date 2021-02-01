@@ -83,10 +83,11 @@ As a site user I want to
 3. Be able to recover my password
 
 As a student user I want to
-1. Have a free lesson to see if I like an instructor *
+1. Have a free lessons to see if I like an instructor *
 2. Find an instructor through reviews as I need to have some confidence before buying lessons
 3. Learn yoga by watching videos
-4. Get extra help with a lesson I am struggling with
+4. Be able to buy a lesson I like the look of
+5. Be able to get extra information about a lesson before I use / buy it
 
 As an Instructor I want to
 1. Sell my services on this site to suppliment my income

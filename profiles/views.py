@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
+from django.db.models import F
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from django.contrib import messages
@@ -58,7 +59,9 @@ def edit_profile(request):
 def instructors(request):
     """ View to display list of instructors """
     valid_sort_values = ['name', 'rating', 'lessons']
-    sort_direction = 'asc'
+    # Inital sort parameters
+    sortkey = 'rating'
+    direction = 'desc'
 
     instructor_list = UserProfile.objects.filter(is_instructor=True)
 
@@ -77,12 +80,12 @@ def instructors(request):
 
         if 'direction' in request.GET:
             direction = request.GET['direction']
-            if direction == 'desc':
-                sortkey = f'-{sortkey}'
 
-        print('##')
-        print(sortkey)
-        instructor_list = instructor_list.order_by(sortkey)
+    # Sort
+    if direction == 'desc':
+        instructor_list = instructor_list.order_by(F(sortkey).desc(nulls_last=True))
+    else:
+        instructor_list = instructor_list.order_by(F(sortkey).asc(nulls_last=True))
 
     template = 'profiles/instructors.html'
     context = {
