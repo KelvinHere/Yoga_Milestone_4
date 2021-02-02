@@ -22,7 +22,7 @@
             <p><strong>Reviews</strong></p>
             {% for review in lesson_reviews %}
             <div class="row lesson-review-div mb-4">
-                <div class="col-3 col-sm-2 col-lg-1 pt-3">
+                <div class="col-3 col-sm-2 col-lg-2 pt-3">
                     {% if review.profile.image %}
                         <img src="{{ review.profile.image.url }}" class="review-image rounded-circle" alt="{{ review.profile }}'s profile image'">
                     {% else %}
