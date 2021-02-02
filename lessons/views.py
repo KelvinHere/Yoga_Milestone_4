@@ -466,7 +466,7 @@ def get_modal_data(request):
 
             # Get lesson and its reviews
             lesson = Lesson.objects.get(lesson_id=lesson_id)
-            lesson_reviews = LessonReview.objects.filter(lesson=lesson)
+            lesson_reviews = LessonReview.objects.filter(lesson=lesson).order_by('-date')
             MEDIA_URL_for_json = settings.MEDIA_URL
             modal_string = render_to_string(
                 'lessons/snippets/lesson_modal.html',
