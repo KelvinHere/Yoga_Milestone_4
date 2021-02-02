@@ -16,54 +16,71 @@ from .forms import LessonForm, ReviewForm
 
 def lessons(request):
     """ View to return the lessons page """
+    # Lesson & Profile data
     profile = get_profile_or_none(request)
-    sortkey = 'lesson_name'  # Default sort parameter
-    direction = None
-    sort_direction = 'asc'
-    lesson_filter = None
+    lessons = Lesson.objects.all()
+
+    # Default Titles
     page_title = 'All Lessons'
     sub_title = None
     filter_title = 'All Lessons'
+    filter_subtitle = ''
+
+    # Search / Sort / Filter - Default values
+    valid_sort_values = ['lesson_name',
+                         'instructor_profile',
+                         'rating',
+                         'price']
+    sortby = 'lesson_name'
+    filter_by = 'all_lessons'
+    sort_direction = 'asc'
     instructor_to_display = None
-    subscribed_lesson_list = []
-    paid_lesson_list = None
-    valid_sort_values = ['name', 'instructor', 'rating', 'price']
     query = None
 
-    lessons = Lesson.objects.all()
+    # If authenticated get a list of subscribed & purchased lessons
+    if request.user.is_authenticated:
 
+        subscribed_lessons = LessonItem.objects.filter(user=profile)
+        subscribed_lesson_list = []
+        for subscribed_lesson in subscribed_lessons:
+            subscribed_lesson_list.append(subscribed_lesson.lesson.lesson_id)
+
+        paid_lessons = OrderLineItem.objects.filter(profile=profile)
+        paid_lesson_list = []
+        for paid_lesson in paid_lessons:
+            paid_lesson_list.append(paid_lesson.lesson.lesson_id)
+
+    # Handle get requests
     if request.GET:
-        # Sorting
+        # Sort by - Only change default sort value if it is valid
         if 'sort' in request.GET:
-            sortkey = request.GET['sort']
-            if sortkey not in valid_sort_values:
-                messages.error(request, 'Invalid sort value, displaying all \
-                                         lessons by name in ascending order')
-                return redirect(reverse('lessons'))
+            if request.GET['sort'] in valid_sort_values:
+                sortby = request.GET['sort']
 
-            if sortkey == 'name':
-                sortkey = 'lesson_name'
-            if sortkey == 'instructor':
-                sortkey = 'instructor_profile'
-            if sortkey == 'rating':
-                sortkey = 'rating'
-            if sortkey == 'price':
-                sortkey = 'price'
-
-        # Direction of resuluts
+        # Sort Direction - Default to ascending unless specifically 'desc'
         if 'direction' in request.GET:
-            direction = request.GET['direction']
-            if direction == 'desc':
+            if request.GET['direction'] == 'desc':
                 sort_direction = 'desc'
 
-        # Filtering
+        # Filter lessons
         if 'filter' in request.GET:
-            if request.GET['filter'] == 'mylessons':
-                lesson_filter = 'mylessons'
-            if request.GET['filter'] == 'paidlessons':
-                lesson_filter = 'paidlessons'
+            if request.GET['filter'] == 'subscribed_lessons':
+                lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
+                filter_by = request.GET['filter']
+                page_title = 'Subscribed Lessons'
+                filter_title = 'Subscribed Lessons'
+                if not lessons:
+                    sub_title = 'You are currently not subscribed to any lessons'
+            
+            if request.GET['filter'] == 'purchased_lessons':
+                lessons = lessons.filter(lesson_id__in=paid_lesson_list)
+                filter_by = request.GET['filter']
+                page_title = 'Purchased Lessons'
+                filter_title = 'Purchaed Lessons'
+                if not lessons:
+                    sub_title = 'You have not purchased any lessons'
 
-        # Instructor header
+        # Add instructor header to page
         if 'instructor' in request.GET:
             if request.GET['instructor']:
                 instructor_id = request.GET['instructor']
@@ -82,6 +99,7 @@ def lessons(request):
                                    pick one from the instructor list.')
                     return redirect(reverse('instructors'))
                 page_title = f"Welcome to {instructor_to_display}'s Studio"
+                filter_subtitle = f" in {instructor_to_display}'s Studio"
                 lessons = lessons.filter(
                     instructor_profile=instructor_to_display
                     )
@@ -99,61 +117,28 @@ def lessons(request):
                 print('#no lessons')
                 messages.error(request, "Your query returned no lessons please try again")
 
-    # If authenticated
-    if request.user.is_authenticated:
-
-        # Get a list of subscribed lesson IDs for current user
-        subscribed_lessons = LessonItem.objects.filter(user=profile)
-        for subscribed_lesson in subscribed_lessons:
-            subscribed_lesson_list.append(subscribed_lesson.lesson.lesson_id)
-
-        # Get a list of paid lessons
-        paid_lessons = OrderLineItem.objects.filter(profile=profile)
-        paid_lesson_list = []
-        for paid_lesson in paid_lessons:
-            paid_lesson_list.append(paid_lesson.lesson.lesson_id)
-
-    # Apply any filters and set up redirect reverse for buttons and page title
-    if lesson_filter:
-        if lesson_filter == 'mylessons':
-            lessons = lessons.filter(lesson_id__in=subscribed_lesson_list)
-            if not lessons:
-                sub_title = 'You are currently not subscribed to any lessons'
-            page_title = 'Subscribed Lessons'
-            filter_title = page_title
-
-        if lesson_filter == "paidlessons":
-            if paid_lesson_list:
-                lessons = lessons.filter(lesson_id__in=paid_lesson_list)
-                if lessons:
-                    page_title = 'Purchased Lessons'
-            else:
-                lessons = lessons.filter(lesson_id__in=paid_lesson_list)
-                page_title = 'Purchased Lessons'
-                sub_title = 'You have not purchased any lessons'
-            filter_title = 'Purchaed Lessons'
-
-        # If viewing an instructor and also filtering
-        if instructor_to_display:
-            page_title = f"Welcome to {instructor_to_display}'s Studio"
-
-    # Sort
+    # Apply Sort direction
     if sort_direction == 'asc':
-        lessons = lessons.order_by(F(sortkey).asc(nulls_last=True))
+        lessons = lessons.order_by(F(sortby).asc(nulls_last=True))
     else:
-        lessons = lessons.order_by(F(sortkey).desc(nulls_last=True))
+        lessons = lessons.order_by(F(sortby).desc(nulls_last=True))
 
     # Create template and context
     template = 'lessons/lessons.html'
     context = {
+        # Lesson and profile data
         'profile': profile,
-        'all_lessons': lessons,
+        'lessons': lessons,
         'subscribed_lesson_list': subscribed_lesson_list,
         'paid_lesson_list': paid_lesson_list,
+        # Titles
         'page_title': page_title,
         'sub_title': sub_title,
         'filter_title': filter_title,
-        'current_filter': lesson_filter,
+        # Filters / Sorting / Searching
+        'sort_by': sortby,
+        'sort_direction': sort_direction,
+        'filter_by': filter_by,
         'instructor_to_display': instructor_to_display,
         'current_query': query,
     }

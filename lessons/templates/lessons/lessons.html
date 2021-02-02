@@ -23,9 +23,12 @@
     <div class="row">
         <div class="col-12 mt-2">
             {% include 'lessons/snippets/lesson_sorting.html' %}
-            <p class="text-center mb-1"><strong>{{ filter_title }}</strong></p>
-            {% if all_lessons %}
-                {% for lesson in all_lessons %}
+            <p class="text-center mb-0"><strong>{{ filter_title }}{{ filter_subtitle }}</strong></p>
+            {% if current_query %}
+                <p class="text-center mb-1">Results for: "{{ current_query }}"</p>
+            {% endif %}
+            {% if lessons %}
+                {% for lesson in lessons %}
                     {% include 'lessons/snippets/lesson_card.html' %}
                 {% endfor %}
             {% else %}
