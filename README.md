@@ -13,7 +13,6 @@ format accounts/confirm-email/
 contact page
 add ticks to instructor sorting
 add ticks to lesson sort
-add reviews to lesson through rating link
 ## Bugs
 add to basket when navbar is collapsed shows on top left - move basket to collapsed nav
 messages not showing color on topbar
@@ -278,16 +277,21 @@ to it.
 
 ### Lessons page
 
-This page shows a list of lessons, they can be filtered and sorted.
+This page shows a list of lessons, they can be searched filtered and sorted.
 
 To save on repeat code (DRY principle) the 'instructor studio' uses this lessons page with an 'instructor_profile_header' snippet activated by context to display instructor information over their filtered lessons.
 
-- **Sorting / Filtering**
+- **Searching / Sorting / Filtering**
 - Lesons can be filtered and sorted
     - Filter by All / Subscribed / Purchased
         - A tick shows which filter is currently applied
     - Sort by Rating / Name / Price / Instructor Name
         - All sorting can be reversed
+- Lessons can be searched by name
+    - All filtering and sorting is retained
+
+- Example of a complex search = Search by instructor 'Sophia' & search lesson name 'dog' & filter by subscribed & sort by rating descending
+    - This would return Lessons you are subscribed to, made by 'Sophia' that contain 'dog' in the lesson name and will be sorted by highest rating first.
  
 **Lesson cards**
 A lesson card contains a lesson image, name, instructor, price, small description, more details button and context sensitve buttons.
@@ -311,7 +315,8 @@ A lesson card contains a lesson image, name, instructor, price, small descriptio
 - **Modal**
     - The More Details link uses Ajax to POST a csrf token and lesson_id to a get_modal_data view, if valid the view will return json data
     - The json data contains a status key and a modal that is inserted into the page and activated with jQuery
-    - The modal is created by using render_to_string on a snippet called lesson_modal.html that is given the context 'lesson instance' from the lesson_id. 
+    - This modal contains the lesson information with a longer description and all of its reviews
+    - The modal is created by using render_to_string on a snippet called lesson_modal.html that is given the context 'lesson instance' and 'MEDIA_URL_for_json' as it will not be parsed the same as a rendered template.
 
 ### Studio page
 

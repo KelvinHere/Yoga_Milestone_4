@@ -28,6 +28,7 @@ def lessons(request):
     subscribed_lesson_list = []
     paid_lesson_list = None
     valid_sort_values = ['name', 'instructor', 'rating', 'price']
+    query = None
 
     lessons = Lesson.objects.all()
 
@@ -85,6 +86,19 @@ def lessons(request):
                     instructor_profile=instructor_to_display
                     )
 
+        # Get Query and filter if valid
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, 'You did not enter any search query, \
+                                         please try again')
+                return redirect(reverse('lessons'))
+
+            lessons = lessons.filter(Q(lesson_name__icontains=query))
+            if not lessons:
+                print('#no lessons')
+                messages.error(request, "Your query returned no lessons please try again")
+
     # If authenticated
     if request.user.is_authenticated:
 
@@ -140,7 +154,8 @@ def lessons(request):
         'sub_title': sub_title,
         'filter_title': filter_title,
         'current_filter': lesson_filter,
-        'instructor_to_display': instructor_to_display
+        'instructor_to_display': instructor_to_display,
+        'current_query': query,
     }
 
     return render(request, template, context)

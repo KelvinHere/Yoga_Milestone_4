@@ -56,20 +56,26 @@ Index Here
 
 1. **lessons view**
 - **Valid requests**
+    - Queries
+        - `lessons/?q=`dog` only displays lessons with the word 'dog' in the lesson_name
+
     - Filters
         - When directed to the lesson page from the instructors page you are shown the instructor profile with their (sortable and filterable) lessons underneath.
         - Subscribed Lessons filter `/lessons/?filter=mylessons` only displays lessons currently subscribed to, or a message of "You are currently not subscribed to any lessons"
         - Purchased Lessons filter `/lessons/?filter=paidlessons` only displays purchased lessons, or a message "You have not purchased any lessons"
         - All Lessons filter `/lessons/?filter=None` displays all lessons
-
-    - Stacked Filters
-        - When viewing an instructors lessons
-            - All lessons filter will only show lessons by that instructor as default
-            - `/lessons/?filter=paidlessons` filter will only show lessons purchased from that instructor
-            - `/lessons/?filter=mylessons` subscribed lessons filter will only show lessons subscribed to from that instructor
+        - Accessed by the Instructors page `lessons/?instructor=VALID_INSTRUCTOR_ID` will display an instructor header with their searchable / sortable /filterable lessons underneath
+    
+    - Stacked filter/search/sort examples
+        - `/lessons/?sort=rating&direction=asc&filter=mylessons&instructor=19&q=dog` 
+            - will only show lessons user is subscribed to from that instructor with 'mountain' in the lesson name, sorted by rating in ascending order
+        - `/lessons/?sort=price&direction=desc&filter=None&instructor=19&q=dog`
+            - will only show paid lessons from that instructor that have 'dog' in the lesson name sorted by price in descending order
 
 
 - **Error and Invalid request handling**
+    - Queries
+        - `/lessons/?q=` - A query with no term will return the error message "You did not enter any search query, please try again"
     - Filters
         - `/lessons/?filter=AN_INVALID_FILTER` - Invalid filters default to showing all lessons and will not return an error message
 
@@ -80,6 +86,7 @@ Index Here
     - Instructor
         - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passed a user that is not an instructor, user redirected to instructors page error message "This user is not an instructor, please pick one from the instructor list."
         - `lessons/?instructor=INVALID_USER` Passed a user that does not exist, user redirected to instructor page with error message "This instructor was not found, please pick one from the instructor list."
+    
 
 2. **subscribe view**
 - **Valid Requests**
@@ -154,6 +161,7 @@ Index Here
     - Users who try to flag a review multiple times will be taken back to the lesson page with the error message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
 
 9. **delete_review view**
+
 ## **Profile Page**
 - **Valid requests**
     - Request from a user will delete their review (and any associated flags against that review) and redirect them to the current lesson with a success message of "Review deleted"
@@ -359,4 +367,10 @@ Index Here
 
 - **MEDIA_URL on a template no going through djangos interprator**
 
-- Situation - Lesson modal Reviews and lesson description in the 'More Details' link are retrieved through a json response, this html is created from a template using render to string
+- Situation - 'Lesson modal' content reviews and lesson description are retrieved through a json response, this html string is created from a template using render to string, when being created the {{ MEDIA_URL }} is not rendered into the string, giving the wrong url to the default_profile_image.jpg
+
+- Task - Get the MEDIA_URL to be correctly represented in the string
+
+- Action - Just before the modal is rendered to string, a variable `MEDIA_URL_for_json = settings.MEDIA_URL` is also passed as context to the render_to_string method
+
+- Result - The correct MEDIA_URL location is rendered into the string without having to hard code a location in the template.

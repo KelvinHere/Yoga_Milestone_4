@@ -1,13 +1,27 @@
 <div class="row">
+    <div class="col-12 col-lg-6 d-flex">
+        <div class="form-container mx-auto">
+            <form class="form" method="GET" action="/lessons/">
+                <input-group class="w-100">
+                <input type="text" name="q" placeholder="Search lessons">
+                {% if instructor_to_display %}
+                    <input type="hidden" name="instructor" value="{{ instructor_to_display.id }}">
+                {% endif %}
+                <input type="submit" value="Submit">
+            </form>        
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-6">
         <div class="dropdown d-flex justify-content-end my-2">
             <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=None{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">All lessons  {% if current_filter == None %}<i class="fas fa-check">{% endif %}</i></a>
-                <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=mylessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">Subscribed Lessons  {% if current_filter == 'mylessons' %}<i class="fas fa-check">{% endif %}</i></a>
-                {% if purchased_lessons %}<a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=paidlessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">Purchased Lessons {% if current_filter == 'paidlessons' %}<i class="fas fa-check">{% endif %}</i></a>{% endif %}
+                <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=None{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">All lessons  {% if current_filter == None %}<i class="fas fa-check">{% endif %}</i></a>
+                <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=mylessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">Subscribed Lessons  {% if current_filter == 'mylessons' %}<i class="fas fa-check">{% endif %}</i></a>
+                {% if purchased_lessons %}<a href="{% url 'lessons' %}?sort=rating&direction=desc&filter=paidlessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">Purchased Lessons {% if current_filter == 'paidlessons' %}<i class="fas fa-check">{% endif %}</i></a>{% endif %}
             </div>
         </div>
     </div>
@@ -17,18 +31,18 @@
                 Sort
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">By Rating: High to Low</a>
-                <a href="{% url 'lessons' %}?sort=rating&direction=asc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">By Rating: Low to High</a>
+                <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">By Rating: High to Low</a>
+                <a href="{% url 'lessons' %}?sort=rating&direction=asc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">By Rating: Low to High</a>
                 <hr>
-                <a href="{% url 'lessons' %}?sort=name&direction=asc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">By Name: A-Z</a>
-                <a href="{% url 'lessons' %}?sort=name&direction=desc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">By Name: Z-A</a>
+                <a href="{% url 'lessons' %}?sort=name&direction=asc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">By Name: A-Z</a>
+                <a href="{% url 'lessons' %}?sort=name&direction=desc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">By Name: Z-A</a>
                 <hr>
-                <a href="{% url 'lessons' %}?sort=price&direction=asc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">By Price: Low to High</a>
-                <a href="{% url 'lessons' %}?sort=price&direction=desc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}" class="dropdown-item">By Price: High to Low</a>
+                <a href="{% url 'lessons' %}?sort=price&direction=asc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">By Price: Low to High</a>
+                <a href="{% url 'lessons' %}?sort=price&direction=desc&filter={{ current_filter }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">By Price: High to Low</a>
                 <hr>
                 {% if not instructor_to_display %}
-                    <a href="{% url 'lessons' %}?sort=instructor&direction=asc&filter={{ current_filter }}" class="dropdown-item">By Instructor: A-Z</a>
-                    <a href="{% url 'lessons' %}?sort=instructor&direction=desc&filter={{ current_filter }}" class="dropdown-item">By Instructor: Z-A</a>
+                    <a href="{% url 'lessons' %}?sort=instructor&direction=asc&filter={{ current_filter }}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">By Instructor: A-Z</a>
+                    <a href="{% url 'lessons' %}?sort=instructor&direction=desc&filter={{ current_filter }}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">By Instructor: Z-A</a>
                 {% endif %}
             </div>
         </div>
