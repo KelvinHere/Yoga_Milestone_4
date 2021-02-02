@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.db.models import Q, F
 from django.contrib import messages
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from .models import UserProfile
@@ -462,11 +463,20 @@ def get_modal_data(request):
             if not Lesson.objects.filter(lesson_id=lesson_id).exists():
                 json_response = json.dumps({'status': 'invalid_lesson'})
                 return HttpResponse(json_response, content_type='application/json')
+
+            # Get lesson and its reviews
             lesson = Lesson.objects.get(lesson_id=lesson_id)
+            lesson_reviews = LessonReview.objects.filter(lesson=lesson)
+            MEDIA_URL_for_json = settings.MEDIA_URL
             modal_string = render_to_string(
                 'lessons/snippets/lesson_modal.html',
-                {'lesson': lesson}
+                {
+                    'lesson': lesson,
+                    'lesson_reviews': lesson_reviews,
+                    'MEDIA_URL_for_json': MEDIA_URL_for_json
+                }
             )
+
             json_response = json.dumps({'status': 'valid_lesson',
                                         'modal': modal_string,
                                         })

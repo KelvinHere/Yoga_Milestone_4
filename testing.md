@@ -357,3 +357,6 @@ Index Here
 
 - Result - Any part of the app where it matters if a user is logged in or not will use a single line `get_profile_or_none(request)` to return a valid profile or a None object, reducing patterns in the code.
 
+- **MEDIA_URL on a template no going through djangos interprator**
+
+- Situation - Lesson modal Reviews and lesson description in the 'More Details' link are retrieved through a json response, this html is created from a template using render to string
