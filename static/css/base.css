@@ -40,6 +40,13 @@ body {
     font-family: 'Lato';
 }
 
+.text-black {
+    color: black;
+}
+
+.text-white {
+    color: white;
+}
 /* ---------------------------------------- Links */
 .style-link {
     color: #534a47;

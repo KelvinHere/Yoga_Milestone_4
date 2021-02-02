@@ -31,9 +31,9 @@ def lessons(request):
                          'instructor_profile',
                          'rating',
                          'price']
-    sortby = 'lesson_name'
+    sortby = 'rating'
     filter_by = 'all_lessons'
-    sort_direction = 'asc'
+    sort_direction = 'desc'
     instructor_to_display = None
     query = None
 
@@ -57,9 +57,11 @@ def lessons(request):
             if request.GET['sort'] in valid_sort_values:
                 sortby = request.GET['sort']
 
-        # Sort Direction - Default to ascending unless specifically 'desc'
+        # Sort Direction
         if 'direction' in request.GET:
-            if request.GET['direction'] == 'desc':
+            if request.GET['direction'] == 'asc':
+                sort_direction = 'asc'
+            else:
                 sort_direction = 'desc'
 
         # Filter lessons
