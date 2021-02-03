@@ -38,17 +38,25 @@
                 <div class="dropdown-item w-100 d-flex justify-content-between px-2">
                     <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                         {% if sort_by == 'rating' and sort_direction == 'desc' %}
-                            <i class="fas fa-2x fa-sort-numeric-down-alt text-white bg-success p-1 rounded"></i>
+                            <div class="p-1 bg-success rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/rating-hi-lo-active.png" alt="rating high to low active icon" class="custom-icon-image">
+                            </div>
                         {% else %}
-                            <i class="fas fa-2x fa-sort-numeric-down-alt text-black p-1 rounded"></i>
+                            <div class="p-1 rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/rating-hi-lo.png" alt="rating hight to low icon" class="custom-icon-image">
+                            </div>
                         {% endif %}
                     </a>
                     <span class="my-auto flex-item"><strong>Rating</strong></span>
                     <a href="{% url 'lessons' %}?sort=rating&direction=asc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                         {% if sort_by == 'rating' and sort_direction == 'asc' %}
-                            <i class="fas fa-2x fa-sort-numeric-up-alt text-white bg-success p-1 rounded"></i>
+                        <div class="p-1 bg-success rounded">
+                            <img src="{{ STATIC_URL }}/images/icons/rating-lo-hi-active.png" alt="rating low to high active icon" class="custom-icon-image">
+                        </div>
                         {% else %}
-                            <i class="fas fa-2x fa-sort-numeric-up-alt text-black p-1 rounded"></i>
+                        <div class="p-1 rounded">
+                            <img src="{{ STATIC_URL }}/images/icons/rating-lo-hi.png" alt="rating low to high icon" class="custom-icon-image">
+                        </div>
                         {% endif %}
                     </a>
                 </div>
@@ -84,17 +92,25 @@
                 <div class="dropdown-item w-100 d-flex justify-content-between px-2">
                     <a href="{% url 'lessons' %}?sort=price&direction=desc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                         {% if sort_by == 'price' and sort_direction == 'desc' %}
-                        <i class="fas fa-2x fa-euro-sign text-white bg-success p-1 rounded"></i>
+                            <div class="p-1 bg-success rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/price-hi-lo-active.png" alt="price high to low active icon" class="custom-icon-image">
+                            </div>
                         {% else %}
-                        <i class="fas fa-2x fa-euro-sign text-black p-1 rounded"></i>
+                            <div class="p-1 rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/price-hi-lo.png" alt="price high to low icon" class="custom-icon-image">
+                            </div>
                         {% endif %}
                     </a>
                     <span class="my-auto mx-2 flex-item"><strong>Price</strong></span>
                     <a href="{% url 'lessons' %}?sort=price&direction=asc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                         {% if sort_by == 'price' and sort_direction == 'asc' %}
-                            <i class="fas fa-2x fa-euro-sign text-white bg-success p-1 rounded"></i>
+                        <div class="p-1 bg-success rounded">
+                            <img src="{{ STATIC_URL }}/images/icons/price-lo-hi-active.png" alt="price low to high active icon" class="custom-icon-image">
+                        </div>
                         {% else %}
-                            <i class="fas fa-2x fa-euro-sign text-black p-1 rounded"></i>
+                        <div class="p-1 rounded">
+                            <img src="{{ STATIC_URL }}/images/icons/price-lo-hi.png" alt="price low to high icon" class="custom-icon-image">
+                        </div>
                         {% endif %}
                     </a>
                 </div>
