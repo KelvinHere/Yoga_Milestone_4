@@ -58,7 +58,7 @@ def edit_profile(request):
 
 def instructors(request):
     """ View to display list of instructors """
-    valid_sort_values = ['user__username', 'rating', 'lessons_count']
+    valid_sort_values = ['user__username', 'rating', 'lesson_count']
     # Inital sort parameters
     sort_by = 'rating'
     sort_direction = 'desc'

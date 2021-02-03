@@ -57,8 +57,32 @@
             </a>
         </div>
         <hr class="my-2">
-
-        <a href="{% url 'instructors' %}?sort=lessons&direction=desc" class="dropdown-item">By Available Lessons: High to Low</a>
-        <a href="{% url 'instructors' %}?sort=lessons&direction=asc" class="dropdown-item">By Available Lessons: Low to High</a>
+        <!-- Sort by lesson count -->
+        <div class="dropdown-item w-100 d-flex justify-content-between px-2">
+            <a href="{% url 'instructors' %}?sort_by=lesson_count&sort_direction=desc" class="flex-item">
+                {% if sort_by == 'lesson_count' and sort_direction == 'desc' %}
+                    <div class="p-1 bg-success rounded">
+                        <img src="{{ STATIC_URL }}/images/icons/hi-lo-active.png" alt="high to low active icon" class="custom-icon-image">
+                    </div>
+                {% else %}
+                    <div class="p-1 rounded">
+                        <img src="{{ STATIC_URL }}/images/icons/hi-lo.png" alt="high to low icon" class="custom-icon-image">
+                    </div>
+                {% endif %}
+            </a>
+            <span class="my-auto flex-item"><strong>Lessons</strong></span>
+            <a href="{% url 'instructors' %}?sort_by=lesson_count&sort_direction=asc" class="flex-item">
+                {% if sort_by == 'lesson_count' and sort_direction == 'asc' %}
+                <div class="p-1 bg-success rounded">
+                    <img src="{{ STATIC_URL }}/images/icons/lo-hi-active.png" alt="low to high active icon" class="custom-icon-image">
+                </div>
+                {% else %}
+                <div class="p-1 rounded">
+                    <img src="{{ STATIC_URL }}/images/icons/lo-hi.png" alt="low to high icon" class="custom-icon-image">
+                </div>
+                {% endif %}
+            </a>
+        </div>
+        <hr class="my-2">
     </div>
 </div>
