@@ -73,7 +73,7 @@ def lessons(request):
                 filter_title = 'Subscribed Lessons'
                 if not lessons:
                     sub_title = 'You are currently not subscribed to any lessons'
-            
+
             if request.GET['filter'] == 'purchased_lessons':
                 lessons = lessons.filter(lesson_id__in=paid_lesson_list)
                 filter_by = request.GET['filter']

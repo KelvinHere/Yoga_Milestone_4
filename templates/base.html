@@ -67,10 +67,10 @@
                                 Lessons
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item colour-primary" aria-current="page" href="{% url 'lessons' %}">All Lessons</a>
-                                <a class="dropdown-item colour-primary" aria-current="page" href="{% url 'lessons' %}?filter=mylessons">Subscribed Lessons</a>
+                                <a class="dropdown-item colour-primary" aria-current="page" href="{% url 'lessons' %}?filter=all_lessons">All Lessons</a>
+                                <a class="dropdown-item colour-primary" aria-current="page" href="{% url 'lessons' %}?filter=subscribed_lessons">Subscribed Lessons</a>
                                 {% if purchased_lessons %}
-                                    <a class="dropdown-item colour-primary" aria-current="page" href="{% url 'lessons' %}?filter=paidlessons">Purchased Lessons</a>
+                                    <a class="dropdown-item colour-primary" aria-current="page" href="{% url 'lessons' %}?filter=purchased_lessons">Purchased Lessons</a>
                                 {% endif %}
                             </div>
                         </div>

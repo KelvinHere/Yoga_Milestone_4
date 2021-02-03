@@ -196,9 +196,14 @@ Index Here
 3. **instructors**
 - **Valid requests**
     - Request will render a template with a card list of all instructors `profiles/instructors.html`
+    - `profiles/instructors/?sort_by=rating&sort_direction=desc` will display instructors by rating in descending order
+    - `profiles/instructors/?q=ben` will only show instructors with "ben" in their username
+    - `profiles/instructors/?sort_by=rating&sort_direction=desc&q=ben` will only show instructors with "ben" in their username by rating in descending order
 
 - **Error and Invalid request handling**
-    - None needed
+    - Entering an invalid sort will redirect the user back to the instructor page with the error message "Invalid sort value displaying all instructors by rating in descending order"
+    - Invalid sort direction will default to descending order
+    - Passing an empty query will redirect the user back to the instructors page with the error message "You did not enter any search query, please try again"
 
 4. **request_instructor_status**
 - **Valid requests**

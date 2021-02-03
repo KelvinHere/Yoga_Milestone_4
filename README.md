@@ -8,10 +8,11 @@ from them.
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
 
 ## ToDo
-- add real email to allauth
 format accounts/confirm-email/
-contact page
+contact email and social media links
 subsort rating so lessons with most reviews appear higher
+discount notification
+not allowed to delete lessons that have been purchased
 ## Bugs
 messages not showing color on topbar
 Error on stripe checkout when checking out on deployed version
@@ -55,8 +56,8 @@ Error on stripe checkout when checking out on deployed version
 
 The purpose of this app is to create a platform where students can learn yoga remotely and
 instructors can sell their lessons.  Users will be able to find an instructor and lessons 
-through reviews and types of yoga, instructors can also create paid lessons for users to buy.
-
+through the search and filtering options then view ratings on instructors and reviews/ratings on
+lessons.
 
 #### Wireframe Designs
  
@@ -75,29 +76,29 @@ through reviews and types of yoga, instructors can also create paid lessons for 
 As a site user I want to
 1. Be able to register to the site to save my info for future use *
 2. Quickly log in or out of the site *
-3. Be able to recover my password
+3. Be able to recover my password *
 
 As a student user I want to
 1. Have a free lessons to see if I like an instructor *
-2. Find an instructor through reviews as I need to have some confidence before buying lessons
-3. Learn yoga by watching videos
-4. Be able to buy a lesson I like the look of
-5. Be able to get extra information about a lesson before I use / buy it
-6. Leave a review of a lesson because I may like or dislike it enough to comment on it
+2. Find an instructor through reviews as I need to have some confidence before buying lessons *
+3. Learn yoga by watching videos *
+4. Be able to buy a lesson I like the look of *
+5. Be able to get extra information about a lesson before I use / buy it *
+6. Leave a review of a lesson because I may like or dislike it enough to comment on it *
 
 As an Instructor I want to
-1. Create lessons free lessons to get student interested in me as an instructor
-2. Create paid lessons to make some money
+1. Create free lessons to get students interested in me as an instructor *
+2. Create paid lessons to make some money *
 
 As site admin I want to:
-1. See requests from instructors
-2. Change privilages for users and instructors
-3. View reviews that users flag as innapropriate because I want to keep my website family friendly
+1. See requests from instructors *
+2. Change privilages for users and instructors *
+3. View reviews that users flag as innapropriate because I want to keep my website family friendly *
  
 #### Business Goals
 
 The business goal of this site is to sell yoga lessons to students.  The lessons will be created by instructors who
-would like to join the site, who can create free lessons and more advanced paid lessons.  The website will take a 
+would like to join the site, who can create free lessons and paid lessons.  The website will take a 
 cut of the lessons sold.  It will create a safe marketplace where users can get feedback by ratings and reviews of
 instructors before buying lessons through a secure service.
  
@@ -115,11 +116,11 @@ HTML, CSS, Gunicorn, Stripe payments and more, and how they all interact to form
 
 ##### General Design
 
-Bootstrap is my chosen framework to create the app, it will follow common design principles so it will
-be familliar and intuative to use.  The site will keep a minimal clean look to keep information clear on 
-smaller screens as this will be a responsive mobile first app.
+Bootstrap is my chosen framework to create the app as it is quick to style pages in a familliar way.  It will follow common 
+design principles so it will be familliar and intuative to use.  The site will keep a minimal clean look to keep information 
+clear on smaller screens as this will be a responsive mobile first app.
 
-As the database of stuents and lessons grow, filtering, searching and subscribing to lessons & instructors
+As the database of stuents and lessons grow, filtering, searching, sorting and subscribing to lessons & instructors
 will be available.
 
 Navigation and selection will be consitent throughout the app, with no need to use the browser back button.
@@ -139,22 +140,23 @@ Navigation and selection will be consitent throughout the app, with no need to u
 A quickreview of features on the site, more detailed descriptions futher down.
 
 - User can:
-    - Register / Sign In / Signout / Confirm Email
+    - Register / Sign In / Signout / Confirm Email / Reset Password
     - View their profile
         - Edit their profile
         - Request to become an instructor
         - View a list of purchased lessons
     - Search available instructors
-        - Sort instructors by Name / Rating / Number of lessons available
+        - Sort these results by Name / Rating / Number of lessons available
     - View lessons
         - By Instructor
-        - Filter lessons by All / Purchased / Subscribed
-        - Sort lessons by Name / Instructor / Rating / Price
         - Search lessons
+        - Filter these results by All / Purchased / Subscribed
+        - Sort these results by Name / Instructor / Rating / Price
+            - All searching, sorting and filtering can be applied in any order and the results will stack
         - Subscribe / Unsubscribe to a lesson
         - Start a lesson that is free or they own
     - Buy lessons
-        - Add a lesson they do not own to the basket
+        - Add a lesson they do not own to their basket
         - Remove a lesson from their basket
         - See if they qualify for a discount
         - See the cost of each lesson and mini-description in thier basket
@@ -168,7 +170,7 @@ A quickreview of features on the site, more detailed descriptions futher down.
 - Instructor can:
     - Do anything a User can
     - View a list of lessons they created
-        - Create / Edit / Delete a lesson
+        - Create / Edit / Delete their lessons
 
 - Administrator can:
     - Do anythng a User can
@@ -252,9 +254,11 @@ The page is responsive, the tabs are collapsed to a vertical arrangement on mobi
 This page gives the user a list of instructors, by default they are sorted by rating high to low.
 
 - **Functionality**
+- Instructors can be searched by name or partial name
 - Instructors can be sorted by Rating / Name / Number of lessons available
+- Sorting can be stacked with searching
 - The user can press the "Enter Studio" button to get more information about an instructor and a list of ther lessons to start / subscribe / buy
-    - With this page the user can filter **and** sort this particular instructors lessons
+    - With this "studio page" the user can filter, sort **and** query the passed instructors lessons
 - **Responsiveness**
 - On small screens the instructor card is vertically stacked with a small profile image
 - Larger screens the card is layed out horizontally with a larger profile image
@@ -366,7 +370,6 @@ Each created lesson has its own card with the lesson image, title, rating, price
 - On small screens the instructor profile is vertically stacked with a small profile image and purchased lessons underneath
 - Larger screens the instructor profile is layed out horizontally with a larger profile image and purchased lessons underneath
 
-
 ### Basket page
 
 The basket page shows cards of items added to the basket with image, title, instructor, price and a delete button.
@@ -396,7 +399,6 @@ A form asks for a full name and email-address where a confirmation email will be
     - On larger screens the checkout window sits on top of a blured yoga studio image as there is little information on this screen and having it all white was too jarring.
     - On smaller screens the checkout window takes the full screen
 
-
 ### Checkout success page
 
 The checkout success page tells the user their order was successful and gives them their order information of, name, email, order number, total, discount if applicable.
@@ -413,9 +415,12 @@ Regarging signals, if for any reason an `OrderLineItem` (the database entry that
 
 #### Database
  
- - The database is postgres, below is the final map, barring any development issues, of its construction.
+ - The database is postgres, below is the initial map when creating the app
 
 ![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/database/db_design.jpg "Database design")
+
+- The final database with new features at the end of development
+
 
 
  
@@ -428,8 +433,10 @@ Regarging signals, if for any reason an `OrderLineItem` (the database entry that
     - Result: Now when a lesson list is called the average scores have been pre-calculated and in this example only 100 objects in the queryset are returned as opposed to 100,000
 
 ### Changes during development
-As this was a learning project some changes were made in development for me to get the most out of it.  Most notibly I changed the "book video time" feature with a tutor to a "paid lesson" feature, this allowed me to make a more comprehensive "store", with adding / removing from a basket, and creating a system where once paid for lessons are unlocked for users.  I feel that over the
-development of this project it was a better idea and allowed me to use many more features of Django.
+As this was a learning project some changes were made in development for me to get the most out of it.  Most notibly I changed 
+the "book video time" feature with a "paid lesson" feature.  This allowed me to make a more comprehensive "store", 
+with adding / removing from a basket, and creating a system where once a lesson is paid for they are unlocked for users.
+This allowed me to create a better showcase for my portfolio using many more features of Django.
 
 ### Future Features
 
@@ -540,7 +547,7 @@ A quick summary of instructions with basic configuration below.
  
 ### Media
 
-* [Background image](https://nicoledoherty.com/nd/wp-content/uploads/2012/11/credit-cards-you-trust-yourself.jpg)
+* [Background image](https://www.istockphoto.com/photo/young-woman-practicing-yoga-in-the-nature-female-happiness-pose-balance-body-vital-gm1221748282-358248235?clarity=false)
 * [simple_stretching.jpg and stretching descriptions](https://www.realsimple.com/health/fitness-exercise/stretching-yoga/stretching-exercises)
 * [Instructor profile pictures from free images, contributor below](https://www.freeimages.com/)
     - [Instructor 1 - By Matteo Canessa](https://www.freeimages.com/photo/yoga-relax-1556603)
@@ -549,8 +556,8 @@ A quick summary of instructions with basic configuration below.
     - [Instructor 4 - By Bimbo Cabochan](https://www.freeimages.com/photo/beach-yoga-1186865)
     - [Instructor 5 - By Martin Louis](https://www.freeimages.com/photo/yoga-1482810)
 * [Drawn lesson poses](https://www.tummee.com/)
-* [Lesson image poses prefixed self_](https://www.self.com/gallery/must-know-yoga-poses-for-beginners)
-* [Yoga studio image](https://classpass.com/classes/space-yoga-studio-brighton?page=37)
+* [Lesson image poses 'self'](https://www.self.com/gallery/must-know-yoga-poses-for-beginners)
+* [Yoga studio image on account and checkout pages](https://classpass.com/classes/space-yoga-studio-brighton?page=37)
 
 
 ### Acknowledgements

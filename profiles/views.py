@@ -70,7 +70,7 @@ def instructors(request):
         if 'sort_by' in request.GET:
             if request.GET['sort_by'] not in valid_sort_values:
                 messages.error(request, 'Invalid sort value, displaying all \
-                                         instructors by name in ascending \
+                                         instructors by rating in descending \
                                          order')
                 return redirect(reverse('instructors'))
             else:
