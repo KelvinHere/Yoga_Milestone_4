@@ -4,8 +4,9 @@ html {
 }
 
 body {
-    background: url('/media/background-image.jpg') no-repeat center center fixed;
+    background: url('/static/images/backgrounds/background-image.jpg') no-repeat center center fixed;
     background-size: cover;
+    background-position: 75% 40px;
     height: calc(100vh - 164px);
     color: #534a47;
     font-family: 'Quicksand';
@@ -253,7 +254,7 @@ body {
         top: 0;
         left: 0;
         position: fixed;
-        background: url('/media/account-bg-blur.jpg') no-repeat center center fixed;
+        background: url('/static/images/backgrounds/account-bg-blur.jpg') no-repeat center center fixed;
         background-size: cover;
         z-index: -1;
     }
@@ -303,6 +304,10 @@ body {
 @media (min-width: 1200px) {
         .paget-contents {
             max-width: 1800px;
+        }
+
+        body {
+            background-position: 0 35px;
         }
 
         .header-container {
