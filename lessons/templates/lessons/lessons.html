@@ -25,7 +25,13 @@
             {% include 'lessons/snippets/lesson_sorting.html' %}
             <p class="text-center mb-0"><strong>{{ filter_title }}{{ filter_subtitle }}</strong></p>
             {% if current_query %}
-                <p class="text-center mb-1">Results for: "{{ current_query }}"</p>
+                <!-- Remove current query -->
+                <p class="text-center my-2">Results for: 
+                    <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}#lesson-sorting" class="btn btn-sm btn-custom-darken text-white py-0">
+                        {{ current_query }}
+                        <span><i class="fas fa-times-circle"></i></span>
+                    </a>
+                </p>
             {% endif %}
             {% if lessons %}
                 {% for lesson in lessons %}
