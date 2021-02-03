@@ -13,7 +13,6 @@ format accounts/confirm-email/
 contact page
 subsort rating so lessons with most reviews appear higher
 ## Bugs
-add to basket when navbar is collapsed shows on top left - move basket to collapsed nav
 messages not showing color on topbar
 Error on stripe checkout when checking out on deployed version
 

@@ -58,38 +58,44 @@ def edit_profile(request):
 
 def instructors(request):
     """ View to display list of instructors """
-    valid_sort_values = ['name', 'rating', 'lessons']
+    valid_sort_values = ['user__email', 'rating', 'lessons_count']
     # Inital sort parameters
-    sortkey = 'rating'
-    direction = 'desc'
+    sort_by = 'rating'
+    sort_direction = 'desc'
 
     instructor_list = UserProfile.objects.filter(is_instructor=True)
 
     if request.GET:
-        if 'sort' in request.GET:
-            sortkey = request.GET['sort']
-            if sortkey not in valid_sort_values:
-                messages.error(request, 'Invalid sort value, displaying all \
-                                         instructors by name in ascending order')
-                return redirect(reverse('instructors'))
+        if 'sort_by' in request.GET:
+            print('####')
+            for instructor in instructor_list:
+                print(instructor.user.username)
 
-            if sortkey == 'name':
-                sortkey = 'user__email'
-            if sortkey == 'lessons':
-                sortkey = 'lesson_count'
+            #if request.GET['sort_by'] not in valid_sort_values or True:
+            #    messages.error(request, 'Invalid sort value, displaying all \
+            #                             instructors by name in ascending \
+            #                             order')
+            #    return redirect(reverse('instructors'))
+            #else:
+            sort_by = request.GET['sort_by']
 
-        if 'direction' in request.GET:
-            direction = request.GET['direction']
+        if 'sort_direction' in request.GET:
+            if request.GET['sort_direction'] != 'desc':
+                sort_direction = 'asc'
 
-    # Sort
-    if direction == 'desc':
-        instructor_list = instructor_list.order_by(F(sortkey).desc(nulls_last=True))
+
+
+    # Apply Sort
+    if sort_direction == 'desc':
+        instructor_list = instructor_list.order_by(F(sort_by).desc(nulls_last=True))
     else:
-        instructor_list = instructor_list.order_by(F(sortkey).asc(nulls_last=True))
+        instructor_list = instructor_list.order_by(F(sort_by).asc(nulls_last=True))
 
     template = 'profiles/instructors.html'
     context = {
-        'instructor_list': instructor_list
+        'instructor_list': instructor_list,
+        'sort_direction': sort_direction,
+        'sort_by': sort_by,
     }
 
     return render(request, template, context)
