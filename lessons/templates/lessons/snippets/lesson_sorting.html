@@ -35,7 +35,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                 <!-- Sort by rating -->
-                <div class="dropdown-item w-100 d-flex justify-content-between">
+                <div class="dropdown-item w-100 d-flex justify-content-between px-2">
                     <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                         {% if sort_by == 'rating' and sort_direction == 'desc' %}
                             <i class="fas fa-2x fa-sort-numeric-down-alt text-white bg-success p-1 rounded"></i>
@@ -54,26 +54,34 @@
                 </div>
                 <hr class="my-2">
                 <!-- Sort by lesson name-->
-                <div class="dropdown-item w-100 d-flex justify-content-between">
+                <div class="dropdown-item w-100 d-flex justify-content-between px-2">
                     <a href="{% url 'lessons' %}?sort=lesson_name&direction=asc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                         {% if sort_by == 'lesson_name' and sort_direction == 'asc' %}
-                            <i class="fas fa-2x fa-sort-alpha-down text-white bg-success p-1 rounded"></i>
+                            <div class="p-1 bg-success rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/a-z-active.png" alt="a-z active icon" class="custom-icon-image">
+                            </div>
                         {% else %}
-                            <i class="fas fa-2x fa-sort-alpha-down text-black p-1 rounded"></i>
+                            <div class="p-1 rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/a-z.png" alt="a-z icon" class="custom-icon-image">
+                            </div>
                         {% endif %}
                     </a>
                     <span class="my-auto flex-item"><strong>Name</strong></span>
                     <a href="{% url 'lessons' %}?sort=lesson_name&direction=desc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                         {% if sort_by == 'lesson_name' and sort_direction == 'desc' %}
-                            <i class="fas fa-2x fa-sort-alpha-up text-white bg-success p-1 rounded"></i>
+                        <div class="p-1 bg-success rounded">
+                            <img src="{{ STATIC_URL }}/images/icons/z-a-active.png" alt="z-a active icon" class="custom-icon-image">
+                        </div>
                         {% else %}
-                            <i class="fas fa-2x fa-sort-alpha-up text-black p-1 rounded"></i>
+                        <div class="p-1 rounded">
+                            <img src="{{ STATIC_URL }}/images/icons/z-a.png" alt="z-a icon" class="custom-icon-image">
+                        </div>
                         {% endif %}
                     </a>
                 </div>
                 <hr class="my-2">
                 <!-- Sort by price name-->
-                <div class="dropdown-item w-100 d-flex justify-content-between">
+                <div class="dropdown-item w-100 d-flex justify-content-between px-2">
                     <a href="{% url 'lessons' %}?sort=price&direction=desc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                         {% if sort_by == 'price' and sort_direction == 'desc' %}
                         <i class="fas fa-2x fa-euro-sign text-white bg-success p-1 rounded"></i>
@@ -81,7 +89,7 @@
                         <i class="fas fa-2x fa-euro-sign text-black p-1 rounded"></i>
                         {% endif %}
                     </a>
-                    <span class="my-auto flex-item"><strong>Price</strong></span>
+                    <span class="my-auto mx-2 flex-item"><strong>Price</strong></span>
                     <a href="{% url 'lessons' %}?sort=price&direction=asc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                         {% if sort_by == 'price' and sort_direction == 'asc' %}
                             <i class="fas fa-2x fa-euro-sign text-white bg-success p-1 rounded"></i>
@@ -93,20 +101,28 @@
                 <hr class="my-2">
                 <!-- Sort by instructor name-->
                 {% if not instructor_to_display %}
-                    <div class="dropdown-item w-100 d-flex justify-content-between">
+                    <div class="dropdown-item w-100 d-flex justify-content-between px-2">
                         <a href="{% url 'lessons' %}?sort=instructor_profile&direction=asc&filter={{ current_filter }}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
-                            {% if sort_by == 'instructor' and sort_direction == 'asc' %}
-                                <i class="fas fa-2x fa-sort-alpha-down text-white bg-success p-1 rounded"></i>
+                            {% if sort_by == 'instructor_profile' and sort_direction == 'asc' %}
+                            <div class="p-1 bg-success rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/a-z-active.png" alt="a-z active icon" class="custom-icon-image">
+                            </div>
                             {% else %}
-                                <i class="fas fa-2x fa-sort-alpha-down text-black p-1 rounded"></i>
+                            <div class="p-1 rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/a-z.png" alt="a-z icon" class="custom-icon-image">
+                            </div>
                             {% endif %}
                         </a>
                         <span class="my-auto mx-2 flex-item"><strong>Instructor</strong></span>
                         <a href="{% url 'lessons' %}?sort=instructor_profile&direction=desc&filter={{ current_filter }}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
-                            {% if sort_by == 'instructor' and sort_direction == 'desc' %}
-                                <i class="fas fa-2x fa-sort-alpha-up text-white bg-success p-1 rounded"></i>
+                            {% if sort_by == 'instructor_profile' and sort_direction == 'desc' %}
+                            <div class="p-1 bg-success rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/z-a-active.png" alt="z-a active icon" class="custom-icon-image">
+                            </div>
                             {% else %}
-                                <i class="fas fa-2x fa-sort-alpha-up text-black p-1 rounded"></i>
+                            <div class="p-1 rounded">
+                                <img src="{{ STATIC_URL }}/images/icons/z-a.png" alt="z-a icon" class="custom-icon-image">
+                            </div>
                             {% endif %}
                         </a>
                     </div>

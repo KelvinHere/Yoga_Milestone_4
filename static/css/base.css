@@ -47,6 +47,13 @@ body {
 .text-white {
     color: white;
 }
+
+/* ---------------------------------------- Icons */
+.custom-icon-image {
+    width: 38px;
+    height: 38px;
+}
+
 /* ---------------------------------------- Links */
 .style-link {
     color: #534a47;

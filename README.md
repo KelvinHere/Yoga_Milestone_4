@@ -11,8 +11,6 @@ from them.
 - add real email to allauth
 format accounts/confirm-email/
 contact page
-add ticks to instructor sorting
-add ticks to lesson sort
 subsort rating so lessons with most reviews appear higher
 ## Bugs
 add to basket when navbar is collapsed shows on top left - move basket to collapsed nav

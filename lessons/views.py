@@ -19,6 +19,8 @@ def lessons(request):
     # Lesson & Profile data
     profile = get_profile_or_none(request)
     lessons = Lesson.objects.all()
+    subscribed_lesson_list = []
+    paid_lesson_list = []
 
     # Default Titles
     page_title = 'All Lessons'
@@ -41,12 +43,10 @@ def lessons(request):
     if request.user.is_authenticated:
 
         subscribed_lessons = LessonItem.objects.filter(user=profile)
-        subscribed_lesson_list = []
         for subscribed_lesson in subscribed_lessons:
             subscribed_lesson_list.append(subscribed_lesson.lesson.lesson_id)
 
         paid_lessons = OrderLineItem.objects.filter(profile=profile)
-        paid_lesson_list = []
         for paid_lesson in paid_lessons:
             paid_lesson_list.append(paid_lesson.lesson.lesson_id)
 
