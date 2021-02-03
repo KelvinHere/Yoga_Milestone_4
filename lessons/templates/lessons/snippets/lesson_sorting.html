@@ -2,15 +2,22 @@
     <div class="col-12 d-flex">
         <div class="form-container mx-auto">
             <form class="form" method="GET" action="/lessons/">
-                <input-group class="w-100">
-                <input type="text" name="q" placeholder="Search lessons" value="{% if current_query %}{{ current_query }}{% endif %}">
+                <div class="input-group w-100">
+                    <input type="text" name="q" placeholder="Search lessons" value="{% if current_query %}{{ current_query }}{% endif %}">
+                    <div class="input-group-append">
+                        <button class="btn btn-custom-darken text-white" type="submit">
+                            <span>
+                                <i class="fas fa-search"></i>                    
+                            </span>
+                        </button>
+                    </div>
+                </div>
                 {% if instructor_to_display %}
                     <input type="hidden" name="instructor" value="{{ instructor_to_display.id }}">
                 {% endif %}
                     <input type="hidden" name="sort" value="{{ sort_by }}">
                     <input type="hidden" name="filter" value="{{ filter_by }}">
                     <input type="hidden" name="direction" value="{{ sort_direction }}">
-                <input type="submit" value="Submit">
             </form>        
         </div>
     </div>
