@@ -193,7 +193,7 @@ if 'USE_AWS' in os.environ:
         'CacheControl': 'max-age=90000000',
     }
 
-    # Check for updated static files too
+    # Check for updated static files
     AWS_PRELOAD_METADATA = True
     # S3 Bucket config
     AWS_STORAGE_BUCKET_NAME = 'ms4-yoga-kelvinhere'
