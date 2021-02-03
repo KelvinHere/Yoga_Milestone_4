@@ -18,6 +18,15 @@
         <div class="row">
             <div class="col-12">
                 {% include 'profiles/snippets/instructor_sorting.html' %}
+                {% if current_query %}
+                <!-- Remove current query -->
+                <p class="text-center my-2">Results for: 
+                    <a href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}" class="btn btn-sm btn-custom-darken text-white py-0">
+                        {{ current_query }}
+                        <span><i class="fas fa-times-circle"></i></span>
+                    </a>
+                </p>
+                {% endif %}
                 {% for instructor in instructor_list %}
                     <div class="card mb-3 border custom-border">
                         <div class="row mx-auto w-100">

@@ -1,3 +1,23 @@
+<div class="row pt-2" id="instructor-search">
+    <div class="col-12 d-flex">
+        <div class="form-container mx-auto">
+            <form class="form" method="GET" action="{% url 'instructors' %}">
+                <div class="input-group w-100">
+                    <input type="text" name="q" placeholder="Search Instructors" value="{% if current_query %}{{ current_query }}{% endif %}">
+                    <div class="input-group-append">
+                        <button class="btn btn-custom-darken text-white" type="submit">
+                            <span>
+                                <i class="fas fa-search"></i>                    
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <input type="hidden" name="sort_by" value="{{ sort_by }}">
+                <input type="hidden" name="sort_direction" value="{{ sort_direction }}">
+            </form>        
+        </div>
+    </div>
+</div>
 <div class="dropdown d-flex justify-content-center my-2">
     <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Sort
@@ -16,7 +36,7 @@
                     </div>
                 {% endif %}
             </a>
-            <span class="my-auto flex-item"><strong>Name</strong></span>
+            <span class="my-auto mx-3 flex-item"><strong>Name</strong></span>
             <a href="{% url 'instructors' %}?sort_by=user__username&sort_direction=desc" class="flex-item">
                 {% if sort_by == 'user__username' and sort_direction == 'desc' %}
                 <div class="p-1 bg-success rounded">
@@ -43,7 +63,7 @@
                     </div>
                 {% endif %}
             </a>
-            <span class="my-auto flex-item"><strong>Rating</strong></span>
+            <span class="my-auto mx-3 flex-item"><strong>Rating</strong></span>
             <a href="{% url 'instructors' %}?sort_by=rating&sort_direction=asc" class="flex-item">
                 {% if sort_by == 'rating' and sort_direction == 'asc' %}
                 <div class="p-1 bg-success rounded">
@@ -70,7 +90,7 @@
                     </div>
                 {% endif %}
             </a>
-            <span class="my-auto flex-item"><strong>Lessons</strong></span>
+            <span class="my-auto mx-3 flex-item"><strong>Lessons</strong></span>
             <a href="{% url 'instructors' %}?sort_by=lesson_count&sort_direction=asc" class="flex-item">
                 {% if sort_by == 'lesson_count' and sort_direction == 'asc' %}
                 <div class="p-1 bg-success rounded">
@@ -83,6 +103,5 @@
                 {% endif %}
             </a>
         </div>
-        <hr class="my-2">
     </div>
 </div>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
-from django.db.models import F
+from django.db.models import F, Q
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from django.contrib import messages
@@ -59,9 +59,10 @@ def edit_profile(request):
 def instructors(request):
     """ View to display list of instructors """
     valid_sort_values = ['user__username', 'rating', 'lesson_count']
-    # Inital sort parameters
+    # Default sort parameters
     sort_by = 'rating'
     sort_direction = 'desc'
+    query = None
 
     instructor_list = UserProfile.objects.filter(is_instructor=True)
 
@@ -79,6 +80,18 @@ def instructors(request):
             if request.GET['sort_direction'] != 'desc':
                 sort_direction = 'asc'
 
+        # Get Query and filter if valid
+        if 'q' in request.GET:
+            query = request.GET['q']
+            if not query:
+                messages.error(request, 'You did not enter any search query, \
+                                         please try again')
+                return redirect(reverse('instructors'))
+
+            instructor_list = instructor_list.filter(Q(user__username__icontains=query))
+            if not instructor_list:
+                messages.error(request, "Your query returned no instructors please try again")
+
     # Apply Sort
     if sort_direction == 'desc':
         instructor_list = instructor_list.order_by(F(sort_by).desc(nulls_last=True))
@@ -90,6 +103,7 @@ def instructors(request):
         'instructor_list': instructor_list,
         'sort_direction': sort_direction,
         'sort_by': sort_by,
+        'current_query': query,
     }
 
     return render(request, template, context)
