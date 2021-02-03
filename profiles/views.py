@@ -58,7 +58,7 @@ def edit_profile(request):
 
 def instructors(request):
     """ View to display list of instructors """
-    valid_sort_values = ['user__email', 'rating', 'lessons_count']
+    valid_sort_values = ['user__username', 'rating', 'lessons_count']
     # Inital sort parameters
     sort_by = 'rating'
     sort_direction = 'desc'
@@ -67,23 +67,17 @@ def instructors(request):
 
     if request.GET:
         if 'sort_by' in request.GET:
-            print('####')
-            for instructor in instructor_list:
-                print(instructor.user.username)
-
-            #if request.GET['sort_by'] not in valid_sort_values or True:
-            #    messages.error(request, 'Invalid sort value, displaying all \
-            #                             instructors by name in ascending \
-            #                             order')
-            #    return redirect(reverse('instructors'))
-            #else:
-            sort_by = request.GET['sort_by']
+            if request.GET['sort_by'] not in valid_sort_values:
+                messages.error(request, 'Invalid sort value, displaying all \
+                                         instructors by name in ascending \
+                                         order')
+                return redirect(reverse('instructors'))
+            else:
+                sort_by = request.GET['sort_by']
 
         if 'sort_direction' in request.GET:
             if request.GET['sort_direction'] != 'desc':
                 sort_direction = 'asc'
-
-
 
     # Apply Sort
     if sort_direction == 'desc':
