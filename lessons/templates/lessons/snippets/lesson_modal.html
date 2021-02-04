@@ -34,11 +34,13 @@
                     <p class="text-muted my-0"><small><strong>{{ review.rating }} / 10</strong></small></p>
                     <p class="review-text mb-0 mt-2">{{ review.review }}</p>
                     <p class="review-text text-muted my-0"><small>{{ review.date }}</small>
-                        <a href="{% url 'flag_review' review.pk lesson.lesson_id %}" class=" btn btn-sm text-warning py-0 pl-4 my-0">
-                            <span class="icon">
-                                <i class="fas fa-flag"></i>
-                            </span>
-                        </a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'flag_review' review.pk lesson.lesson_id %}" class=" btn btn-sm text-warning py-0 pl-4 my-0">
+                                <span class="icon">
+                                    <i class="fas fa-flag"></i>
+                                </span>
+                            </a>
+                        {% endif %}
                     </p>
                 </div>
             </div>
