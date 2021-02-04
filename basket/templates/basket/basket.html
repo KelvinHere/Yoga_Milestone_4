@@ -65,8 +65,14 @@
                     </a>
                 </div>
             {% else %}
-                <p class="text-center"><strong>Your basket is empty.  Browse our instructors to find a lesson to suit you!</strong></p>
-                <a href="{% url 'instructors' %}" class="text-center btn btn-lg btn-warning rounded-20 py-3 my-4">Find an instructor</a>
+                <div class="row">
+                    <div class="col d-flex text-center">
+                        <div>
+                            <p class="text-center mt-3">Your basket is empty.  Browse our instructors to find a lesson to suit you!</p>
+                            <a href="{% url 'instructors' %}" class="text-center btn btn-lg btn-warning rounded-20 py-3 my-4">Find an instructor</a>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>
