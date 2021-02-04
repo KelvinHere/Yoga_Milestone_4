@@ -42,7 +42,8 @@ def lessons(request):
     query = None
 
     #Pagination
-    page_number = 1
+    page_number = 1  # Default page number
+    lessons_on_page = 5  # No of lessons on a page at once
 
     # If authenticated get a list of subscribed & purchased lessons
     if request.user.is_authenticated:
@@ -132,7 +133,7 @@ def lessons(request):
     else:
         lessons = lessons.order_by(F(sortby).desc(nulls_last=True))
 
-    p = Paginator(lessons, 3)
+    p = Paginator(lessons, lessons_on_page)
     try:
         page_object = p.page(page_number)
     except EmptyPage:
