@@ -52,6 +52,7 @@ def basket_contents(request):
         'discount_percentage': settings.DISCOUNT_PERCENTAGE,
         'discount_threshold': settings.DISCOUNT_THRESHOLD,
         'grand_total': grand_total,
+        'site_email': settings.DEFAULT_FROM_EMAIL,
     }
 
     return context
