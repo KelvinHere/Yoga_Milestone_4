@@ -55,7 +55,7 @@
                         <nav aria-label="...">
                             <ul class="pagination">
                                 <li class="page-item">
-                                    <a class="page-link btn btn-custom-darken" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}&{% if lessons.has_previous %}page={{ lessons.previous_page_number }}{% else %}page={{ lessons.number }}{% endif %}#lesson-sorting" tabindex="-1" aria-disabled="true">
+                                    <a class="page-link btn btn-custom-darken" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}&{% if lessons.has_previous %}page={{ lessons.previous_page_number }}{% else %}&page={{ lessons.number }}{% endif %}#lesson-sorting" tabindex="-1" aria-disabled="true">
                                         <i class="fas fa-chevron-left"></i>
                                     </a>
                                 </li>
@@ -63,7 +63,7 @@
                                     <a class="page-link bg-light text-black" href="#">{{ lessons.number }} of {{ lessons.paginator.num_pages }}</a>
                                 </li>
                                 <li class="page-item">
-                                    <a class="page-link btn btn-custom-darken" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}{% if lessons.has_next %}&page={{ lessons.next_page_number }}{% else %}page={{ lessons.number }}{% endif %}#lesson-sorting">
+                                    <a class="page-link btn btn-custom-darken" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}{% if lessons.has_next %}&page={{ lessons.next_page_number }}{% else %}&page={{ lessons.number }}{% endif %}#lesson-sorting">
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 </li>
