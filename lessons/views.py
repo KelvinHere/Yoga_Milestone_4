@@ -194,37 +194,49 @@ def instructor_created_lessons(request):
 
     template = 'lessons/instructor_created_lessons.html'
 
-    # Get lesson items bound to student
+    # Get lessons instructor created
     instructor_created_lessons = Lesson.objects.filter(
         instructor_profile=profile)
+    customer_purchases = OrderLineItem.objects.filter(lesson__in=instructor_created_lessons).values_list('lesson', flat=True)
 
     context = {
         'profile': profile,
         'instructor_created_lessons': instructor_created_lessons,
+        'customer_purchases': customer_purchases,
     }
 
     return render(request, template, context)
 
 
 @login_required
-def delete_instructor_created_lesson(request, id):
-    """ A view to delete a lesson given an id for instructor created lessons """
+def delete_lesson(request, id):
+    """ A view to delete a lesson given a lesson_id """
     profile = get_object_or_404(UserProfile, user=request.user)
     if not profile.is_instructor:
         messages.error(request, 'Only instructors can do this.')
         return redirect('home')
 
     try:
-        instructor_created_lesson = get_object_or_404(Lesson, lesson_id=id)
+        print('##')
+        print(id)
+        lesson = get_object_or_404(Lesson, lesson_id=id)
+        purchased = OrderLineItem.objects.filter(lesson=lesson)
     except Exception as e:
         messages.error(request, 'Invalid lesson ID, no lessons were deleted.')
         return redirect(reverse('instructor_created_lessons'))
 
-    if instructor_created_lesson.instructor_profile == profile:
-        instructor_profile = instructor_created_lesson.instructor_profile
-        instructor_created_lesson.delete()
-        total_lessons = Lesson.objects.filter(instructor_profile=instructor_profile).count()
+    if purchased:
+        messages.error(request, 'You cannot delete a lesson customers have \
+                                purchased, you can only edit.')
+        return redirect(reverse('instructor_created_lessons'))
+
+    if lesson.instructor_profile == profile:
+        instructor_profile = lesson.instructor_profile
+        lesson.delete()
+        total_lessons = Lesson.objects.filter(
+            instructor_profile=instructor_profile).count()
         instructor_profile._update_lesson_count(total_lessons)
+        messages.success(request, 'Lesson deleted.')
         return redirect('instructor_created_lessons')
     else:
         messages.error(request, 'This lesson does not belong to you and has \

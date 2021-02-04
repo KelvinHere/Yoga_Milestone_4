@@ -108,9 +108,9 @@ Index Here
     - Users who are not logged in are redirected to signin page
     - If user is not an instructor they are returned to the homepage with the error message "Only instructors can do this"
 
-4. **delete_instructor_created_lesson view**
+4. **delete_lesson view**
 - **Valid requests**
-    - If an instructor passes a valid lesson_id and the logged in profile matches the profile of the lesson creator, the lesson is delete_instructor_created_lesson
+    - If an instructor passes a valid lesson_id and the logged in profile matches the profile of the lesson creator, the lesson is delete_lesson
 
 - **Error and Invalid request handling**
     - Users who are not logged in are redirected to signin page

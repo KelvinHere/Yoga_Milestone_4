@@ -11,7 +11,6 @@ from them.
 format accounts/confirm-email/
 contact email and social media links
 subsort rating so lessons with most reviews appear higher
-discount notification
 not allowed to delete lessons that have been purchased
 ## Bugs
 messages not showing color on topbar

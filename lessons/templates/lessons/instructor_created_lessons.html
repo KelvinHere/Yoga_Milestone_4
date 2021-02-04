@@ -41,7 +41,11 @@
                                         <p class="text-left mb-0"><a class="btn btn-primary instructor-admin-button" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a></p>
                                     </div>
                                     <div class="col-6">
-                                        <p class="text-right mb-0"><a class="btn btn-danger instructor-admin-button" href="{% url 'delete_instructor_created_lesson' lesson.lesson_id %}" role="button">Delete</a></p>
+                                        {% if lesson.pk not in customer_purchases %}
+                                            <p class="text-right mb-0"><a class="btn btn-danger instructor-admin-button" href="{% url 'delete_lesson' lesson.lesson_id %}" role="button">Delete</a></p>
+                                        {% else %}
+                                            <p class="text-right mb-0"><a class="btn btn-secondary instructor-admin-button" role="button" data-toggle="popover" title="Warning" data-placement="bottom" data-content="You can only edit a lesson customers have purchased.">Delete</a></p>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
