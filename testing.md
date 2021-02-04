@@ -1,7 +1,7 @@
 # Testing Documentation for Social Yoga
 
-INDEX  
-Index Here  
+INDEX  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Index Here  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 ## Manual Tests
@@ -102,7 +102,8 @@ Index Here
 
 3. **instructor_admin view**
 - **Valid requests**
-    - Displays a list of lessons the logged in instructor has created or a prompt "You have not created any lessons yet"
+    - Lessons tab displays a list of lessons the logged in instructor has created or a prompt "You have not created any lessons yet"
+    - Sales tab displays a list of lessons bought from this instructor with price, lesson name, buyer, date and price before and after the sales percentage is removed
 
 - **Error and Invalid request handling**
     - Users who are not logged in are redirected to signin page

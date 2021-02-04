@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Lesson, LessonItem, LessonReview, LessonReviewFlagged
+from .models import Lesson, Subscription, LessonReview, LessonReviewFlagged
 
 
-class LessonItemAdmin(admin.ModelAdmin):
-    model = LessonItem
+class SubscriptionAdmin(admin.ModelAdmin):
+    model = Subscription
 
     readonly_fields = ('id',)
 
@@ -34,6 +34,6 @@ class LessonReviewFlaggedAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Lesson, LessonAdmin)
-admin.site.register(LessonItem, LessonItemAdmin)
+admin.site.register(Subscription, SubscriptionAdmin)
 admin.site.register(LessonReview, LessonReviewAdmin)
 admin.site.register(LessonReviewFlagged, LessonReviewFlaggedAdmin)

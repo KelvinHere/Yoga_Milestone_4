@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from lessons.models import LessonItem, LessonReviewFlagged
+from lessons.models import Subscription, LessonReviewFlagged
 from profiles.models import UserProfile, User
 
 from yoga.utils import get_profile_or_none
@@ -12,7 +12,7 @@ def index(request):
     subscribed_lessons = False
 
     if profile:
-        if LessonItem.objects.filter(user=profile).count() > 0:
+        if Subscription.objects.filter(user=profile).count() > 0:
             subscribed_lessons = True
 
     template = "home/index.html"

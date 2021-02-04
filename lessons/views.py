@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from .models import UserProfile
-from lessons.models import Lesson, LessonItem, LessonReview, LessonReviewFlagged
+from lessons.models import Lesson, Subscription, LessonReview, LessonReviewFlagged
 from checkout.models import OrderLineItem
 import json
 
@@ -42,7 +42,7 @@ def lessons(request):
     # If authenticated get a list of subscribed & purchased lessons
     if request.user.is_authenticated:
 
-        subscribed_lessons = LessonItem.objects.filter(user=profile)
+        subscribed_lessons = Subscription.objects.filter(user=profile)
         for subscribed_lesson in subscribed_lessons:
             subscribed_lesson_list.append(subscribed_lesson.lesson.lesson_id)
 
@@ -164,16 +164,16 @@ def subscriptions(request):
             return redirect(reverse('lessons'))
 
         if request.GET['subscribe'] == 'false':
-            unsubscribe = LessonItem.objects.filter(lesson=lesson_object,
+            unsubscribe = Subscription.objects.filter(lesson=lesson_object,
                                                     user=profile)
             unsubscribe.delete()
             json_response = json.dumps({'subscription_status': 'unsubscribed'})
             return HttpResponse(json_response, content_type='application/json')
 
         elif request.GET['subscribe'] == 'true':
-            if not LessonItem.objects.filter(lesson=lesson_object,
+            if not Subscription.objects.filter(lesson=lesson_object,
                                              user=profile).exists():
-                LessonItem.objects.create(lesson=lesson_object, user=profile)
+                Subscription.objects.create(lesson=lesson_object, user=profile)
             json_response = json.dumps({'subscription_status': 'subscribed'})
             return HttpResponse(json_response, content_type='application/json')
 

@@ -69,11 +69,11 @@ class Lesson(models.Model):
         return self.instructor_profile
 
     
-class LessonItem(models.Model):
+class Subscription(models.Model):
     """
     A lesson item and its subscribed student
     """
-    lesson = models.ForeignKey(Lesson, null=False, blank=False, on_delete=models.CASCADE, related_name='lessonitems')
+    lesson = models.ForeignKey(Lesson, null=False, blank=False, on_delete=models.CASCADE, related_name='Subscriptions')
     user = models.ForeignKey(UserProfile, null=False, blank=False, on_delete=models.CASCADE)
     paid_for = models.BooleanField(default=False)
 

@@ -11,7 +11,6 @@ from them.
 contact email and social media links
 subsort rating so lessons with most reviews appear higher
 add a confirm layer to deleting lessons
-check its ok to remove LessonItem class?
 
 ## Bugs
 messages not showing color on topbar
@@ -265,17 +264,21 @@ This page gives the user a list of instructors, by default they are sorted by ra
 
 ### Instructor Admin page
 
-This page will let the instructor view lessons they have created and also create new lessons.  Each lesson will be displayed as a card with extra information such as how many students have bought or are subscribed
-to it.
+Through tabs the instructor can view lessons they have created and also create new lessons.  Each lesson will be displayed as a card with extra information such as how many students have bought or are subscribed
+to it.  Sales will show in date order, newest first all sales the instructor has made, and the amount they will receive after the 
+sites cut.  Support will have the current sites email link
 
 - **Functionality**
 - lessons are sorted by date added, newest first
-- 'Edit' button allows user to edit a lesson
-- 'Delete' button allows an instructor to delete a lesson as long as no one has bought it
-- 'Create lesson' allows an instructor to make a new lesson
+    - 'Edit' button allows user to edit a lesson
+    - 'Delete' button allows an instructor to delete a lesson as long as no one has bought it
+    - 'Create lesson' allows an instructor to make a new lesson
+- Sales displays all sales this instructor has made
+- Support displays the current sites email
 - **Responsiveness**
 - On small screens the lesson card is vertically stacked with a small profile image
 - Larger screens the card is layed out horizontally with a larger profile image
+- The sales div re-orders for easier viewing over screen sizes
 
 ### Lessons page
 

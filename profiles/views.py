@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from django.contrib import messages
 
-from lessons.models import Lesson, LessonItem
+from lessons.models import Lesson, Subscription
 from checkout.models import OrderLineItem
 
 from yoga.utils import get_profile_or_none

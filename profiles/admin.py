@@ -1,17 +1,17 @@
 from django.contrib import admin
 from .models import UserProfile
-from lessons.models import LessonItem
+from lessons.models import Subscription
 
 
-class LessonItemAdmin(admin.TabularInline):
-    model = LessonItem
+class SubscriptionAdmin(admin.TabularInline):
+    model = Subscription
 
     fields = ('lesson', 'user')
 
 
 class UserProfileAdmin(admin.ModelAdmin):
     #readonly_fields = ('requested_instructor_status',)
-    inlines = (LessonItemAdmin,)
+    inlines = (SubscriptionAdmin,)
 
 
     model = UserProfile
