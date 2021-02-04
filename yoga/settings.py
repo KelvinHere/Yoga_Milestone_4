@@ -216,9 +216,10 @@ if 'USE_AWS' in os.environ:
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# Basket
+# Basket & Sales
 DISCOUNT_THRESHOLD = 20
 DISCOUNT_PERCENTAGE = 10
+SITE_SALES_PERCENTAGE = 30
 
 # Stripe
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')

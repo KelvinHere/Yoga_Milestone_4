@@ -54,6 +54,7 @@ class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
     lesson = models.ForeignKey(Lesson, null=False, blank=False, on_delete=models.CASCADE)
     profile = models.ForeignKey(UserProfile, null=False, blank=False, on_delete=models.CASCADE)
+    sales_percentage = models.PositiveSmallIntegerField(default=settings.SITE_SALES_PERCENTAGE, editable=False, blank=False)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):

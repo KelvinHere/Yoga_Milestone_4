@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load site_utils %}
 
 {% block page_header %}
     <div class="container header-container">
@@ -86,7 +87,7 @@
                                     <p class="m-0"><strong>Date:</strong> {{ sale.order.date }}</p>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <p class="m-0 text-left text-sm-right"><strong>Price:</strong> €{{ sale.lineitem_total }}</p>
+                                    <p class="m-0 text-left text-sm-right"><strong>Price:</strong><small> €{{ sale.lineitem_total }} - {{ site_percentage }}%</small> = <strong>€{{ sale.lineitem_total|deduct_sales_percentage|floatformat:2 }}</strong></p>
                                 </div>
                             </div>
                         {% endfor %}
