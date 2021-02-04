@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
+from django.core.paginator import Paginator, EmptyPage
+
 from .models import UserProfile
 from lessons.models import Lesson, Subscription, LessonReview, LessonReviewFlagged
 from checkout.models import OrderLineItem
@@ -39,6 +41,10 @@ def lessons(request):
     instructor_to_display = None
     query = None
 
+    #Pagination
+    page_number = 1  # Default page number
+    lessons_on_page = 5  # No of lessons on a page at once
+
     # If authenticated get a list of subscribed & purchased lessons
     if request.user.is_authenticated:
 
@@ -52,6 +58,11 @@ def lessons(request):
 
     # Handle get requests
     if request.GET:
+
+        # Get current page number if exists
+        if 'page' in request.GET:
+            page_number = request.GET.get('page')
+
         # Sort by - Only change default sort value if it is valid
         if 'sort' in request.GET:
             if request.GET['sort'] in valid_sort_values:
@@ -110,13 +121,10 @@ def lessons(request):
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
-                messages.error(request, 'You did not enter any search query, \
-                                         please try again')
                 return redirect(reverse('lessons'))
 
             lessons = lessons.filter(Q(lesson_name__icontains=query))
             if not lessons:
-                print('#no lessons')
                 messages.error(request, "Your query returned no lessons please try again")
 
     # Apply Sort direction
@@ -125,12 +133,20 @@ def lessons(request):
     else:
         lessons = lessons.order_by(F(sortby).desc(nulls_last=True))
 
+    # Create page from Paginator
+    p = Paginator(lessons, lessons_on_page)
+    try:
+        page_object = p.page(page_number)
+    except EmptyPage:
+        messages.error(request, "Page does not exist, returning to page 1")
+        page_object = p.page(1)
+
     # Create template and context
     template = 'lessons/lessons.html'
     context = {
         # Lesson and profile data
         'profile': profile,
-        'lessons': lessons,
+        'lessons': page_object,
         'subscribed_lesson_list': subscribed_lesson_list,
         'paid_lesson_list': paid_lesson_list,
         # Titles

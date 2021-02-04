@@ -282,7 +282,7 @@ sites cut.  Support will have the current sites email link
 
 ### Lessons page
 
-This page shows a list of lessons, they can be searched filtered and sorted.
+This page shows a lists of lessons using pagination, they can be searched filtered and sorted.
 
 To save on repeat code (DRY principle) the 'instructor studio' uses this lessons page with an 'instructor_profile_header' snippet activated by context to display instructor information over their filtered lessons.
 
@@ -301,12 +301,14 @@ To save on repeat code (DRY principle) the 'instructor studio' uses this lessons
 **Lesson cards**
 A lesson card contains a lesson image, name, instructor, price, small description, more details button and context sensitve buttons.
 - **Main functions**
+    - Pagination saves long loading times an scrollbars by distributing large lists of lessons into pages
     - Logged out users: A call to action button "Signup to view" encourages the user to join the site and directs them to the Signup page
     - Logged in users :-
         - Paid Lessons that are unpurchased will show an add to basket button ie "€5.99" with an add to basket icon.
         - Lessons that are free or purchased that are not subscribed to show a red "Subscribe to lesson" button.
         - Lessons that are subscribed to show an Unsubscribe and Start Lesson button.
 - **Buttons**
+    - Next and Previous buttons take user to next and previous page of lessons while keeping filter/search/sort parameters
     - Clicking 'Subscribe to lesson' repalces that button using JS to the 'Unsubscribe' and 'Start Lesson' buttons
     - Clicking 'Unsubscribe' replaces itself and the 'Start Lesson' button using JS with the 'Subscribe' button.
     - Clicking 'Start Lesson' starts the lesson
