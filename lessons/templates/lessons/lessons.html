@@ -42,6 +42,21 @@
                     <p class="text-center mt-5"><strong>No lesons available</strong></p>
                 {% endif %}
             {% endif %}
+
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item {% if not lessons.has_previous %}disabled{% endif %}">
+                        <a class="page-link" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}&{% if lessons.has_previous %}page={{ lessons.previous_page_number }}{% endif %}#lesson-sorting" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">{{ lessons.number }} of {{ lessons.end_index}} <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="page-item {% if not lessons.has_next %}disabled{% endif %}">
+                        <a class="page-link" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}{% if lessons.has_next %}&page={{ lessons.next_page_number }}{% endif %}#lesson-sorting">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
         </div>
     </div>
 </div>
