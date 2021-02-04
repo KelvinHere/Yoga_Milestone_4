@@ -23,7 +23,13 @@
     <div class="row">
         <div class="col-12 mt-2">
             {% include 'lessons/snippets/lesson_sorting.html' %}
-            <p class="text-center mb-0"><strong>{{ filter_title }}{{ filter_subtitle }}</strong></p>
+            <p class="text-center mb-1">
+                <strong>
+                    <small>
+                        {{ filter_title }}{{ filter_subtitle }}{% if lessons %} : Page {{ lessons.number }} of {{ lessons.paginator.num_pages }}{% endif %}
+                    </small>
+                </strong>
+            </p>
             {% if current_query %}
                 <!-- Remove current query -->
                 <p class="text-center my-2">Results for: 
@@ -42,21 +48,30 @@
                     <p class="text-center mt-5"><strong>No lesons available</strong></p>
                 {% endif %}
             {% endif %}
-
-            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item {% if not lessons.has_previous %}disabled{% endif %}">
-                        <a class="page-link" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}&{% if lessons.has_previous %}page={{ lessons.previous_page_number }}{% endif %}#lesson-sorting" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">{{ lessons.number }} of {{ lessons.end_index}} <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item {% if not lessons.has_next %}disabled{% endif %}">
-                        <a class="page-link" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}{% if lessons.has_next %}&page={{ lessons.next_page_number }}{% endif %}#lesson-sorting">Next</a>
-                    </li>
-                </ul>
-            </nav>
-
+            <!-- Page buttons -->
+            {% if lessons %}
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link btn btn-custom-darken" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}&{% if lessons.has_previous %}page={{ lessons.previous_page_number }}{% else %}page={{ lessons.number }}{% endif %}#lesson-sorting" tabindex="-1" aria-disabled="true">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item" aria-current="page">
+                                    <a class="page-link bg-light text-black" href="#">{{ lessons.number }} of {{ lessons.paginator.num_pages }}</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link btn btn-custom-darken" href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter={{ filter_by }}{% if lessons.has_next %}&page={{ lessons.next_page_number }}{% else %}page={{ lessons.number }}{% endif %}#lesson-sorting">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

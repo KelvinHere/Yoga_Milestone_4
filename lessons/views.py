@@ -120,8 +120,6 @@ def lessons(request):
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
-                messages.error(request, 'You did not enter any search query, \
-                                         please try again')
                 return redirect(reverse('lessons'))
 
             lessons = lessons.filter(Q(lesson_name__icontains=query))
