@@ -539,7 +539,7 @@ A quick summary of instructions with basic configuration below.
  
 ## Credits
 
-- Colour scheme inspired by [icolorpalette](https://icolorpalette.com/palette-by-themes/yoga)
+- [Colour scheme inspired by icolorpalette](https://icolorpalette.com/palette-by-themes/yoga)
 
 ### Content
  

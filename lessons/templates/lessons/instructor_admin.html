@@ -74,16 +74,21 @@
                     </div>
                     <!-- Sales tab -->
                     <div class="tab-pane fade mb-2" id="profile" role="profile" aria-labelledby="profile-tab">
-                        <p>Sales - Newest first</p>
                         {% for sale in sales %}
-                            <p>
-                                <span>
-                                    Lesson: {{ sale.lesson.lesson_name }}
-                                    User: {{ sale.profile }}
-                                    Price: €{{ sale.lineitem_total }}
-                                    Date: {{ sale.order.date }}
-                                </span>
-                            </p>
+                            <div class="row border custom-border my-1 bg-light">
+                                <div class="col-12">
+                                    <p class="m-0"><strong>Lesson:</strong> {{ sale.lesson.lesson_name }}</p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="m-0"><strong>Buyer:</strong> {{ sale.profile|title }}</p>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <p class="m-0"><strong>Date:</strong> {{ sale.order.date }}</p>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <p class="m-0 text-left text-sm-right"><strong>Price:</strong> €{{ sale.lineitem_total }}</p>
+                                </div>
+                            </div>
                         {% endfor %}
                     </div>
                     <!-- Support tab-->
