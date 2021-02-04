@@ -103,13 +103,12 @@ def lessons(request):
                     if not instructor_to_display.is_instructor:
                         messages.error(request,
                                        'This user is not an instructor, \
-                                       please pick one from the \
-                                       instructor list.')
+                                       please pick one from the list.')
                         return redirect(reverse('instructors'))
                 except Exception as e:
                     messages.error(request,
-                                   'This instructor was not found, please \
-                                   pick one from the instructor list.')
+                                   'Instructor not found, please pick \
+                                    one from the instructor list.')
                     return redirect(reverse('instructors'))
                 page_title = f"Welcome to {instructor_to_display}'s Studio"
                 filter_subtitle = f" in {instructor_to_display}'s Studio"
