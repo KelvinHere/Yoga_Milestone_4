@@ -69,7 +69,7 @@ def instructors(request):
     page_number = 1  # Default page number
     instructors_on_page = 5  # No of lessons on a page at once
 
-    instructor_list = UserProfile.objects.filter(is_instructor=True)
+    instructor_list = UserProfile.objects.filter(is_instructor=True, lesson_count__gt=0)
 
     if request.GET:
         # Get current page number if exists
