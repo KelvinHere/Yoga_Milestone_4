@@ -8,10 +8,10 @@ from them.
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
 
 ## ToDo
-format accounts/confirm-email/
 contact email and social media links
 subsort rating so lessons with most reviews appear higher
-not allowed to delete lessons that have been purchased
+add a confirm layer to deleting lessons
+
 ## Bugs
 messages not showing color on topbar
 Error on stripe checkout when checking out on deployed version

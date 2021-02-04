@@ -184,7 +184,7 @@ def subscriptions(request):
 
 
 @login_required
-def instructor_created_lessons(request):
+def instructor_admin(request):
     """ View admin for lessons instructors have created """
 
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -192,7 +192,7 @@ def instructor_created_lessons(request):
         messages.error(request, 'Only instructors can do this.')
         return redirect('home')
 
-    template = 'lessons/instructor_created_lessons.html'
+    template = 'lessons/instructor_admin.html'
 
     # Get lessons instructor created
     instructor_created_lessons = Lesson.objects.filter(
@@ -223,12 +223,12 @@ def delete_lesson(request, id):
         purchased = OrderLineItem.objects.filter(lesson=lesson)
     except Exception as e:
         messages.error(request, 'Invalid lesson ID, no lessons were deleted.')
-        return redirect(reverse('instructor_created_lessons'))
+        return redirect(reverse('instructor_admin'))
 
     if purchased:
         messages.error(request, 'You cannot delete a lesson customers have \
                                 purchased, you can only edit.')
-        return redirect(reverse('instructor_created_lessons'))
+        return redirect(reverse('instructor_admin'))
 
     if lesson.instructor_profile == profile:
         instructor_profile = lesson.instructor_profile
@@ -237,12 +237,12 @@ def delete_lesson(request, id):
             instructor_profile=instructor_profile).count()
         instructor_profile._update_lesson_count(total_lessons)
         messages.success(request, 'Lesson deleted.')
-        return redirect('instructor_created_lessons')
+        return redirect('instructor_admin')
     else:
         messages.error(request, 'This lesson does not belong to you and has \
                                 not been deleted, please check your username \
                                 and try again.')
-        return redirect(reverse('instructor_created_lessons'))
+        return redirect(reverse('instructor_admin'))
 
 
 @login_required
@@ -268,11 +268,11 @@ def create_lesson(request):
                 lesson = form.save(commit=False)
                 lesson.instructor_profile = profile
                 lesson.save()
-                return redirect('instructor_created_lessons')
-            return redirect('instructor_created_lessons')
+                return redirect('instructor_admin')
+            return redirect('instructor_admin')
         else:
             messages.error(request, 'You already have a lesson named this.')
-            return redirect(reverse('instructor_created_lessons'))
+            return redirect(reverse('instructor_admin'))
 
     else:
         form = LessonForm(initial={'instructor_profile': profile})
@@ -295,7 +295,7 @@ def edit_lesson(request, lesson_id):
         instructor_lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
     except Exception as e:
         messages.error(request, 'Invalid lesson ID, no lessons were updated.')
-        return redirect(reverse('instructor_created_lessons'))
+        return redirect(reverse('instructor_admin'))
 
     if request.method == 'POST':
         form = LessonForm(request.POST,
@@ -303,7 +303,7 @@ def edit_lesson(request, lesson_id):
                           instance=instructor_lesson)
         if form.is_valid():
             form.save()
-        return redirect('instructor_created_lessons')
+        return redirect('instructor_admin')
 
     else:
         form = LessonForm(instance=instructor_lesson)
@@ -319,7 +319,7 @@ def edit_lesson(request, lesson_id):
         else:
             messages.error(request, 'You can only edit your own lessons, \
                                      please check your username.')
-            return redirect(reverse('instructor_created_lessons'))
+            return redirect(reverse('instructor_admin'))
 
 
 @login_required

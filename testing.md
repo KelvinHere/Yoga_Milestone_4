@@ -100,7 +100,7 @@ Index Here
     - Trying alter subscription status of a lesson using something other than `true` or `false` returns the user to lessons page and gives the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
     - A nonsense request with invalid GET keys passed returns user to the lesson page with an error message "Invalid request, no lessons have been subscribed or unsubscribed to."
 
-3. **instructor_created_lessons view**
+3. **instructor_admin view**
 - **Valid requests**
     - Displays a list of lessons the logged in instructor has created or a prompt "You have not created any lessons yet"
 
@@ -118,7 +118,7 @@ Index Here
     - If an instructor tries to pass the lesson_id from a lesson they did not create they are given the error message "This lesson does not belong to you and has not been deleted, please check your username and try again."
     - If an instructor tries to pass an invalid lesson_id they are given the error message "Invalid lesson ID, no lessons were deleted."
     - Instructors cannot delete a lesson that has been purchased by customers, they can only edit it, the delete button is disabled and gives the reason why.
-    - If an instructor tries to delete by manualy submitting the lesson_id to the view they are redirected to the instructor_created_lessons page and given the error message "You cannot delete a lesson customers have purchased, you can only edit"
+    - If an instructor tries to delete by manualy submitting the lesson_id to the view they are redirected to the instructor_admin page and given the error message "You cannot delete a lesson customers have purchased, you can only edit"
 
 5. **create_lesson view**
 - **Valid requests**
