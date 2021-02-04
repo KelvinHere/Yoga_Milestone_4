@@ -133,6 +133,7 @@ def lessons(request):
     else:
         lessons = lessons.order_by(F(sortby).desc(nulls_last=True))
 
+    # Create page from Paginator
     p = Paginator(lessons, lessons_on_page)
     try:
         page_object = p.page(page_number)

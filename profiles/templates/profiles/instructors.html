@@ -18,6 +18,13 @@
         <div class="row">
             <div class="col-12">
                 {% include 'profiles/snippets/instructor_sorting.html' %}
+                <p class="text-center mb-1">
+                <strong>
+                    <small>
+                        {% if instructor_list %}Page {{ instructor_list.number }} of {{ instructor_list.paginator.num_pages }}{% endif %}
+                    </small>
+                </strong>
+                </p>
                 {% if current_query %}
                 <!-- Remove current query -->
                 <p class="text-center my-2">Results for: 
@@ -49,6 +56,30 @@
                         </div>
                     </div>
                 {% endfor %}
+                <!-- Page buttons -->
+                {% if instructor_list %}
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}{% if instructor_list.has_previous %}&page={{ instructor_list.previous_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}" tabindex="-1" aria-disabled="true">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" aria-current="page">
+                                        <a class="page-link bg-light text-black" href="#">{{ instructor_list.number }} of {{ instructor_list.paginator.num_pages }}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}{% if instructor_list.has_next %}&page={{ instructor_list.next_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

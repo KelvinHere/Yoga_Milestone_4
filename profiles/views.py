@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
 from django.db.models import F, Q
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage
 
+from .models import UserProfile
 from lessons.models import Lesson, Subscription
 from checkout.models import OrderLineItem
 
@@ -64,9 +65,17 @@ def instructors(request):
     sort_direction = 'desc'
     query = None
 
+    #Pagination
+    page_number = 1  # Default page number
+    instructors_on_page = 3  # No of lessons on a page at once
+
     instructor_list = UserProfile.objects.filter(is_instructor=True)
 
     if request.GET:
+        # Get current page number if exists
+        if 'page' in request.GET:
+            page_number = request.GET.get('page')
+
         if 'sort_by' in request.GET:
             if request.GET['sort_by'] not in valid_sort_values:
                 messages.error(request, 'Invalid sort value, displaying all \
@@ -99,8 +108,17 @@ def instructors(request):
         instructor_list = instructor_list.order_by(F(sort_by).asc(nulls_last=True))
 
     template = 'profiles/instructors.html'
+
+    # Create page from Paginator
+    p = Paginator(instructor_list, instructors_on_page)
+    try:
+        page_object = p.page(page_number)
+    except EmptyPage:
+        messages.error(request, "Page does not exist, returning to page 1")
+        page_object = p.page(1)
+
     context = {
-        'instructor_list': instructor_list,
+        'instructor_list': page_object,
         'sort_direction': sort_direction,
         'sort_by': sort_by,
         'current_query': query,
