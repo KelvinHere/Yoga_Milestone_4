@@ -19,7 +19,7 @@
         <hr>
         {% if lesson_reviews %}
         <div id="modal-lesson-reviews">
-            <p><strong>Reviews</strong></p>
+            <p><strong>{{ review_count }} Reviews</strong></p>
             {% for review in lesson_reviews %}
             <div class="row lesson-review-div mb-4">
                 <div class="col-3 col-sm-2 col-lg-2 pt-3">
@@ -44,6 +44,8 @@
             </div>
             {% endfor %}
         </div>
+        {% else %}
+        <p>No reviews yet, why not give it a try?</p>
         {% endif %}
       </div>
       <div class="modal-footer">
