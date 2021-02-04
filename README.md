@@ -488,6 +488,11 @@ The project was then deployed to [Heroku](https://www.heroku.com/) with media an
     - pushing the new commit to the master branch on GitHub repository with `git push`
     - updating an out of date local branch with `git fetch origin` and pulling changes with `git pull origin`
  
+* Branches & an example
+    - When adding the pagination feature I created a new `branch` on github, this allowed me to experiment with pagination without breaking my master branch and having to do a hard reset back to a working commit
+    - Once the feature was working in the `Add pagination branch` I created a `pull request` to `merge` this new branch back into the `master`, since the master branch was a couple of `commits` ahead at this point I had to confirm there were no `conflicts` and I was happy to go ahead with this operation
+    - With the merge complete the master branch now contains the pagination feature and the commits in the master branch that were ahead of my `Add pagination branch` at the time 
+
 ### Local Deployment
   
 ### Heroku Deployment
