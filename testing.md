@@ -72,6 +72,7 @@ Index Here  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         - `/lessons/?sort=price&direction=desc&filter=None&instructor=19&q=dog`
             - will only show paid lessons from that instructor that have 'dog' in the lesson name sorted by price in descending order
 
+    - Pages, when next and previous buttons are pressed the user is taken to the next or previous page and any search/sort/filter parameters are kept
 
 - **Error and Invalid request handling**
     - Queries
@@ -87,6 +88,10 @@ Index Here  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passed a user that is not an instructor, user redirected to instructors page error message "This user is not an instructor, please pick one from the instructor list."
         - `lessons/?instructor=INVALID_USER` Passed a user that does not exist, user redirected to instructor page with error message "This instructor was not found, please pick one from the instructor list."
     
+    - Pages
+        - If the user changes filters/sorting/search parameters when on a page other than one, they are taken back to page one using the new parameters
+        - If the user presses next on the last page, or previous on the first, they are kept on the same page they are currently on
+        - If the user manually enters a page number that does not exist in the address bar they are taken back to page 1 with the error message "Page does not exist, returning to page 1"
 
 2. **subscribe view**
 - **Valid Requests**
