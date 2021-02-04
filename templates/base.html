@@ -102,11 +102,24 @@
             </div>
         </nav>
         {% if discount_percentage > 0 and show_discount_banner %}
-            <div class="row mx-0 text-center">
-                <div class="col bg-warning text-black">
-                    <h4 class="my-1 smaller-text"><small>Get a {{ discount_percentage }}% discount when you spend more than €{{ discount_threshold }}!</small></h4>
+            {% if discount_delta > 0 %}
+                <div class="row mx-0 text-center" id="discount-not-applied">
+                    <div class="col bg-warning text-black">
+                        <h4 class="my-1 smaller-text"><small>Get a {{ discount_percentage }}% discount when you spend more than €{{ discount_threshold }}!</small></h4>
+                    </div>
                 </div>
-            </div>
+                <div class="row mx-0 text-center" id="discount-applied" hidden>
+                    <div class="col bg-success text-white">
+                        <h4 class="my-1 smaller-text"><small>A {{ discount_percentage }}% discount has been applied to your basket!</small></h4>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row mx-0 text-center" id="discount-applied">
+                    <div class="col bg-success text-white">
+                        <h4 class="my-1 smaller-text"><small>?? A {{ discount_percentage }}% discount has been applied to your basket!</small></h4>
+                    </div>
+                </div>
+            {% endif %}
         {% endif %}
     </header>
 

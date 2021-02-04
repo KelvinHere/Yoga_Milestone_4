@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.conf import settings
 
 from lessons.models import Lesson
+from yoga.utils import discount_delta_zero
 
 import json
 
@@ -31,12 +32,16 @@ def add_to_basket(request):
             # If lesson id is invalid
             if not Lesson.objects.filter(lesson_id=lesson_id).exists():
                 json_response = json.dumps({'item_added': 'invalid_item'})
-                return HttpResponse(json_response, content_type='application/json')
+                return HttpResponse(json_response, 
+                                    content_type='application/json')
             # If lesson is not in basket
             if lesson_id not in list(basket.keys()):
                 basket[lesson_id] = 1
                 request.session['basket'] = basket
-                json_response = json.dumps({'item_added': 'True'})
+                discount_delta = discount_delta_zero(request)
+                json_response = json.dumps({'item_added': 'True',
+                                            'discount_delta': discount_delta,
+                                            })
                 return HttpResponse(json_response, content_type='application/json')
             # If lesson is in basket
             else:

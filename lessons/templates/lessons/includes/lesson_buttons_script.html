@@ -68,6 +68,12 @@
                     $('#add_'+lesson_id).text('Added')
                     // Popover to confirm item has been added
                     $('#navbar-basket').popover('toggle');
+                    // Change banner to show discount is applied if discount delta = 0
+                    if (json_response['discount_delta'] == true) {
+                        alert('discount met')
+                        $('#discount-applied').removeAttr('hidden')
+                        $('#discount-not-applied').hide()
+                    }
                 } else if (json_response['item_added'] == 'already_added'){
                     // Create already_added to button popover
                     $('#add_'+lesson_id).popover({
