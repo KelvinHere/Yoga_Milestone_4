@@ -143,6 +143,7 @@ def lessons(request):
         'filter_by': filter_by,
         'instructor_to_display': instructor_to_display,
         'current_query': query,
+        'show_discount_banner': True,
     }
 
     return render(request, template, context)

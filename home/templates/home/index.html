@@ -19,18 +19,18 @@
                 <h1 class="display-4 me-auto my-4 mx-4 pb-2 index-main-text rounded shadow-sm alt-font">Breathe deep <strong>{{ user|title }}</strong> and continue your Yoga journey</h1>
                 <div>
                     {% if subscribed_lessons %}
-                        <a href="{% url 'lessons'%}?filter=mylessons" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Your Subscribed Lessons</a>
+                        <a href="{% url 'lessons'%}?filter=subscribed_lessons" class="btn btn-lg btn-warning rounded-20 py-3 my-4">Your Subscribed Lessons</a>
                     {% else %}
-                        <a href="{% url 'instructors' %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Find an instructor</a>
+                        <a href="{% url 'instructors' %}" class="btn btn-lg btn-warning rounded-20 py-3 my-4">Find an instructor</a>
                     {% endif %}
                     {% if profile.is_instructor %}
-                        <p><a href="{% url 'instructor_created_lessons' %}" class="index-main-button btn btn-lg btn-danger rounded-20 py-3 my-4">Instructor Admin</a></p>
+                        <p><a href="{% url 'instructor_created_lessons' %}" class="btn btn-lg btn-danger rounded-20 py-3 my-4">Instructor Admin</a></p>
                     {% endif %}
                 </div>
                 {% else %}
                     <h1 class="display-4 me-auto my-4 mx-4 py-3 index-main-text rounded shadow-sm alt-text">Breathe deep and begin your Yoga journey here</h1>
                     <div>
-                        <a href="{% url 'instructors' %}" class="index-main-button btn btn-lg btn-warning rounded-20 py-3 my-4">Find an instructor</a>
+                        <a href="{% url 'instructors' %}" class="btn btn-lg btn-warning rounded-20 py-3 my-4">Find an instructor</a>
                     </div>                
                 {% endif %}
 

@@ -101,6 +101,13 @@
                 </ul>
             </div>
         </nav>
+        {% if discount_percentage > 0 and show_discount_banner %}
+            <div class="row text-center">
+                <div class="col bg-warning text-black">
+                    <h4 class="my-1 smaller-text"><small>Get a {{ discount_percentage }}% discount when you spend more than €{{ discount_threshold }}!</small></h4>
+                </div>
+            </div>
+        {% endif %}
     </header>
 
         {% if messages %}

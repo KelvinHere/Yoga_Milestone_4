@@ -12,7 +12,12 @@ import json
 def view_basket(request):
     """ A view to view the basket """
     template = 'basket/basket.html'
-    return render(request, template)
+
+    context = {
+        'show_discount_banner': True,
+    }
+
+    return render(request, template, context)
 
 
 @login_required
