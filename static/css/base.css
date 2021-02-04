@@ -7,7 +7,7 @@ body {
     background: url('/static/images/backgrounds/background-image.jpg') no-repeat center center fixed;
     background-size: cover;
     background-position: 75% 40px;
-    height: calc(100vh - 164px);
+    height: calc(100vh - 63px);
     color: #534a47;
     font-family: 'Quicksand';
     font-size: 16px;

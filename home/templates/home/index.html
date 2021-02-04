@@ -14,10 +14,11 @@
 {% block content %}
     <div class="container h-100">
         <div class="row h-100">
-            <div class="col-12 col-lg-6 my-auto text-center">
+            <div class="col-12 col-lg-8 my-auto text-center">
                 {% if user.is_authenticated %}
-                <h1 class="display-4 me-auto my-4 mx-4 pb-2 index-main-text rounded shadow-sm alt-font">Breathe deep <strong>{{ user|title }}</strong> and continue your Yoga journey</h1>
+                <h1 class="display-4 me-auto my-4 mx-4 p-3 index-main-text rounded shadow-sm alt-text">Breathe deep <strong>{{ user|title }}</strong> and continue your Yoga journey</h1>
                 <div>
+                    <!-- Contextual Button choice -->
                     {% if subscribed_lessons %}
                         <a href="{% url 'lessons'%}?filter=subscribed_lessons" class="btn btn-lg btn-warning rounded-20 py-3 my-4">Your Subscribed Lessons</a>
                     {% else %}
@@ -28,7 +29,7 @@
                     {% endif %}
                 </div>
                 {% else %}
-                    <h1 class="display-4 me-auto my-4 mx-4 py-3 index-main-text rounded shadow-sm alt-text">Breathe deep and begin your Yoga journey here</h1>
+                    <h1 class="display-4 me-auto my-4 mx-4 p-3 index-main-text rounded shadow-sm alt-text">Breathe deep and begin your Yoga journey here</h1>
                     <div>
                         <a href="{% url 'instructors' %}" class="btn btn-lg btn-warning rounded-20 py-3 my-4">Find an instructor</a>
                     </div>                
