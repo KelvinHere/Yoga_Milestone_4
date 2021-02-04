@@ -63,11 +63,11 @@ def instructors(request):
     # Default sort parameters
     sort_by = 'rating'
     sort_direction = 'desc'
-    query = None
+    query = ''
 
     #Pagination
     page_number = 1  # Default page number
-    instructors_on_page = 3  # No of lessons on a page at once
+    instructors_on_page = 1  # No of lessons on a page at once
 
     instructor_list = UserProfile.objects.filter(is_instructor=True)
 
@@ -92,10 +92,6 @@ def instructors(request):
         # Get Query and filter if valid
         if 'q' in request.GET:
             query = request.GET['q']
-            if not query:
-                messages.error(request, 'You did not enter any search query, \
-                                         please try again')
-                return redirect(reverse('instructors'))
 
             instructor_list = instructor_list.filter(Q(user__username__icontains=query))
             if not instructor_list:

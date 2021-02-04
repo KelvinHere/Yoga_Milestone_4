@@ -57,13 +57,13 @@
                     </div>
                 {% endfor %}
                 <!-- Page buttons -->
-                {% if instructor_list.pagination.num_pages >= 1 %}
+                {% if instructor_list.paginator.num_pages > 1 %}
                     <div class="row">
                         <div class="col d-flex justify-content-center">
                             <nav aria-label="...">
                                 <ul class="pagination">
                                     <li class="page-item">
-                                        <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}{% if instructor_list.has_previous %}&page={{ instructor_list.previous_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}" tabindex="-1" aria-disabled="true">
+                                        <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}&q={{ current_query }}{% if instructor_list.has_previous %}&page={{ instructor_list.previous_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}" tabindex="-1" aria-disabled="true">
                                             <i class="fas fa-chevron-left"></i>
                                         </a>
                                     </li>
@@ -71,7 +71,7 @@
                                         <a class="page-link bg-light text-black" href="#">{{ instructor_list.number }} of {{ instructor_list.paginator.num_pages }}</a>
                                     </li>
                                     <li class="page-item">
-                                        <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}{% if instructor_list.has_next %}&page={{ instructor_list.next_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}">
+                                        <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}&q={{ current_query }}{% if instructor_list.has_next %}&page={{ instructor_list.next_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}">
                                             <i class="fas fa-chevron-right"></i>
                                         </a>
                                     </li>

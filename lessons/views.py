@@ -39,11 +39,11 @@ def lessons(request):
     filter_by = 'all_lessons'
     sort_direction = 'desc'
     instructor_to_display = None
-    query = None
+    query = ''
 
     #Pagination
     page_number = 1  # Default page number
-    lessons_on_page = 5  # No of lessons on a page at once
+    lessons_on_page = 1  # No of lessons on a page at once
 
     # If authenticated get a list of subscribed & purchased lessons
     if request.user.is_authenticated:
@@ -120,8 +120,6 @@ def lessons(request):
         # Get Query and filter if valid
         if 'q' in request.GET:
             query = request.GET['q']
-            if not query:
-                return redirect(reverse('lessons'))
 
             lessons = lessons.filter(Q(lesson_name__icontains=query))
             if not lessons:
