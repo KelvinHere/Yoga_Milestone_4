@@ -73,8 +73,18 @@
                         {% endif %}
                     </div>
                     <!-- Sales tab -->
-                    <div class="tab-pane fade" id="profile" role="profile" aria-labelledby="profile-tab">
-
+                    <div class="tab-pane fade mb-2" id="profile" role="profile" aria-labelledby="profile-tab">
+                        <p>Sales - Newest first</p>
+                        {% for sale in sales %}
+                            <p>
+                                <span>
+                                    Lesson: {{ sale.lesson.lesson_name }}
+                                    User: {{ sale.profile }}
+                                    Price: €{{ sale.lineitem_total }}
+                                    Date: {{ sale.order.date }}
+                                </span>
+                            </p>
+                        {% endfor %}
                     </div>
                     <!-- Support tab-->
                     <div class="tab-pane fade" id="support" role="support" aria-labelledby="support-tab">

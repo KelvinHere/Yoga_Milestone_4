@@ -198,11 +198,13 @@ def instructor_admin(request):
     instructor_created_lessons = Lesson.objects.filter(
         instructor_profile=profile)
     customer_purchases = OrderLineItem.objects.filter(lesson__in=instructor_created_lessons).values_list('lesson', flat=True)
+    sales = OrderLineItem.objects.filter(lesson__in=instructor_created_lessons).order_by('-order__date')
 
     context = {
         'profile': profile,
         'instructor_created_lessons': instructor_created_lessons,
         'customer_purchases': customer_purchases,
+        'sales': sales,
     }
 
     return render(request, template, context)
