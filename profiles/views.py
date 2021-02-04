@@ -67,7 +67,7 @@ def instructors(request):
 
     #Pagination
     page_number = 1  # Default page number
-    instructors_on_page = 1  # No of lessons on a page at once
+    instructors_on_page = 5  # No of lessons on a page at once
 
     instructor_list = UserProfile.objects.filter(is_instructor=True)
 
