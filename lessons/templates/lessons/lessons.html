@@ -81,6 +81,10 @@
 
 {% block postloadjs %}
 {{ block.super }}
+    <script>
+        // Define csrf token for static js file below
+        let csrfToken = '{{ csrf_token }}';
+    </script>
     <script src="{% static 'lessons/js/lesson_buttons.js' %}"></script>
 {% endblock %}
 
