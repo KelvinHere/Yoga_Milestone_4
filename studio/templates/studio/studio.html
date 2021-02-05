@@ -27,7 +27,7 @@
                 <!-- Lesson description collapsed -->
                 <div class="lesson-description my-3">
                     <p class="text-center">
-                        <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#lesson_description_text" role="button" aria-expanded="false" aria-controls="collapse_lesson_description">
+                        <a class="btn btn-sm btn-custom-darken" data-toggle="collapse" href="#lesson_description_text" role="button" aria-expanded="false" aria-controls="collapse_lesson_description">
                             Lesson Description
                         </a>
                     </p>
@@ -40,7 +40,7 @@
                 <!-- Review Buttons -->
                 <div class="review d-flex justify-content-center">
                     {% if not existing_user_review %}
-                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="btn btn-sm btn-warning rounded-20 py-1 my-2">Write Review</a>
+                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="btn btn-sm btn-custom-invert rounded-20 py-1 my-2">Write Review</a>
                     {% endif %}
                 </div>
                 <!-- Reviews -->
