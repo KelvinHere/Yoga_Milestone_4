@@ -121,9 +121,9 @@
                         {% endif %}
                     </a>
                 </div>
-                <hr class="my-2">
                 <!-- Sort by instructor name-->
                 {% if not instructor_to_display %}
+                <hr class="my-2">
                     <div class="dropdown-item w-100 d-flex justify-content-between px-2">
                         <a href="{% url 'lessons' %}?sort=instructor_profile&direction=asc&filter={{ filter_by }}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">
                             {% if sort_by == 'instructor_profile' and sort_direction == 'asc' %}
