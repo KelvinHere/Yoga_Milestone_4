@@ -43,7 +43,6 @@ $('#navbar-basket').popover({
 
 // Handle add to basket requests via AJAX
 function add_to_basket(lesson_id) {
-    let csrfToken = "{{ csrf_token }}";
     event.preventDefault();
     $.ajax({
         type:"POST",
@@ -97,7 +96,6 @@ function add_to_basket(lesson_id) {
 
 // Handle modal requests via AJAX
 function get_modal_data(lesson_id) {
-    let csrfToken = "{{ csrf_token }}";
     event.preventDefault();
     $.ajax({
         type:"POST",

@@ -3,106 +3,106 @@
 {% load site_utils %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center title-text mt-3 mb-0">Lesson Admin for {{ profile }}</h1>
-            </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center title-text mt-3 mb-0">Lesson Admin for {{ profile }}</h1>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="overlay"></div>
-    <div class="container page-contents">
-        <div class="row mx-auto">
-            <div class="col-12">
-                <ul class="nav nav-tabs my-2" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="lessons-tab" data-toggle="tab" href="#lessons" role="tab" aria-controls="home" aria-selected="true">Lessons</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sales</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="support-tab" data-toggle="tab" href="#support" role="tab" aria-controls="contact" aria-selected="false">Support</a>
-                    </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                    <!-- Lessons tab -->
-                    <div class="tab-pane fade show active" id="lessons" role="tabpanel" aria-labelledby="lessons-tab">
-                        <p class="text-center"><small>Create / Edit / Delete lessons</small></p>
-                        <div class="div">
-                            <p class="text-center"><a class="btn btn-info" href="{% url 'create_lesson' %}" role="button">Create New Lesson</a></p>
-                        </div>
-                        {% if instructor_created_lessons %}
-                            {% for lesson in instructor_created_lessons %}
-                                <div class="row border custom-border my-2 instructor-admin-card-text">
-                                    <div class="col-12 col-md-4">
-                                        {% if lesson.image %}
-                                            <div class="lesson-card-image-container m-auto p-3 text-center">
-                                                <img class="img-fluid lesson-admin-images" src="{{ lesson.image.url }}" alt="{{ lesson.lesson_name }}">
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-12 col-md-8 p-3 d-flex flex-column">
-                                        <p class="mb-0"><strong>{{ lesson.lesson_name }}</strong></p>
-                                        <p class="card-text mb-0"><small><strong>Rating: {{ lesson.rating }}{% if lesson.rating %}/10{% endif %}</strong></small></p>
-                                        {% if lesson.price > 0 %}
-                                            <p class="card-text mb-0"><small class="text-muted">Price: €{{ lesson.price }}</small></p>
-                                        {% else %}
-                                            <p class="card-text mb-0"><small class="text-muted">Price: <strong>Free!</strong></small></p>
-                                        {% endif %}
-                                        <p class="card-text alt-font mt-2">{{ lesson.card_description }}</p>
-                                        <div class="row mt-auto">
-                                            <div class="col-6">
-                                                <p class="text-left mb-0"><a class="btn btn-primary instructor-admin-button" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a></p>
-                                            </div>
-                                            <div class="col-6">
-                                                {% if lesson.pk not in customer_purchases %}
-                                                    <p class="text-right mb-0"><a class="btn btn-danger instructor-admin-button" href="{% url 'delete_lesson' lesson.lesson_id %}" role="button">Delete</a></p>
-                                                {% else %}
-                                                    <p class="text-right mb-0"><a class="btn btn-secondary instructor-admin-button" role="button" data-toggle="popover" title="Warning" data-placement="bottom" data-content="You can only edit a lesson customers have purchased.">Delete</a></p>
-                                                {% endif %}
-                                            </div>
+<div class="overlay"></div>
+<div class="container page-contents">
+    <div class="row mx-auto">
+        <div class="col-12">
+            <ul class="nav nav-tabs my-2" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="lessons-tab" data-toggle="tab" href="#lessons" role="tab" aria-controls="home" aria-selected="true">Lessons</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sales</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="support-tab" data-toggle="tab" href="#support" role="tab" aria-controls="contact" aria-selected="false">Support</a>
+                </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                <!-- Lessons tab -->
+                <div class="tab-pane fade show active" id="lessons" role="tabpanel" aria-labelledby="lessons-tab">
+                    <p class="text-center"><small>Create / Edit / Delete lessons</small></p>
+                    <div class="div">
+                        <p class="text-center"><a class="btn btn-info" href="{% url 'create_lesson' %}" role="button">Create New Lesson</a></p>
+                    </div>
+                    {% if instructor_created_lessons %}
+                        {% for lesson in instructor_created_lessons %}
+                            <div class="row border custom-border my-2 instructor-admin-card-text">
+                                <div class="col-12 col-md-4">
+                                    {% if lesson.image %}
+                                        <div class="lesson-card-image-container m-auto p-3 text-center">
+                                            <img class="img-fluid lesson-admin-images" src="{{ lesson.image.url }}" alt="{{ lesson.lesson_name }}">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12 col-md-8 p-3 d-flex flex-column">
+                                    <p class="mb-0"><strong>{{ lesson.lesson_name }}</strong></p>
+                                    <p class="card-text mb-0"><small><strong>Rating: {{ lesson.rating }}{% if lesson.rating %}/10{% endif %}</strong></small></p>
+                                    {% if lesson.price > 0 %}
+                                        <p class="card-text mb-0"><small class="text-muted">Price: €{{ lesson.price }}</small></p>
+                                    {% else %}
+                                        <p class="card-text mb-0"><small class="text-muted">Price: <strong>Free!</strong></small></p>
+                                    {% endif %}
+                                    <p class="card-text alt-font mt-2">{{ lesson.card_description }}</p>
+                                    <div class="row mt-auto">
+                                        <div class="col-6">
+                                            <p class="text-left mb-0"><a class="btn btn-primary instructor-admin-button" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a></p>
+                                        </div>
+                                        <div class="col-6">
+                                            {% if lesson.pk not in customer_purchases %}
+                                                <p class="text-right mb-0"><a class="btn btn-danger instructor-admin-button" href="{% url 'delete_lesson' lesson.lesson_id %}" role="button">Delete</a></p>
+                                            {% else %}
+                                                <p class="text-right mb-0"><a class="btn btn-secondary instructor-admin-button" role="button" data-toggle="popover" title="Warning" data-placement="bottom" data-content="Cannot Delete.  You can only edit a lesson customers have purchased.">Delete</a></p>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
-                            {% endfor %}
-                        {% else %}
-                            <p class="text-center">You have not created any lessons yet</p>
-                        {% endif %}
-                    </div>
-                    <!-- Sales tab -->
-                    <div class="tab-pane fade mb-2" id="profile" role="profile" aria-labelledby="profile-tab">
-                        {% if sales %}
-                            {% for sale in sales %}
-                                <div class="row border custom-border my-1 bg-light">
-                                    <div class="col-12">
-                                        <p class="m-0"><strong>Lesson:</strong> {{ sale.lesson.lesson_name }}</p>
-                                    </div>
-                                    <div class="col-12">
-                                        <p class="m-0"><strong>Buyer:</strong> {{ sale.profile|title }}</p>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <p class="m-0"><strong>Date:</strong> {{ sale.order.date }}</p>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <p class="m-0 text-left text-sm-right"><strong>Price:</strong><small> €{{ sale.lineitem_total }} - {{ site_percentage }}%</small> = <strong>€{{ sale.lineitem_total|deduct_sales_percentage|floatformat:2 }}</strong></p>
-                                    </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center">You have not created any lessons yet</p>
+                    {% endif %}
+                </div>
+                <!-- Sales tab -->
+                <div class="tab-pane fade mb-2" id="profile" role="profile" aria-labelledby="profile-tab">
+                    {% if sales %}
+                        {% for sale in sales %}
+                            <div class="row border custom-border my-1 bg-light">
+                                <div class="col-12">
+                                    <p class="m-0"><strong>Lesson:</strong> {{ sale.lesson.lesson_name }}</p>
                                 </div>
-                            {% endfor %}
-                        {% else %}
-                            <p class="text-center mt-3">You have not had any sales yet.</p>
-                        {% endif %}
-                    </div>
-                    <!-- Support tab-->
-                    <div class="tab-pane fade" id="support" role="support" aria-labelledby="support-tab">
-                        <p class="text-center my-2">Contact support at</p>
-                        <p class="text-center"><a href="mailto:{{ site_email }}">{{ site_email }}</a></p>
-                    </div>
+                                <div class="col-12">
+                                    <p class="m-0"><strong>Buyer:</strong> {{ sale.profile|title }}</p>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <p class="m-0"><strong>Date:</strong> {{ sale.order.date }}</p>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <p class="m-0 text-left text-sm-right"><strong>Price:</strong><small> €{{ sale.lineitem_total }} - {{ site_percentage }}%</small> = <strong>€{{ sale.lineitem_total|deduct_sales_percentage|floatformat:2 }}</strong></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center mt-3">You have not had any sales yet.</p>
+                    {% endif %}
+                </div>
+                <!-- Support tab-->
+                <div class="tab-pane fade" id="support" role="support" aria-labelledby="support-tab">
+                    <p class="text-center my-2">Contact support at</p>
+                    <p class="text-center"><a href="mailto:{{ site_email }}">{{ site_email }}</a></p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

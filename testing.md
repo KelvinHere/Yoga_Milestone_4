@@ -387,3 +387,18 @@ Index Here  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 - Action - Just before the modal is rendered to string, a variable `MEDIA_URL_for_json = settings.MEDIA_URL` is also passed as context to the render_to_string method
 
 - Result - The correct MEDIA_URL location is rendered into the string without having to hard code a location in the template.
+
+- **No CSRF Token in static js file**
+
+- Situation - When moving my lesson buttons JavaScript to a static file my Ajax POST request was giving a Forbidden error because of a missing CSRF Token as the token was initially rendered into the script by a template tag.
+
+- Task - Get the CSRF Token to my JavaScript function
+
+- Action - In lessons.html, just before I include the static JavaScript file I created a small script to decalre the CSRF Token variable so it is available for the JavaScript in my static file.
+```
+<script>
+        // Define csrf token for static js file below
+        let csrfToken = '{{ csrf_token }}';
+    </script>
+```
+- Result - The static file now has access to the CSRF Token again and the buttons fonction correctly

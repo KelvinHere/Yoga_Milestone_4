@@ -37,8 +37,8 @@
                         <div class="mb-0" id="card-error-messages"></div>
                         <input type="hidden" value="{{ client_secret }}" name="client_secret">
                         <div class="checkout-buttons mt-5">
-                            <input class="btn btn-primary" type="submit" value="Complete Order">
-                            <a href="{% url 'view_basket' %}" class="btn btn-primary">Back to basket</a>
+                            <a href="{% url 'view_basket' %}" class="btn btn-custom-invert">Back to basket</a>
+                            <input class="btn btn-custom-darken" type="submit" value="Complete Order">
                         </div>
                     </form>
                 </div>
