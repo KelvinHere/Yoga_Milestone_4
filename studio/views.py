@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, HttpResponse, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from lessons.models import Lesson, LessonReview
@@ -14,14 +14,16 @@ def studio(request, id):
 
     try:
         lesson = get_object_or_404(Lesson, lesson_id=id)
-    except Exception as e:
+    except Exception:
         messages.error(request, 'Invalid lesson.')
         return redirect('home')
 
-    existing_user_review = LessonReview.objects.filter(profile=profile, lesson=lesson).first()
+    existing_user_review = LessonReview.objects.filter(
+        profile=profile, lesson=lesson).first()
     paid_lessons = OrderLineItem.objects.filter(profile=profile)
     # Get and sort reviews
-    lesson_reviews = LessonReview.objects.filter(lesson=lesson).exclude(profile=profile)
+    lesson_reviews = LessonReview.objects.filter(
+        lesson=lesson).exclude(profile=profile)
     lesson_reviews = lesson_reviews.order_by('-date')
     my_review = LessonReview.objects.filter(lesson=lesson, profile=profile)
 

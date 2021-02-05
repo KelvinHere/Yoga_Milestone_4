@@ -1,6 +1,4 @@
 from yoga.utils import get_profile_or_none
-from lessons.models import Lesson
-from profiles.models import UserProfile
 from checkout.models import OrderLineItem
 
 

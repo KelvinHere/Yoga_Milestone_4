@@ -11,7 +11,8 @@ def update_on_save(sender, instance, created, **kwargs):
     Update order total on lineitem update/create
     """
     instance.order.update_total()
-    lesson_subscription = Subscription(lesson=instance.lesson, user=instance.profile)
+    lesson_subscription = Subscription(lesson=instance.lesson,
+                                       user=instance.profile)
     lesson_subscription.save()
 
 
@@ -28,4 +29,5 @@ def delete_associated_subscriptions(sender, instance, using, **kwargs):
     """
     Delete all subscriptions to paid lesson being deleted
     """
-    Subscription.objects.filter(user=instance.profile, lesson=instance.lesson).delete()
+    Subscription.objects.filter(user=instance.profile,
+                                lesson=instance.lesson).delete()

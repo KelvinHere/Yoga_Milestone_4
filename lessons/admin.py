@@ -28,7 +28,7 @@ class LessonReviewAdmin(admin.ModelAdmin):
 
 
 class LessonReviewFlaggedAdmin(admin.ModelAdmin):
-    #readonly_fields = ('profile', 'review')
+    readonly_fields = ('profile', 'review')
 
     fields = ('profile', 'review',)
 
@@ -36,4 +36,6 @@ class LessonReviewFlaggedAdmin(admin.ModelAdmin):
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Subscription, SubscriptionAdmin)
 admin.site.register(LessonReview, LessonReviewAdmin)
-admin.site.register(LessonReviewFlagged, LessonReviewFlaggedAdmin)
+admin.site.register(
+    LessonReviewFlagged, LessonReviewFlaggedAdmin
+    )

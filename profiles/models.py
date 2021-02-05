@@ -15,10 +15,16 @@ class UserProfile(models.Model):
     last_name = models.CharField(max_length=50, null=False, blank=False)
     is_instructor = models.BooleanField(default=False)
     requested_instructor_status = models.BooleanField(default=False)
-    card_description = models.TextField(max_length=256, null=True, blank=True, default='')
+    card_description = models.TextField(max_length=256, blank=True, default='')
     profile_description = models.TextField(max_length=650, default='')
-    image = ResizedImageField(size=[600, 600], quality=75, crop=['middle', 'center'], force_format='JPEG', null=True, blank=True, upload_to='profile_images/')
-    rating = models.DecimalField(max_digits=5, decimal_places=0, null=True, blank=True)
+    image = ResizedImageField(
+        size=[600, 600], quality=75, crop=['middle', 'center'],
+        force_format='JPEG', null=True, blank=True,
+        upload_to='profile_images/'
+        )
+    rating = models.DecimalField(
+        max_digits=5, decimal_places=0, null=True, blank=True
+        )
     lesson_count = models.IntegerField(default=0, editable=False)
 
     def __str__(self):
@@ -26,7 +32,8 @@ class UserProfile(models.Model):
 
     def test_profile_is_complete(self):
         """ Tests to see if the profile is complete returns bool """
-        if self.first_name and self.last_name and self.profile_description and self.image:
+        if (self.first_name and self.last_name and
+                self.profile_description and self.image):
             return True
         else:
             return False
@@ -62,4 +69,3 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
     # If user exists just save the profile
     instance.userprofile.save()
-

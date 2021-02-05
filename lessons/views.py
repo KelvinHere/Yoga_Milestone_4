@@ -1,4 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
+from django.shortcuts import (
+    render, get_object_or_404, redirect, reverse, HttpResponse
+    )
 from django.db.models import Q, F
 from django.contrib import messages
 from django.conf import settings
@@ -7,12 +9,13 @@ from django.template.loader import render_to_string
 from django.core.paginator import Paginator, EmptyPage
 
 from .models import UserProfile
-from lessons.models import Lesson, Subscription, LessonReview, LessonReviewFlagged
 from checkout.models import OrderLineItem
+from lessons.models import (
+    Lesson, Subscription, LessonReview, LessonReviewFlagged
+    )
+
 import json
-
 from yoga.utils import get_profile_or_none
-
 from .forms import LessonForm, ReviewForm
 
 
@@ -41,7 +44,7 @@ def lessons(request):
     instructor_to_display = None
     query = ''
 
-    #Pagination
+    # Pagination
     page_number = 1  # Default page number
     lessons_on_page = 5  # No of lessons on a page at once
 
@@ -83,7 +86,8 @@ def lessons(request):
                 page_title = 'Subscribed Lessons'
                 filter_title = 'Subscribed Lessons'
                 if not lessons:
-                    sub_title = 'You are currently not subscribed to any lessons'
+                    sub_title = 'You are currently not subscribed to any \
+                                 lessons'
 
             if request.GET['filter'] == 'purchased_lessons':
                 lessons = lessons.filter(lesson_id__in=paid_lesson_list)
@@ -105,7 +109,7 @@ def lessons(request):
                                        'This user is not an instructor, \
                                        please pick one from the list.')
                         return redirect(reverse('instructors'))
-                except Exception as e:
+                except Exception:
                     messages.error(request,
                                    'Instructor not found, please pick \
                                     one from the instructor list.')
@@ -122,7 +126,8 @@ def lessons(request):
 
             lessons = lessons.filter(Q(lesson_name__icontains=query))
             if not lessons:
-                messages.error(request, "Your query returned no lessons please try again")
+                messages.error(request, "Your query returned no lessons \
+                                         please try again")
 
     # Apply Sort direction
     if sort_direction == 'asc':
@@ -150,6 +155,7 @@ def lessons(request):
         'page_title': page_title,
         'sub_title': sub_title,
         'filter_title': filter_title,
+        'filter_subtitle': filter_subtitle,
         # Filters / Sorting / Searching
         'sort_by': sortby,
         'sort_direction': sort_direction,
@@ -170,7 +176,7 @@ def subscriptions(request):
         try:
             lesson_id = request.GET['lesson_id']
             lesson_object = Lesson.objects.get(lesson_id=lesson_id)
-        except Exception as e:
+        except Exception:
             messages.error(request,
                            'Invalid request, no lessons have been subscribed \
                            or unsubscribed to.')
@@ -178,14 +184,14 @@ def subscriptions(request):
 
         if request.GET['subscribe'] == 'false':
             unsubscribe = Subscription.objects.filter(lesson=lesson_object,
-                                                    user=profile)
+                                                      user=profile)
             unsubscribe.delete()
             json_response = json.dumps({'subscription_status': 'unsubscribed'})
             return HttpResponse(json_response, content_type='application/json')
 
         elif request.GET['subscribe'] == 'true':
             if not Subscription.objects.filter(lesson=lesson_object,
-                                             user=profile).exists():
+                                               user=profile).exists():
                 Subscription.objects.create(lesson=lesson_object, user=profile)
             json_response = json.dumps({'subscription_status': 'subscribed'})
             return HttpResponse(json_response, content_type='application/json')
@@ -210,8 +216,10 @@ def instructor_admin(request):
     # Get lessons instructor created
     instructor_created_lessons = Lesson.objects.filter(
         instructor_profile=profile)
-    customer_purchases = OrderLineItem.objects.filter(lesson__in=instructor_created_lessons).values_list('lesson', flat=True)
-    sales = OrderLineItem.objects.filter(lesson__in=instructor_created_lessons).order_by('-order__date')
+    customer_purchases = OrderLineItem.objects.filter(
+        lesson__in=instructor_created_lessons).values_list('lesson', flat=True)
+    sales = OrderLineItem.objects.filter(
+        lesson__in=instructor_created_lessons).order_by('-order__date')
 
     context = {
         'profile': profile,
@@ -236,7 +244,7 @@ def delete_lesson(request, id):
         print(id)
         lesson = get_object_or_404(Lesson, lesson_id=id)
         purchased = OrderLineItem.objects.filter(lesson=lesson)
-    except Exception as e:
+    except Exception:
         messages.error(request, 'Invalid lesson ID, no lessons were deleted.')
         return redirect(reverse('instructor_admin'))
 
@@ -308,7 +316,7 @@ def edit_lesson(request, lesson_id):
 
     try:
         instructor_lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
-    except Exception as e:
+    except Exception:
         messages.error(request, 'Invalid lesson ID, no lessons were updated.')
         return redirect(reverse('instructor_admin'))
 
@@ -344,7 +352,7 @@ def review_lesson(request, lesson_id):
     # Make sure lesson is valid
     try:
         lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
-    except Exception as e:
+    except Exception:
         messages.error(request, 'Cannot create/edit a review for \
                                  an invalid lesson.')
         return redirect(reverse('home'))
@@ -377,7 +385,7 @@ def review_lesson(request, lesson_id):
             rating_value = int(rating_value)
             post_data.update({'rating': rating_value})
 
-        # Create or fetch existing review       
+        # Create or fetch existing review
         if not existing_review:
             form = ReviewForm(post_data)
         else:
@@ -413,7 +421,7 @@ def delete_review(request, review_pk):
     try:
         review = get_object_or_404(LessonReview, pk=review_pk)
         lesson = review.lesson
-    except Exception as e:
+    except Exception:
         messages.error(request, 'Cannot delete review, review not found.')
         return redirect(reverse('home'))
 
@@ -429,7 +437,8 @@ def delete_review(request, review_pk):
             messages.success(request, 'Review deleted.')
             return redirect(reverse('studio', args=(lesson.lesson_id,)))
     else:
-        messages.error(request, 'Cannot delete review, it does not belong to this account.')
+        messages.error(request, 'Cannot delete review, it does not belong \
+                                 to this account.')
         return redirect(reverse('studio', args=(lesson.lesson_id,)))
 
 
@@ -440,17 +449,22 @@ def flag_review(request, review_pk, lesson_id):
 
     try:
         review = get_object_or_404(LessonReview, pk=review_pk)
-    except Exception as e:
-        messages.error(request, "Invalid review, please contact support if you think this is an error")
+    except Exception:
+        messages.error(request, "Invalid review, please contact support if \
+                                 you think this is an error")
         return redirect(reverse('studio', args=(lesson_id,)))
 
-    if LessonReviewFlagged.objects.filter(profile=profile, review=review).exists():
-        messages.error(request, f"You have already flagged {review.profile}'s review, it will be reviewd by an administrator soon")
+    if LessonReviewFlagged.objects.filter(
+            profile=profile, review=review).exists():
+        messages.error(request, f"You have already flagged {review.profile}'s \
+                                  review, it will be reviewd by an \
+                                  administrator soon")
         return redirect(reverse('studio', args=(review.lesson.lesson_id,)))
 
     flag = LessonReviewFlagged(profile=profile, review=review)
     flag.save()
-    messages.success(request, f"{review.profile}'s review has been flagged and will be reviewed by an administrator soon")
+    messages.success(request, f"{review.profile}'s review has been flagged \
+                                and will be reviewed by an administrator soon")
     return redirect(reverse('studio', args=(review.lesson.lesson_id,)))
 
 
@@ -463,14 +477,11 @@ def remove_flag(request, flagged_review_pk):
 
     if request.method == 'POST':
         try:
-            print('#in try')
             flagged_review_pk = request.POST['flagged_review_pk']
-            print('#flagged review pk')
-            print(flagged_review_pk)
-            review_to_ignore = get_object_or_404(LessonReview, pk=flagged_review_pk)
-            print('#flagged review to ignore')
-            print(review_to_ignore)
-        except Exception as e:
+            review_to_ignore = get_object_or_404(LessonReview,
+                                                 pk=flagged_review_pk
+                                                 )
+        except Exception:
             json_response = json.dumps({'removed_flag': 'False'})
             return HttpResponse(json_response, content_type='application/json')
 
@@ -492,11 +503,15 @@ def get_modal_data(request):
             # Get lesson, pass it to lesson_modal template and turn to string
             if not Lesson.objects.filter(lesson_id=lesson_id).exists():
                 json_response = json.dumps({'status': 'invalid_lesson'})
-                return HttpResponse(json_response, content_type='application/json')
+                return HttpResponse(json_response,
+                                    content_type='application/json'
+                                    )
 
             # Get lesson and its reviews
             lesson = Lesson.objects.get(lesson_id=lesson_id)
-            lesson_reviews = LessonReview.objects.filter(lesson=lesson).order_by('-date')
+            lesson_reviews = LessonReview.objects.filter(
+                lesson=lesson).order_by('-date')
+
             review_count = lesson_reviews.count()
             MEDIA_URL_for_json = settings.MEDIA_URL
             modal_string = render_to_string(

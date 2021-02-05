@@ -12,7 +12,7 @@ def get_profile_or_none(request):
     """ Function returns a valid UserProfile or None """
     try:
         return UserProfile.objects.get(user=request.user)
-    except:
+    except Exception:
         return None
 
 

@@ -82,7 +82,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',  # Allauth needs this
+                'django.template.context_processors.request',
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
@@ -90,7 +90,7 @@ TEMPLATES = [
                 'basket.contexts.basket_contents',
                 'home.contexts.purchased_lessons',
             ],
-            'builtins' : [
+            'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
                 'crispy_forms.templatetags.crispy_forms_field',
             ]
@@ -124,12 +124,12 @@ WSGI_APPLICATION = 'yoga.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-#if 'DATABASE_URL' in os.environ:
+# if 'DATABASE_URL' in os.environ:
 #    DATABASES = {
 #        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 #        }
-#else:
-#DATABASES = {
+# else:
+# DATABASES = {
 #        'default': {
 #            'ENGINE': 'django.db.backends.sqlite3',
 #            'NAME': BASE_DIR / 'db.sqlite3',

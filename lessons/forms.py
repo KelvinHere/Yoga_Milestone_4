@@ -9,8 +9,9 @@ class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = '__all__'
-        widgets = {'instructor_profile': forms.HiddenInput,
-                   'rating': forms.HiddenInput,
+        widgets = {
+            'instructor_profile': forms.HiddenInput,
+            'rating': forms.HiddenInput,
         }
         labels = {
             'card_description': 'Description for lesson card',
@@ -62,8 +63,7 @@ class ReviewForm(forms.ModelForm):
         widgets = {'profile': forms.HiddenInput,
                    'lesson': forms.HiddenInput,
                    'date': forms.HiddenInput,
-                   'rating': forms.HiddenInput,
-        }
+                   'rating': forms.HiddenInput, }
 
     # Over-ride init
     def __init__(self, *args, **kwargs):

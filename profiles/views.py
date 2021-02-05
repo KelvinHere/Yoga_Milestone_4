@@ -1,14 +1,11 @@
-from django.shortcuts import render, get_object_or_404, HttpResponse, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.db.models import F, Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage
 
 from .models import UserProfile
-from lessons.models import Lesson, Subscription
 from checkout.models import OrderLineItem
-
-from yoga.utils import get_profile_or_none
 
 from .forms import ProfileForm
 
@@ -44,7 +41,8 @@ def edit_profile(request):
             form.save()
         else:
             error = form.errors
-            messages.error(request, f'There was an error in your profile data: {error}, please try again.')
+            messages.error(request, f'There was an error in your profile \
+                                    data: {error}, please try again.')
         return redirect('profile')
 
     else:
@@ -65,11 +63,12 @@ def instructors(request):
     sort_direction = 'desc'
     query = ''
 
-    #Pagination
+    # Pagination
     page_number = 1  # Default page number
     instructors_on_page = 5  # No of lessons on a page at once
 
-    instructor_list = UserProfile.objects.filter(is_instructor=True, lesson_count__gt=0)
+    instructor_list = UserProfile.objects.filter(is_instructor=True,
+                                                 lesson_count__gt=0)
 
     if request.GET:
         # Get current page number if exists
@@ -93,15 +92,19 @@ def instructors(request):
         if 'q' in request.GET:
             query = request.GET['q']
 
-            instructor_list = instructor_list.filter(Q(user__username__icontains=query))
+            instructor_list = instructor_list.filter(Q(
+                user__username__icontains=query))
             if not instructor_list:
-                messages.error(request, "Your query returned no instructors please try again")
+                messages.error(request, "Your query returned no instructors \
+                                        please try again")
 
     # Apply Sort
     if sort_direction == 'desc':
-        instructor_list = instructor_list.order_by(F(sort_by).desc(nulls_last=True))
+        instructor_list = instructor_list.order_by(F(
+            sort_by).desc(nulls_last=True))
     else:
-        instructor_list = instructor_list.order_by(F(sort_by).asc(nulls_last=True))
+        instructor_list = instructor_list.order_by(F(
+            sort_by).asc(nulls_last=True))
 
     template = 'profiles/instructors.html'
 

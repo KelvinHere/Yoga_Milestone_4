@@ -11,6 +11,7 @@ from them.
 contact email and social media links
 subsort rating so lessons with most reviews appear higher
 add a confirm layer to deleting lessons
+setup development database before submitting
 
 ## Bugs
 messages not showing color on topbar

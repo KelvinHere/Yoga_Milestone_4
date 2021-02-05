@@ -10,9 +10,8 @@ class SubscriptionAdmin(admin.TabularInline):
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    #readonly_fields = ('requested_instructor_status',)
+    readonly_fields = ('requested_instructor_status',)
     inlines = (SubscriptionAdmin,)
-
 
     model = UserProfile
 
@@ -24,4 +23,3 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(UserProfile, UserProfileAdmin)
-

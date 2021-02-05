@@ -32,7 +32,7 @@ def add_to_basket(request):
             # If lesson id is invalid
             if not Lesson.objects.filter(lesson_id=lesson_id).exists():
                 json_response = json.dumps({'item_added': 'invalid_item'})
-                return HttpResponse(json_response, 
+                return HttpResponse(json_response,
                                     content_type='application/json')
             # If lesson is not in basket
             if lesson_id not in list(basket.keys()):
@@ -42,18 +42,21 @@ def add_to_basket(request):
                 json_response = json.dumps({'item_added': 'True',
                                             'discount_delta': discount_delta,
                                             })
-                return HttpResponse(json_response, content_type='application/json')
+                return HttpResponse(json_response,
+                                    content_type='application/json')
             # If lesson is in basket
             else:
                 json_response = json.dumps({'item_added': 'already_added'})
-                return HttpResponse(json_response, content_type='application/json')
+                return HttpResponse(json_response,
+                                    content_type='application/json')
         # If incorrect POST data
         else:
             json_response = json.dumps({'item_added': 'invalid_item'})
             return HttpResponse(json_response, content_type='application/json')
     # If not post request
     else:
-        messages.error(request, f"Invalid request, please select lessons from the lessons page")
+        messages.error(request, "Invalid request, please select lessons from \
+                                  the lessons page")
         return redirect(reverse('home'))
 
 
@@ -70,8 +73,11 @@ def remove_from_basket(request):
             json_response = json.dumps({'item_removed': 'True'})
             return HttpResponse(json_response, content_type='application/json')
         else:
-            messages.error(request, "Invalid request, no lesson was specified for deletion")
+            messages.error(request, "Invalid request, no lesson was specified \
+                                     for deletion")
             return redirect(reverse('basket'))
     except Exception as e:
-        messages.error(request, f"Something went wrong, please contact {settings.DEFAULT_FROM_EMAIL} if you need assistance.")
+        messages.error(request, f"Something went wrong, please contact \
+                                 {settings.DEFAULT_FROM_EMAIL} if you need \
+                                 assistance.  Error: {e}")
         return redirect(reverse('basket'))

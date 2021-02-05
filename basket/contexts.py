@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from lessons.models import Lesson
 
+
 def basket_contents(request):
 
     basket_items = []
