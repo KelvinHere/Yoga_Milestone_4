@@ -18,11 +18,11 @@
 <div class="overlay"></div>
 <div class="container page-contents">
     {% if instructor_to_display %}
-        {% include 'lessons/snippets/instructor_profile_header.html' %}
+        {% include 'lessons/includes/instructor_profile_header.html' %}
     {% endif %}
     <div class="row">
         <div class="col-12 mt-2">
-            {% include 'lessons/snippets/lesson_sorting.html' %}
+            {% include 'lessons/includes/lesson_sorting.html' %}
             <p class="text-center mb-1">
                 <strong>
                     <small>
@@ -41,7 +41,7 @@
             {% endif %}
             {% if lessons %}
                 {% for lesson in lessons %}
-                    {% include 'lessons/snippets/lesson_card.html' %}
+                    {% include 'lessons/includes/lesson_card.html' %}
                 {% endfor %}
             {% else %}
                 {% if instructor_to_display %}
