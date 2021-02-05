@@ -48,13 +48,13 @@
                     {% if my_review %}
                         <p class="mt-0 my-2"><strong>My Review</strong></p>
                         {% for review in my_review %}
-                            {% include 'studio/snippets/lesson_review.html' %}
+                            {% include 'studio/includes/lesson_review.html' %}
                         {% endfor %}
                     {% endif %}
                     <p class="mt-0 my-2"><strong>Reviews</strong></p>
                     {% if lesson_reviews %}
                         {% for review in lesson_reviews %}
-                            {% include 'studio/snippets/lesson_review.html' %}
+                            {% include 'studio/includes/lesson_review.html' %}
                         {% endfor %}
                     {% else %}
                         {% if my_review %}
