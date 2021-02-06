@@ -14,9 +14,9 @@ add a confirm layer to deleting lessons
 setup development database before submitting
 check for back buttons needed
 image change on forms
+make a JS carouselle on the front page from random lessons
 
 ## Bugs
-messages not showing color on topbar
 Error on stripe checkout when checking out on deployed version
 
 ## Contents
@@ -57,8 +57,8 @@ Error on stripe checkout when checking out on deployed version
 #### Project Purpose
 
 The purpose of this app is to create a platform where students can learn yoga remotely and
-instructors can sell their lessons.  Users will be able to find an instructor and lessons 
-through the search and filtering options then view ratings on instructors and reviews/ratings on
+instructors can create and sell lessons.  Users will be able to find an instructor and lessons 
+through search and filtering options, then view ratings on instructors and reviews/ratings on
 lessons.
 
 #### Wireframe Designs
@@ -75,34 +75,34 @@ lessons.
 ![LessonPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/5-Lesson.jpg "Lesson page")
 
 #### User Stories
-As a site user I want to
-1. Be able to register to the site to save my info for future use *
-2. Quickly log in or out of the site *
-3. Be able to recover my password *
 
-As a student user I want to
-1. Have a free lessons to see if I like an instructor *
-2. Find an instructor through reviews as I need to have some confidence before buying lessons *
-3. Learn yoga by watching videos *
-4. Be able to buy a lesson I like the look of *
-5. Be able to get extra information about a lesson before I use / buy it *
-6. Leave a review of a lesson because I may like or dislike it enough to comment on it *
-
-As an Instructor I want to
-1. Create free lessons to get students interested in me as an instructor *
-2. Create paid lessons to make some money *
-
-As site admin I want to:
-1. See requests from instructors *
-2. Change privilages for users and instructors *
-3. View reviews that users flag as innapropriate because I want to keep my website family friendly *
+**ID** | **As A/AN** | **I want to be able to...** | **So that I can**
+--- | --- | --- | ---
+1 | Site User | Register to the site | Have a personalised experience 
+2 | " | Quickly Login/Out | To access my subscriptions and purchases
+3 | " | Recover/Reset my password | Get back into my account when I forget it
+4 | " | View my personal profile | Set up a bio and view all my purchases
+6 | Student | View a list of instructors | Read about them to find one I like
+5 | " | Search / sort and filter lessons | Get to the ones I want Quickly
+7 | " | View reviews on lessons | To make sure they are worth my time
+8 | " | Try free lessons | To make sure I like an instructor befor buying for them
+9 | " | Buy lessons | Get premium conent and support an instructor I like
+10 | " | Write/Edit/Delete a lesson review | show how much I liked or disliked it
+11 | " | Flag a review | Report inappropriate content
+12 | Instructor | Create free lessons | Get students interested in me
+13 | " | Create paid lessons and price them | Earn some money for my time
+14 | " | Edit / Delete my lessons | Remove a lesson or mistakes from one
+15 | " | View lesson sales | To see my earnings and how well a lesson is performing
+16 | Administrator | See requests from instructors | Vet them and grant/reject them instructor status
+17 | " | Remove instructor status from an instructor | remove instructors that break rules or are inactive
+18 | " | View flagged comments | Decide to remove the review if it is inappropriate
  
 #### Business Goals
 
 The business goal of this site is to sell yoga lessons to students.  The lessons will be created by instructors who
 would like to join the site, who can create free lessons and paid lessons.  The website will take a 
-cut of the lessons sold.  It will create a safe marketplace where users can get feedback by ratings and reviews of
-instructors before buying lessons through a secure service.
+cut of the lessons sold.  It will create a safe marketplace where users can get product feedback by ratings and reviews of
+instructors and lessons before buying the products through this secure service.
  
 #### Developer Goals
  
@@ -122,7 +122,7 @@ Bootstrap is my chosen framework to create the app as it is quick to style pages
 design principles so it will be familliar and intuative to use.  The site will keep a minimal clean look to keep information 
 clear on smaller screens as this will be a responsive mobile first app.
 
-As the database of stuents and lessons grow, filtering, searching, sorting and subscribing to lessons & instructors
+To allow this site to scale when the database of instructors and lessons grow; filtering, searching, sorting and subscribing of lessons & searching of instructors
 will be available.
 
 Navigation and selection will be consitent throughout the app, with no need to use the browser back button.
@@ -133,7 +133,7 @@ Navigation and selection will be consitent throughout the app, with no need to u
  
 **Font 2** - Quicksand is used for content.  A more delicate font that takes second seat to the more important information displayed in Lato.
  
-**Colours** - Main colours of white (modern and clean) with blocks of medium brown (earth/nature) set the tone of mellow, natural and modern without resoring to garish colours.  Text will be brown on white or off-white on brown for consistancy.  The only strong colours are call to action and function buttons to help the user with the interface.  Any other colours will be light pastal.  All this will set the canvas for the instructor generated content and should not take away from their lesson and profile images.
+**Colours** - Main colours of white (modern and clean) with blocks of medium brown (earth/nature) set the tone of mellow, natural and modern without resoring to garish colours.  Text will be brown on white or off-white on brown for consistancy.  The only strong colours are call to action and function buttons to help the user with the interface.  All this will set the canvas for the instructor generated content and should not take away from their lesson and profile images and content.
  
 ## Features
 
@@ -160,8 +160,8 @@ A quickreview of features on the site, more detailed descriptions futher down.
     - Buy lessons
         - Add a lesson they do not own to their basket
         - Remove a lesson from their basket
-        - See if they qualify for a discount
         - See the cost of each lesson and mini-description in thier basket
+        - See if they qualify for a discount
         - See a grand total
         - Checkout with Stripe
         - Start their lessons right from the checkout page
@@ -173,253 +173,250 @@ A quickreview of features on the site, more detailed descriptions futher down.
     - Do anything a User can
     - View a list of lessons they created
         - Create / Edit / Delete their lessons
+    - View their sales
 
 - Administrator can:
     - Do anythng a User can
     - View all requests to be an instructor
         - Accept / Reject that request
     - View a list of instructors
-        - Remove the instructor priveliage
+        - Remove an instructors instructor priveliage
     - View a list of flagged reviews
         - Ignore the flag or delete the review
 
-### Nav bar
+### NavBar Features
 
 The nav bar appears on every page, it is locked to the top on larger screens and can be scrolled away on smaller screens.  The basket will display how many
 items it has inside.  Each time the navbar is loaded it uses a variable in a context processor in the checkout app called `product_count`, which allows the navbar
 to always have the information needed, this context processor is documented in the 
 [Solved Interesting Bugs](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/testing.md#solved-interesting-bugs) section of testing.md as an interesting 
-case "Instructor deletes lesson that is already a users basket"
+case "Instructor deletes lesson that is already a users basket".
 
-- Logo Brand is always a link home
-- Navbar expands from burger button on larger screens
-- If logged in basket is always on the navbar and never collapses
-- basket has "+n" where n is equal to the number of items in it
-- 'Instructors' link takes user to a list of instructors to chose from
-- If logged in 'Lessons' dropdown gives choice of All / Subscribed / Purchased lessons
-- 'Account' link is personalised if user is logged in and has the following options
+- Logo Brand is always a link home.
+- Navbar expands from burger button on larger screens.
+- If logged in basket is always on the navbar and never collapses.
+- basket has "+n" where n is equal to the number of items in it.
+- 'Instructors' link takes user to a list of instructors to chose from.
+- If logged in 'Lessons' dropdown gives choice of All / Subscribed / Purchased lessons.
+- 'Account' link is personalised if user is logged in and has the following options.
     - Logged out: Register / Signin
-    - Logged in User: My Profile / Logout
-    - Logged in Instructor: Instructor Admin / My Profile / Logout
-    - Logged in Administrator: Superuser Admin / My Profile / Logout
+    - Logged in:
+        - User: My Profile / Logout
+        - Instructor: Instructor Admin / My Profile / Logout
+        - Administrator: Superuser Admin / My Profile / Logout
 
-### Home page
+### Home Page Features
 
-- Website main text is personalised to the user if logged in
-- "Your subscribed lessons" call to action button if logged in to promote engagement
-- "Instructor admin" call to action button if user is an Instructor to promote engagement
-- Personalised Toast to show login success in unobtrusive position
+The page is responsive and the buttons and background image reposition between mobile, tablet, desktop 
+screens to always look pleasing.
+
+- The websites main text is personalised if user is logged in.
+- Button: "Find an Instructor" appears if user is not logged in or is not currently subscribed to any lessons.
+- Button: "Your subscribed lessons" call to action button appears if user is logged in to push engagement.
+- Button: "Instructor admin" call to action button appears if user is an Instructor to promote engagement.
+- Personalised Toast to show login success in unobtrusive position.
 
 
-### Superuser_admin page
+### Superuser_admin Page Features
 
-Allows an administrator to easily deal with user requests and privalages without using the django /admin page.
-It consists of three tabs, Request, All Instructors, Flagged.
+Allows an administrator to quickly and easily deal with user requests, review flags and privalages without using the django /admin page.
+It consists of three tabs, Requests / All Instructors / Flagged.
 
 The page is responsive, the tabs are collapsed to a vertical arrangement on mobile and horizontal on larger screens.
 
-- Requests - User requests to become instructors
+- Requests Tab:
     - **Functionality**
-    - This tab displays current amount of user requests to be dealt with using a styled red icon, ie 'Requests **+2**'
-    - Each card under this shows the profile picture, Username, Profile and Email link so an administrator can contact them and decide to 'Accept' of 'Reject' the request from the buttons below the request.
-    - If accepted the user is granted instructor status which gives access to the Instructor Admin page to create / edit / delete lessons.  The request is removed from the superuser_admin page
-    - If rejected the users request is set back to standard user and the request is removed from the superuser_admin page
+    - Users who have requested to become instructors through their profile will show here.
+    - This tab title will display the current amount of user requests using a styled red icon, ie 'Requests **+2**'.
+    - Each card under this shows the users profile and **email link** so an administrator can easily contact to vet them and decide to 'Accept' of 'Reject' the request by the buttons below the request.
+    - If accepted the user is granted instructor status which gives access to the Instructor Admin page to create / edit / delete lessons.  The request is then removed from the superuser_admin page.
+    - If rejected the users request is set back to standard user and the request is removed from the superuser_admin page.
     - **Responsiveness**
-    - The user request changes layout between small and large screens for easier viewing
+    - The user request changes layout between small and large screens for easier viewing.
 
-- All Instructors - A list of all instructors
+- All Instructors Tab:
     - **Functionality**
-    - This tab displays a list of all instructors
-    - A button to remove instructor status is on each instructor if needed
+    - This tab displays a list of all current instructors.
+    - A button to remove instructor status is on each instructor if needed.
     - **Responisivness**
-    - Items change layout from small to larger screens for easier viewing
+    - Items change layout from small to larger screens for easier viewing.
 
-- Flagged - Flagged reviews
+- Flagged Tab:
     - **Functionality**
-    - This tab displays a list of flagged reviews
-    - The flagged review cards show
+    - This tab displays a list of flagged reviews.
+    - Like the Requests Tab, this tab shows a red **+n** icon next to the tab to alert admins something needs attention.
+    - The flagged review cards show:
         - Who created the review
         - The lesson it was created for
         - The review content
-        - A list of people who flagged the review
+        - A **list** of people who flagged the review
         - An 'Ignore' button if the review is fine
         - A 'Remove Review' button to remove the review from the database
-    - `LessonReviewFlagged` is the model used to handle flags
-        - It contains two foreign key fields `Profile` of the user who flagged the review and `LessonReview` the actual review
+    - `LessonReviewFlagged` is the model used to handle flags:
+        - It contains two foreign key fields `Profile` of the user who flagged the review and `LessonReview` the actual review.
         - If a flag is ignored all entries of `LessonReviewFlagged` that contain the `LessonReview` in question are deleted to save the administrator having to delete them individually or them staying redundantly in the database forever.
         - If a `LessonReview` is deleted all entries of `lessonReviewFlagged` that contain the foreign key `LessonReview` are removed as the field is set to on_delete=models.CASCADE.
     - **Responsiveness**
     - None needed
 
-### Instructors page
+### Instructors Page Features
 
 This page gives the user a list of instructors, by default they are sorted by rating high to low.
 
 - **Functionality**
-- Instructors can be searched by name or partial name
-- Instructors can be sorted by Rating / Name / Number of lessons available
-- Sorting can be stacked with searching
-- The user can press the "Enter Studio" button to get more information about an instructor and a list of ther lessons to start / subscribe / buy
-    - With this "studio page" the user can filter, sort **and** query the passed instructors lessons
+- Instructors can be searched by name or partial name.
+- Instructors can be sorted by Rating / Name / Number of lessons available.
+- Sorting can be stacked with searching.
+- The user can press the "Enter Studio" button to get more information about an instructor and a list of ther lessons to start / subscribe / buy.
+    - With this "studio page" the user can filter, sort **and** query the passed instructors lessons.
 - **Responsiveness**
-- On small screens the instructor card is vertically stacked with a small profile image
-- Larger screens the card is layed out horizontally with a larger profile image
+- On small screens the instructor card is vertically stacked with a small profile image.
+- Larger screens the card is layed out horizontally with a larger profile image.
 
-### Instructor Admin page
+### Instructor Admin Page Features
 
-Through tabs the instructor can view lessons they have created and also create new lessons.  Each lesson will be displayed as a card with extra information such as how many students have bought or are subscribed
-to it.  Sales will show in date order, newest first all sales the instructor has made, and the amount they will receive after the 
-sites cut.  Support will have the current sites email link
+Through tabs the instructor can view Created Lessons / Sales / Support.  They can create, delete and edit lessons, view a list of sales from their paid lessons and have access to support information.
 
 - **Functionality**
-- lessons are sorted by date added, newest first
-    - 'Edit' button allows user to edit a lesson
-    - 'Delete' button allows an instructor to delete a lesson as long as no one has bought it
-    - 'Create lesson' allows an instructor to make a new lesson
-- Sales displays all sales this instructor has made
-- Support displays the current sites email
+    - Lessons Tab:
+        - lessons are sorted by date added, newest first.
+        - 'Create lesson' allows an instructor to make a new lesson.
+        - 'Edit' button allows user to edit a lesson.
+        - 'Delete' button allows an instructor to delete a lesson as long as no one has bought it.
+        - After lesson is created the lesson finds out how many lessons were made by this instructor can passes it to the instructor profile method `_update_lesson_count()`
+        - After lesson is deleted, the a method is called in the instructors `UserProfile` to update the amount of lessons they have created
+        - Instructor cant make two lessons with the same name
+        - Instructor can make a lesson with the same name as another instructor to prevent 'name reserving'
+    - Sales Tab:  Displays all sales this instructor has made.
+    - Support Tab:  Displays the sites current contact email.
 - **Responsiveness**
-- On small screens the lesson card is vertically stacked with a small profile image
-- Larger screens the card is layed out horizontally with a larger profile image
-- The sales div re-orders for easier viewing over screen sizes
+- On small screens the lesson card is vertically stacked with a small profile image.
+- Larger screens the lesson card is layed out horizontally with a larger profile image.
+- The sales and flag cards re-order content for easier viewing over screen sizes.
 
-### Lessons page
+### Lessons Page Features
 
 This page shows a lists of lessons using pagination, they can be searched filtered and sorted.
 
 To save on repeat code (DRY principle) the 'instructor studio' uses this lessons page with an 'instructor_profile_header' snippet activated by context to display instructor information over their filtered lessons.
 
 - **Searching / Sorting / Filtering**
-- Lesons can be filtered and sorted
+- Lesons can be searched, filtered and sorted
     - Filter by All / Subscribed / Purchased
         - A tick shows which filter is currently applied
     - Sort by Rating / Name / Price / Instructor Name
         - All sorting can be reversed
-- Lessons can be searched by name
-    - All filtering and sorting is retained
+    - Searched by name / partial name
+        - Search query can be dismissed by auto generated button on page
+    - All these features stack and whatever order these features are applied no previous search / filter or sort information is lost.
 
-- Example of a complex search = Search by instructor 'Sophia' & search lesson name 'dog' & filter by subscribed & sort by rating descending
+- Example of a complex search:  Search the instructor **'Sophia'** from the instructors page & search lesson name **'dog'** & filter by **subscribed** & sort by **rating descending**
     - This would return Lessons you are subscribed to, made by 'Sophia' that contain 'dog' in the lesson name and will be sorted by highest rating first.
- 
-**Lesson cards**
-A lesson card contains a lesson image, name, instructor, price, small description, more details button and context sensitve buttons.
-- **Main functions**
-    - Pagination saves long loading times an scrollbars by distributing large lists of lessons into pages
-    - Logged out users: A call to action button "Signup to view" encourages the user to join the site and directs them to the Signup page
-    - Logged in users :-
-        - Paid Lessons that are unpurchased will show an add to basket button ie "€5.99" with an add to basket icon.
-        - Lessons that are free or purchased that are not subscribed to show a red "Subscribe to lesson" button.
-        - Lessons that are subscribed to show an Unsubscribe and Start Lesson button.
-- **Buttons**
-    - Next and Previous buttons take user to next and previous page of lessons while keeping filter/search/sort parameters
-    - Clicking 'Subscribe to lesson' repalces that button using JS to the 'Unsubscribe' and 'Start Lesson' buttons
-    - Clicking 'Unsubscribe' replaces itself and the 'Start Lesson' button using JS with the 'Subscribe' button.
-    - Clicking 'Start Lesson' starts the lesson
-    - Clicking a buy lesson button adds the lesson to the basket, uses JS to change the button to "Added" created a popover on the basket saying "Your lesson has been added to the basket" and adds +1 to the basket icon on the navbar.
-    - Clicking the button "Added" uses JS to create a popover saying "You have already added this to your basket"
-- **Dynamic**
-    - The rating is an average of all the reviews the lesson has, if there are no reviews the lesson says Rating: None so the user knows it isn't an aweful 0 rated lesson.
-    - Paid lessons that have been purchased have their price changed to a green "Purchased" to inform the user is one of their purchased lessons.
-    - On mobile the lesson cards are vertically stacked with a small image
-    - On larger screens the cards are layed out horizontally with a larger image
-- **Modal**
-    - The More Details link uses Ajax to POST a csrf token and lesson_id to a get_modal_data view, if valid the view will return json data
-    - The json data contains a status key and a modal that is inserted into the page and activated with jQuery
-    - This modal contains the lesson information with a longer description and all of its reviews
-    - The modal is created by using render_to_string on a snippet called lesson_modal.html that is given the context 'lesson instance' and 'MEDIA_URL_for_json' as it will not be parsed the same as a rendered template.
 
-### Studio page
+- **Pagination**
+    - Pagination saves long loading times and scrollbars by distributing large lists of lessons into pages.
+    - Next and Previous buttons take user to next and previous page of lessons while keeping filter/search/sort parameters
+
+**Lesson cards**
+A lesson card contains a all lesson information and context sensitve buttons.
+- **Buttons**
+    - Logged out users:-
+        - A call to action button "Signup to view" on the lesson card encourages the user to join the site and directs them to the Signup page so they can view the lesson.
+    - Logged in users :-
+        - Paid Lessons that are unpurchased will show an add to basket button ie "€5.99" with an add to basket icon, if the discount threshold is reached the discount top-bar is replaced by JS with a discount reached top-bar.
+            - Clicking the buy lesson button adds the lesson to the basket, uses JS to change the button to "Added" created a popover on the basket saying "Your lesson has been added to the basket" and adds +1 to the basket icon on the navbar.
+            - Clicking the button "Added" uses JS to create a popover saying "You have already added this to your basket".
+        - Lessons that are free or purchased that are not subscribed to show a red "Subscribe to lesson" button.
+            - Clicking the 'Subscribe to lesson' repalces that button using JS to the 'Unsubscribe' and 'Start Lesson' buttons.
+        - Lessons that are subscribed to show an Unsubscribe and Start Lesson button.
+            - Clicking 'Unsubscribe' replaces itself and the 'Start Lesson' button using JS with the 'Subscribe' button.
+            - Clicking 'Start Lesson' starts the lesson.
+- **Dynamic**
+    - The rating score is an average of all the reviews the lesson has, if there are no reviews the lesson says Rating: None so the user knows it is not an aweful 0 rated lesson.
+    - Paid lessons that have been purchased have their price changed to a green "Purchased" to inform the user is one of their purchased lessons.
+    - On mobile the lesson cards are vertically stacked with a small image.
+    - On larger screens the cards are layed out horizontally with a larger image.
+- **Modal**
+    - The More Details link uses Ajax to POST a csrf token and lesson_id to the get_modal_data view, if the request is valid, the view will return json data.
+    - The json data contains a status key and a modal that is inserted into the page and activated with jQuery.
+    - This modal contains the lesson information with a longer description of the lesson and all of its reviews.
+    - The modal is created by using render_to_string on a snippet called lesson_modal.html that is given the context 'lesson instance' and 'MEDIA_URL_for_json' as it will not be parsed the same as a standard rendered template.
+
+### Studio page Features
 
 This is the page where the actual lesson happens, it has the lesson name, the embedded video, a dropdown for description and reviews underneath.
 
 - **Functionality**
-    - Embeded video can be viewed on this page
-    - Users who have no bought a paid lesson will be refused access to this page with an error message "You do not own this lesson"
-    - A description button hides a collapsed description
-    - If no current user review exists a 'Write review' buton exists which takes the user to a form to Write a lesson and give it a score out of technologies
-    - If a current user review exists that review will be displayed at the top of the reviews with an edit and delete icon to perform those actions
-    - If no reviews exist (discounting the current user) a prompt of "No more reviews exist" is displayed
-    - If other reviews exist they will be displayed in date order (newest first)
+    - Embeded video can be viewed on this page.
+    - Users who try to access a paid lesson but don't own it will be refused access with an error message "You do not own this lesson".
+    - A description button displays a collapsed description.
+    - If no current user review exists a 'Write review' buton is displayed which takes the user to a form to write a review and give it a score 0-10.
+    - If a current user review exists that review will be displayed at the top of the reviews with an edit and delete icon to perform those actions.
+    - If no reviews exist (discounting the current user) a prompt of "No more reviews exist" is displayed.
+    - If other reviews exist they will be displayed in date order (newest first).
     - Flag icon
-        - Reviews that do not belong to the logged in user have a flag icon to report the review to an administrator
-        - Administrators can see all flagged reviews on the superuser_admin.html (/home/superuser_admin view)page
-        - If a user flags a review they will receive a success message "{{ User }}'s review has been flagged and will be reviewed by an administrator soon."
-        - If a user tries to flag a review more than once they will receive the error message "You have already flagged {{ User }}'s review it will be reviewed by an administrator soon."
+        - Reviews that do not belong to the logged in user have a flag icon to allow them to be reported to an administrator.
+        - Administrators can see all flagged reviews on the superuser_admin.html (/home/superuser_admin view)page.
+        - If a user flags a review they will receive a success message "{{ User }}'s review has been flagged and will be reviewed by an administrator soon.".
+        - If a user tries to flag a review more than once they will receive the error message "You have already flagged {{ User }}'s review it will be reviewed by an administrator soon.".
 
-### Profile page
+### Profile page Features
 
-The profile page shows the user their profile, lets them edit it and request to become an instructor.  A list of purchased lessons and buttons to start them are also on this page.
-
-- **Functionality**
-- An 'Edit Profile' button takes the user to a form where they can edit their profile information and change their picture
-- When pressed the 'Request Instructor Status' button :-
-    - Will put a flag on the Userprofile that they want to be an instructor, this request can be seen by administrators on superuser_admin.html and change the button via JS to "Under Review: Press to cancel" and thier profile status to "Under review".
-    - Pressing "Under Review: Press to cancel" removes the flag and cancels the request
-    - If the user has not finished their user profile will be prompted by toat "Error, you must complete your profile first."
-    - If the users request is granted the button is disabled changed color and displays "Instructor Status Granted" the profile status is changed to "Instructor"
-- **Responsiveness**
-- On small screens the instructor profile is vertically stacked with a small profile image and purchased lessons underneath
-- Larger screens the instructor profile is layed out horizontally with a larger profile image and purchased lessons underneath
-
-### Instructor created lesons page
-
-This page gives a list of lessons the logged in instructor has created , they are prompted "You have not created any lessons yet" if they have made none.  'Create new lesson' button available under the list of lessons.
-Each created lesson has its own card with the lesson image, title, rating, price, short description, edit and delete button.
+The profile page shows users their profiles, lets them edit it and request to become an instructor.  A list of purchased lessons and buttons to start them are also on this page for quick access.
 
 - **Functionality**
-- 'Edit' button takes instructor to a pre-filled form with the completed lesson data in it, this can be edited and submitted to update the lesson.
-- 'Delete' button deletes the lesson from the database
-    - After lesson is deleted, the a method is called in the instructors `UserProfile` to update the amount of lessons they have created
-- 'Create new lesson' button takes the instructor to a form that will create a new lesson if submitted
-    - After lesson is created the lesson finds out how many lessons were made by this instructor can passes it to the instructor profile method `_update_lesson_count()`
-- Instructor cant make two lessons with the same name
-- Instructor can make a lesson with the same name as another instructor to prevent 'name reserving'
+- An 'Edit Profile' button takes the user to a form where they can edit their profile information and change their picture.
+- When pressed, the 'Request Instructor Status' button :-
+    - Will put a flag on the Userprofile that they want to be an instructor, this request can be seen by administrators on superuser_admin.html and change the users button via JS to "Under Review: Press to cancel".  Thier profile status will change to "Under review".
+    - Pressing "Under Review: Press to cancel" removes the flag and cancels the request.
+    - If the user has not finished their user profile will be prompted by toast "Error, you must complete your profile first."
+    - If the users request gets granted the 'Under Review: Press to cancel' button is disabled changed to the success color and displays "Instructor Status Granted", the users profile status is changed to "Instructor" and they will now have access to the 'Instructor Admin' page.
 - **Responsiveness**
-- On small screens the instructor profile is vertically stacked with a small profile image and purchased lessons underneath
-- Larger screens the instructor profile is layed out horizontally with a larger profile image and purchased lessons underneath
+- On small screens the instructor profile is vertically stacked with a small profile image and purchased lessons underneath.
+- Larger screens the instructor profile is layed out horizontally with a larger profile image and purchased lessons underneath.
 
-### Basket page
+### Basket Page Features
 
 The basket page shows cards of items added to the basket with image, title, instructor, price and a delete button.
-The Total, any discount and grand total are shown with a prompt of how much more they need to spend to avail of a discount if they have
-not reached that amount yet.
-Finally a checkout button at the bottom.
+The Total, any discount and grand total are shown with a prompt of how much more they need to spend to avail of a discount if they have not reached that amount yet.
+Finally a checkout button at the bottom of this information.
 
 - **Functionality**
-    - A button stlyed as a red trash can icon will remove the item from the basket
-    - The checkout button will take the user to the checkout page ready for card payment
+    - A button stlyed as a red trash can icon will remove the item from the basket and update the basket product count and adjust prices.
+    - The checkout button will take the user to the checkout page ready for card payment.
 - **Responsiveness**
     - The table resizes its self to fit nicely on any size screen over 300px wide.
 
-### Checkout page
+### Checkout Page Features
 
-The checkout page displays a the total that will be charged to the user and how many items they are buying, for example "Total: €8.99 \ For 2 items"
-A form asks for a full name and email-address where a confirmation email will be sent and a card number.
+The checkout page displays the total that will be charged to the user and how many items they are buying.  For example "Total: €8.99 \ For 2 items"
+A form asks for a full name and email-address where a confirmation email will be sent, and a card number.
 
 - **Functionality**
-    - Email address has to be valid format
-    - Card details are checked on the fly and any error message from invalid input is displayed below
-    - 'Complete order' button starts the process of placing the order through Stripe and unlocking the lesson for the user
-    - See checkout testing in testing.md for information on webhooks used to validate order
-    - 'Back to basket' button takes the user back to their basket
-    - If an order fails to process the user is given the error message that the order failed and they were not charged
+    - Email address has to be valid format.
+    - Card details are checked on the fly and any error message from invalid input is displayed below.
+    - 'Complete order' button starts the process of placing the order through Stripe and unlocking the lesson for the user.
+    - See 'checkout testing' in testing.md for information on webhooks used to validate an order.
+    - A 'Back to basket' button takes the user back to their basket.
+    - If an order fails to process the user is given the error message that the order failed and they were not charged.
+    - If lessons cannot be found while processing the order they will be removed from the transaction.
 - **Responsiveness**
     - On larger screens the checkout window sits on top of a blured yoga studio image as there is little information on this screen and having it all white was too jarring.
-    - On smaller screens the checkout window takes the full screen
+    - On smaller screens the checkout window takes the full screen.
 
-### Checkout success page
+### Checkout Success Page Features
 
 The checkout success page tells the user their order was successful and gives them their order information of, name, email, order number, total, discount if applicable.
-Also a list of all items ordered with buttons to start these lessons
+Also a list of all lessons ordered with buttons to start them.
 
 - **Functionality**
-    - Using django signals each lesson item that is purchased will automatically create a subscription for that lesson so the user can find it easily and begin right away
-    - "Begin" button on each bought lesson item will start that purchased lesson
+    - Using django signals each lesson item that is purchased will automatically create a subscription for that lesson so the user can find it easily and start it right away.
+    - "Begin" button on each bought lesson item will start that purchased lesson.
 - **Responsiveness**
     - On larger screens the checkout window sits on top of a blured yoga studio image as there is little information on this screen and having it all white was too jarring.
-    - On smaller screens the checkout window takes the full screen
+    - On smaller screens the checkout window takes the full screen.
 
-Regarging signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a signal (pre_delete) is used to delete the subscriptions that user may have for the lesson.
+Regarging signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a `signal` (pre_delete) is used to delete the subscriptions the user may have for the lesson.
 
 #### Database
  
@@ -428,9 +425,6 @@ Regarging signals, if for any reason an `OrderLineItem` (the database entry that
 ![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/database/db_design.jpg "Database design")
 
 - The final database with new features at the end of development
-
-
-
  
 #### Performance
 
@@ -450,9 +444,13 @@ This allowed me to create a better showcase for my portfolio using many more fea
 
 ##### Near Future
 - Use a private video hosting service to give the site more control and better security for paid lessons.
+- Create a sale field on the lessons model so instructors can have their on sale items promoted on the homepage
+    - Check lesson was on at a normal price for at least 2 months
+    - When taken off sale cannot be put back on sale for at least 2 months to avoid front page spamming
 
 ##### Far Future
 - Create live-streaming paid lessons, where an instructor can sell positions to join realtime lessons with direct tutor feedback.
+
 
 ## Testing
  
