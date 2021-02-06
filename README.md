@@ -15,6 +15,9 @@ setup development database before submitting
 check for back buttons needed
 image change on forms
 make a JS carouselle on the front page from random lessons
+update database diagram
+finish deployment writeup
+compare example readme to mine for missing features
 
 ## Bugs
 Error on stripe checkout when checking out on deployed version
@@ -435,22 +438,21 @@ Regarging signals, if for any reason an `OrderLineItem` (the database entry that
     - Result: Now when a lesson list is called the average scores have been pre-calculated and in this example only 100 objects in the queryset are returned as opposed to 100,000
 
 ### Changes during development
-As this was a learning project some changes were made in development for me to get the most out of it.  Most notibly I changed 
-the "book video time" feature with a "paid lesson" feature.  This allowed me to make a more comprehensive "store", 
-with adding / removing from a basket, and creating a system where once a lesson is paid for they are unlocked for users.
-This allowed me to create a better showcase for my portfolio using many more features of Django.
+As this was a learning project some changes were made in development to get the most out of it.  Most notibly I changed 
+the "book video time" feature with a "paid lesson" feature.  This allowed me to make a more comprehensive "store", and create
+a system where once a lesson is paid for is is unlocked for the user.
 
 ### Future Features
 
 ##### Near Future
 - Use a private video hosting service to give the site more control and better security for paid lessons.
-- Create a sale field on the lessons model so instructors can have their on sale items promoted on the homepage
+- Ignore users flags feature, will allow an administrator to ignore flags created by a user in case they misuse the feature.
+- Create an "on sale" field on the lessons model so instructors can have their on sale items promoted on the homepage.
     - Check lesson was on at a normal price for at least 2 months
     - When taken off sale cannot be put back on sale for at least 2 months to avoid front page spamming
 
 ##### Far Future
 - Create live-streaming paid lessons, where an instructor can sell positions to join realtime lessons with direct tutor feedback.
-
 
 ## Testing
  
