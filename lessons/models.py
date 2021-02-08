@@ -31,12 +31,12 @@ class Lesson(models.Model):
         max_length=50, default='Yoga', null=False, blank=False
         )
     video_url = models.URLField(
-        max_length=1024, blank=True
+        max_length=1024, blank=False, null=False
         )
     time = models.IntegerField(blank=True, null=True)
     is_free = models.BooleanField(default=True)
     price = models.DecimalField(
-        max_digits=6, decimal_places=2, blank=True, null=True
+        max_digits=6, decimal_places=2, blank=True, null=True, default=0.00
         )
 
     def _generate_lesson_id(self):
@@ -75,6 +75,11 @@ class Lesson(models.Model):
         """
         if not self.lesson_id:
             self.lesson_id = self._generate_lesson_id()
+        # If a price has been entered over Zero, is free field removed
+        if self.price > 0:
+            self.is_free = False
+        else:
+            self.is_free = True
         super().save(*args, **kwargs)
         total_lessons = Lesson.objects.filter(
             instructor_profile=self.instructor_profile).count()
