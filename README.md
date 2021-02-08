@@ -4,7 +4,7 @@ This app allows users to sign up for simple yoga classes that instructors can ma
 If the user likes the free lessons an instructor created, they can purchase other paid lessons
 from them.
 
-* [Live link to site](#/ 'Heroku live link to app')
+* [Live link to site](https://ms4-yoga-kelvinhere.herokuapp.com/ 'Live website link')
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
 
 ## ToDo
@@ -32,11 +32,18 @@ instructors not being filtered properly
        * [*General Design*](#general-design)
        * [*Colours and Fonts*](#colours-and-fonts)
 2. [**Features**](#features)
-   * [Existing Features](#existing-features)
-       * [*Sorting*](#sorting)
-       * [*Database*](#database)
-       * [*Backend*](#backend)
-       * [*Frontend*](#frontend)
+   * [Quick Feature Breakdown](#quick-feature-breakdown)
+   * [NavBar Features](#navbar-features)
+   * [Instructors Page Features](#instructors-page-features)
+   * [Instructor Admin Page Features](#instructor-admin-page-features)
+   * [Lessons Page Features](#lessons-page-features)
+   * [Studio Page Features](#studio-page-features)
+   * [Profile Page Features](#profile-page-features)
+   * [Basket Page Features](#basket-page-features)
+   * [Checkout Success Page Features](#checkout-success-page-features)
+   * [Database](#database)
+   * [Performance](#performance)
+   * [Feature Changes During Development](#feature-changes-during-development)
    * [Future Features](#future-features)
        * [*Near Future*](#near-future)
        * [*Far Future*](#far-future)
@@ -47,7 +54,6 @@ instructors not being filtered properly
         * [Version Control](#version-control)
         * [Local Deployment](#local-deployment)
         * [Heroku Deployment](#heroku-deployment)
-        * [Deployment with Gunicorn](#deployment-with-gunicorn)
 7. * [**Credits**](#credits)
        * [Content](#content)
        * [Media](#media)
@@ -57,7 +63,7 @@ instructors not being filtered properly
  
 #### Project Purpose
 
-The purpose of this app is to create a platform where students can learn yoga remotely and
+The purpose of this app is to create a platform where students can learn Yoga remotely and
 instructors can create and sell lessons.  Users will be able to find an instructor and lessons 
 through search and filtering options, then view ratings on instructors and reviews/ratings on
 lessons.
@@ -361,7 +367,7 @@ This is the page where the actual lesson happens, it has the lesson name, the em
         - If a user flags a review they will receive a success message "{{ User }}'s review has been flagged and will be reviewed by an administrator soon.".
         - If a user tries to flag a review more than once they will receive the error message "You have already flagged {{ User }}'s review it will be reviewed by an administrator soon.".
 
-### Profile page Features
+### Profile Page Features
 
 The profile page shows users their profiles, lets them edit it and request to become an instructor.  A list of purchased lessons and buttons to start them are also on this page for quick access.
 
@@ -419,13 +425,15 @@ Also a list of all lessons ordered with buttons to start them.
 
 Regarging signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a `signal` (pre_delete) is used to delete the subscriptions the user may have for the lesson.
 
-#### Database
+### Database
  
  - For the app I used a postgres relational database, below is the final map with all features included.
 
 ![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/database/db_design.jpg "Database design")
  
-#### Performance
+### Performance
+
+- This app has been written with performance in mind, to try and only access the database when nessacary and to make the queries and model access as lightweight as possible, below is an example.
 
 - Rating system
     - Situation: I wanted a rating system for Instructors and Lessons that would show the average score of each instructor by lessons and each lesson by their reviews, but at scale for example 1000 lessons each had 100 reviews, everytime a user would request a list of all lessons there would be 1000 x 100 = 100,000 objects in the queryset returned to get all the review ratings.
@@ -433,12 +441,16 @@ Regarging signals, if for any reason an `OrderLineItem` (the database entry that
     - Action: After a review is created and saved it will call its lesson to run a method to update its average score.  This is only done when a review is created, once the lesson rating is updated it will call the Instructor that created it to run a method that updates their score from all their (precalculated) lesson ratings.
     - Result: Now when a lesson list is called the average scores have been pre-calculated and in this example only 100 objects in the queryset are returned as opposed to 100,000
 
-### Changes during development
+### Feature Changes during development
 As this was a learning project some changes were made in development to get the most out of it.  Most notibly I changed 
 the "book video time" feature with a "paid lesson" feature.  This allowed me to make a more comprehensive "store", and create
 a system where once a lesson is paid for is is unlocked for the user.
 
+The database was changed over the course of the project as I added more interesting features to the app, such as the rating system and review / review flagging system.
+
 ### Future Features
+
+In making this app, there are ideas I would like to implement at a later date that are beyond the scope and deadline of this project, they are listed below.
 
 ##### Near Future
 - Implement a time limit on uploading images so a user cannot spam images to the application
