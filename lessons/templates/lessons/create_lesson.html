@@ -19,7 +19,10 @@
                 <form method="POST" action="{% url 'create_lesson' %}" class="form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <input type="submit" value="Submit">
+                    <div class="checkout-buttons mt-5">
+                        <a href="{% url 'instructor_admin' %}" class="btn btn-custom-invert">Cancel</a>
+                        <input class="btn btn-custom-darken" type="Submit" value="Create">
+                    </div>
                 </form>
             </div>
         </div>

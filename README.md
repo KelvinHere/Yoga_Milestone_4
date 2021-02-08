@@ -18,9 +18,11 @@ make a JS carouselle on the front page from random lessons
 update database diagram
 compare example readme to mine for missing features
 free/paid lesson form layout
+style buttons on create lesson end edit lesson page
 
 ## Bugs
 Error on stripe checkout when checking out on deployed version
+instructors not being filtered properly
 
 ## Contents
  
@@ -604,6 +606,9 @@ The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed wi
 * [Drawn lesson poses](https://www.tummee.com/)
 * [Lesson image poses 'self'](https://www.self.com/gallery/must-know-yoga-poses-for-beginners)
 * [Yoga studio image on account and checkout pages](https://classpass.com/classes/space-yoga-studio-brighton?page=37)
+* [Sun salutation image](https://www.ladylair.net/yoga-sun-salutation-poses/)
+* [Yogo Pose Clipart](http://clipart-library.com/images/kcMK47bXi.jpg)
+* [Illustrated Pose Images](https://www.sheknows.com/health-and-wellness/articles/1020135/12-basic-yoga-poses-for-beginners/)
 
 
 ### Acknowledgements
