@@ -58,40 +58,44 @@
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="table-container d-flex justify-content-center mt-3">
-                    <!-- Name and status -->
-                    <div class="table-container">
-                        <table class="profile-table">
-                            <tr>
-                                <td><p><strong>Name</strong></p></td>
-                                <td><p>:</p></td>
-                                <td><p>{{ profile.first_name }} {{ profile.last_name }}</p></td>
-                            </tr>
-                            <tr>
-                                <td><p><strong>Status</strong></p></td>
-                                <td><p>:</p></td>
-                                <td>
-                                {% if profile.is_instructor and profile.requested_instructor_status %}
-                                <p>Instructor</p>
-                                {% endif %}
-                                {% if profile.is_instructor == False and profile.requested_instructor_status %}
-                                    <p>Instructor pending review</p>
-                                {% endif %}
-                                {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
-                                    <p>Student</p>
-                                {% endif %}
-                                </td>
-                            </tr>
-                            <tr class="mt-3">
-                                <td colspan="3">
-                                    <p class="text-left alt-font">{{ profile.profile_description }}</p>
-                                </td>
-                            </tr>
-                        </table>
+                <div class="row">
+                    <div class="col-auto px-0">
+                        <p><strong>Name </strong></p>
+                    </div>
+                    <div class="col col-1">
+                        <p>:</p>
+                    </div>
+                    <div class="col">
+                        <p>{{ profile.first_name }} {{ profile.last_name}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto px-0">
+                        <p><strong>Status</strong></p>
+                    </div>
+                    <div class="col-1 ">
+                        <p>:</p>
+                    </div>
+                    <div class="col">
+                        {% if profile.is_instructor and profile.requested_instructor_status %}
+                            <p>Instructor</p>
+                            {% endif %}
+                            {% if profile.is_instructor == False and profile.requested_instructor_status %}
+                                <p>Instructor pending review</p>
+                            {% endif %}
+                            {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
+                                <p>Student</p>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p class="text-left alt-font">{{ profile.profile_description|linebreaks }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-12 mt-2">
+                <hr>
                 <!-- Order history -->
                 <p class="text-center"><strong>Order History</strong></p>
                 {% if Users_OrderdLineItems %}

@@ -11,7 +11,7 @@
         <div class="col-12 col-lg-7 instructor-profile-description-container mt-3">
             <p class="text-muted mb-0">Rating: {{ instructor_to_display.rating }}{% if instructor_to_display.rating %}/10{% endif %}</p>
             <p class="text-muted">Lessons Available: {{ instructor_to_display.lesson_count }}</p>
-            <p class="align-middle alt-font">{{ instructor_to_display.profile_description }}</p>
+            <p class="align-middle alt-font">{{ instructor_to_display.profile_description|linebreaks }}</p>
         </div>
     </div>
 </div>

@@ -8,17 +8,16 @@ from them.
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
 
 ## ToDo
+make a class based view
 contact email and social media links
-subsort rating so lessons with most reviews appear higher
 add a confirm layer to deleting lessons
-setup development database before submitting
-check for back buttons needed
 image change on forms
 make a JS carouselle on the front page from random lessons
-update database diagram
-compare example readme to mine for missing features
 free/paid lesson form layout
-style buttons on create lesson end edit lesson page
+update database diagram
+
+compare example readme to mine for missing features
+setup development database before submitting
 
 ## Bugs
 Error on stripe checkout when checking out on deployed version
