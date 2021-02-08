@@ -24,6 +24,14 @@
 
 ## **2 - Manual Tests**
 ***
+!!!!!!!!!!!!! Looks on different browsers / screen sizes??done
+!!!!!!!!!!!!! Code validation html /css /js etc
+!!!!!!!!!!!!! 
+!!!!!!!!!!!!! 
+!!!!!!!!!!!!! 
+!!!!!!!!!!!!! 
+!!!!!!!!!!!!! 
+
 ## **Site Actions Tested**
 - User can:
     - Register / Sign In / Signout / Confirm Email / Reset Password

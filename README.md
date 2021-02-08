@@ -1,8 +1,13 @@
 # Social Yoga - Full Stack - Milestone 4
  
-This app allows users to sign up for simple yoga classes that instructors can make available.  
-If the user likes the free lessons an instructor created, they can purchase other paid lessons
-from them.
+The idea of this app is to create a space where people can learn yoga from a multitude of instructors.
+
+Users can sign up and find lessons that instructors have created, free or paid.  Users can find out 
+about these lessons through descriptions / reviews and ratings and decide if they would like to subscribe
+or buy them.
+Instructors who decide to use this site will be able to create and manage their lessons through the apps
+tools, set lesson prices and view the details of all the sales they have made on the site.
+
 
 * [Live link to site](https://ms4-yoga-kelvinhere.herokuapp.com/ 'Live website link')
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
@@ -26,6 +31,7 @@ instructors not being filtered properly
    * [Project Purpose](#project-purpose)
    * [Wireframe Designs](#wireframe-designs)
    * [User Stories](#user-stories)
+   * [Database](#database)
    * [Business Goals](#business-goals)
    * [Developer Goals](#developer-goals)
    * [Design Choices](#design-choices)   
@@ -41,7 +47,6 @@ instructors not being filtered properly
    * [Profile Page Features](#profile-page-features)
    * [Basket Page Features](#basket-page-features)
    * [Checkout Success Page Features](#checkout-success-page-features)
-   * [Database](#database)
    * [Performance](#performance)
    * [Feature Changes During Development](#feature-changes-during-development)
    * [Future Features](#future-features)
@@ -54,6 +59,7 @@ instructors not being filtered properly
         * [Version Control](#version-control)
         * [Local Deployment](#local-deployment)
         * [Heroku Deployment](#heroku-deployment)
+        * [Differences - Local & deployed](#differences---local-and-deployed)
 7. * [**Credits**](#credits)
        * [Content](#content)
        * [Media](#media)
@@ -66,7 +72,12 @@ instructors not being filtered properly
 The purpose of this app is to create a platform where students can learn Yoga remotely and
 instructors can create and sell lessons.  Users will be able to find an instructor and lessons 
 through search and filtering options, then view ratings on instructors and reviews/ratings on
-lessons.
+lessons.  The store for this app is built around instructor generated content, the idea being
+after a while it could potentially grow its self.
+
+It will offer instructors set of tools to easily create and manage their lessons, adjust prices,
+lesson content and cultivate through quality lessons, good reviews, ratings and a following of
+students to sell their premium lessons to.
 
 #### Wireframe Designs
  
@@ -80,6 +91,12 @@ lessons.
 ![InstructorPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/4-Instructor.jpg "Instructor page")
 - A typical lesson page, paid or free
 ![LessonPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/5-Lesson.jpg "Lesson page")
+
+### Database
+ 
+ - For the app I used a postgres relational database, below is the final map with all features included.
+
+![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/database/db_design.jpg "Database design")
 
 #### User Stories
 
@@ -103,20 +120,13 @@ lessons.
 16 | Administrator | See requests from instructors | Vet them and grant/reject them instructor status
 17 | " | Remove instructor status from an instructor | remove instructors that break rules or are inactive
 18 | " | View flagged comments | Decide to remove the review if it is inappropriate
- 
-#### Business Goals
 
-The business goal of this site is to sell yoga lessons to students.  The lessons will be created by instructors who
-would like to join the site, who can create free lessons and paid lessons.  The website will take a 
-cut of the lessons sold.  It will create a safe marketplace where users can get product feedback by ratings and reviews of
-instructors and lessons before buying the products through this secure service.
- 
 #### Developer Goals
  
 Each feature must be well programmed, function properly and tested to be bug free.
  
 This project will display I have an understanding of full stack development from inception
-to deployment.
+to deployment, giving a good showcase project for a portfolio.
  
 Show an understanding of Django, Python, Postgres, Javascript, jQuery,
 HTML, CSS, Gunicorn, Stripe payments and more, and how they all interact to form a final product.
@@ -125,22 +135,28 @@ HTML, CSS, Gunicorn, Stripe payments and more, and how they all interact to form
 
 ##### General Design
 
-Bootstrap is my chosen framework to create the app as it is quick to style pages in a familliar way.  It will follow common 
-design principles so it will be familliar and intuative to use.  The site will keep a minimal clean look to keep information 
-clear on smaller screens as this will be a responsive mobile first app.
+Bootstrap is my chosen framework to create the app as it is quick to style pages in a familliar way.  It will follow 
+common design principles so it will be familliar and intuative to use.  The site will keep a minimal clean look to keep 
+information clear on smaller screens as this will be a responsive mobile first app.
 
-To allow this site to scale when the database of instructors and lessons grow; filtering, searching, sorting and subscribing of lessons & searching of instructors
-will be available.
+To allow this site to scale when the database of instructors and lessons grow; filtering, searching, sorting and subscribing
+of lessons & searching of instructors is be available.
 
 Navigation and selection will be consitent throughout the app, with no need to use the browser back button.
 
 ##### Colours and Fonts
  
-**Font 1**  - Lato is used for branding, titles, a strong font that is not completely serious lines up with the sytle and feel of this apps.
+**Font 1**  - Lato is used for branding, titles, a strong font that is not completely serious lines up with the sytle 
+and feel of this apps.
  
-**Font 2** - Quicksand is used for content.  A more delicate font that takes second seat to the more important information displayed in Lato.
+**Font 2** - Quicksand is used for content.  A more delicate font that takes second seat to the more important 
+information displayed in Lato.
  
-**Colours** - Main colours of white (modern and clean) with blocks of medium brown (earth/nature) set the tone of mellow, natural and modern without resoring to garish colours.  Text will be brown on white or off-white on brown for consistancy.  The only strong colours are call to action and function buttons to help the user with the interface.  All this will set the canvas for the instructor generated content and should not take away from their lesson and profile images and content.
+**Colours** - Main colours of white (modern and clean) with blocks of medium brown (earth/nature) set the tone as 
+mellow, natural and modern without resoring to garish colours.  Text will be natural brown on white or off-white on brown for 
+consistancy.  The only strong colours are call to action and function buttons to help the user navigate the interface.  All
+this will be a canvas for the instructor generated content and it should not take away from their lesson and profile images
+and content which will become the heart of the app.
  
 ## Features
 
@@ -425,12 +441,6 @@ Also a list of all lessons ordered with buttons to start them.
 
 Regarging signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a `signal` (pre_delete) is used to delete the subscriptions the user may have for the lesson.
 
-### Database
- 
- - For the app I used a postgres relational database, below is the final map with all features included.
-
-![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/database/db_design.jpg "Database design")
- 
 ### Performance
 
 - This app has been written with performance in mind, to try and only access the database when nessacary and to make the queries and model access as lightweight as possible, below is an example.
@@ -443,25 +453,28 @@ Regarging signals, if for any reason an `OrderLineItem` (the database entry that
 
 ### Feature Changes during development
 As this was a learning project some changes were made in development to get the most out of it.  Most notibly I changed 
-the "book video time" feature with a "paid lesson" feature.  This allowed me to make a more comprehensive "store", and create
-a system where once a lesson is paid for is is unlocked for the user.
+a "book video time" feature with a "paid lesson" feature.  This allowed me to make a more comprehensive "store", and create
+a system where once a lesson is paid for is is unlocked for the user, showing another example of defensive programming in
+case of a user trying to access a lesson they do not own.
 
-The database was changed over the course of the project as I added more interesting features to the app, such as the rating system and review / review flagging system.
+The database was changed over the course of the project as I added more interesting features to the app, such as the rating
+cascading rating system and review / review flagging system.
 
 ### Future Features
 
-In making this app, there are ideas I would like to implement at a later date that are beyond the scope and deadline of this project, they are listed below.
+In making this app, there are ideas I would like to implement at a later date that are beyond the scope and deadline of this
+project, they are listed below.
 
 ##### Near Future
-- Implement a time limit on uploading images so a user cannot spam images to the application
-- Use a private video hosting service to give the site more control and better security for paid lessons.
+- Implement a time limit on uploading images so a user cannot spam images to the application.
+- Use a private video hosting service to give the site more control and better security for paid lessons (sharing of urls).
 - Ignore users flags feature, will allow an administrator to ignore flags created by a user in case they misuse this feature.
 - Create an "on sale" field on the lessons model so instructors can have their on sale lessons promoted on the homepage.
     - Check lesson was on at a normal price for at least 2 months
     - When taken off sale cannot be put back on sale for at least 2 months to avoid spamming sales to reach the front page.
 
 ##### Far Future
-- Create live-streaming paid lessons, where an instructor can sell positions to join realtime lessons with direct tutor feedback.
+- Create live-streaming paid lessons, where an instructor can sell limited positions to join realtime lessons with direct tutor feedback.
 
 ## Testing
  
@@ -470,22 +483,31 @@ In making this app, there are ideas I would like to implement at a later date th
 ## Technologies Used
  
 - **HTML5/CSS3**
-- [Django](https://www.djangoproject.com/) - Framework
-- [Heroku](https://www.heroku.com/) - Cloud Application Platform
-- [Postgres](https://www.postgresql.org/) - Database
-- [SQLite](https://www.sqlite.org/index.html) - Django default database
-- [Python](https://www.python.org/) Programming language
-- [Javascript](https://www.javascript.com/) Programming language
-- [jQuery](https://jquery.com/) - JavaScript Library
-- [Django_resized](https://pypi.org/project/django-resized/) - Resizes image origin to specified size
-- [AWS S3](https://aws.amazon.com/) - Cloud Storage Host
-- [Stripe](https://stripe.com/en-ie) - Online payment processing
-- [Gunicorn](https://gunicorn.org/) - Python WSGI HTTP Server
+- [Django](https://www.djangoproject.com/) - Framework to create the app
+- [Heroku](https://www.heroku.com/) - Cloud Application Platform to deploy the app to 
+- [Postgres](https://www.postgresql.org/) - Database to keep track of the apps data
+- [SQLite](https://www.sqlite.org/index.html) - Django default database for local development
+- [Python](https://www.python.org/) Programming language to write the backend
+- [Javascript](https://www.javascript.com/) Programming language for the frontend
+- [jQuery](https://jquery.com/) - JavaScript Library to simplyfy DOM manipulation
+- [AWS S3](https://aws.amazon.com/) - Cloud Storage Host to keep static and media files for the app
+- [Stripe](https://stripe.com/en-ie) - Online payment processing to process the apps store transactions
+- [Gunicorn](https://gunicorn.org/) - Python WSGI HTTP web server for the app
 - [Gitpod](https://www.gitpod.com) - Development environment
 - [Git](https://git-scm.com/) - Version control
 - [Github](https://www.github.com) - Code hosting platform
 - [Draw.io](https://www.draw.io/) -Prototyping wireframing tool
 - [Photoshop CS](https://www.adobe.com/) - Image editing software
+- [Django_resized](https://pypi.org/project/django-resized/) - To resize images to a specified size
+- [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) - AWS SDK for python, to configure AWS features
+- [Botocore](https://github.com/boto/botocore) - Boto3's low-level core functionality
+- [DJ Database URL](https://pypi.org/project/dj-database-url/) - Django utility to support multiple databases, including PostgreSQL used in this app
+- [django-allauth](https://django-allauth.readthedocs.io/en/latest/installation.html) - An integrated set of Django applications that deal with authentication / registration and account management + more.
+- [django-crispy-forms](https://django-crispy-forms.readthedocs.io/en/latest/) - Django utility that lets you control the rendering bevahiour of django forms
+- [django-storages](https://github.com/jschneier/django-storages) - A collection of custom storage backends for Django
+- [Pillow](https://github.com/python-pillow/Pillow/blob/fcc42e0d344146ee9d265d1f43c094ce5a0ec4cf/docs/index.rst) - Pillow adds image processing capabilities to the Python interpreter.
+- [psycopg2-binary](https://www.psycopg.org/) - A PostgreSQL apdapter for python it will convert database data into python lists.
+- [s3transfer](https://pypi.org/project/s3transfer/) - A python library for managing S3 transfers
  
 ## Deployment
  
@@ -590,7 +612,11 @@ The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed wi
     - You many need to click 'More' in the Heroku app and select 'Restart all dynos'
     - Click 'Open App' 
     - The App should now be running through Heroku
- 
+
+### Differences - Local and deployed
+
+- !!!!!!!!!!! Code and env vars to switch between dev and deployment
+
 ## Credits
 
 - [Colour scheme inspired by icolorpalette](https://icolorpalette.com/palette-by-themes/yoga)
