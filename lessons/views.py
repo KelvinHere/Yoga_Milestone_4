@@ -1,7 +1,7 @@
 from django.shortcuts import (
     render, get_object_or_404, redirect, reverse, HttpResponse
     )
-from django.db.models import Q, F
+from django.db.models import Q, F, Count
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -23,7 +23,8 @@ def lessons(request):
     """ View to return the lessons page """
     # Lesson & Profile data
     profile = get_profile_or_none(request)
-    lessons = Lesson.objects.all()
+    lessons = Lesson.objects.all().annotate(
+        review_count=Count('reviewedLesson'))
     subscribed_lesson_list = []
     paid_lesson_list = []
 
@@ -129,11 +130,20 @@ def lessons(request):
                 messages.error(request, "Your query returned no lessons \
                                          please try again")
 
-    # Apply Sort direction
+    # Apply Sort direction, if sortby = rating 
+    # subsort by annotated review_count
     if sort_direction == 'asc':
-        lessons = lessons.order_by(F(sortby).asc(nulls_last=True))
+        if sortby == 'rating':
+            lessons = lessons.order_by(
+                (F(sortby).asc(nulls_last=True)), 'review_count')
+        else:
+            lessons = lessons.order_by(F(sortby).asc(nulls_last=True))
     else:
-        lessons = lessons.order_by(F(sortby).desc(nulls_last=True))
+        if sortby == 'rating':
+            lessons = lessons.order_by(
+                (F(sortby).desc(nulls_last=True)), '-review_count')
+        else:
+            lessons = lessons.order_by(F(sortby).desc(nulls_last=True))
 
     # Create page from Paginator
     p = Paginator(lessons, lessons_on_page)

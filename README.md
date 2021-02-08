@@ -16,9 +16,7 @@ check for back buttons needed
 image change on forms
 make a JS carouselle on the front page from random lessons
 update database diagram
-finish deployment writeup
 compare example readme to mine for missing features
-upload time limit if over 10 images an hour
 free/paid lesson form layout
 
 ## Bugs
