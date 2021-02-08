@@ -1,8 +1,5 @@
-// Handle subscribe / unsubscribe / start_lesson buttons
+// Replace button href with new lesson href
 function delete_lesson_modal(lesson_id) {
-    $('#modal-footer').prepend( `
-        <a class="btn btn-danger instructor-admin-button" href="{% url 'delete_lesson' ` + lesson_id + ` %}" role="button">
-            Yes, Delete
-        </a>` );
+    $('#modal-delete-button').attr('href', lesson_id)
     $('#delete-lesson-modal').modal('show');
 }
