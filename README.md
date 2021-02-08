@@ -421,7 +421,7 @@ Regarging signals, if for any reason an `OrderLineItem` (the database entry that
 
 #### Database
  
- - The database is a postgres relational database, below is the final database map will all features included
+ - For the app I used a postgres relational database, below is the final map with all features included.
 
 ![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/database/db_design.jpg "Database design")
  
