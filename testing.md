@@ -1,40 +1,72 @@
 # Testing Documentation for Social Yoga
 
-INDEX  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-Index Here  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+1. [**Automated Tests**](#1---automated-tests)
+   * [Code Validation](#code-validation)
+   * [Unit Testing](#unit-testing)
+   * [Writing your own unittests](#writing-your-own-unittests)
+2. [**Manual Testing**](#2---manual-tests)
+   * [Site Actions Tested](#site-actions)
+   * [Home Page](#home-page)
+   * [Lessons Page](#lessons-page)
+   * [Profile Page](#profile-page)
+   * [Studio Page](#studio-page)
+   * [Basket Page](#basket-page)
+   * [Checkout Page](#checkout-page)
+3. [**User Stories Solved**](#3---user-stories-solved)
+4. [**Interesting Bugs Solved**](#4---interesting-bugs-solved)
 
-
-## Manual Tests
+## **1 - Automated Tests**
 ***
-## **Site Actions**
-- **Users can:**
+## **Code Validation**
+## **Unit Testing**
+## **Writing your own unittests**
+
+
+## **2 - Manual Tests**
+***
+## **Site Actions Tested**
+- User can:
+    - Register / Sign In / Signout / Confirm Email / Reset Password
+    - View their profile
+        - Edit their profile
+        - Request to become an instructor
+        - View a list of purchased lessons
+    - Search available instructors
+        - Sort these results by Name / Rating / Number of lessons available
+    - View lessons
+        - By Instructor
+        - Search lessons
+        - Filter these results by All / Purchased / Subscribed
+        - Sort these results by Name / Instructor / Rating / Price
+            - All searching, sorting and filtering can be applied in any order and the results will stack
+        - Subscribe / Unsubscribe to a lesson
+        - Start a lesson that is free or they own
+    - Buy lessons
+        - Add a lesson they do not own to their basket
+        - Remove a lesson from their basket
+        - See the cost of each lesson and mini-description in thier basket
+        - See if they qualify for a discount
+        - See a grand total
+        - Checkout with Stripe
+        - Start their lessons right from the checkout page
+    - Review lessons
+        - Create / Edit / Delete thier reviews
+        - Flag a review for administrator review
+
+- Instructor can:
+    - Do anything a User can
+    - View a list of lessons they created
+        - Create / Edit / Delete their lessons
+    - View their sales
+
+- Administrator can:
+    - Do anythng a User can
+    - View all requests to be an instructor
+        - Accept / Reject that request
     - View a list of instructors
-    - View lessons by instructor
-    - Filter lessons by All / Purchased / Subscribed
-    - Sort lessons by price / rating / instructor / name
-    - Subscribe / Unsubscribe to a lesson
-    - Create / Edit a review for a lesson
-    - Access free lessons and lessons they have paid for
-    - Add / Remove a lesson from their basket
-    - Purchase a lesson
-    - Request / Unrequest instructor status
-
-- **Users cannot:**
-    - Create / Edit someone elses review of a lesson
-    - Access paid lessons they have not purchased
-
-- **Instructor can / users cannot:**
-    - Create a lesson
-    - Create a lesson with the same name as another instructor (ie, 'Introduction Lesson')
-    - Edit / Delete their own lessons
-
-- **Instructor cannot:**
-    - Create two lessons with the same name
-    - Edit / Delete another instructors lessons
-
-- **Superusers can**
-    - View a list of user requests to become an instructor
-    - Grand / Remove instructor status from users
+        - Remove an instructors instructor priveliage
+    - View a list of flagged reviews
+        - Ignore the flag or delete the review
 
 ## **Home Page**
 
@@ -169,6 +201,14 @@ Index Here  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     - Users who try to flag a review multiple times will be taken back to the lesson page with the error message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
 
 9. **delete_review view**
+- **Valid requests**
+    - Given a review primary key the review will be deleted and the user directed back to the studio page they were on.
+    - Activated from superuser admin, review will be deleted and admin will stay on the same page jquery will remove the review div.
+
+- **Error and Invalid request handling**
+    - Users who are not logged in are redirected to signin page
+    - User who passes an invalid review primary key will be redirected home with the error "Cannot delete review, review not found."
+    - Users who submit a primary key that is not theirs (barring superusers who do have this authority) will be directed back to the lesson page with the error message "Cannot delete review, it does not belong to this account."
 
 ## **Profile Page**
 - **Valid requests**
@@ -296,7 +336,33 @@ Index Here  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     - If the logic of this view fails, users are given the message "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction."
 
 
-## Solved Interesting Bugs
+
+## 3 - User Stories Solved
+***
+**ID** | **As A/AN** | **I want to be able to...** | **So that I can** | **Outcome**
+--- | --- | --- | --- | ---
+1 | Site User | Register to the site | Have a personalised experience | **User can register**
+2 | " | Quickly Login/Out | To access my subscriptions and purchases | **Login/Out buttons in nav or collapsed nav**
+3 | " | Recover/Reset my password | Get back into my account when I forget it | **Oauth recover password sends recovery link**
+4 | " | View my personal profile | Set up a bio and view all my purchases | **User has profile page, with purchases on it**
+6 | Student | View a list of instructors | Read about them to find one I like | **Instructors link on nav gives list of instructors**
+5 | " | Search / sort and filter lessons | Get to the ones I want Quickly | **Query/Sort/Filter available on lessons, Query/Sort available on instructors**
+7 | " | View reviews on lessons | To make sure they are worth my time | **Reviews viewable from lesson cards and inside lesson**
+8 | " | Try free lessons | To make sure I like an instructor befor buying for them | **Students can view free lessons**
+9 | " | Buy lessons | Get premium conent and support an instructor I like | **Students can buy paid lessons**
+10 | " | Write/Edit/Delete a lesson review | show how much I liked or disliked it | **Users can write review on free lessons or lessons they own**
+11 | " | Flag a review | Report inappropriate content | **Logged in users can flag a review via icon on the review**
+12 | Instructor | Create free lessons | Get students interested in me | **Instructors can make free lessons**
+13 | " | Create paid lessons and price them | Earn some money for my time | **Instructors can create and price paid lessons**
+14 | " | Edit / Delete my lessons | Remove a lesson or mistakes from one | **Instructors can use instructor admin page to perform these tasks**
+15 | " | View lesson sales | To see my earnings and how well a lesson is performing **Instructors can view their sales in instructor admin page**
+16 | Administrator | See requests from instructors | Vet them and grant/reject them instructor status **Superuser Admin page displays these requests with appropriate action buttons**
+17 | " | Remove instructor status from an instructor | remove instructors that break rules or are inactive **Superuser Admin page can display all instructors with appropriate action button**
+18 | " | View flagged comments | Decide to remove the review if it is inappropriate **Superuser Admin page displays these flags with appropriate action buttons**
+
+
+## 4 - Interesting Bugs Solved
+***
 - **Instructor deletes lesson that is already a users basket**
 - Situation - If an instructor deletes a lesson that is already in a users basket the user will receive a 404 error whenever the basket context processor is called because of this line `lesson = get_object_or_404(Lesson, lesson_id=lesson_id)`
 

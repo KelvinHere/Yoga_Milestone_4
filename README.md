@@ -18,6 +18,8 @@ make a JS carouselle on the front page from random lessons
 update database diagram
 finish deployment writeup
 compare example readme to mine for missing features
+upload time limit if over 10 images an hour
+free/paid lesson form layout
 
 ## Bugs
 Error on stripe checkout when checking out on deployed version
@@ -350,9 +352,9 @@ A lesson card contains a all lesson information and context sensitve buttons.
 This is the page where the actual lesson happens, it has the lesson name, the embedded video, a dropdown for description and reviews underneath.
 
 - **Functionality**
-    - Embeded video can be viewed on this page.
+    - Embeded lesson video can be viewed on this page.
     - Users who try to access a paid lesson but don't own it will be refused access with an error message "You do not own this lesson".
-    - A description button displays a collapsed description.
+    - A description button displays a collapsed description of the lesson.
     - If no current user review exists a 'Write review' buton is displayed which takes the user to a form to write a review and give it a score 0-10.
     - If a current user review exists that review will be displayed at the top of the reviews with an edit and delete icon to perform those actions.
     - If no reviews exist (discounting the current user) a prompt of "No more reviews exist" is displayed.
@@ -445,11 +447,12 @@ a system where once a lesson is paid for is is unlocked for the user.
 ### Future Features
 
 ##### Near Future
+- Implement a time limit on uploading images so a user cannot spam images to the application
 - Use a private video hosting service to give the site more control and better security for paid lessons.
-- Ignore users flags feature, will allow an administrator to ignore flags created by a user in case they misuse the feature.
-- Create an "on sale" field on the lessons model so instructors can have their on sale items promoted on the homepage.
+- Ignore users flags feature, will allow an administrator to ignore flags created by a user in case they misuse this feature.
+- Create an "on sale" field on the lessons model so instructors can have their on sale lessons promoted on the homepage.
     - Check lesson was on at a normal price for at least 2 months
-    - When taken off sale cannot be put back on sale for at least 2 months to avoid front page spamming
+    - When taken off sale cannot be put back on sale for at least 2 months to avoid spamming sales to reach the front page.
 
 ##### Far Future
 - Create live-streaming paid lessons, where an instructor can sell positions to join realtime lessons with direct tutor feedback.
@@ -458,20 +461,19 @@ a system where once a lesson is paid for is is unlocked for the user.
  
 [Testing Documentation](#) - Documentation for testing
 
-## Dependancies
-- `pip3 install pillow` image field
-- `pip install django_resized` resize image field
-
 ## Technologies Used
  
 - **HTML5/CSS3**
 - [Django](https://www.djangoproject.com/) - Framework
-- [Postgresql](https://www.postgresql.org/) - Database
+- [Heroku](https://www.heroku.com/) - Cloud Application Platform
+- [Postgres](https://www.postgresql.org/) - Database
 - [SQLite](https://www.sqlite.org/index.html) - Django default database
 - [Python](https://www.python.org/) Programming language
 - [Javascript](https://www.javascript.com/) Programming language
 - [jQuery](https://jquery.com/) - JavaScript Library
-- [Heroku](https://www.heroku.com/) - Cloud Application Platform
+- [Django_resized](https://pypi.org/project/django-resized/) - Resizes image origin to specified size
+- [AWS S3](https://aws.amazon.com/) - Cloud Storage Host
+- [Stripe](https://stripe.com/en-ie) - Online payment processing
 - [Gunicorn](https://gunicorn.org/) - Python WSGI HTTP Server
 - [Gitpod](https://www.gitpod.com) - Development environment
 - [Git](https://git-scm.com/) - Version control
@@ -492,15 +494,33 @@ The project was then deployed to [Heroku](https://www.heroku.com/) with media an
     - updating an out of date local branch with `git fetch origin` and pulling changes with `git pull origin`
  
 * Branches & an example
-    - When adding the pagination feature I created a new `branch` on github, this allowed me to experiment with pagination without breaking my master branch and having to do a hard reset back to a working commit
-    - Once the feature was working in the `Add pagination branch` I created a `pull request` to `merge` this new branch back into the `master`, since the master branch was a couple of `commits` ahead at this point I had to confirm there were no `conflicts` and I was happy to go ahead with this operation
-    - With the merge complete the master branch now contains the pagination feature and the commits in the master branch that were ahead of my `Add pagination branch` at the time 
+    - When adding the pagination feature I created a new `branch` on github, this allowed me to experiment with pagination without breaking my master branch and having to do a hard reset back to a working commit.
+    - Once the feature was working in the `Add pagination branch` I created a `pull request` to `merge` this new branch back into the `master`, since the master branch was a couple of `commits` ahead at this point I had to confirm there were no `conflicts` and I was happy to go ahead with this operation.
+    - With the merge complete the master branch now contains the pagination feature and the commits in the master branch that were ahead of my `Add pagination branch` at the time.
 
 ### Local Deployment
-  
+ 
+* Requirements
+    - Local computer with an IDE, Python 3.8.6, git and pip.
+ 
+Clone this repository to your local workspace :-
+ 
+1. Open the [Yoga_Milestone_4](https://github.com/KelvinHere/Yoga_Milestone_4) repository.
+2. Click the 'Code' button and then copy the 'Clone with HTTPS' URL.
+3. From your IDE open a terminal.
+4. From inside the directory you want the clone, type `git clone` and paste the URL you copied from GitHub then press enter.  Example below.
+    - `git clone https://github.com/KelvinHere/Yoga_Milestone_4.git`
+ 
+5. Cloning will be completed when your terminal is waiting for its next command.
+6. More information or changes in the cloning procedure at this link [Git Clone](https://github.com/git-guides/git-clone).
+7. Make sure pip is up to date `pip install --upgrade pip`
+8. Install the app requirements `pip install -r requirements.txt`
+10. Run `python3 manage.py runserver` to start the app
+11. Open the given link in your IDE and the app will be ready to use.
+
 ### Heroku Deployment
  
-The deployed version of 'Social Yoga' is hosted on Heroku and was deployed with the following steps.
+The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed with the following steps.
  
 * Requirements
     - A locally deployed version of the Book Review App from the instructions above
@@ -513,42 +533,57 @@ The deployed version of 'Social Yoga' is hosted on Heroku and was deployed with 
 3. Give the app a name, select a region and create the app
 
 4. Setup the database
-    4. The local app need 'dj_database_url' and 'psycopg2-binary' installing
-    4. free requirements
+    - In Heroku > Resources, search for `Heroku Postgres` and add this addon
+    - Make sure the postgres `DATABASE_URL` config var has been set in Heroku > Settings > ConfigVars
 
+5. Setup a Djano secret key
+    - Use an online generator such as [Miniwebtool](https://miniwebtool.com/django-secret-key-generator/) to create a new secret key
+    - Add this as a Heroku enviromental variable under settings as
+        - SECRET_KEY
 
-4. Setup enviromental variables in Heroku :-
-    - Select your app in Heroku and click settings
-    - Under Config Vars set up the key value pairs as below
-    - IP = 0.0.0.0
-    - PORT = 5000
-    - 
-5. Login to Heroku from your terminal with `heroku login -i` then follow prompts
-6. `pip freeze --local > requirements.txt` to update your requirements.txt in case of new requirements
-7. `git init` if you have not initialised your git repo
-8. `heroku git:remote -a YOUR_APP_NAME` to add remote
-9. `git add .` and `git commit` your changes
-10. `git push heroku master` to deploy to Heroku
-11. From the Heroku website
+6. Setup Cloud Storage
+    - Setup a cloud storage provider such as Amazon AWS S3 / Google cloud / Backblaze by following their instructions to set up a bucket, example below
+    - [AWS Setup Example](https://docs.aws.amazon.com/quickstarts/latest/s3backup/step-1-create-bucket.html)
+    - Retrieve and add the keys as heroku envorimental variables
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
+        - USE_AWS = True (Without this the app will default to using a local databse)
+    - Copy the media files from the local project to the bucket while keeping the same directory structure
+
+7. Setup Stripe payments
+    - Create a stripe account
+    - In Stripe > Developers > API keys get the publishable and secret key, add these as Heroku enviromental Vars
+        - STRIPE_PUBLIC_KEY
+        - STRIPE_SECRET_KEY
+    - In Stripe > Developers > webhooks, add a new endpoint
+        - Endpoint URL = The url in Heroku > Settings > Domain
+        - Select receive all events under "Events to send"
+        - Add endpoint
+    - Open this new enbpoint and get the `Signing Secret` add this as a Heroku enviromental var
+        - STRIPE_WH_SECRET
+    - Now the app should conntect to Stripe and be able to receive webhooks from it.
+
+8. Setup Emails for the app :-
+    - Gmail example
+    - In All setting > Accounts and Import > Other google settings > Security turn on 2 factor authentication
+    - Select the newly available option "App Passwords" and follow login instructions
+    - Under select app chose `Other` and give it a name
+    - Press generate and copy the app password then setup up the following Heroku enviromental vars
+        - EMAIL_HOST_PASS = The password just generated
+        - EMAIL_HOST_USER = The gmail email
+    - Django should now be able to send emails through this address.
+    
+9. Login to Heroku from your terminal with `heroku login -i` then follow prompts
+10. `pip freeze --local > requirements.txt` to update your requirements.txt in case of new requirements
+11. `git init` if you have not initialised your git repo
+12. `heroku git:remote -a YOUR_APP_NAME` to add remote
+13. `git add .` and `git commit` your changes
+14. `git push heroku master` to deploy to Heroku
+15. During the build all static files should be uploaded to the connected AWS bucket, to stop this happening every build add the Heroku enviromental var `DISABLE_COLLECTSTATIC=1`
+16. From the Heroku website
     - You many need to click 'More' in the Heroku app and select 'Restart all dynos'
     - Click 'Open App' 
     - The App should now be running through Heroku
- 
-### Deployment with Gunicorn
- 
-As specified in the [Flask deployment](https://flask.palletsprojects.com/en/1.1.x/deploying/#deployment) documentation, Flasks built in server is not suitable for production as it does not scale well.
-I decided to deploy to Heroku with Gunicorn as the server, deployment instructions on the Heroku website in [this link](https://devcenter.heroku.com/articles/python-gunicorn).
- 
-A quick summary of instructions with basic configuration below.
- 
-1. Locally install gunicorn with `pip install gunicorn`
-2. `pip freeze --local > requirements.txt` to update your requirements.txt to include gunicorn
-3. Create a point of entry for gunicorn, I created a file called [wsgi.py](https://github.com/KelvinHere/book-review-app/blob/master/wsgi.py) click to see its contents
-4. Update the procfile to `web: gunicorn wsgi:app` so Heroku will launch the app through gunicorn
-5. Log into heroku CLI and run `heroku config:set WEB_CONCURRENCY=3` to add an environmental variable into the app on heroku to take advantage of concurrency and make the app more responsive at scale
-6. Commit your changes as before
-7. Push to heroku with `git push heroku master`
-8. The app should now be on heroku running on gunicorn
  
 ## Credits
 
