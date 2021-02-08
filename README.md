@@ -12,7 +12,6 @@ make a class based view
 contact email and social media links
 image change on forms
 make a JS carouselle on the front page from random lessons
-update database diagram
 
 compare example readme to mine for missing features
 setup development database before submitting
@@ -422,11 +421,9 @@ Regarging signals, if for any reason an `OrderLineItem` (the database entry that
 
 #### Database
  
- - The database is postgres, below is the initial map when creating the app
+ - The database is a postgres relational database, below is the final database map will all features included
 
 ![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/database/db_design.jpg "Database design")
-
-- The final database with new features at the end of development
  
 #### Performance
 
