@@ -1,7 +1,7 @@
 from django.shortcuts import (
     render, get_object_or_404, redirect, reverse, HttpResponse
     )
-from django.db.models import Q, F
+from django.db.models import Q, F, Count
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -70,6 +70,10 @@ def lessons(request):
         if 'sort' in request.GET:
             if request.GET['sort'] in valid_sort_values:
                 sortby = request.GET['sort']
+            #if sortby == 'rating':
+            #    print('#sorting by rating')
+            #    lessons = Lesson.objects.annotate(Count('lessonreview__lesson'))
+            #    print(lessons[0])
 
         # Sort Direction
         if 'direction' in request.GET:
@@ -100,8 +104,8 @@ def lessons(request):
         # Add instructor header to page
         if 'instructor' in request.GET:
             if request.GET['instructor']:
-                instructor_id = request.GET['instructor']
                 try:
+                    instructor_id = request.GET['instructor']
                     instructor_to_display = get_object_or_404(UserProfile,
                                                               id=instructor_id)
                     if not instructor_to_display.is_instructor:
