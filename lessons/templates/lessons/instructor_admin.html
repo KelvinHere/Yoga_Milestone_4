@@ -60,9 +60,9 @@
                                         </div>
                                         <div class="col-6">
                                             {% if lesson.pk not in customer_purchases %}
-                                                <p class="text-left mb-0">
+                                                <p class="text-right mb-0">
                                                     <button type="button" class="btn btn-danger instructor-admin-button" onclick="delete_lesson_modal(`{% url 'delete_lesson' lesson.lesson_id %}`)">
-                                                        Delete modal
+                                                        Delete
                                                     </button>
                                                 </p>
                                             {% else %}
@@ -115,16 +115,16 @@
     <div class="modal-content">
       <div class="modal-header bg-danger">
         <h5 class="modal-title text-white">Danger</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <p>You are about to permanantly delete this lesson, this action is irreversable.  Are you sure you want to continue?</p>
       </div>
-      <div class="modal-footer" id="modal-footer">
-        <a class="btn btn-danger instructor-admin-button" href="{% url 'delete_lesson' 'LESSON_ID_PLACEHOLDER' %}" id="modal-delete-button" role="button">DELETE</a>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">No, Cancel</button>
+      <div class="modal-footer d-flex justify-content-between" id="modal-footer">
+          <a class="btn btn-danger" href="{% url 'delete_lesson' 'LESSON_ID_PLACEHOLDER' %}" id="modal-delete-button" role="button">Yes, Delete</a>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">No, Cancel</button>
       </div>
     </div>
   </div>
