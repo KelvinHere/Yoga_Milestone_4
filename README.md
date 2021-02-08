@@ -10,10 +10,8 @@ from them.
 ## ToDo
 make a class based view
 contact email and social media links
-add a confirm layer to deleting lessons
 image change on forms
 make a JS carouselle on the front page from random lessons
-free/paid lesson form layout
 update database diagram
 
 compare example readme to mine for missing features

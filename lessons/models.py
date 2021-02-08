@@ -100,23 +100,12 @@ class Subscription(models.Model):
     user = models.ForeignKey(
         UserProfile, null=False, blank=False, on_delete=models.CASCADE
         )
-    paid_for = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Lesson "{self.lesson.lesson_name}" subscribed to \
                  by "{self.user}"'
 
-    def _is_lesson_free(self):
-        """
-        Find out if the lesson object is free €
-        """
-        return self.lesson.is_free
-
     def save(self, *args, **kwargs):
-        """
-        If the lesson added is free € update paid_for to True
-        """
-        self.paid_for = self._is_lesson_free()
         super().save(*args, **kwargs)
 
 
