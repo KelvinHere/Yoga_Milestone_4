@@ -9,12 +9,12 @@ class SubscriptionAdmin(admin.ModelAdmin):
 
 
 class LessonAdmin(admin.ModelAdmin):
-    readonly_fields = ('lesson_id', 'rating')
+    readonly_fields = ('lesson_id', 'rating', 'is_free')
 
     fields = ('lesson_id', 'instructor_profile', 'lesson_name',
               'card_description', 'description', 'image',
-              'video_url', 'rating', 'yoga_style', 'time',
-              'is_free', 'price', )
+              'video_url', 'rating', 'time', 'is_free',
+              'price', )
 
     list_display = (
         'lesson_name',

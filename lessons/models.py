@@ -27,13 +27,10 @@ class Lesson(models.Model):
     rating = models.DecimalField(
         max_digits=5, decimal_places=0, null=True, blank=True
         )
-    yoga_style = models.CharField(
-        max_length=50, default='Yoga', null=False, blank=False
-        )
     video_url = models.URLField(
         max_length=1024, blank=False, null=False
         )
-    time = models.IntegerField(blank=True, null=True)
+    time = models.IntegerField(blank=False, null=False)
     is_free = models.BooleanField(default=True)
     price = models.DecimalField(
         max_digits=6, decimal_places=2, blank=True, null=True, default=0.00

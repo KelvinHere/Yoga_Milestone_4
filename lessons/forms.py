@@ -12,11 +12,13 @@ class LessonForm(forms.ModelForm):
         widgets = {
             'instructor_profile': forms.HiddenInput,
             'rating': forms.HiddenInput,
+            'is_free': forms.HiddenInput
         }
         labels = {
-            'card_description': 'Description for lesson card',
-            'description': 'Large description',
-            'time': 'Estimated length of lesson',
+            'card_description': 'Short Description for lesson card',
+            'description': 'Lesson Description',
+            'time': 'Length of lesson in minuets',
+            'price': 'Lesson price (EUR), leave 0 for free'
         }
 
         image = forms.ImageField(label='image',
@@ -28,6 +30,7 @@ class LessonForm(forms.ModelForm):
         super(LessonForm, self).__init__(*args, **kwargs)
         self.fields['instructor_profile'].disabled = True
         self.fields['rating'].disabled = True
+        self.fields['is_free'].disabled = True
         self.fields['card_description'].widget = forms.Textarea(attrs={
             'rows': 3,
             'cols': 25,
