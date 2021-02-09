@@ -39,7 +39,7 @@
                 </div>
                 <!-- Review Buttons -->
                 <div class="review d-flex justify-content-center">
-                    {% if not existing_user_review %}
+                    {% if not existing_user_review and profile != lesson.instructor_profile %}
                         <a href="{% url 'review_lesson' lesson.lesson_id %}" class="btn btn-sm btn-custom-invert rounded-20 py-1 my-2">Write Review</a>
                     {% endif %}
                 </div>
@@ -60,7 +60,11 @@
                         {% if my_review %}
                             <p>No more reviews</p>
                         {% else %}
-                            <p>No reviews, why dont you write one?</p>
+                            {% if profile == lesson.instructor_profile %}
+                                <p>No one has reviewed your lesson yet.</p>
+                            {% else %}
+                                <p>No reviews, why dont you write one?</p>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 </div>

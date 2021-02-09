@@ -199,6 +199,7 @@
     - User who passes an invalid lesson_id will be redirected home with the error "Cannot create/edit a review for an invalid lesson."
     - User who submits an invalid form are redirected back to the current lesson they were creating a review for with the error message "Error in review form: {form.errors}"
     - POSTs with an invalid rating out the range of 1-10 will be directed back to the lesson page with the error message "You entered an invalid rating, please try again."
+    - Users cannot create reviews on their own lessons, they are returned to the lesson page with the error "You cannot review your own lessons."
 
 8. **flag_review view**
 - **Valid requests**

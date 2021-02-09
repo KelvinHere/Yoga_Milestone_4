@@ -375,6 +375,7 @@ This is the page where the actual lesson happens, it has the lesson name, the em
     - If a current user review exists that review will be displayed at the top of the reviews with an edit and delete icon to perform those actions.
     - If no reviews exist (discounting the current user) a prompt of "No more reviews exist" is displayed.
     - If other reviews exist they will be displayed in date order (newest first).
+    - If a user is viewing their own lesson the "Write Review" button is removed as users cannont review their own lessons.
     - Flag icon
         - Reviews that do not belong to the logged in user have a flag icon to allow them to be reported to an administrator.
         - Administrators can see all flagged reviews on the superuser_admin.html (/home/superuser_admin view)page.
