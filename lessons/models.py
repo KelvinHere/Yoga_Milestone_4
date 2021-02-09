@@ -33,7 +33,7 @@ class Lesson(models.Model):
     time = models.IntegerField(blank=False, null=False)
     is_free = models.BooleanField(default=True)
     price = models.DecimalField(
-        max_digits=6, decimal_places=2, blank=True, null=True, default=0.00
+        max_digits=6, decimal_places=2, blank=False, null=False, default=0.00
         )
 
     def _generate_lesson_id(self):

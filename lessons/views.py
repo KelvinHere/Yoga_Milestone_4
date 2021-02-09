@@ -380,7 +380,7 @@ def review_lesson(request, lesson_id):
                                      review is not yours.')
             return redirect(reverse('home'))
 
-    template = "lessons/create_review.html"
+    template = "lessons/review.html"
     context = {
         'profile': profile,
         'lesson': lesson,
