@@ -47,8 +47,11 @@ class UserProfile(models.Model):
                 if lesson.rating is not None:
                     total_rating += lesson.rating
                     no_of_lessons_with_reviews += 1
-            new_rating = total_rating / no_of_lessons_with_reviews
-            self.rating = new_rating
+            if no_of_lessons_with_reviews > 0:
+                new_rating = total_rating / no_of_lessons_with_reviews
+                self.rating = new_rating
+            else:
+                self.rating = None
         else:
             self.rating = None
         self.save()

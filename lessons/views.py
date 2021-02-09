@@ -378,7 +378,11 @@ def review_lesson(request, lesson_id):
         if not existing_review.profile == profile:
             messages.error(request, 'Cannot complete request, this \
                                      review is not yours.')
-            return redirect(reverse('home'))
+            return redirect('studio', lesson.lesson_id)
+        if profile == lesson.profile:
+            messages.error(request, 'You cannot review your \
+                                     own lessons.')
+            return redirect('studio', lesson.lesson_id)
 
     template = "lessons/review.html"
     context = {
