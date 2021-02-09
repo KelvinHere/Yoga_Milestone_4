@@ -71,10 +71,6 @@ def lessons(request):
         if 'sort' in request.GET:
             if request.GET['sort'] in valid_sort_values:
                 sortby = request.GET['sort']
-            #if sortby == 'rating':
-            #    print('#sorting by rating')
-            #    lessons = Lesson.objects.annotate(Count('lessonreview__lesson'))
-            #    print(lessons[0])
 
         # Sort Direction
         if 'direction' in request.GET:
@@ -254,8 +250,6 @@ def delete_lesson(request, id):
         return redirect('home')
 
     try:
-        print('##')
-        print(id)
         lesson = get_object_or_404(Lesson, lesson_id=id)
         purchased = OrderLineItem.objects.filter(lesson=lesson)
     except Exception:

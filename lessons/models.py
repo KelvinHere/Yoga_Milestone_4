@@ -21,8 +21,7 @@ class Lesson(models.Model):
     description = models.TextField(max_length=2048)
     image = ResizedImageField(
         size=[600, 600], quality=75, crop=['middle', 'center'],
-        force_format='JPEG', null=True, blank=True,
-        upload_to='lesson_images/'
+        force_format='JPEG', upload_to='lesson_images/'
         )
     rating = models.DecimalField(
         max_digits=5, decimal_places=0, null=True, blank=True
