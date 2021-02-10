@@ -17,6 +17,7 @@ make a class based view
 contact email and social media links
 image change on forms
 make a JS carouselle on the front page from random lessons
+sort instructor admin lessons by reverse pk
 
 setup development database before submitting
 
