@@ -139,7 +139,7 @@ def request_instructor_status(request, status):
     if status == 'request':
         profile.requested_instructor_status = True
         profile.save()
-    else:
+    if status == 'unrequest':
         profile.requested_instructor_status = False
         profile.save()
 

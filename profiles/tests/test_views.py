@@ -5,8 +5,6 @@ from django.shortcuts import reverse
 from profiles.models import UserProfile
 
 
-#from profiles.models import UserProfile
-
 # Create your tests here.
 class ProfileViews(TestCase):
 
@@ -42,7 +40,6 @@ class ProfileViews(TestCase):
         response = self.client.get('/profiles/request_instructor_status/request', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, expected_url=reverse('profile'), status_code=302, target_status_code=200)
-        #print(response.content)
         self.assertContains(response, 'Error, you must complete your profile first.')
 
     def test_request_instructor_status_with_complete_profile(self):
