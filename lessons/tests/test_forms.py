@@ -1,5 +1,5 @@
 from django.test import TestCase
-from lessons.forms import LessonForm
+from lessons.forms import LessonForm, ReviewForm
 
 
 class TestLessonForm(TestCase):
@@ -63,14 +63,14 @@ class TestLessonForm(TestCase):
 class TestReviewForm(TestCase):
 
     def test_review_required(self):
-        form = LessonForm({'review': ''})
+        form = ReviewForm({'review': ''})
         self.assertFalse(form.is_valid())
         self.assertIn('review', form.errors.keys())
         self.assertEqual(form.errors['review'][0],
                          'This field is required.')
 
     def test_rating_required(self):
-        form = LessonForm({'rating': ''})
+        form = ReviewForm({'rating': ''})
         self.assertFalse(form.is_valid())
         self.assertIn('rating', form.errors.keys())
         self.assertEqual(form.errors['rating'][0],

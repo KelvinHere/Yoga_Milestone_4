@@ -214,6 +214,7 @@ def subscriptions(request):
             retun_invalid_request()
 
     if request.method == 'POST':
+        return redirect('home')
         retun_invalid_request()
 
 
