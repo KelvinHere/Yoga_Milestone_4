@@ -18,7 +18,13 @@
             <div class="col-12 mb-3">
                 <form method="POST" action="{% url 'edit_lesson' lesson.lesson_id %}" class="form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    {% for field in form %}
+                        {% if field.name != 'image' %}
+                            {{ field | as_crispy_field }}
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+                    {% endfor %}
                     <div class="checkout-buttons mt-5">
                         <a href="{% url 'instructor_admin' %}" class="btn btn-custom-invert">Cancel</a>
                         <input class="btn btn-custom-darken" type="Submit" value="Update">

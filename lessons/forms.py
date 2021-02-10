@@ -1,6 +1,7 @@
 from django import forms
 from .widgets import CustomClearableFileInput
 from .models import Lesson, LessonReview
+from django_resized import ResizedImageField
 
 
 class LessonForm(forms.ModelForm):
@@ -9,6 +10,11 @@ class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = '__all__'
+
+        image = forms.ImageField(label='Image',
+                                 required=True,
+                                 widget=CustomClearableFileInput)
+
         widgets = {
             'instructor_profile': forms.HiddenInput,
             'rating': forms.HiddenInput,
@@ -20,10 +26,6 @@ class LessonForm(forms.ModelForm):
             'time': 'Length of lesson in minuets',
             'price': 'Lesson price (EUR), leave 0 for free'
         }
-
-        image = forms.ImageField(label='image',
-                                 required=False,
-                                 widget=CustomClearableFileInput)
 
     # Over-ride init
     def __init__(self, *args, **kwargs):
