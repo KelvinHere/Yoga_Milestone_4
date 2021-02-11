@@ -1,3 +1,4 @@
+import html
 from django.test import TestCase
 from lessons.models import Lesson
 from checkout.models import OrderLineItem
@@ -12,12 +13,14 @@ class StudioViews(TestCase):
         self.complete_user = {'username': 'complete_user',
                               'password': 'orange99'}
         self.incomplete_user = {'username': 'incomplete_user',
-                              'password': 'orange99'}
+                                'password': 'orange99'}
 
     def test_studio_page_logged_out(self):
-        # Logged out users will be redirect to login page
-        response = self.client.get(f'/studio/{self.free_lesson.lesson_id}/')
+        # Logged out users will be redirected to login page
+        response = self.client.get(f'/studio/{self.free_lesson.lesson_id}/', follow=True)
+        self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/studio/{self.free_lesson.lesson_id}/')
+        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
 
     def test_studio_page_invalid_lesson(self):
         # Passed an invalid lesson, view will send user home

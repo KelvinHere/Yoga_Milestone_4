@@ -69,7 +69,7 @@ def instructors(request):
 
     instructor_list = UserProfile.objects.filter(is_instructor=True,
                                                  lesson_count__gt=0)
-    
+
     if request.method == 'POST':
         return redirect('instructors')
 

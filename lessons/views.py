@@ -178,23 +178,25 @@ def lessons(request):
     return render(request, template, context)
 
 
-@login_required
-def subscriptions(request):
-    """ View to remove a subscribed lesson from a UserProfile """
-    def retun_invalid_request():
+def subscriptions_retun_invalid_request(request):
+        print('######RETURN INVALID REQUEST!!')
         messages.error(
             request,
             'Invalid request, no lessons have been subscribed \
             or unsubscribed to.')
         return redirect(reverse('lessons'))
 
+        
+@login_required
+def subscriptions(request):
+    """ View to remove a subscribed lesson from a UserProfile """
     if request.method == 'GET':
         profile = get_object_or_404(UserProfile, user=request.user)
         try:
             lesson_id = request.GET['lesson_id']
             lesson_object = Lesson.objects.get(lesson_id=lesson_id)
         except Exception:
-            retun_invalid_request()
+            subscriptions_retun_invalid_request(request)
 
         if request.GET['subscribe'] == 'false':
             unsubscribe = Subscription.objects.filter(lesson=lesson_object,
@@ -211,11 +213,10 @@ def subscriptions(request):
             return HttpResponse(json_response, content_type='application/json')
 
         else:
-            retun_invalid_request()
+            subscriptions_retun_invalid_request(request)
 
     if request.method == 'POST':
-        return redirect('home')
-        retun_invalid_request()
+        subscriptions_retun_invalid_request(request)
 
 
 @login_required
