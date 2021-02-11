@@ -93,8 +93,6 @@ def instructors(request):
 
         # Get Query and filter if valid
         if 'q' in request.GET:
-            print('##inrequest.get')
-            print(request.GET['q'])
             current_query = request.GET['q']
 
             instructor_list = instructor_list.filter(Q(
@@ -120,8 +118,6 @@ def instructors(request):
     except EmptyPage:
         messages.error(request, "Page does not exist, returning to page 1")
         page_object = p.page(1)
-    print('####')
-    print(current_query)
 
     context = {
         'instructor_list': page_object,

@@ -194,8 +194,8 @@
         "lesson_id": "D7154AEFC5D54C8485C9D51CBA189DD5",
         "instructor_profile": 6,
         "lesson_name": "A lesson",
-        "card_description": "Instructor 1's first lesson",
-        "description": "Instructor 1's first lesson main description",
+        "card_description": "Instructor ones first lesson",
+        "description": "Instructor ones first lesson main description, this is a free lesson",
         "image": "lesson_images/warrior_xyqiwx.jpeg",
         "rating": "6",
         "video_url": "https://www.value",
@@ -211,8 +211,8 @@
         "lesson_id": "B198AD4009CB4248B5E60960FF517AFF",
         "instructor_profile": 6,
         "lesson_name": "B lesson",
-        "card_description": "Instructor 1's Second lesson",
-        "description": "Instructor 2's first lesson main description",
+        "card_description": "Instructor ones Second lesson",
+        "description": "Instructor second first lesson main description",
         "image": "lesson_images/warrior_xyqiwx_V4o2dF9.jpeg",
         "rating": null,
         "video_url": "https://www.value",
@@ -228,8 +228,8 @@
         "lesson_id": "8660FD0BD35A49E89096CBC698583870",
         "instructor_profile": 7,
         "lesson_name": "Y Lesson",
-        "card_description": "Instructor 2's first lesson",
-        "description": "Instructor 2's first lesson main description",
+        "card_description": "Instructor twos first lesson",
+        "description": "Instructor twos first lesson main description",
         "image": "lesson_images/warrior_xyqiwx_KNNCSXn.jpeg",
         "rating": "10",
         "video_url": "https://www.value",
@@ -245,8 +245,8 @@
         "lesson_id": "01EC81F517424B318E0E4176A51918EC",
         "instructor_profile": 7,
         "lesson_name": "Z Lesson",
-        "card_description": "Instructor 2's second lesson",
-        "description": "Instructor 2's second lesson main description",
+        "card_description": "Instructor twos second lesson",
+        "description": "Instructor twos second lesson main description, this is a paid lesson",
         "image": "lesson_images/warrior_xyqiwx_euVR5l8.jpeg",
         "rating": null,
         "video_url": "https://www.value",
@@ -411,7 +411,7 @@
         "is_instructor": true,
         "requested_instructor_status": true,
         "card_description": "",
-        "profile_description": "Instructor 2's profile",
+        "profile_description": "Instructor twos profile",
         "image": "profile_images/instructor_2_8lzlWPU.jpeg",
         "rating": "10",
         "lesson_count": 2
@@ -433,6 +433,33 @@
         "image": "profile_images/instructor_4_Uz7HWOe.jpeg",
         "rating": "10",
         "lesson_count": 1
+    }
+},
+{
+    "model":"checkout.order",
+    "pk":1,
+    "fields":{
+        "order_number":"C75D6B5759B642619C08D2C5FAD06EB0",
+        "profile":4,
+        "full_name":"CompleteUser",
+        "email":"complete_user@test.com",
+        "date":"2021-02-11T14:47:48.154Z",
+        "discount":"0.00",
+        "order_total":"24.99",
+        "grand_total":"22.49",
+        "stripe_id":"pi_1IJgS5FyB2QB0sJH3sit33dq",
+        "original_basket":"{\"01EC81F517424B318E0E4176A51918EC\": 1}"
+    }
+},
+{
+    "model":"checkout.orderlineitem",
+    "pk":1,
+    "fields":{
+        "order":1,
+        "lesson":5,
+        "profile":4,
+        "sales_percentage":30,
+        "lineitem_total":"24.99"
     }
 }
 ]
