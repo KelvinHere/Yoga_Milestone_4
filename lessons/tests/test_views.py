@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.shortcuts import reverse
 
 import html
 import json
@@ -43,11 +44,66 @@ class TestLessonViews(TestCase):
         self.assertContains(response, html.escape('If you have not created an account yet, then please'))
 
     def test_subscibe_to_lesson(self):
+        # Successful subscription creates a new Subscription object
+        profile = UserProfile.objects.get(user__username='complete_user')
         login_successful = self.client.login(username=self.complete_user['username'],
                                              password=self.complete_user['password'])
         self.assertTrue(login_successful)
-        response = self.client.post('/lessons/subscriptions/', {'subscribe': 'true', 'lesson_id': self.free_lesson.lesson_id}, follow=True)
-        print(response.content)
-        #self.assertContains(response, 'subscribed')
-        #self.assertTrue(Subscription.objects.filter(lesson=self.free_lesson.lesson_id, user=self.complete_user))
+        response = self.client.get('/lessons/subscriptions/', {'subscribe': 'true', 'lesson_id': self.free_lesson.lesson_id}, follow=True)
+        self.assertTrue(Subscription.objects.filter(lesson=self.free_lesson, user=profile).exists())
 
+    def test_subscribe_to_lesson_invalid_lesson(self):
+        # Invalid lesson passed to subscribe will return user to
+        # lessons page with error message
+        profile = UserProfile.objects.get(user__username='complete_user')
+        login_successful = self.client.login(username=self.complete_user['username'],
+                                             password=self.complete_user['password'])
+        self.assertTrue(login_successful)
+        response = self.client.get('/lessons/subscriptions/', {'subscribe': 'true', 'lesson_id': self.invalid_lesson_id}, follow=True)
+        self.assertFalse(Subscription.objects.filter(lesson=self.free_lesson, user=profile).exists())
+        self.assertTrue(response.status_code, 200)
+        self.assertRedirects(response,
+                             expected_url=reverse('lessons'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertContains(
+            response,
+            'Invalid request, no lessons have been subscribed')
+
+    def test_subscribe_to_lesson_invalid_subscribe_request(self):
+        # Invalid subscribe argument passed to subscribe will
+        # return user to lessons page with error message
+        profile = UserProfile.objects.get(user__username='complete_user')
+        login_successful = self.client.login(username=self.complete_user['username'],
+                                             password=self.complete_user['password'])
+        self.assertTrue(login_successful)
+        response = self.client.get('/lessons/subscriptions/', {'subscribe': 'oops', 'lesson_id': self.invalid_lesson_id}, follow=True)
+        self.assertFalse(Subscription.objects.filter(lesson=self.free_lesson, user=profile).exists())
+        self.assertTrue(response.status_code, 200)
+        self.assertRedirects(response,
+                             expected_url=reverse('lessons'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertContains(
+            response,
+            'Invalid request, no lessons have been subscribed')
+
+    def test_subscribe_to_lesson_post_request(self):
+        # Post request will return user to 
+        # lessons page with error message
+        profile = UserProfile.objects.get(user__username='complete_user')
+        login_successful = self.client.login(username=self.complete_user['username'],
+                                             password=self.complete_user['password'])
+        self.assertTrue(login_successful)
+        response = self.client.post('/lessons/subscriptions/', {'subscribe': 'test', 'lesson_id': self.invalid_lesson_id}, follow=True)
+        self.assertFalse(Subscription.objects.filter(lesson=self.free_lesson, user=profile).exists())
+        self.assertTrue(response.status_code, 200)
+        self.assertRedirects(response,
+                             expected_url=reverse('lessons'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertContains(
+            response,
+            'Invalid request, no lessons have been subscribed')
+
+    # Make test to create subscription then remove it with subscribe=false
