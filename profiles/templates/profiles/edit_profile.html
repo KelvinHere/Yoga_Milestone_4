@@ -27,7 +27,8 @@
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                    <input type="submit" value="Submit">
+                    <a href="{% url 'profile' %}" class="btn btn-custom-invert">Cancel</a>
+                    <input class="btn btn-custom-darken" type="Submit" value="Update">
                 </form>
             </div>
         </div>

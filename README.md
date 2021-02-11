@@ -18,6 +18,7 @@ contact email and social media links
 image change on forms
 make a JS carouselle on the front page from random lessons
 sort instructor admin lessons by reverse pk
+change password
 
 setup development database before submitting
 

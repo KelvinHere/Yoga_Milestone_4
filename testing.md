@@ -16,7 +16,7 @@
 4. [**Interesting Bugs Solved**](#4---interesting-bugs-solved)
 
 ## **1 - Automated Tests**
-***
+***You must remove the signal for create user profile when running the automated tests***
 ## **Code Validation**
 ## **Unit Testing**
 ## **Writing your own unittests**

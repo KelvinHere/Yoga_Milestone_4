@@ -22,8 +22,7 @@ class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
 
-        card_desctiption_placeholder = 'A brief description of yourself and \
-                                        ethos (256 characters)'
+        card_desctiption_placeholder = 'A brief description of yourself and your ethos (256 characters)'
         self.fields['user'].disabled = True
         self.fields['is_instructor'].disabled = True
         self.fields['rating'].disabled = True

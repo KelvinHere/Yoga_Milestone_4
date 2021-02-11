@@ -59,33 +59,37 @@
             </div>
             <div class="col-12 col-md-6">
                 <div class="row">
-                    <div class="col-auto px-0">
-                        <p><strong>Name </strong></p>
-                    </div>
-                    <div class="col col-1">
-                        <p>:</p>
-                    </div>
-                    <div class="col">
-                        <p>{{ profile.first_name }} {{ profile.last_name}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-auto px-0">
-                        <p><strong>Status</strong></p>
-                    </div>
-                    <div class="col-1 ">
-                        <p>:</p>
-                    </div>
-                    <div class="col">
-                        {% if profile.is_instructor and profile.requested_instructor_status %}
-                            <p>Instructor</p>
-                            {% endif %}
-                            {% if profile.is_instructor == False and profile.requested_instructor_status %}
-                                <p>Instructor pending review</p>
-                            {% endif %}
-                            {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
-                                <p>Student</p>
-                        {% endif %}
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-auto px-0">
+                                <p><strong>Name </strong></p>
+                            </div>
+                            <div class="col col-1">
+                                <p>:</p>
+                            </div>
+                            <div class="col">
+                                <p>{{ profile.first_name }} {{ profile.last_name}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto px-0">
+                                <p><strong>Status</strong></p>
+                            </div>
+                            <div class="col-1 ">
+                                <p>:</p>
+                            </div>
+                            <div class="col">
+                                {% if profile.is_instructor and profile.requested_instructor_status %}
+                                    <p>Instructor</p>
+                                    {% endif %}
+                                    {% if profile.is_instructor == False and profile.requested_instructor_status %}
+                                        <p>Instructor pending review</p>
+                                    {% endif %}
+                                    {% if profile.is_instructor == False and profile.requested_instructor_status == False %}
+                                        <p>Student</p>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -121,7 +125,7 @@
                     </table>
                 </div>
                 {% else %}
-                    <p>You have no purchased lessons yet.</p>
+                    <p class="text-center" >You have no purchased lessons yet.</p>
                 {% endif %}
             </div>
         </div>

@@ -28,6 +28,7 @@ class TestLessonViews(TestCase):
         instructor.save()
 
         # Create lesson
+        '''
         lesson = Lesson.objects.create(
             id=1,
             lesson_id='1CF0AF7475FE46BD84C0A4A8DDCF2DD6',
@@ -43,6 +44,7 @@ class TestLessonViews(TestCase):
             price=0.00
         )
         lesson.save()
+        '''
 
     def test_get_lessons(self):
         response = self.client.get('/lessons/')

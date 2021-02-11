@@ -1,0 +1,438 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$hRsvCJxsuGLv$gsrHWVD34H26xUxtmCheYIcMRt0jW6Y4TBBrHs/lCQ0=",
+        "last_login": "2021-02-10T18:05:04.725Z",
+        "is_superuser": true,
+        "username": "kelvinhere",
+        "first_name": "",
+        "last_name": "",
+        "email": "kwardeu@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2021-02-10T09:31:16.552Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$ZSQmb1bE3YHS$zXJDxHsvopta3Ed6xgUHIYE4zej1i8vBir7i73fOf4o=",
+        "last_login": "2021-02-10T18:29:07.839Z",
+        "is_superuser": false,
+        "username": "complete_user",
+        "first_name": "",
+        "last_name": "",
+        "email": "complete_user@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-10T17:59:57.215Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$jo6gRg8sM6P3$nGNDRB77iOFxDSlZ3iG7uRixwfmG05PuRW0XAFHyTOE=",
+        "last_login": "2021-02-10T18:29:53.026Z",
+        "is_superuser": false,
+        "username": "incomplete_user",
+        "first_name": "",
+        "last_name": "",
+        "email": "incomplete_user@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-10T18:02:45.144Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$PuCUQPOkWcZc$s3vtbpPj69he83D7RYyGQkAoTqGI41L8ASvifXolDmY=",
+        "last_login": "2021-02-10T18:19:37.410Z",
+        "is_superuser": false,
+        "username": "instructor_1",
+        "first_name": "",
+        "last_name": "",
+        "email": "instructor_1@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-10T18:03:45.858Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$VBhVJ07FUz91$0chOG2rb0eE4znkieD/mttKrnPWYgaE37pBxUQ2aTnY=",
+        "last_login": "2021-02-10T18:16:31.850Z",
+        "is_superuser": false,
+        "username": "instructor_2",
+        "first_name": "",
+        "last_name": "",
+        "email": "instructor_2@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-10T18:16:14.097Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$5JxbK1uB1zqa$l8J797ycVAKGri5QI9XvnjWRhmAxyT3rTyIJuUbcsLQ=",
+        "last_login": "2021-02-10T18:26:10.298Z",
+        "is_superuser": false,
+        "username": "instructor_3",
+        "first_name": "",
+        "last_name": "",
+        "email": "instructor_3@test.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-10T18:25:24.694Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sites.site",
+    "pk": 1,
+    "fields": {
+        "domain": "example.com",
+        "name": "example.com"
+    }
+},
+{
+    "model": "account.emailaddress",
+    "pk": 1,
+    "fields": {
+        "user": [
+            "kelvinhere"
+        ],
+        "email": "kwardeu@gmail.com",
+        "verified": true,
+        "primary": true
+    }
+},
+{
+    "model": "account.emailaddress",
+    "pk": 4,
+    "fields": {
+        "user": [
+            "complete_user"
+        ],
+        "email": "complete_user@test.com",
+        "verified": true,
+        "primary": true
+    }
+},
+{
+    "model": "account.emailaddress",
+    "pk": 5,
+    "fields": {
+        "user": [
+            "incomplete_user"
+        ],
+        "email": "incomplete_user@test.com",
+        "verified": true,
+        "primary": true
+    }
+},
+{
+    "model": "account.emailaddress",
+    "pk": 6,
+    "fields": {
+        "user": [
+            "instructor_1"
+        ],
+        "email": "instructor_1@test.com",
+        "verified": true,
+        "primary": true
+    }
+},
+{
+    "model": "account.emailaddress",
+    "pk": 7,
+    "fields": {
+        "user": [
+            "instructor_2"
+        ],
+        "email": "instructor_2@test.com",
+        "verified": true,
+        "primary": true
+    }
+},
+{
+    "model": "account.emailaddress",
+    "pk": 8,
+    "fields": {
+        "user": [
+            "instructor_3"
+        ],
+        "email": "instructor_3@test.com",
+        "verified": true,
+        "primary": true
+    }
+},
+{
+    "model": "lessons.lesson",
+    "pk": 2,
+    "fields": {
+        "lesson_id": "D7154AEFC5D54C8485C9D51CBA189DD5",
+        "instructor_profile": 6,
+        "lesson_name": "A lesson",
+        "card_description": "Instructor 1's first lesson",
+        "description": "Instructor 1's first lesson main description",
+        "image": "lesson_images/warrior_xyqiwx.jpeg",
+        "rating": "6",
+        "video_url": "https://www.value",
+        "time": 10,
+        "is_free": true,
+        "price": "0.00"
+    }
+},
+{
+    "model": "lessons.lesson",
+    "pk": 3,
+    "fields": {
+        "lesson_id": "B198AD4009CB4248B5E60960FF517AFF",
+        "instructor_profile": 6,
+        "lesson_name": "B lesson",
+        "card_description": "Instructor 1's Second lesson",
+        "description": "Instructor 2's first lesson main description",
+        "image": "lesson_images/warrior_xyqiwx_V4o2dF9.jpeg",
+        "rating": null,
+        "video_url": "https://www.value",
+        "time": 10,
+        "is_free": false,
+        "price": "35.99"
+    }
+},
+{
+    "model": "lessons.lesson",
+    "pk": 4,
+    "fields": {
+        "lesson_id": "8660FD0BD35A49E89096CBC698583870",
+        "instructor_profile": 7,
+        "lesson_name": "Y Lesson",
+        "card_description": "Instructor 2's first lesson",
+        "description": "Instructor 2's first lesson main description",
+        "image": "lesson_images/warrior_xyqiwx_KNNCSXn.jpeg",
+        "rating": "10",
+        "video_url": "https://www.value",
+        "time": 10,
+        "is_free": true,
+        "price": "0.00"
+    }
+},
+{
+    "model": "lessons.lesson",
+    "pk": 5,
+    "fields": {
+        "lesson_id": "01EC81F517424B318E0E4176A51918EC",
+        "instructor_profile": 7,
+        "lesson_name": "Z Lesson",
+        "card_description": "Instructor 2's second lesson",
+        "description": "Instructor 2's second lesson main description",
+        "image": "lesson_images/warrior_xyqiwx_euVR5l8.jpeg",
+        "rating": null,
+        "video_url": "https://www.value",
+        "time": 10,
+        "is_free": false,
+        "price": "24.99"
+    }
+},
+{
+    "model": "lessons.lesson",
+    "pk": 6,
+    "fields": {
+        "lesson_id": "0E793A2D1058422B81EAEA7219C95BD3",
+        "instructor_profile": 8,
+        "lesson_name": "H Lesson",
+        "card_description": "Only one high review",
+        "description": "This lesson only has one review but it is a 10",
+        "image": "lesson_images/warrior_xyqiwx_XKow7Zs.jpeg",
+        "rating": "10",
+        "video_url": "https://www.value",
+        "time": 10,
+        "is_free": true,
+        "price": "0.00"
+    }
+},
+{
+    "model": "lessons.lessonreview",
+    "pk": 1,
+    "fields": {
+        "profile": 4,
+        "lesson": 2,
+        "review": "Great I loved it!",
+        "rating": 10,
+        "date": "2021-02-10T18:22:39.871Z"
+    }
+},
+{
+    "model": "lessons.lessonreview",
+    "pk": 2,
+    "fields": {
+        "profile": 4,
+        "lesson": 4,
+        "review": "Fantastic",
+        "rating": 10,
+        "date": "2021-02-10T18:23:07.518Z"
+    }
+},
+{
+    "model": "lessons.lessonreview",
+    "pk": 3,
+    "fields": {
+        "profile": 5,
+        "lesson": 2,
+        "review": "Rubbish",
+        "rating": 1,
+        "date": "2021-02-10T18:23:49.075Z"
+    }
+},
+{
+    "model": "lessons.lessonreview",
+    "pk": 4,
+    "fields": {
+        "profile": 4,
+        "lesson": 6,
+        "review": "Only one review, its a 10",
+        "rating": 10,
+        "date": "2021-02-10T18:28:39.675Z"
+    }
+},
+{
+    "model": "lessons.lessonreview",
+    "pk": 5,
+    "fields": {
+        "profile": 5,
+        "lesson": 4,
+        "review": "Amazing",
+        "rating": 10,
+        "date": "2021-02-10T18:29:58.153Z"
+    }
+},
+{
+    "model": "profiles.userprofile",
+    "pk": 1,
+    "fields": {
+        "user": [
+            "kelvinhere"
+        ],
+        "first_name": "",
+        "last_name": "",
+        "is_instructor": false,
+        "requested_instructor_status": false,
+        "card_description": "",
+        "profile_description": "",
+        "image": "",
+        "rating": null,
+        "lesson_count": 0
+    }
+},
+{
+    "model": "profiles.userprofile",
+    "pk": 4,
+    "fields": {
+        "user": [
+            "complete_user"
+        ],
+        "first_name": "Complete",
+        "last_name": "User",
+        "is_instructor": false,
+        "requested_instructor_status": false,
+        "card_description": "",
+        "profile_description": "This is the profile of a user with a completed profile",
+        "image": "profile_images/Instructor1_nk5j1rR.jpeg",
+        "rating": null,
+        "lesson_count": 0
+    }
+},
+{
+    "model": "profiles.userprofile",
+    "pk": 5,
+    "fields": {
+        "user": [
+            "incomplete_user"
+        ],
+        "first_name": "",
+        "last_name": "",
+        "is_instructor": false,
+        "requested_instructor_status": false,
+        "card_description": "",
+        "profile_description": "",
+        "image": "",
+        "rating": null,
+        "lesson_count": 0
+    }
+},
+{
+    "model": "profiles.userprofile",
+    "pk": 6,
+    "fields": {
+        "user": [
+            "instructor_1"
+        ],
+        "first_name": "Instructor",
+        "last_name": "One",
+        "is_instructor": true,
+        "requested_instructor_status": true,
+        "card_description": "",
+        "profile_description": "I have the most lessons and the highest reviews",
+        "image": "profile_images/Profile_Picture.jpeg",
+        "rating": "6",
+        "lesson_count": 2
+    }
+},
+{
+    "model": "profiles.userprofile",
+    "pk": 7,
+    "fields": {
+        "user": [
+            "instructor_2"
+        ],
+        "first_name": "Instructor",
+        "last_name": "Two",
+        "is_instructor": true,
+        "requested_instructor_status": true,
+        "card_description": "",
+        "profile_description": "Instructor 2's profile",
+        "image": "profile_images/instructor_2_8lzlWPU.jpeg",
+        "rating": "10",
+        "lesson_count": 2
+    }
+},
+{
+    "model": "profiles.userprofile",
+    "pk": 8,
+    "fields": {
+        "user": [
+            "instructor_3"
+        ],
+        "first_name": "Instructor",
+        "last_name": "Three",
+        "is_instructor": true,
+        "requested_instructor_status": true,
+        "card_description": "",
+        "profile_description": "I also teach",
+        "image": "profile_images/instructor_4_Uz7HWOe.jpeg",
+        "rating": "10",
+        "lesson_count": 1
+    }
+}
+]

@@ -18,6 +18,5 @@ def purchased_lessons(request):
         'purchased_lessons': purchased,
         'purchased_lesson_ids': purchased_lesson_ids,
     }
-    print(purchased)
 
     return context
