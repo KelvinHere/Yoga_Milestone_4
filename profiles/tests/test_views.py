@@ -60,13 +60,11 @@ class ProfileViews(TestCase):
         self.assertTrue(login_successful)
         response = self.client.post(
             '/profiles/edit_profile/',
-            {'first_name': False,
-             'last_name': False,
-             'profile_description': 0.11},
+            {'invalid_form_field': 'Invalid'},
             follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, '/profiles/')
-        self.assertContains(response, 'There was an error')
+        self.assertContains(response, 'There was an error in your profile')
 
     # Request instructor status view
     def test_request_instructor_status_logged_out(self):
@@ -107,3 +105,78 @@ class ProfileViews(TestCase):
         self.assertNotContains(
             response,
             'Error, you must complete your profile first.')
+
+    # Instructor Page
+    def test_instructors_no_attributes(self):
+        response = self.client.get('/profiles/instructors/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        self.assertContains(response, 'Find an instructor to suit you!')
+
+    def test_instructors_invalid_post_request(self):
+        response = self.client.post('/profiles/instructors/', {'some': 'data'}, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        self.assertContains(response, 'Find an instructor to suit you!')
+
+    def test_instructors_sort_by_name_ascending(self):
+        response = self.client.get('/profiles/instructors/', {"sort_by": "user__username", "sort_direction": "asc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        html_string = response.content.decode("utf-8")
+        self.assertTrue(html_string.index('instructor_1') < html_string.index('instructor_2'))
+        self.assertTrue(html_string.index('instructor_2') < html_string.index('instructor_3'))
+
+    def test_instructors_sort_by_name_descending(self):
+        response = self.client.get('/profiles/instructors/', {"sort_by": "user__username", "sort_direction": "desc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        html_string = response.content.decode("utf-8")
+        self.assertTrue(html_string.index('instructor_1') > html_string.index('instructor_2'))
+        self.assertTrue(html_string.index('instructor_2') > html_string.index('instructor_3'))
+
+    def test_instructors_sort_by_rating_ascending(self):
+        response = self.client.get('/profiles/instructors/', {"sort_by": "rating", "sort_direction": "asc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        html_string = response.content.decode("utf-8")
+        self.assertTrue(html_string.index('6 / 10') < html_string.index('10 / 10'))
+
+    def test_instructors_sort_by_rating_descending(self):
+        response = self.client.get('/profiles/instructors/', {"sort_by": "rating", "sort_direction": "desc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        html_string = response.content.decode("utf-8")
+        self.assertTrue(html_string.index('6 / 10') > html_string.index('10 / 10'))
+
+    def test_instructors_sort_by_lesson_number_ascending(self):
+        response = self.client.get('/profiles/instructors/', {"sort_by": "lesson_count", "sort_direction": "asc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        html_string = response.content.decode("utf-8")
+        self.assertTrue(html_string.index('instructor_3') < html_string.index('instructor_2'))
+
+    def test_instructors_sort_by_lesson_number_descending(self):
+        response = self.client.get('/profiles/instructors/', {"sort_by": "lesson_count", "sort_direction": "desc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        html_string = response.content.decode("utf-8")
+        self.assertTrue(html_string.index('instructor_3') > html_string.index('instructor_2'))
+
+    def test_instructor_query(self):
+        response = self.client.get('/profiles/instructors/', {"q": "instructor_1"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        self.assertContains(response, 'instructor_1')
+        self.assertNotContains(response, 'instructor_2')
+        self.assertNotContains(response, 'instructor_3')
+
+    def test_instructor_query_and_sort_name_ascending(self):
+        response = self.client.get('/profiles/instructors/', {"q": "instructor", "sort_by": "user__username", "sort_direction": "asc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        self.assertContains(response, 'instructor_1')
+        self.assertContains(response, 'instructor_2')
+        self.assertContains(response, 'instructor_3')
+        html_string = response.content.decode("utf-8")
+        self.assertLess(html_string.index('instructor_1'))

@@ -61,7 +61,7 @@ def instructors(request):
     # Default sort parameters
     sort_by = 'rating'
     sort_direction = 'desc'
-    query = ''
+    current_query = ''
 
     # Pagination
     page_number = 1  # Default page number
@@ -69,6 +69,9 @@ def instructors(request):
 
     instructor_list = UserProfile.objects.filter(is_instructor=True,
                                                  lesson_count__gt=0)
+    
+    if request.method == 'POST':
+        return redirect('instructors')
 
     if request.GET:
         # Get current page number if exists
@@ -90,10 +93,12 @@ def instructors(request):
 
         # Get Query and filter if valid
         if 'q' in request.GET:
-            query = request.GET['q']
+            print('##inrequest.get')
+            print(request.GET['q'])
+            current_query = request.GET['q']
 
             instructor_list = instructor_list.filter(Q(
-                user__username__icontains=query))
+                user__username__icontains=current_query))
             if not instructor_list:
                 messages.error(request, "Your query returned no instructors \
                                         please try again")
@@ -115,12 +120,14 @@ def instructors(request):
     except EmptyPage:
         messages.error(request, "Page does not exist, returning to page 1")
         page_object = p.page(1)
+    print('####')
+    print(current_query)
 
     context = {
         'instructor_list': page_object,
         'sort_direction': sort_direction,
         'sort_by': sort_by,
-        'current_query': query,
+        'current_query': current_query,
     }
 
     return render(request, template, context)
