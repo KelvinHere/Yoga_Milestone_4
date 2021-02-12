@@ -7,7 +7,8 @@ import json
 from profiles.models import UserProfile
 from lessons.models import Subscription, Lesson
 
-class TestLessonViews(TestCase):
+
+class TestSubscriptionView(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
 
     def setUp(self):
@@ -26,28 +27,9 @@ class TestLessonViews(TestCase):
         self.instructor_credentials = {'username': 'instructor_2',
                                        'password': 'orange99'}
 
-    # Lessons View
-    def test_get_lessons(self):
-        # Renders a list of all lessons
-        response = self.client.get('/lessons/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'lessons/lessons.html')
-        self.assertContains(response, 'All Lessons')
-
-    # Lesson Page with instructor filter
-    def test_lessons_with_valid_instructor_filter(self):
-        # Displays the instructors profile and all their
-        # lessons underneath
-        response = self.client.get(f'/lessons/', {'instructor': self.instructor.id}, follow=True)
-        self.assertTrue(response.status_code, 200)
-        self.assertTemplateUsed(response, 'lessons/lessons.html')
-        self.assertContains(response, self.instructor.user.username)
-        self.assertContains(response, html.escape(self.instructor.profile_description))
-
-    # Subscription View
     def test_subscriptions_logged_out(self):
         # Logged out users will be redirect to login page
-        response = self.client.get(f'/lessons/subscriptions/', follow=True)
+        response = self.client.get('/lessons/subscriptions/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/lessons/subscriptions/')
         self.assertContains(response, html.escape('If you have not created an account yet, then please'))
@@ -98,7 +80,7 @@ class TestLessonViews(TestCase):
             'Invalid request, no lessons have been subscribed')
 
     def test_subscribe_to_lesson_post_request(self):
-        # Post request will return user to 
+        # Post request will return user to
         # lessons page with error message
         profile = UserProfile.objects.get(user__username='complete_user')
         login_successful = self.client.login(username=self.complete_user['username'],
@@ -123,36 +105,3 @@ class TestLessonViews(TestCase):
         self.assertTrue(login_successful)
         response = self.client.get('/lessons/subscriptions/', {'subscribe': 'false', 'lesson_id': self.subscribed_lesson.lesson_id}, follow=True)
         self.assertFalse(Subscription.objects.filter(lesson=self.subscribed_lesson, user=self.subscribed_user).exists())
-
-    # Instructor_admin View
-    def test_instructor_admin_logged_out(self):
-        # Logged out users will be redirect to login page
-        response = self.client.get(f'/lessons/instructor_admin/', follow=True)
-        self.assertTrue(response.status_code, 200)
-        self.assertRedirects(response, f'/accounts/login/?next=/lessons/instructor_admin/')
-        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
-
-
-    def test_instructor_admin_not_instructor(self):
-        # A non instructor will be redirected home with an error message
-        login_successful = self.client.login(username=self.complete_user['username'],
-                                             password=self.complete_user['password'])
-        self.assertTrue(login_successful)
-        response = self.client.get(f'/lessons/instructor_admin/', follow=True)
-        self.assertTrue(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home/index.html')
-        self.assertContains(response, 'Only instructors can do this.')
-
-    def test_instructor_admin_as_instructor(self):
-        # Instructors can view this page and see lessons / sales
-        login_successful = self.client.login(username=self.instructor_credentials['username'],
-                                             password=self.instructor_credentials['password'])
-        self.assertTrue(login_successful)
-        response = self.client.get(f'/lessons/instructor_admin/', follow=True)
-        self.assertTrue(response.status_code, 200)
-        self.assertTemplateUsed(response, 'lessons/instructor_admin.html')
-        self.assertContains(response, 'Lesson Admin for instructor_2')
-        # Contains instructors lessons
-        self.assertContains(response, html.escape("Instructor 2's first lesson"))
-        # Contains instructors sales
-        self.assertContains(response, html.escape("24.99 - 30%"))
