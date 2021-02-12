@@ -1,107 +1,110 @@
 from django.test import TestCase
 from django.shortcuts import reverse
+from datetime import datetime
 
 import html
 import json
 
 from profiles.models import UserProfile
-from lessons.models import Subscription, Lesson
+from lessons.models import Subscription, Lesson, LessonReview, LessonReviewFlagged
 
 
-class TestSubscriptionView(TestCase):
+class TestDeleteReviewView(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
 
     def setUp(self):
-        self.instructor = UserProfile.objects.filter(is_instructor=True).first()
-        self.free_lesson = Lesson.objects.filter(is_free=True).first()
-        self.paid_lesson = Lesson.objects.filter(is_free=False, lesson_name='Z Lesson').first()
-        self.invalid_lesson_id = "SDFGGRFVAD"
-        self.subscribed_user = UserProfile.objects.get(id=5)  # = incomplete_user
-        self.subscribed_lesson = Lesson.objects.get(id=2)
-        self.subscription = Subscription.objects.get(lesson=self.subscribed_lesson,
-                                                     user=self.subscribed_user)
-        self.complete_user = {'username': 'complete_user',
-                              'password': 'orange99'}
-        self.incomplete_user = {'username': 'incomplete_user',
-                                'password': 'orange99'}
-        self.instructor_credentials = {'username': 'instructor_2',
-                                       'password': 'orange99'}
+        self.review = LessonReview.objects.filter().first()
 
-    def test_subscriptions_logged_out(self):
-        # Logged out users will be redirect to login page
-        response = self.client.get('/lessons/subscriptions/', follow=True)
+    def test_logged_out(self):
+        ''' Logged out users will be redirect to login page '''
+        response = self.client.get(f'/lessons/flag_review/{self.review.pk}/{self.review.lesson.id}', follow=True)
         self.assertTrue(response.status_code, 200)
-        self.assertRedirects(response, f'/accounts/login/?next=/lessons/subscriptions/')
+        self.assertRedirects(response, f'/accounts/login/?next=/lessons/flag_review/{self.review.pk}/{self.review.lesson.id}')
         self.assertContains(response, html.escape('If you have not created an account yet, then please'))
 
-    def test_subscibe_to_lesson(self):
-        # Successful subscription creates a new Subscription object
+    def test_invalid_review(self):
+        '''
+        Flagging an invalid review will redirect
+        user back to studio with an error message
+        '''
+        invalid_review_pk = 342331
         profile = UserProfile.objects.get(user__username='complete_user')
-        login_successful = self.client.login(username=self.complete_user['username'],
-                                             password=self.complete_user['password'])
+        login_successful = self.client.login(username=profile.user.username,
+                                             password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get('/lessons/subscriptions/', {'subscribe': 'true', 'lesson_id': self.free_lesson.lesson_id}, follow=True)
-        self.assertTrue(Subscription.objects.filter(lesson=self.free_lesson, user=profile).exists())
-
-    def test_subscribe_to_lesson_invalid_lesson(self):
-        # Invalid lesson passed to subscribe will return user to
-        # lessons page with error message
-        profile = UserProfile.objects.get(user__username='complete_user')
-        login_successful = self.client.login(username=self.complete_user['username'],
-                                             password=self.complete_user['password'])
-        self.assertTrue(login_successful)
-        response = self.client.get('/lessons/subscriptions/', {'subscribe': 'true', 'lesson_id': self.invalid_lesson_id}, follow=True)
-        self.assertFalse(Subscription.objects.filter(lesson=self.free_lesson, user=profile).exists())
-        self.assertTrue(response.status_code, 200)
+        response = self.client.get(f'/lessons/flag_review/{invalid_review_pk}/{self.review.lesson.lesson_id}', follow=True)
         self.assertRedirects(response,
-                             expected_url=reverse('lessons'),
+                             expected_url=reverse('studio', args=(self.review.lesson.lesson_id,)),
                              status_code=302,
                              target_status_code=200)
-        self.assertContains(
-            response,
-            'Invalid request, no lessons have been subscribed')
+        self.assertContains(response, 'Invalid review, please contact support if you think this is an error')
 
-    def test_subscribe_to_lesson_invalid_subscribe_request(self):
-        # Invalid subscribe argument passed to subscribe will
-        # return user to lessons page with error message
+    def test_flag_review(self):
+        '''
+        Flagging a review will redirect user
+        back to sutdio page with an error message
+        '''
+        review_pk = self.review.pk
+        lesson_id = self.review.lesson.lesson_id
+
         profile = UserProfile.objects.get(user__username='complete_user')
-        login_successful = self.client.login(username=self.complete_user['username'],
-                                             password=self.complete_user['password'])
+        login_successful = self.client.login(username=profile.user.username,
+                                             password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get('/lessons/subscriptions/', {'subscribe': 'oops', 'lesson_id': self.invalid_lesson_id}, follow=True)
-        self.assertFalse(Subscription.objects.filter(lesson=self.free_lesson, user=profile).exists())
-        self.assertTrue(response.status_code, 200)
+        response = self.client.get(f'/lessons/flag_review/{review_pk}/{lesson_id}', follow=True)
         self.assertRedirects(response,
-                             expected_url=reverse('lessons'),
+                             expected_url=reverse('studio', args=(lesson_id,)),
                              status_code=302,
                              target_status_code=200)
-        self.assertContains(
-            response,
-            'Invalid request, no lessons have been subscribed')
+        self.assertContains(response, 'review has been flagged and will be reviewed by an administrator soon')
+        self.assertTrue(LessonReviewFlagged.objects.filter(profile=profile, review=self.review).exists())
 
-    def test_subscribe_to_lesson_post_request(self):
-        # Post request will return user to
-        # lessons page with error message
+    def test_re_flag_review(self):
+        '''
+        Flagging a review more than once redirects user
+        back to studio page with error
+        '''
         profile = UserProfile.objects.get(user__username='complete_user')
-        login_successful = self.client.login(username=self.complete_user['username'],
-                                             password=self.complete_user['password'])
+        login_successful = self.client.login(username=profile.user.username,
+                                             password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.post('/lessons/subscriptions/', {'subscribe': 'test', 'lesson_id': self.invalid_lesson_id}, follow=True)
-        self.assertFalse(Subscription.objects.filter(lesson=self.free_lesson, user=profile).exists())
-        self.assertTrue(response.status_code, 200)
+        
+        # Create review flag
+        LessonReviewFlagged.objects.create(profile=profile,
+                                           review=self.review)
+        review_pk = self.review.pk
+        lesson_id = self.review.lesson.lesson_id
+        response = self.client.get(f'/lessons/flag_review/{review_pk}/{lesson_id}', follow=True)
         self.assertRedirects(response,
-                             expected_url=reverse('lessons'),
+                             expected_url=reverse('studio', args=(lesson_id,)),
                              status_code=302,
                              target_status_code=200)
-        self.assertContains(
-            response,
-            'Invalid request, no lessons have been subscribed')
+        self.assertContains(response, 'You have already flagged complete_user&#x27;s review, it will be reviewd by an administrator soon')
 
-    def test_unsubscribe_to_lesson_valid_request(self):
-        # Valid request will remove the subscription
-        # object for this user / lesson
-        login_successful = self.client.login(username=self.incomplete_user['username'],
-                                             password=self.incomplete_user['password'])
+    def test_flags_appear_in_superuser_admin(self):
+        '''
+        Flags will appear on superuser admin page
+        '''
+        # Login as user and create flag
+        profile = UserProfile.objects.get(user__username='incomplete_user')
+        login_successful = self.client.login(username=profile.user.username,
+                                             password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get('/lessons/subscriptions/', {'subscribe': 'false', 'lesson_id': self.subscribed_lesson.lesson_id}, follow=True)
-        self.assertFalse(Subscription.objects.filter(lesson=self.subscribed_lesson, user=self.subscribed_user).exists())
+        LessonReviewFlagged.objects.create(profile=profile,
+                                           review=self.review)
+        self.client.logout()
+
+        # Login as superuser
+        login_successful = self.client.login(username='kelvinhere',
+                                             password='orange99')
+        self.assertTrue(login_successful)
+
+        response = self.client.get('/superuser_admin/')
+        self.assertTrue(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home/superuser_admin.html')
+        self.assertContains(response, 'Flagged Reviews')
+        self.assertContains(response, 'Review by : complete_user')
+        self.assertContains(response, 'On lesson: A lesson')
+        self.assertContains(response, 'Flagged By: incomplete_user')
+
+

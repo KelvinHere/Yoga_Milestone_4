@@ -481,21 +481,22 @@ def flag_review(request, review_pk, lesson_id):
     try:
         review = get_object_or_404(LessonReview, pk=review_pk)
     except Exception:
-        messages.error(request, "Invalid review, please contact support if \
-                                 you think this is an error")
+        messages.error(request, ('Invalid review, please contact support if'
+                                 ' you think this is an error'))
         return redirect(reverse('studio', args=(lesson_id,)))
 
     if LessonReviewFlagged.objects.filter(
             profile=profile, review=review).exists():
-        messages.error(request, f"You have already flagged {review.profile}'s \
-                                  review, it will be reviewd by an \
-                                  administrator soon")
+        messages.error(request, (f"You have already flagged {review.profile}'s"
+                                 " review, it will be reviewd by an"
+                                 " administrator soon"))
         return redirect(reverse('studio', args=(review.lesson.lesson_id,)))
 
     flag = LessonReviewFlagged(profile=profile, review=review)
     flag.save()
-    messages.success(request, f"{review.profile}'s review has been flagged \
-                                and will be reviewed by an administrator soon")
+    messages.success(request, (f"{review.profile}'s review has been "
+                               "flagged and will be reviewed by an "
+                               "administrator soon."))
     return redirect(reverse('studio', args=(review.lesson.lesson_id,)))
 
 

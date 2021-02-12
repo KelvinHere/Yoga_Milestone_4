@@ -44,5 +44,4 @@ class TestSubscriptionView(TestCase):
         self.assertTemplateUsed(response, 'lessons/lessons.html')
         self.assertContains(response, self.instructor.user.username)
         self.assertContains(response, html.escape(self.instructor.profile_description))
-
-   
+       
