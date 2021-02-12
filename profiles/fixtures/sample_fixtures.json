@@ -228,8 +228,8 @@
         "lesson_id": "8660FD0BD35A49E89096CBC698583870",
         "instructor_profile": 7,
         "lesson_name": "Y Lesson",
-        "card_description": "Instructor twos first lesson",
-        "description": "Instructor twos first lesson main description",
+        "card_description": "Instructor 2's first lesson",
+        "description": "Instructor 2's first lesson main description",
         "image": "lesson_images/warrior_xyqiwx_KNNCSXn.jpeg",
         "rating": "10",
         "video_url": "https://www.value",
@@ -245,8 +245,8 @@
         "lesson_id": "01EC81F517424B318E0E4176A51918EC",
         "instructor_profile": 7,
         "lesson_name": "Z Lesson",
-        "card_description": "Instructor twos second lesson",
-        "description": "Instructor twos second lesson main description, this is a paid lesson",
+        "card_description": "Instructor 2's second lesson",
+        "description": "Instructor 2's second lesson main description, this is a paid lesson",
         "image": "lesson_images/warrior_xyqiwx_euVR5l8.jpeg",
         "rating": null,
         "video_url": "https://www.value",
@@ -411,7 +411,7 @@
         "is_instructor": true,
         "requested_instructor_status": true,
         "card_description": "",
-        "profile_description": "Instructor twos profile",
+        "profile_description": "Instructor 2's profile",
         "image": "profile_images/instructor_2_8lzlWPU.jpeg",
         "rating": "10",
         "lesson_count": 2
@@ -460,6 +460,14 @@
         "profile":4,
         "sales_percentage":30,
         "lineitem_total":"24.99"
+    }
+},
+{
+    "model":"lessons.subscription",
+    "pk":14,
+    "fields":{
+        "lesson":2,
+        "user":5
     }
 }
 ]
