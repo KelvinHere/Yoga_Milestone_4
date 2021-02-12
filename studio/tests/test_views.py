@@ -62,4 +62,4 @@ class StudioViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'studio/studio.html')
         self.assertContains(response, self.paid_lesson.lesson_name)
-        self.assertContains(response, self.paid_lesson.description)
+        self.assertContains(response, html.escape(self.paid_lesson.description))
