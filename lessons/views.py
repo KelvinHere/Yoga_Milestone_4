@@ -375,19 +375,21 @@ def review_lesson(request, lesson_id):
                                  ' an invalid lesson.'))
         return redirect(reverse('home'))
 
+    # Make sure if paid lesson, user owns it
+    if not lesson.is_free:
+        if not OrderLineItem.objects.filter(profile=profile, lesson=lesson).exists():
+            messages.error(request, ('You cannot review a lesson'
+                                 ' you do not own.'))
+            return redirect(reverse('home'))
+
+    # Try to get existing review
     existing_review = LessonReview.objects.filter(profile=profile,
                                                   lesson=lesson).first()
-    # Check existing review belongs to current users profile
-    if existing_review:
-        if not existing_review.profile == profile:
-            messages.error(request, 'Cannot complete request, this \
-                                     review is not yours.')
-            return redirect('studio', lesson.lesson_id)
 
     # User cannot review their own lessons
     if profile == lesson.instructor_profile:
-        messages.error(request, 'You cannot review your \
-                                    own lessons.')
+        messages.error(request, ('You cannot review your'
+                                 ' own lessons.'))
         return redirect('studio', lesson.lesson_id)
 
     template = "lessons/review.html"
@@ -399,11 +401,16 @@ def review_lesson(request, lesson_id):
     # Submit review form
     if request.method == 'POST':
         post_data = request.POST.copy()
+        # Validate profile in form is the same as logged in profile
+        if int(request.POST['profile']) != profile.id:
+            messages.error(request, ('You can only create and edit'
+                                     ' your own reviews.'))
+            return redirect('studio', lesson.lesson_id)
         # Validate rating
         rating_value = request.POST['rating_dropdown']
         if int(rating_value) not in range(1, 11):
-            messages.error(request, 'You entered an invalid rating, \
-                                     please try again.')
+            messages.error(request, ('You entered an invalid rating,'
+                                     ' please try again.'))
             return redirect('studio', lesson.lesson_id)
         else:
             rating_value = int(rating_value)
@@ -424,7 +431,7 @@ def review_lesson(request, lesson_id):
             error = form.errors
             messages.error(request, f'Error in review form: {error}')
             return redirect('studio', lesson.lesson_id)
-    # Send user to create/update review form
+    # GET request, send user to create/update review form
     else:
         if existing_review:
             form = ReviewForm(instance=existing_review)
