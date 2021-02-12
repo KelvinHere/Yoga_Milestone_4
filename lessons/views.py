@@ -468,8 +468,8 @@ def delete_review(request, review_pk):
             messages.success(request, 'Review deleted.')
             return redirect(reverse('studio', args=(lesson.lesson_id,)))
     else:
-        messages.error(request, 'Cannot delete review, it does not belong \
-                                 to this account.')
+        messages.error(request, ('Cannot delete review, it does not belong'
+                                 ' to this account.'))
         return redirect(reverse('studio', args=(lesson.lesson_id,)))
 
 
