@@ -18,14 +18,14 @@ class TestReviewLessonView(TestCase):
         self.complete_user = {'username': 'complete_user',
                               'password': 'orange99'}
 
-    def test_review_lesson_logged_out(self):
+    def test_logged_out(self):
         ''' Logged out users will be redirect to login page '''
         response = self.client.get(f'/lessons/review_lesson/{self.free_lesson.lesson_id}', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/lessons/review_lesson/{self.free_lesson.lesson_id}')
         self.assertContains(response, html.escape('If you have not created an account yet, then please'))
 
-    def test_review_lesson_edit_existing_review_get(self):
+    def test_edit_existing_review_get(self):
         '''
         GET request, existing review redirects user
         to a pre-filled review form
@@ -42,7 +42,7 @@ class TestReviewLessonView(TestCase):
         self.assertContains(response, 'Great I loved it!')
         self.assertTrue(LessonReview.objects.filter(lesson=self.free_lesson, profile=profile).exists())
 
-    def test_review_lesson_no_existing_review_get(self):
+    def test_no_existing_review_get(self):
         '''
         GET request, no existing review redirects
         user to a blank review form
@@ -59,7 +59,7 @@ class TestReviewLessonView(TestCase):
         self.assertContains(response, 'Review by complete_user')
         self.assertFalse(LessonReview.objects.filter(lesson=lesson, profile=profile).exists())
 
-    def test_review_lesson_invalid_lesson_id(self):
+    def test_invalid_lesson_id(self):
         '''
         Invalid lesson id sends user to home page
         with an error message
@@ -73,7 +73,7 @@ class TestReviewLessonView(TestCase):
         self.assertTemplateUsed(response, 'home/index.html')
         self.assertContains(response, 'Cannot create/edit a review for an invalid lesson')
 
-    def test_review_lesson_cant_review_your_own_lesson(self):
+    def test_cant_review_your_own_lesson(self):
         '''
         Instructors trying to review their own lessons are
         redirected back to studo page with error message.
@@ -88,7 +88,7 @@ class TestReviewLessonView(TestCase):
         self.assertTemplateUsed(response, 'studio/studio.html')
         self.assertContains(response, 'You cannot review your own lessons.')
 
-    def test_review_lesson_update_review_post(self):
+    def test_update_review_post(self):
         '''
         Update an existing review
         '''
@@ -109,7 +109,7 @@ class TestReviewLessonView(TestCase):
         self.assertContains(response, 'I have been updated')
         self.assertTrue(LessonReview.objects.filter(lesson=lesson, profile=profile).exists())
 
-    def test_review_lesson_create_review_post(self):
+    def test_create_review_post(self):
         '''
         Post a review where there previously was none
         '''
@@ -130,7 +130,7 @@ class TestReviewLessonView(TestCase):
         self.assertContains(response, 'I am a new review that has just been created')
         self.assertTrue(LessonReview.objects.filter(lesson=lesson, profile=profile).exists())
 
-    def test_review_lesson_cant_create_review_on_lesson_not_owned_post(self):
+    def test_cant_create_review_on_lesson_not_owned_post(self):
         '''
         User cannot post review on lesson they do not own
         '''
@@ -154,7 +154,7 @@ class TestReviewLessonView(TestCase):
         self.assertContains(response, 'You cannot review a lesson you do not own.')
         self.assertFalse(LessonReview.objects.filter(lesson=lesson, profile=profile).exists())
 
-    def test_review_lesson_stop_user_spoofing_profile_in_form(self):
+    def test_stop_user_spoofing_profile_in_form(self):
         '''
         User cannot create / update / a review created
         by another users profile
@@ -176,7 +176,7 @@ class TestReviewLessonView(TestCase):
         self.assertRedirects(response, f'/studio/{lesson.lesson_id}/')
         self.assertContains(response, 'You can only create and edit your own reviews.')
 
-    def test_review_lesson_rating_too_high(self):
+    def test_rating_too_high(self):
         '''
         Test rating too high
         Review rating has to be from 1 to 10
@@ -199,7 +199,7 @@ class TestReviewLessonView(TestCase):
         self.assertContains(response, 'You entered an invalid rating, please try again.')
         self.assertFalse(LessonReview.objects.filter(lesson=lesson, profile=profile).exists())
 
-    def test_review_lesson_rating_too_low(self):
+    def test_rating_too_low(self):
         '''
         Test rating too low
         Review rating has to be from 1 to 10

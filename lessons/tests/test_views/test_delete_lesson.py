@@ -25,8 +25,10 @@ class TestDeleteLessonView(TestCase):
         self.instructor_credentials = {'username': 'instructor_2',
                                        'password': 'orange99'}
 
-    def test_delete_lesson_logged_out(self):
-        # Logged out users will be redirect to login page
+    def test_logged_out(self):
+        '''
+        Logged out out users redirected to sign in
+        '''
         lesson_to_delete = Lesson.objects.get(lesson_name='Y Lesson')
         response = self.client.get(f'/lessons/delete_lesson/{lesson_to_delete.lesson_id}', follow=True)
         self.assertTrue(response.status_code, 200)
@@ -34,7 +36,9 @@ class TestDeleteLessonView(TestCase):
         self.assertContains(response, html.escape('If you have not created an account yet, then please'))
 
     def test_delete_lesson_valid_request(self):
-        # Lesson will be deleted
+        '''
+        Delete lesson
+        '''
         lesson_to_delete = Lesson.objects.get(lesson_name='Y Lesson')
         instructor = lesson_to_delete.instructor_profile
         login_successful = self.client.login(username=instructor.user.username,
@@ -46,7 +50,11 @@ class TestDeleteLessonView(TestCase):
         self.assertFalse(Lesson.objects.filter(lesson_name='Y Lesson').exists())
         self.assertContains(response, 'Lesson deleted')
 
-    def test_delete_lesson_invalid_lessonid(self):
+    def test_invalid_lessonid(self):
+        '''
+        Deleting and invalid lesson will redirect user
+        back to instructor admin with error message.
+        '''
         login_successful = self.client.login(username='instructor_1',
                                              password='orange99')
         self.assertTrue(login_successful)
@@ -56,8 +64,10 @@ class TestDeleteLessonView(TestCase):
         self.assertContains(response, 'Invalid lesson ID, no lessons were deleted.')
 
     def test_delete_lesson_not_your_lesson(self):
-        # Trying to delete someone elses lesson redirects you to
-        # instructor_admin with an error message lesson not deleted
+        '''
+         Trying to delete someone elses lesson redirects you to
+         instructor_admin with an error message
+        '''
         not_your_lesson = Lesson.objects.get(lesson_name='A lesson')
         login_successful = self.client.login(username='instructor_3',
                                              password='orange99')
@@ -69,7 +79,9 @@ class TestDeleteLessonView(TestCase):
         self.assertContains(response, 'This lesson does not belong to you')
 
     def test_delete_lesson_paid_lesson_customers_have_bought(self):
-        # Cannot delete a lesson that has been bought by customers
+        '''
+        Cannot delete a lesson that has been bought by customers
+        '''
         lesson_sold = Lesson.objects.get(lesson_name='Z Lesson')
         login_successful = self.client.login(username='instructor_2',
                                              password='orange99')
@@ -81,7 +93,9 @@ class TestDeleteLessonView(TestCase):
         self.assertContains(response, 'You cannot delete a lesson customers have')
 
     def test_delete_lesson_paid_lesson_customers_have_not_bought(self):
-        # Paid lessons with no sales can be deleted
+        '''
+        Paid lessons with no sales can be deleted
+        '''
         lesson_not_sold = Lesson.objects.get(lesson_name='B lesson')
         login_successful = self.client.login(username='instructor_1',
                                              password='orange99')

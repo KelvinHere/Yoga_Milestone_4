@@ -26,16 +26,19 @@ class TestSubscriptionView(TestCase):
                                        'password': 'orange99'}
 
     def test_get_lessons(self):
-        # Renders a list of all lessons
+        '''
+        Renders a list of all lessons
+        '''
         response = self.client.get('/lessons/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'lessons/lessons.html')
         self.assertContains(response, 'All Lessons')
 
-    # Lesson Page with instructor filter
     def test_lessons_with_valid_instructor_filter(self):
-        # Displays the instructors profile and all their
-        # lessons underneath
+        '''
+        Displays the instructors profile and all their
+        lessons underneath
+        '''
         response = self.client.get('/lessons/', {'instructor': self.instructor.id}, follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'lessons/lessons.html')

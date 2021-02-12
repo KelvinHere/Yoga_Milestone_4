@@ -25,15 +25,19 @@ class TestInstructorAdminView(TestCase):
         self.instructor_credentials = {'username': 'instructor_2',
                                        'password': 'orange99'}
 
-    def test_instructor_admin_logged_out(self):
-        # Logged out users will be redirect to login page
+    def test_logged_out(self):
+        '''
+        Logged out users will be redirect to login page
+        '''
         response = self.client.get('/lessons/instructor_admin/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/lessons/instructor_admin/')
         self.assertContains(response, html.escape('If you have not created an account yet, then please'))
 
-    def test_instructor_admin_not_instructor(self):
-        # A non instructor will be redirected home with an error message
+    def test_not_instructor(self):
+        '''
+        A non instructor will be redirected home with an error message
+        '''
         login_successful = self.client.login(username=self.complete_user['username'],
                                              password=self.complete_user['password'])
         self.assertTrue(login_successful)
@@ -42,8 +46,10 @@ class TestInstructorAdminView(TestCase):
         self.assertTemplateUsed(response, 'home/index.html')
         self.assertContains(response, 'Only instructors can do this.')
 
-    def test_instructor_admin_as_instructor(self):
-        # Instructors can view this page and see lessons / sales
+    def test_is_an_instructor(self):
+        '''
+        Instructors can view this page and see lessons / sales
+        '''
         login_successful = self.client.login(username=self.instructor_credentials['username'],
                                              password=self.instructor_credentials['password'])
         self.assertTrue(login_successful)

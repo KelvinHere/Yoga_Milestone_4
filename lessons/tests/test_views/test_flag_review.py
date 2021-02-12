@@ -27,19 +27,15 @@ class TestSubscriptionView(TestCase):
         self.instructor_credentials = {'username': 'instructor_2',
                                        'password': 'orange99'}
 
-    def test_logged_out(self):
-        '''
-        Logged out users will be redirect to login page
-        '''
+    def test_subscriptions_logged_out(self):
+        # Logged out users will be redirect to login page
         response = self.client.get('/lessons/subscriptions/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/lessons/subscriptions/')
         self.assertContains(response, html.escape('If you have not created an account yet, then please'))
 
     def test_subscibe_to_lesson(self):
-        '''
-        Successful subscription creates a new Subscription object
-        '''
+        # Successful subscription creates a new Subscription object
         profile = UserProfile.objects.get(user__username='complete_user')
         login_successful = self.client.login(username=self.complete_user['username'],
                                              password=self.complete_user['password'])
@@ -47,11 +43,9 @@ class TestSubscriptionView(TestCase):
         response = self.client.get('/lessons/subscriptions/', {'subscribe': 'true', 'lesson_id': self.free_lesson.lesson_id}, follow=True)
         self.assertTrue(Subscription.objects.filter(lesson=self.free_lesson, user=profile).exists())
 
-    def test_invalid_lesson(self):
-        '''
-        Invalid lesson passed to subscribe will return user to
-        lessons page with error message
-        '''
+    def test_subscribe_to_lesson_invalid_lesson(self):
+        # Invalid lesson passed to subscribe will return user to
+        # lessons page with error message
         profile = UserProfile.objects.get(user__username='complete_user')
         login_successful = self.client.login(username=self.complete_user['username'],
                                              password=self.complete_user['password'])
@@ -67,11 +61,9 @@ class TestSubscriptionView(TestCase):
             response,
             'Invalid request, no lessons have been subscribed')
 
-    def test_invalid_subscribe_request(self):
-        '''
-        Invalid subscribe argument passed to subscribe will
-        return user to lessons page with an error message.
-        '''
+    def test_subscribe_to_lesson_invalid_subscribe_request(self):
+        # Invalid subscribe argument passed to subscribe will
+        # return user to lessons page with error message
         profile = UserProfile.objects.get(user__username='complete_user')
         login_successful = self.client.login(username=self.complete_user['username'],
                                              password=self.complete_user['password'])
@@ -87,11 +79,9 @@ class TestSubscriptionView(TestCase):
             response,
             'Invalid request, no lessons have been subscribed')
 
-    def test_subscribe_post_request(self):
-        '''
-        Post request will return user to
-        lessons page an with error message
-        '''
+    def test_subscribe_to_lesson_post_request(self):
+        # Post request will return user to
+        # lessons page with error message
         profile = UserProfile.objects.get(user__username='complete_user')
         login_successful = self.client.login(username=self.complete_user['username'],
                                              password=self.complete_user['password'])
@@ -107,11 +97,9 @@ class TestSubscriptionView(TestCase):
             response,
             'Invalid request, no lessons have been subscribed')
 
-    def test_unsubscribe_valid_request(self):
-        '''
-        Valid request will remove the subscription
-        object for this user / lesson
-        '''
+    def test_unsubscribe_to_lesson_valid_request(self):
+        # Valid request will remove the subscription
+        # object for this user / lesson
         login_successful = self.client.login(username=self.incomplete_user['username'],
                                              password=self.incomplete_user['password'])
         self.assertTrue(login_successful)
