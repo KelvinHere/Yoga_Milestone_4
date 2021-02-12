@@ -19,6 +19,7 @@ image change on forms
 make a JS carouselle on the front page from random lessons
 sort instructor admin lessons by reverse pk
 change password
+stop someone using lesson id to put a review on a lesson they have not paid for
 
 setup development database before submitting
 

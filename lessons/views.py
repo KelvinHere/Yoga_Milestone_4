@@ -371,8 +371,8 @@ def review_lesson(request, lesson_id):
     try:
         lesson = get_object_or_404(Lesson, lesson_id=lesson_id)
     except Exception:
-        messages.error(request, 'Cannot create/edit a review for \
-                                 an invalid lesson.')
+        messages.error(request, ('Cannot create/edit a review for'
+                                 ' an invalid lesson.'))
         return redirect(reverse('home'))
 
     existing_review = LessonReview.objects.filter(profile=profile,
