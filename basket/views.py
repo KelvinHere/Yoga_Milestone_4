@@ -87,16 +87,18 @@ def remove_from_basket(request):
     try:
         if 'lesson_id' in request.POST:
             lesson_id = request.POST.get('lesson_id')
-            basket.pop(lesson_id)
-            request.session['basket'] = basket
-            json_response = json.dumps({'item_removed': 'True'})
-            return HttpResponse(json_response, content_type='application/json')
-        else:
-            messages.error(request, "Invalid request, no lesson was specified \
-                                     for deletion")
-            return redirect(reverse('basket'))
+            if Lesson.objects.filter(lesson_id=lesson_id).exists():
+                basket.pop(lesson_id)
+                request.session['basket'] = basket
+                json_response = json.dumps({'item_removed': 'True'})
+                return HttpResponse(json_response,
+                                    content_type='application/json')
+
+        messages.error(request, ("Invalid request, invalid lesson or bad "
+                                 " form data"))
+        return redirect(reverse('view_basket'))
     except Exception as e:
         messages.error(request, f"Something went wrong, please contact \
                                  {settings.DEFAULT_FROM_EMAIL} if you need \
                                  assistance.  Error: {e}")
-        return redirect(reverse('basket'))
+        return redirect(reverse('view_basket'))
