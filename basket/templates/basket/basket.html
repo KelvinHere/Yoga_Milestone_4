@@ -50,10 +50,14 @@
                 </div>      
                 <div class="container-fluid d-flex">
                     <div class="ml-auto">
-                        <p class="text-right mb-1">Total: {{ total|floatformat:2 }}</p>
-                        <p class="text-right">Discount: {{ discount|floatformat:2 }}</p>
-                        <p class="text-right"><strong>Grand Total: {{ grand_total|floatformat:2 }}</strong></p>
-                        <p class="text-right mt-4">Spend €{{ discount_delta|floatformat:2 }} more for a {{ discount_percentage }}% discount!</p>
+                        <p class="text-right mb-1">Total: €{{ total|floatformat:2 }}</p>
+                        <p class="text-right">Discount: €{{ discount|floatformat:2 }}</p>
+                        <p class="text-right"><strong>Grand Total: €{{ grand_total|floatformat:2 }}</strong></p>
+                        {% if discount_delta == 0 %}
+                            <p class="text-right mt-4">{{ discount_percentage }}% discount applied!</p>
+                        {% else %}
+                            <p class="text-right mt-4">Spend €{{ discount_delta|floatformat:2 }} more for a {{ discount_percentage }}% discount!</p>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="checkout-button my-4 text-right">
@@ -68,7 +72,7 @@
                 <div class="row">
                     <div class="col text-center">
                         <div>
-                            <p class="text-center mt-3">Your basket is empty.  Browse our instructors to find a lesson to suit you!</p>
+                            <p class="text-center mt-3">Your basket is empty. Browse our instructors to find a lesson to suit you!</p>
                             <a href="{% url 'instructors' %}" class="text-center btn btn-lg btn-warning rounded-20 py-3 my-4">Find an instructor</a>
                         </div>
                     </div>

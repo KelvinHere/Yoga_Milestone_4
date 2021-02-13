@@ -1,5 +1,7 @@
-import html
 from django.test import TestCase
+
+import html
+
 from lessons.models import Lesson
 from checkout.models import OrderLineItem
 
@@ -20,7 +22,7 @@ class StudioViews(TestCase):
         response = self.client.get(f'/studio/{self.free_lesson.lesson_id}/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/studio/{self.free_lesson.lesson_id}/')
-        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
+        self.assertContains(response, 'If you have not created an account yet, then please')
 
     def test_studio_page_invalid_lesson(self):
         # Passed an invalid lesson, view will send user home

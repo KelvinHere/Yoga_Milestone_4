@@ -14,7 +14,7 @@ class ProfileViews(TestCase):
         response = self.client.get('/profiles/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/accounts/login/?next=/profiles/')
-        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
+        self.assertContains(response, 'If you have not created an account yet, then please')
 
     def test_profile_page_logged_in(self):
         '''
@@ -34,7 +34,7 @@ class ProfileViews(TestCase):
         response = self.client.get('/profiles/edit_profile/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/accounts/login/?next=/profiles/edit_profile/')
-        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
+        self.assertContains(response, 'If you have not created an account yet, then please')
 
     def test_edit_profile_page_logged_in(self):
         '''

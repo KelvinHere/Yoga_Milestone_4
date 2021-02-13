@@ -24,7 +24,7 @@ class TestFlagReviewView(TestCase):
             f'/accounts/login/?next=/lessons/flag_review/{self.review.pk}/{self.review.lesson.id}')
         self.assertContains(
             response,
-            html.escape('If you have not created an account yet, then please'))
+            'If you have not created an account yet, then please')
 
     def test_invalid_review(self):
         '''

@@ -33,7 +33,7 @@ class TestDeleteLessonView(TestCase):
         response = self.client.get(f'/lessons/delete_lesson/{lesson_to_delete.lesson_id}', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/lessons/delete_lesson/{lesson_to_delete.lesson_id}')
-        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
+        self.assertContains(response, 'If you have not created an account yet, then please')
 
     def test_delete_lesson_valid_request(self):
         '''

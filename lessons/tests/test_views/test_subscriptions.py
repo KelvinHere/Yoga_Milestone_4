@@ -13,7 +13,7 @@ class TestSubscriptionView(TestCase):
 
     def setUp(self):
         self.instructor = UserProfile.objects.filter(is_instructor=True).first()
-        self.free_lesson = Lesson.objects.filter(is_free=True).first()
+        self.free_lesson = Lesson.objects.filter(is_free=True, lesson_name='H Lesson').first()
         self.paid_lesson = Lesson.objects.filter(is_free=False, lesson_name='Z Lesson').first()
         self.invalid_lesson_id = "SDFGGRFVAD"
         self.subscribed_user = UserProfile.objects.get(id=5)  # = incomplete_user
@@ -34,7 +34,7 @@ class TestSubscriptionView(TestCase):
         response = self.client.get('/lessons/subscriptions/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/lessons/subscriptions/')
-        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
+        self.assertContains(response, 'If you have not created an account yet, then please')
 
     def test_subscibe_to_lesson(self):
         '''

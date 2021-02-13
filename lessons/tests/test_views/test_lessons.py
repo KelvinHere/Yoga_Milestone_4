@@ -108,7 +108,7 @@ class TestLessonsView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'lessons/lessons.html')
         html_str = response.content.decode("utf-8")
-        self.assertTrue(html_str.index('€35.99') > html_str.index('€24.99'))
+        self.assertTrue(html_str.index('€35.99') > html_str.index('€4.99'))
 
     def test_sort_price_descending(self):
         self.client.logout() # Price does not show on purchased lessons
@@ -116,7 +116,7 @@ class TestLessonsView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'lessons/lessons.html')
         html_str = response.content.decode("utf-8")
-        self.assertTrue(html_str.index('€35.99') < html_str.index('€24.99'))
+        self.assertTrue(html_str.index('€35.99') < html_str.index('€4.99'))
 
     # Filter
     def test_filter_subscribed_lessons(self):

@@ -32,7 +32,7 @@ class TestInstructorAdminView(TestCase):
         response = self.client.get('/lessons/instructor_admin/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/lessons/instructor_admin/')
-        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
+        self.assertContains(response, 'If you have not created an account yet, then please')
 
     def test_not_instructor(self):
         '''

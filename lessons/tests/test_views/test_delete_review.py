@@ -17,7 +17,7 @@ class TestDeleteReviewView(TestCase):
         response = self.client.get('/lessons/delete_review/9', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/accounts/login/?next=/lessons/delete_review/9')
-        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
+        self.assertContains(response, 'If you have not created an account yet, then please')
 
     def test_invalid_review(self):
         '''

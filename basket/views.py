@@ -1,9 +1,13 @@
-from django.shortcuts import render, HttpResponse, redirect, reverse
+from django.shortcuts import (
+    render, HttpResponse, redirect, reverse, get_object_or_404
+    )
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 
+from profiles.models import UserProfile
 from lessons.models import Lesson
+from checkout.models import OrderLineItem
 from yoga.utils import discount_delta_zero
 
 import json
@@ -24,6 +28,7 @@ def view_basket(request):
 @login_required
 def add_to_basket(request):
     """ Add a lesson to the basket """
+    profile = get_object_or_404(UserProfile, user=request.user)
     basket = request.session.get('basket', {})
 
     if request.method == 'POST':
@@ -34,6 +39,20 @@ def add_to_basket(request):
                 json_response = json.dumps({'item_added': 'invalid_item'})
                 return HttpResponse(json_response,
                                     content_type='application/json')
+
+            lesson = Lesson.objects.get(lesson_id=lesson_id)
+            # If lesson is free
+            if lesson.is_free:
+                json_response = json.dumps({'item_added': 'invalid_item_is_free'})
+                return HttpResponse(json_response,
+                                    content_type='application/json')
+
+            # If already owned
+            if OrderLineItem.objects.filter(lesson=lesson, profile=profile).exists():
+                json_response = json.dumps({'item_added': 'already_owned'})
+                return HttpResponse(json_response,
+                                    content_type='application/json')
+
             # If lesson is not in basket
             if lesson_id not in list(basket.keys()):
                 basket[lesson_id] = 1
@@ -51,7 +70,7 @@ def add_to_basket(request):
                                     content_type='application/json')
         # If incorrect POST data
         else:
-            json_response = json.dumps({'item_added': 'invalid_item'})
+            json_response = json.dumps({'item_added': 'invalid_data'})
             return HttpResponse(json_response, content_type='application/json')
     # If not post request
     else:

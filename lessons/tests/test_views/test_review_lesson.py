@@ -23,7 +23,7 @@ class TestReviewLessonView(TestCase):
         response = self.client.get(f'/lessons/review_lesson/{self.free_lesson.lesson_id}', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, f'/accounts/login/?next=/lessons/review_lesson/{self.free_lesson.lesson_id}')
-        self.assertContains(response, html.escape('If you have not created an account yet, then please'))
+        self.assertContains(response, 'If you have not created an account yet, then please')
 
     def test_edit_existing_review_get(self):
         '''
