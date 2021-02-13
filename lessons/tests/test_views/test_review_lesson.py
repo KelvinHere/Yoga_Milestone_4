@@ -37,7 +37,7 @@ class TestReviewLessonView(TestCase):
         response = self.client.get(f'/lessons/review_lesson/{self.free_lesson.lesson_id}', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'lessons/review.html')
-        self.assertContains(response, 'Review for "A lesson"')
+        self.assertContains(response, 'Review for "A Lesson"')
         self.assertContains(response, 'Review by complete_user')
         self.assertContains(response, 'Great I loved it!')
         self.assertTrue(LessonReview.objects.filter(lesson=self.free_lesson, profile=profile).exists())
@@ -78,7 +78,7 @@ class TestReviewLessonView(TestCase):
         Instructors trying to review their own lessons are
         redirected back to studo page with error message.
         '''
-        lesson = Lesson.objects.get(lesson_name='A lesson')
+        lesson = Lesson.objects.get(lesson_name='A Lesson')
         login_successful = self.client.login(username='instructor_1',
                                              password='orange99')
         self.assertTrue(login_successful)

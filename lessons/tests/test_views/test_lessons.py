@@ -11,19 +11,11 @@ class TestLessonsView(TestCase):
 
     def setUp(self):
         self.instructor = UserProfile.objects.filter(is_instructor=True).first()
-        self.free_lesson = Lesson.objects.filter(is_free=True).first()
-        self.paid_lesson = Lesson.objects.filter(is_free=False, lesson_name='Z Lesson').first()
-        self.invalid_lesson_id = "SDFGGRFVAD"
-        self.subscribed_user = UserProfile.objects.get(id=5)  # = incomplete_user
-        self.subscribed_lesson = Lesson.objects.get(id=2)
-        self.subscription = Subscription.objects.get(lesson=self.subscribed_lesson,
-                                                     user=self.subscribed_user)
-        self.complete_user = {'username': 'complete_user',
-                              'password': 'orange99'}
-        self.incomplete_user = {'username': 'incomplete_user',
-                                'password': 'orange99'}
-        self.instructor_credentials = {'username': 'instructor_2',
-                                       'password': 'orange99'}
+
+        profile = UserProfile.objects.get(user__username='kelvinhere')
+        login_successful = self.client.login(username=profile.user.username,
+                                             password='orange99')
+        self.assertTrue(login_successful)
 
     def test_get_lessons(self):
         '''
@@ -45,3 +37,62 @@ class TestLessonsView(TestCase):
         self.assertContains(response, self.instructor.user.username)
         self.assertContains(response, html.escape(self.instructor.profile_description))
        
+    def test_lesson_query(self):
+        '''
+        Only show queried lessons
+        '''
+        response = self.client.get('/lessons/?q=z')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+        
+        self.assertContains(response, 'All Lessons')
+        self.assertContains(response, 'Z Lesson')
+        
+        self.assertNotContains(response, 'A Lesson')
+        self.assertNotContains(response, 'B Lesson')
+        self.assertNotContains(response, 'H Lesson')
+        self.assertNotContains(response, 'Y Lesson')
+
+    def test_sort_name_ascending(self):
+        response = self.client.get('/lessons/', {"sort": "lesson_name", "direction": "asc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+        html_str = response.content.decode("utf-8")
+        self.assertTrue(html_str.index('A Lesson') < html_str.index('B Lesson'))
+        self.assertTrue(html_str.index('Y Lesson') < html_str.index('Z Lesson'))
+
+    def test_sort_name_descending(self):
+        response = self.client.get('/lessons/', {"sort": "lesson_name", "direction": "desc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+        html_str = response.content.decode("utf-8")
+        self.assertTrue(html_str.index('A Lesson') > html_str.index('B Lesson'))
+        self.assertTrue(html_str.index('Y Lesson') > html_str.index('Z Lesson'))
+
+    def test_sort_rating_ascending(self):
+        response = self.client.get('/lessons/', {"sort": "rating", "direction": "asc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+        html_str = response.content.decode("utf-8")
+        self.assertTrue(html_str.index('6/10') < html_str.index('10/10'))
+
+    def test_sort_rating_descending(self):
+        response = self.client.get('/lessons/', {"sort": "rating", "direction": "desc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+        html_str = response.content.decode("utf-8")
+        self.assertTrue(html_str.index('6/10') > html_str.index('10/10'))
+
+    def test_sort_price_ascending(self):
+        response = self.client.get('/lessons/', {"sort": "price", "direction": "asc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+        html_str = response.content.decode("utf-8")
+        self.assertTrue(html_str.index('€35.99') > html_str.index('€24.99'))
+
+    def test_sort_price_descending(self):
+        response = self.client.get('/lessons/', {"sort": "price", "direction": "desc"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+        html_str = response.content.decode("utf-8")
+        self.assertTrue(html_str.index('€35.99') < html_str.index('€24.99'))

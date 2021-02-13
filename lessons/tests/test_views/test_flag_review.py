@@ -116,5 +116,5 @@ class TestFlagReviewView(TestCase):
         self.assertTemplateUsed(response, 'home/superuser_admin.html')
         self.assertContains(response, 'Flagged Reviews')
         self.assertContains(response, 'Review by : complete_user')
-        self.assertContains(response, 'On lesson: A lesson')
+        self.assertContains(response, 'On lesson: A Lesson')
         self.assertContains(response, 'Flagged By: incomplete_user')

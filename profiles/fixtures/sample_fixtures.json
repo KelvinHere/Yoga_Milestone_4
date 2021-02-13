@@ -193,7 +193,7 @@
     "fields": {
         "lesson_id": "D7154AEFC5D54C8485C9D51CBA189DD5",
         "instructor_profile": 6,
-        "lesson_name": "A lesson",
+        "lesson_name": "A Lesson",
         "card_description": "Instructor ones first lesson",
         "description": "Instructor ones first lesson main description, this is a free lesson",
         "image": "lesson_images/warrior_xyqiwx.jpeg",
@@ -210,7 +210,7 @@
     "fields": {
         "lesson_id": "B198AD4009CB4248B5E60960FF517AFF",
         "instructor_profile": 6,
-        "lesson_name": "B lesson",
+        "lesson_name": "B Lesson",
         "card_description": "Instructor ones Second lesson",
         "description": "Instructor second first lesson main description",
         "image": "lesson_images/warrior_xyqiwx_V4o2dF9.jpeg",
