@@ -469,5 +469,21 @@
         "lesson":2,
         "user":5
     }
+},
+{
+    "model":"lessons.subscription",
+    "pk":15,
+    "fields":{
+        "lesson":5,
+        "user":4
+    }
+},
+{
+    "model":"lessons.subscription",
+    "pk":16,
+    "fields":{
+        "lesson":2,
+        "user":4
+    }
 }
 ]
