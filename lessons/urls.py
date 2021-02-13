@@ -14,7 +14,7 @@ urlpatterns = [
          name='flag_review'),
     path('delete_review/<review_pk>', views.delete_review,
          name='delete_review'),
-    path('remove_flag/<flagged_review_pk>', views.remove_flag,
+    path('remove_flag/', views.remove_flag,
          name='remove_flag'),
     path('get_modal_data/', views.get_modal_data, name='get_modal_data'),
 ]

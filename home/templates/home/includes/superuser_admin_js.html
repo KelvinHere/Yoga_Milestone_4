@@ -35,7 +35,7 @@
         let csrfToken = "{{ csrf_token }}";
         $.ajax({
             type:"POST",
-            url:"/lessons/remove_flag/"+review_pk,
+            url:"/lessons/remove_flag/",
             data:{
                 'csrfmiddlewaretoken': csrfToken,
                 'flagged_review_pk': review_pk,

@@ -6,7 +6,7 @@ from profiles.models import UserProfile
 from lessons.models import Subscription, Lesson
 
 
-class TestSubscriptionView(TestCase):
+class TestLessonsView(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
 
     def setUp(self):

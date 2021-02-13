@@ -501,10 +501,10 @@ def flag_review(request, review_pk, lesson_id):
 
 
 @login_required
-def remove_flag(request, flagged_review_pk):
+def remove_flag(request):
     """ Removes all flags from a review """
     if not request.user.is_superuser:
-        messages.error('Only administrators can perform this action.')
+        messages.error(request, 'Only administrators can perform this action.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
@@ -524,7 +524,7 @@ def remove_flag(request, flagged_review_pk):
 
     else:
         messages.error(request, "Remove flag does not accept GET requests")
-        return redirect(reverse('superuser_admin'))
+        return redirect(reverse('home'))
 
 
 def get_modal_data(request):
