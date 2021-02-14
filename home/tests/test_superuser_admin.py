@@ -5,7 +5,7 @@ from profiles.models import UserProfile
 from lessons.models import LessonReviewFlagged, LessonReview
 
 
-class TestSuperUserAdminViews(TestCase):
+class TestSuperUserAdminView(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
 
     def setUp(self):
