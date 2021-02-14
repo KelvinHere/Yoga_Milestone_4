@@ -89,18 +89,18 @@ def checkout_success(request, order_number):
     try:
         order = get_object_or_404(Order, order_number=order_number)
     except Exception:
-        messages.error(request, f"This order was not found, please contact \
-                                 {settings.DEFAULT_FROM_EMAIL} for support.")
+        messages.error(request, ('This order was not found, please contact '
+                                 f'{settings.DEFAULT_FROM_EMAIL} for support'))
         return redirect(reverse('home'))
 
     profile = get_object_or_404(UserProfile, user=request.user)
     if profile != order.profile:
-        messages.error(request, f"This order does not belong to this account, \
-                                 if this is an misake please contact \
-                                 {settings.DEFAULT_FROM_EMAIL} for support.")
+        messages.error(request, ('This order does not belong to this account, '
+                                 'if this is an misake please contact '
+                                 f'{settings.DEFAULT_FROM_EMAIL} for support.'))
         return redirect(reverse('home'))
 
-    messages.success(request, f'Order number successfully processed! \
+    messages.success(request, f'Order successfully processed! \
         Order number : {order_number} \
         An email has been sent to {order.email}.')
 

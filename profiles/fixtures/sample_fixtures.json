@@ -355,7 +355,7 @@
         "first_name": "Complete",
         "last_name": "User",
         "is_instructor": false,
-        "requested_instructor_status": false,
+        "requested_instructor_status": true,
         "card_description": "",
         "profile_description": "This is the profile of a user with a completed profile",
         "image": "profile_images/Instructor1_nk5j1rR.jpeg",

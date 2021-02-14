@@ -37,7 +37,7 @@ class TestBasketViews(TestCase):
                                     {'lesson_id': lesson.lesson_id},
                                     follow=True)
         self.assertContains(response, '"item_added": "True"')
-        
+
         response = self.client.get('/basket/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'basket/basket.html')
@@ -88,7 +88,7 @@ class TestBasketViews(TestCase):
         # Lesson details and price
         self.assertContains(response, lesson.lesson_name)
         self.assertContains(response, html.escape(f'Total: €{lesson.price}'))
-        self.assertContains(response, 
+        self.assertContains(response,
                             html.escape(f'Grand Total: €{lesson.price}'))
 
         # Discount delta
@@ -191,7 +191,7 @@ class TestBasketViews(TestCase):
                                     {'lesson_id': lesson.lesson_id},
                                     follow=True)
         self.assertContains(response, '"item_added": "True"')
-        
+
         response = self.client.post('/basket/add_to_basket/',
                                     {'lesson_id': lesson.lesson_id},
                                     follow=True)

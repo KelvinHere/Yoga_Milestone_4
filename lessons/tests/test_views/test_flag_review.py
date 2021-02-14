@@ -49,7 +49,7 @@ class TestFlagReviewView(TestCase):
     def test_flag_review(self):
         '''
         Flagging a review will redirect user
-        back to sutdio page with an error message
+        back to sutdio page with a message
         '''
         review_pk = self.review.pk
         lesson_id = self.review.lesson.lesson_id
