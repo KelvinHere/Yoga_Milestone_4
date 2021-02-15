@@ -36,7 +36,8 @@ def studio(request, id):
         'my_review': my_review,
     }
 
-    if paid_lessons.filter(lesson=lesson) or lesson.is_free:
+    if (paid_lessons.filter(lesson=lesson) or lesson.is_free or
+            lesson.instructor_profile == profile):
         return render(request, template, context)
     else:
         messages.error(request, 'You do not own this lesson.')
