@@ -91,4 +91,5 @@ def update_instructor_status(request, user_to_update, status):
         update_profile.is_instructor = False
         update_profile.requested_instructor_status = False
         update_profile.save()
+        messages.error(request, 'Submitted invalid status.')
     return redirect(reverse('superuser_admin'))
