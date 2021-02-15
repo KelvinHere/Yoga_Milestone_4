@@ -21,6 +21,7 @@ change password
 stop someone using lesson id to put a review on a lesson they have not paid for
 lesson flags count down when being dealt with
 superuser can access all lessons
+prompt for new instructors to fill out their card description
 404 page
 
 setup development database before submitting
