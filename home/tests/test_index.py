@@ -3,7 +3,6 @@ from django.test import TestCase
 from lessons.models import Subscription
 
 
-
 class TestIndexView(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
 
@@ -41,7 +40,8 @@ class TestIndexView(TestCase):
         self.assertContains(response, 'Find an instructor')
         self.assertContains(
             response,
-            'Breathe deep <strong>Complete_User</strong> and continue your Yoga journey')
+            ('Breathe deep <strong>Complete_User</strong> and continue your '
+             'Yoga journey'))
 
     def test_logged_in_normal_user_with_subscriptions(self):
         '''
@@ -60,4 +60,25 @@ class TestIndexView(TestCase):
         self.assertContains(response, 'Your Subscribed Lessons')
         self.assertContains(
             response,
-            'Breathe deep <strong>Complete_User</strong> and continue your Yoga journey')
+            ('Breathe deep <strong>Complete_User</strong> and continue your '
+             'Yoga journey'))
+
+    def test_logged_in_as_instructor(self):
+        '''
+        Instructors that are logged in are sent
+        to home page with:-
+        - A personalised message
+        - An instructor admin button
+        '''
+        login_successful = self.client.login(username='instructor_1',
+                                             password='orange99')
+        self.assertTrue(login_successful)
+
+        response = self.client.get('/', follow=True)
+        self.assertTrue(response.status_code, 200)
+        self.assertTemplateUsed(response, 'home/index.html')
+        self.assertContains(response, 'id="instructor_admin_frontpage_button"')
+        self.assertContains(
+            response,
+            ('Breathe deep <strong>Instructor_1</strong> and continue your '
+             'Yoga journey'))

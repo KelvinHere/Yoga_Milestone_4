@@ -98,7 +98,7 @@
                             <p class="text-center mb-3"><strong>Active instructors</strong></p>
                             {% if instructors %}
                                 {% for instructor in instructors %}
-                                    <div class="row border custom-border my-2">
+                                    <div class="row border custom-border my-2" id="acive-instructor-{{ instructor }}">
                                         <div class="col-12 col-sm-8 p-2">
                                             <p class="m-0 pl-2">Username : {{ instructor }}</p>
                                             <p class="m-0 pl-2">Email : {{ instructor.user.email }}</p>

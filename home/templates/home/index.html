@@ -25,7 +25,7 @@
                         <a href="{% url 'instructors' %}" class="btn btn-lg btn-success rounded-20 py-3 my-4">Find an instructor</a>
                     {% endif %}
                     {% if profile.is_instructor %}
-                        <p><a href="{% url 'instructor_admin' %}" class="btn btn-lg btn-warning rounded-20 py-3 my-4">Instructor Admin</a></p>
+                        <p><a href="{% url 'instructor_admin' %}" id="instructor_admin_frontpage_button" class="btn btn-lg btn-warning rounded-20 py-3 my-4">Instructor Admin</a></p>
                     {% endif %}
                 </div>
                 {% else %}

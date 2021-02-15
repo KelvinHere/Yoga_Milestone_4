@@ -77,8 +77,12 @@ def update_instructor_status(request, user_to_update, status):
         messages.error(request, 'Sorry only administrators can do this')
         return redirect(reverse('home'))
 
-    update_user = User.objects.get(username=user_to_update)
-    update_profile = UserProfile.objects.get(user=update_user)
+    try:
+        update_profile = UserProfile.objects.get(user__username=user_to_update)
+    except Exception:
+        messages.error(request, 'User does not exist.')
+        return redirect(reverse('superuser_admin'))    
+
     if status == 'accept':
         update_profile.is_instructor = True
         update_profile.requested_instructor_status = True
