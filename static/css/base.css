@@ -230,7 +230,9 @@ body {
 }
 /* ---------------------------------------- Instructor Admin */
 .instructor-admin-button {
-    width: 75%;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 /* ---------------------------------------- Toasts */
@@ -268,7 +270,7 @@ body {
     }
 
     .instructor-admin-button {
-            width: 50%;
+            width: 75%;
         }
 }
 
@@ -327,6 +329,6 @@ body {
         }
 
         .instructor-admin-button {
-            width: 25%;
+            width: 50%;
         }
 }

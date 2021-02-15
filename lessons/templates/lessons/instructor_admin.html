@@ -55,10 +55,13 @@
                                     {% endif %}
                                     <p class="card-text alt-font mt-2">{{ lesson.card_description }}</p>
                                     <div class="row mt-auto">
-                                        <div class="col-6">
-                                            <p class="text-left mb-0"><a class="btn btn-primary instructor-admin-button" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a></p>
+                                        <div class="col-4">
+                                            <p class="text-left mb-0"><a class="btn btn-success instructor-admin-button" href="{% url 'studio' lesson.lesson_id %}" role="button">Start</a></p>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-4">
+                                            <p class="text-center mb-0"><a class="btn btn-primary instructor-admin-button" href="{% url 'edit_lesson' lesson.lesson_id %}" role="button">Edit</a></p>
+                                        </div>
+                                        <div class="col-4">
                                             {% if lesson.pk not in customer_purchases %}
                                                 <p class="text-right mb-0">
                                                     <button type="button" class="btn btn-danger instructor-admin-button" onclick="delete_lesson_modal(`{% url 'delete_lesson' lesson.lesson_id %}`)">

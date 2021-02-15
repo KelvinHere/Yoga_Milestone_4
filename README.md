@@ -21,6 +21,8 @@ sort instructor admin lessons by reverse pk
 change password
 stop someone using lesson id to put a review on a lesson they have not paid for
 lesson flags count down when being dealt with
+instructors can access their paid lessons
+instructors can open their lessons from lesson admin
 404 page
 
 setup development database before submitting
@@ -460,6 +462,10 @@ As this was a learning project some changes were made in development to get the 
 a "book video time" feature with a "paid lesson" feature.  This allowed me to make a more comprehensive "store", and create
 a system where once a lesson is paid for is is unlocked for the user, showing another example of defensive programming in
 case of a user trying to access a lesson they do not own.
+
+The lesson and instructor layout was changed from initially having more than one lesson or instructor per row on larger screens
+to just having one per row.  As there is robust sorting and filtering in the project it made more sense to maintain the order
+of the results than to cram more results onto a single page, this combined with pagination makes results easier to read and follow.
 
 The database was changed over the course of the project as I added more interesting features to the app, such as the rating
 cascading rating system and review / review flagging system.
