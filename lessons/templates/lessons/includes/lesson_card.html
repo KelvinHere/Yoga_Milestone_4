@@ -30,12 +30,17 @@
                     <div class="buttons mx-auto">
                         {% if user.is_authenticated %}
                             {% if lesson.lesson_id not in paid_lesson_list and lesson.is_free == False %}
-                            <!-- Lesson has not been bought and is not free -->
-                            <a class="btn btn-warning" href="" onclick="javascript:add_to_basket('{{ lesson.lesson_id }}')" id="add_{{ lesson.lesson_id }}" role="button"><span>{% if lesson.lesson_id in basket_item_ids %}In basket{% else %}€{{ lesson.price }}{% endif %}</span>
-                                    <span class="icon">
-                                        <i class="fas fa-cart-plus"></i>
-                                    </span>
-                                </a>
+                                {% if lesson.instructor_profile != profile %}
+                                <!-- Lesson has not been bought and is not free -->
+                                <a class="btn btn-warning" href="" onclick="javascript:add_to_basket('{{ lesson.lesson_id }}')" id="add_{{ lesson.lesson_id }}" role="button"><span>{% if lesson.lesson_id in basket_item_ids %}In basket{% else %}€{{ lesson.price }}{% endif %}</span>
+                                        <span class="icon">
+                                            <i class="fas fa-cart-plus"></i>
+                                        </span>
+                                    </a>
+                                {% else %}
+                                <!-- Lesson belongs to this instructor -->
+                                <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">View Your Lesson</a>
+                                {% endif %}
                             {% elif lesson.lesson_id in subscribed_lesson_list and lesson%}
                             <!-- Lesson is subscribed to-->
                                 <span class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Unsubscribe</span>
