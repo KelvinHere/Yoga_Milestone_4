@@ -164,7 +164,7 @@
     - If an instructor tries to pass the lesson_id from a lesson they did not create they are given the error message "This lesson does not belong to you and has not been deleted, please check your username and try again."
     - If an instructor tries to pass an invalid lesson_id they are given the error message "Invalid lesson ID, no lessons were deleted."
     - Instructors cannot delete a lesson that has been purchased by customers, they can only edit it, the delete button is disabled and gives the reason why.
-    - If an instructor tries to delete by manualy submitting the lesson_id to the view they are redirected to the instructor_admin page and given the error message "You cannot delete a lesson customers have purchased, you can only edit"
+    - If an instructor tries to delete by manualy submitting the lesson_id to the view they are redirected to the instructor_admin page and given the error message "You cannot delete a lesson customers have purchased."
 
 5. **create_lesson view**
 - **Valid requests**

@@ -90,7 +90,8 @@ class TestDeleteLessonView(TestCase):
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/lessons/instructor_admin/')
         self.assertTrue(Lesson.objects.filter(lesson_name='Z Lesson').exists())
-        self.assertContains(response, 'You cannot delete a lesson customers have')
+        self.assertContains(response, ('You cannot delete a lesson customers have '
+                                       'purchased.'))
 
     def test_delete_lesson_paid_lesson_customers_have_not_bought(self):
         '''

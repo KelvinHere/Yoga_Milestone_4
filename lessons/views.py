@@ -233,11 +233,13 @@ def instructor_admin(request):
 
     template = 'lessons/instructor_admin.html'
 
-    # Get lessons instructor created
+    # Get instructors lessons and order by creation
     instructor_created_lessons = Lesson.objects.filter(
-        instructor_profile=profile)
+        instructor_profile=profile).order_by('-pk')
+    # Get lessons customers have purchased - Used to disable delete button
     customer_purchases = OrderLineItem.objects.filter(
         lesson__in=instructor_created_lessons).values_list('lesson', flat=True)
+    # Get all customer sales ordered by -date
     sales = OrderLineItem.objects.filter(
         lesson__in=instructor_created_lessons).order_by('-order__date')
 
@@ -267,8 +269,8 @@ def delete_lesson(request, id):
         return redirect(reverse('instructor_admin'))
 
     if purchased:
-        messages.error(request, 'You cannot delete a lesson customers have \
-                                purchased, you can only edit.')
+        messages.error(request, ('You cannot delete a lesson customers have '
+                                 'purchased.'))
         return redirect(reverse('instructor_admin'))
 
     if lesson.instructor_profile == profile:
