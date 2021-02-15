@@ -24,7 +24,8 @@ class LessonForm(forms.ModelForm):
             'card_description': 'Short Description for lesson card',
             'description': 'Lesson Description',
             'time': 'Length of lesson in minuets',
-            'price': 'Lesson price (EUR), leave 0 for free'
+            'price': 'Lesson price (EUR), leave 0 for free',
+            'video_url': 'Embedded video URL',
         }
 
     # Over-ride init

@@ -13,7 +13,6 @@ tools, set lesson prices and view the details of all the sales they have made on
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
 
 ## ToDo
-make a class based view
 contact email and social media links
 image change on forms
 make a JS carouselle on the front page from random lessons
@@ -21,8 +20,7 @@ sort instructor admin lessons by reverse pk
 change password
 stop someone using lesson id to put a review on a lesson they have not paid for
 lesson flags count down when being dealt with
-instructors can access their paid lessons
-instructors can open their lessons from lesson admin
+superuser can access all lessons
 404 page
 
 setup development database before submitting
