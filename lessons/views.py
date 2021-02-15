@@ -309,7 +309,9 @@ def create_lesson(request):
                 lesson = form.save(commit=False)
                 lesson.instructor_profile = profile
                 lesson.save()
-                return redirect('instructor_admin')
+            else:
+                messages.error(request, ('Invalid form data, please try again. '
+                                         'No lesson was created.'))
             return redirect('instructor_admin')
         else:
             messages.error(request, 'You already have a lesson named this.')

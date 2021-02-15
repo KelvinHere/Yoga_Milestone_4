@@ -162,3 +162,6 @@ class TestEditLessonView(TestCase):
         self.assertNotEqual(updated_lesson.description,
                             'Updated from a form with bad price data')
         self.assertNotEqual(updated_lesson.price, 'INVALID_PRICE_FOR_FORM')
+        self.assertContains(response, ('Invalid form data, please try again. '
+                                     'No lessons were updated.'))
+

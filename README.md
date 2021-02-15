@@ -623,7 +623,9 @@ The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed wi
 
 ## Credits
 
-- [Colour scheme inspired by icolorpalette](https://icolorpalette.com/palette-by-themes/yoga)
+- [Flimms answer: For testing an imagefield without an image](https://stackoverflow.com/questions/26298821/django-testing-model-with-imagefield)
+- [Colour scheme inspired by icolorpalette](https://icolorpalette.com/palette-by-themes/yoga) - How to create an image without an image file for testing image fields in forms in tests. `small_gif = (b'\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x05\x04\x04\x00\x00\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3b')`
+
 
 ### Content
  
