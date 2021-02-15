@@ -338,29 +338,31 @@ def edit_lesson(request, lesson_id):
         messages.error(request, 'Invalid lesson ID, no lessons were updated.')
         return redirect(reverse('instructor_admin'))
 
+    if instructor_lesson.instructor_profile != profile:
+        messages.error(request, ('You can only edit your own lessons, '
+                                 'please check your username.'))
+        return redirect(reverse('instructor_admin'))
+
     if request.method == 'POST':
         form = LessonForm(request.POST,
                           request.FILES,
                           instance=instructor_lesson)
         if form.is_valid():
             form.save()
+        else:
+            messages.error(request, ('Invalid form data, please try again. '
+                                     'No lessons were updated.'))
         return redirect('instructor_admin')
 
     else:
         form = LessonForm(instance=instructor_lesson)
-
-        if instructor_lesson.instructor_profile == profile:
-            template = 'lessons/edit_lesson.html'
-            context = {
-                'profile': profile,
-                'lesson': instructor_lesson,
-                'form': form,
-            }
-            return render(request, template, context)
-        else:
-            messages.error(request, 'You can only edit your own lessons, \
-                                     please check your username.')
-            return redirect(reverse('instructor_admin'))
+        template = 'lessons/edit_lesson.html'
+        context = {
+            'profile': profile,
+            'lesson': instructor_lesson,
+            'form': form,
+        }
+        return render(request, template, context)
 
 
 @login_required
