@@ -17,7 +17,6 @@ contact email and social media links
 image change on forms
 make a JS carouselle on the front page from random lessons
 lesson flags count down when being dealt with
-superuser can access all lessons
 
 404 page
 setup development database before submitting

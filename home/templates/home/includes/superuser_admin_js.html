@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    // Remove flagged review
+    // Delete review
     function delete_review(review_pk) {
         let csrfToken = "{{ csrf_token }}";
         $.ajax({
@@ -17,6 +17,8 @@
                                                                 <p class="text-center m-0">Review removed</p>
                                                             </div>
                                                           </div>`);
+                    let numberOfFlags = (parseInt($('#total-flag-number').text())) - 1;
+                    $('#total-flag-number').text(numberOfFlags);
                 } else {
                     let target = '#flagged_div_' + review_pk +' #flagged_buttons_' + review_pk
                     $(target).empty();
@@ -48,6 +50,8 @@
                                                                 <p class="text-center m-0">Removed flags for this review</p>
                                                             </div>
                                                           </div>`);
+                    let numberOfFlags = (parseInt($('#total-flag-number').text())) - 1;
+                    $('#total-flag-number').text(numberOfFlags);
                 } else {
                     let target = '#flagged_div_' + review_pk +' #flagged_buttons_' + review_pk
                     $(target).empty();

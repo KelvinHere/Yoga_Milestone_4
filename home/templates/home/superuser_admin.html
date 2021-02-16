@@ -23,7 +23,7 @@
                     <a class="nav-link" id="instructors-tab" data-toggle="tab" href="#instructors" role="tab" aria-controls="instructors" aria-selected="false">All Instructors</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="flagged-tab" data-toggle="tab" href="#flagged" role="tab" aria-controls="flagged" aria-selected="false">Flagged {% if total_flags > 0 %}<span class="text-white bg-danger rounded px-2 py-1">+{{ total_flags }}{% endif %}</span></a>
+                    <a class="nav-link" id="flagged-tab" data-toggle="tab" href="#flagged" role="tab" aria-controls="flagged" aria-selected="false">Flagged {% if total_flags > 0 %}<span class="text-white bg-danger rounded px-2 py-1">+<span id="total-flag-number">{{ total_flags }}</span>{% endif %}</span></a>
                 </li>
             </ul>
             <div class="tab-content" id="adminTabContent">
@@ -125,7 +125,7 @@
                                         <div class="col-12">
                                             <p class="m-0"><strong>Review by : {{ flagged.reviewer }}</strong></p>
                                             <p class="m-0 text-muted"><small>On lesson: {{ flagged.lesson_name }}</small></p>
-                                            <p class="m-0 text-muted"><small>Flagged By: {{ flagged.flaggers|join:" / " }}</small></p>
+                                            <p class="m-0 text-muted"><small>Flagged By: {{ flagged.flaggers|join:" / " }} : <span class="text-danger">{{ flagged.flaggers|length }} Flag{% if flagged.flaggers|length > 1 %}s{% endif %}</span></small></p>
                                             <p class="mx-0 my-3">{{ flagged.review }}</p>
                                         </div>
                                         <!-- Flagged review buttons -->
