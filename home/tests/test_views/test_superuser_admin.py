@@ -72,8 +72,7 @@ class TestSuperUserAdminView(TestCase):
 
         # +2 reviews are flagged
         self.assertContains(response, 'Flagged Reviews')
-        self.assertContains(
-            response,
-            'Flagged <span class="text-white bg-danger rounded px-2 py-1">+2')
+        self.assertContains(response,
+                            '<span id="total-flag-number">2</span>')
         self.assertContains(response, self.review_1.review)
         self.assertContains(response, self.review_2.review)

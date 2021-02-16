@@ -15,7 +15,8 @@ class TestRequestInstructorStatusView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(
             response,
-            '/accounts/login/?next=/profiles/request_instructor_status/request')
+            ('/accounts/login/?next=/profiles/request_instructor_status/'
+             'request'))
 
     def test_with_incomplete_profile(self):
         '''

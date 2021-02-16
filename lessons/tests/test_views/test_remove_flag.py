@@ -14,23 +14,29 @@ class TestRemoveFlagView(TestCase):
         # Get a review
         self.review = LessonReview.objects.filter().first()
         # Login as normal user and create flag on that review
-        self.flagger_profile = UserProfile.objects.get(user__username='incomplete_user')
-        login_successful = self.client.login(username=self.flagger_profile.user.username,
-                                             password='orange99')
+        self.flagger_profile = UserProfile.objects.get(
+            user__username='incomplete_user')
+
+        login_successful = self.client.login(
+            username=self.flagger_profile.user.username,
+            password='orange99')
         self.assertTrue(login_successful)
-        self.review_flag = LessonReviewFlagged.objects.create(profile=self.flagger_profile,
-                                                              review=self.review)
+        # Create Flag
+        self.review_flag = LessonReviewFlagged.objects.create(
+            profile=self.flagger_profile,
+            review=self.review)
+        # Logout
         self.client.logout()
 
     def test_logged_out(self):
         ''' Logged out users will be redirect to login page '''
         response = self.client.get(
-            f'/lessons/remove_flag/',
+            '/lessons/remove_flag/',
             follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(
             response,
-            f'/accounts/login/?next=/lessons/remove_flag/')
+            '/accounts/login/?next=/lessons/remove_flag/')
         self.assertContains(
             response,
             'If you have not created an account yet, then please')
@@ -93,5 +99,7 @@ class TestRemoveFlagView(TestCase):
         self.assertTrue(response.status_code, 200)
         self.assertContains(response, '"removed_flag": "True"')
         # Flag removed
-        self.assertFalse(LessonReviewFlagged.objects.filter(profile=self.flagger_profile,
-                                                           review=self.review).exists())
+        self.assertFalse(
+            LessonReviewFlagged.objects.filter(
+                profile=self.flagger_profile,
+                review=self.review).exists())
