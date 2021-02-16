@@ -30,16 +30,16 @@
                     <div class="buttons mx-auto">
                         {% if user.is_authenticated %}
                             {% if lesson.lesson_id not in paid_lesson_list and lesson.is_free == False %}
-                                {% if lesson.instructor_profile != profile %}
+                                {% if lesson.instructor_profile == profile or user.is_superuser %}
+                                <!-- Lesson belongs to this instructor -->
+                                <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">View Your Lesson</a>
+                                {% else %}
                                 <!-- Lesson has not been bought and is not free -->
                                 <a class="btn btn-warning" href="" onclick="javascript:add_to_basket('{{ lesson.lesson_id }}')" id="add_{{ lesson.lesson_id }}" role="button"><span>{% if lesson.lesson_id in basket_item_ids %}In basket{% else %}€{{ lesson.price }}{% endif %}</span>
                                         <span class="icon">
                                             <i class="fas fa-cart-plus"></i>
                                         </span>
                                     </a>
-                                {% else %}
-                                <!-- Lesson belongs to this instructor -->
-                                <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">View Your Lesson</a>
                                 {% endif %}
                             {% elif lesson.lesson_id in subscribed_lesson_list and lesson%}
                             <!-- Lesson is subscribed to-->

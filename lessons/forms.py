@@ -23,7 +23,7 @@ class LessonForm(forms.ModelForm):
         labels = {
             'card_description': 'Short Description for lesson card',
             'description': 'Lesson Description',
-            'time': 'Length of lesson in minuets',
+            'time': 'Length of lesson in minutes',
             'price': 'Lesson price (EUR), leave 0 for free',
             'video_url': 'Embedded video URL',
         }

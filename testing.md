@@ -17,6 +17,8 @@
 
 ## **1 - Automated Tests**
 ***You must remove the signal for create user profile when running the automated tests (reciever in profiles.models.py)***
+coverage run --source lessons manage.py test - 98%
+
 ## **Code Validation**
 ## **Unit Testing**
 ## **Writing your own unittests**
