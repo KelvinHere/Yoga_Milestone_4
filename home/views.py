@@ -93,3 +93,8 @@ def update_instructor_status(request, user_to_update, status):
         update_profile.save()
         messages.error(request, 'Submitted invalid status.')
     return redirect(reverse('superuser_admin'))
+
+
+def handle_404(request, exception):
+    """ 404 page not found view """
+    return render(request, '/404.html', status=404)
