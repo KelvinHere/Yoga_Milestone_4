@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     is_instructor = models.BooleanField(default=False)
     requested_instructor_status = models.BooleanField(default=False)
     card_description = models.TextField(max_length=256, blank=True, default='')
-    profile_description = models.TextField(max_length=650, default='')
+    profile_description = models.TextField(max_length=650, blank=True, default='')
     image = ResizedImageField(
         size=[600, 600], quality=75, crop=['middle', 'center'],
         force_format='JPEG', null=True, blank=True,

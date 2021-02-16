@@ -15,6 +15,21 @@
 {% block content %}
 <div class="overlay"></div>
 <div class="container page-contents">
+    {% if instructor_profile_incomplete %}
+        <div class="row mx-auto">
+            <div class="col-12">
+                <p class="mx-5 my-3">
+                Welcome {{ profile }}, you are now an instructor, please complete your instructor profile and have a quick read of support before you create any lessons, as your card and profile data help users choose your lessons.  Thankyou.
+                </p>
+                <p class="text-center">
+                    
+                    <a href="{% url 'edit_profile' %}" class="btn btn-lg btn-md-lg btn-danger rounded-20">
+                        Complete Instructor Profile
+                    </a>
+                </p>
+            </div>
+        </div>
+    {% endif %}
     <div class="row mx-auto">
         <div class="col-12">
             <ul class="nav nav-tabs my-2" id="myTab" role="tablist">
@@ -107,6 +122,7 @@
                 <div class="tab-pane fade" id="support" role="support" aria-labelledby="support-tab">
                     <p class="text-center my-2">Contact support at</p>
                     <p class="text-center"><a href="mailto:{{ site_email }}">{{ site_email }}</a></p>
+                    <p class="text-center mt-3 mx-5"><strong>Instructor Admin</strong> allows you to create lessons and view your sales, if you are having any difficulty please contact support on the above email address.</p>
                 </div>
             </div>
         </div>

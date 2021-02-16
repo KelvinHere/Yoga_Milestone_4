@@ -225,6 +225,7 @@ def subscriptions(request):
 @login_required
 def instructor_admin(request):
     """ View admin for lessons instructors have created """
+    instructor_profile_incomplete = False
 
     profile = get_object_or_404(UserProfile, user=request.user)
     if not profile.is_instructor:
@@ -242,12 +243,16 @@ def instructor_admin(request):
     # Get all customer sales ordered by -date
     sales = OrderLineItem.objects.filter(
         lesson__in=instructor_created_lessons).order_by('-order__date')
+    # Is instructor profile complete
+    if profile.profile_description == '' or profile.card_description == '':
+        instructor_profile_incomplete = True
 
     context = {
         'profile': profile,
         'instructor_created_lessons': instructor_created_lessons,
         'customer_purchases': customer_purchases,
         'sales': sales,
+        'instructor_profile_incomplete': instructor_profile_incomplete
     }
 
     return render(request, template, context)

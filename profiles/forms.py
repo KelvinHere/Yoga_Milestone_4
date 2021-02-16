@@ -15,20 +15,36 @@ class ProfileForm(forms.ModelForm):
             'requested_instructor_status': forms.HiddenInput,
         }
         labels = {
-            'card_description': 'Instructor card description'
+            'card_description': 'Instructor card description',
+            'profile_description': 'About You',
         }
 
     # Over-ride init
     def __init__(self, *args, **kwargs):
+        self.profile = kwargs['instance']
         super(ProfileForm, self).__init__(*args, **kwargs)
 
-        card_desctiption_placeholder = 'A brief description of yourself and your ethos (256 characters)'
+        if self.profile.is_instructor:
+            profile_description_placeholder = (
+                'This is displayed as a header above your lessons '
+                ' when a user enters your studio.')
+            card_desctiption_placeholder = (
+                'This will be shown on your instructor card, when users '
+                'search for instructors.')
+            self.fields['card_description'].widget = forms.Textarea(
+                attrs={'rows': 3,
+                       'cols': 25,
+                       'maxlength': 254,
+                       'placeholder': card_desctiption_placeholder}
+                )
+        else:
+            profile_description_placeholder = (
+                'Optional, something about you.')
+            self.fields['card_description'].widget = forms.HiddenInput()
+
         self.fields['user'].disabled = True
         self.fields['is_instructor'].disabled = True
         self.fields['rating'].disabled = True
-        self.fields['card_description'].widget = forms.Textarea(
-            attrs={'rows': 3,
-                   'cols': 25,
-                   'maxlength': 254,
-                   'placeholder': card_desctiption_placeholder}
-            )
+        self.fields['profile_description'].widget = forms.Textarea(
+            attrs={'placeholder': profile_description_placeholder}
+        )

@@ -19,13 +19,7 @@
                 <form method="POST" action="{% url 'edit_profile' %}" class="form" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
-                        {% if field.name != 'card_description' %}
-                            {{ field | as_crispy_field }}
-                        {% else %}
-                            {% if profile.is_instructor %}
-                                {{ field | as_crispy_field }}
-                            {% endif %}
-                        {% endif %}
+                        {{ field | as_crispy_field }}
                     {% endfor %}
                     <a href="{% url 'profile' %}" class="btn btn-custom-invert">Cancel</a>
                     <input class="btn btn-custom-darken" type="Submit" value="Update">
