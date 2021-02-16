@@ -107,13 +107,13 @@ def lessons(request):
                                                               id=instructor_id)
                     if not instructor_to_display.is_instructor:
                         messages.error(request,
-                                       'This user is not an instructor, \
-                                       please pick one from the list.')
+                                       ('This user is not an instructor, '
+                                        'please pick one from the list.'))
                         return redirect(reverse('instructors'))
                 except Exception:
                     messages.error(request,
-                                   'Instructor not found, please pick \
-                                    one from the instructor list.')
+                                   ('Instructor not found, please pick '
+                                    'one from the instructor list.'))
                     return redirect(reverse('instructors'))
                 page_title = f"Welcome to {instructor_to_display}'s Studio"
                 filter_subtitle = f" in {instructor_to_display}'s Studio"
@@ -127,8 +127,8 @@ def lessons(request):
 
             lessons = lessons.filter(Q(lesson_name__icontains=query))
             if not lessons:
-                messages.error(request, "Your query returned no lessons \
-                                         please try again")
+                messages.error(request, ('Your query returned no lessons '
+                                         'please try again'))
 
     # Apply Sort direction, if sortby = rating 
     # subsort by annotated review_count

@@ -1,9 +1,11 @@
 from django.test import TestCase
+from django.shortcuts import reverse
 
 import html
 
 from profiles.models import UserProfile
 from lessons.models import Subscription, Lesson
+from checkout.models import OrderLineItem
 
 
 class TestLessonsView(TestCase):
@@ -54,6 +56,72 @@ class TestLessonsView(TestCase):
         self.assertContains(response, 'Y Lesson')
         self.assertContains(response, 'Z Lesson')
 
+    def test_error_message_you_have_purchased_no_lessons(self):
+        '''
+        Error message when user views purchased lessons
+        but has none purchased
+        '''
+        # Remove all purchases
+        OrderLineItem.objects.all().delete()
+
+        response = self.client.get('/lessons/', {"filter": "purchased_lessons"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+        self.assertContains(response, 'You have not purchased any lessons')
+
+    def test_error_message_filter_by_instructor_is_not_instructor(self):
+        '''
+        User tries to input a normal user as an instructor
+        in the instructor filter, they are given an error
+        message and redirected to instructor page.
+        '''
+        # Get a user who is not an instructor
+        another_user = UserProfile.objects.get(user__username='incomplete_user')
+        self.assertFalse(another_user.is_instructor)
+
+        # Try to use that id on the instructor filter
+        response = self.client.get('/lessons/',
+                                   {'instructor': another_user.id},
+                                   follow=True)
+
+        self.assertRedirects(response,
+                             expected_url=reverse('instructors'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertContains(response, ('This user is not an instructor, '
+                                       'please pick one from the list.'))
+
+    def test_invalid_input_in_instructor_filter(self):
+        '''
+        An invalid entry into instructor filter
+        '''
+        response = self.client.get('/lessons/',
+                                   {'instructor': 'INVALID_INSTRUCTOR'},
+                                   follow=True)
+
+        self.assertRedirects(response,
+                             expected_url=reverse('instructors'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertContains(response, ('Instructor not found, please pick '
+                                       'one from the instructor list.'))
+
+    # Pagination
+    def test_pagination_page_does_not_exist(self):
+        '''
+        A user trying to access a paginated page that
+        does not exist will get an error message and
+        returned to page 1
+        '''
+        try_page = 950
+        response = self.client.get(f'/lessons/?page={try_page}')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+
+        self.assertContains(response, ('Page does not exist, returning '
+                                       'to page 1'))
+        self.assertContains(response, 'Page 1 of')
+
     # Query
     def test_lesson_query(self):
         '''
@@ -70,6 +138,18 @@ class TestLessonsView(TestCase):
         self.assertNotContains(response, 'B Lesson')
         self.assertNotContains(response, 'H Lesson')
         self.assertNotContains(response, 'Y Lesson')
+
+    def test_query_returned_no_lessons(self):
+        '''
+        Query that returns no results will give
+        an error message
+        '''
+        response = self.client.get('/lessons/?q=NOTHINGNAMEDTHIS')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+
+        self.assertContains(response, ('Your query returned no lessons '
+                                       'please try again'))
 
     # Sort
     def test_sort_name_ascending(self):

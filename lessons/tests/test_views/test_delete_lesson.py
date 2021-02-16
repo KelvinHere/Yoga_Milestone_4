@@ -1,39 +1,31 @@
 from django.test import TestCase
+from django.shortcuts import reverse
 
-import html
-
-from profiles.models import UserProfile
-from lessons.models import Subscription, Lesson
+from lessons.models import Lesson
 
 
 class TestDeleteLessonView(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
 
     def setUp(self):
-        self.instructor = UserProfile.objects.filter(is_instructor=True).first()
-        self.free_lesson = Lesson.objects.filter(is_free=True).first()
-        self.paid_lesson = Lesson.objects.filter(is_free=False, lesson_name='Z Lesson').first()
         self.invalid_lesson_id = "SDFGGRFVAD"
-        self.subscribed_user = UserProfile.objects.get(id=5)  # = incomplete_user
-        self.subscribed_lesson = Lesson.objects.get(id=2)
-        self.subscription = Subscription.objects.get(lesson=self.subscribed_lesson,
-                                                     user=self.subscribed_user)
-        self.complete_user = {'username': 'complete_user',
-                              'password': 'orange99'}
-        self.incomplete_user = {'username': 'incomplete_user',
-                                'password': 'orange99'}
-        self.instructor_credentials = {'username': 'instructor_2',
-                                       'password': 'orange99'}
 
     def test_logged_out(self):
         '''
         Logged out out users redirected to sign in
         '''
         lesson_to_delete = Lesson.objects.get(lesson_name='Y Lesson')
-        response = self.client.get(f'/lessons/delete_lesson/{lesson_to_delete.lesson_id}', follow=True)
+
+        response = self.client.get(
+            f'/lessons/delete_lesson/{lesson_to_delete.lesson_id}',
+            follow=True)
+
         self.assertTrue(response.status_code, 200)
-        self.assertRedirects(response, f'/accounts/login/?next=/lessons/delete_lesson/{lesson_to_delete.lesson_id}')
-        self.assertContains(response, 'If you have not created an account yet, then please')
+        self.assertRedirects(response,
+                             ('/accounts/login/?next=/lessons/'
+                              f'delete_lesson/{lesson_to_delete.lesson_id}'))
+        self.assertContains(response, ('If you have not created an account '
+                                       'yet, then please'))
 
     def test_delete_lesson_valid_request(self):
         '''
@@ -44,10 +36,15 @@ class TestDeleteLessonView(TestCase):
         login_successful = self.client.login(username=instructor.user.username,
                                              password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get(f'/lessons/delete_lesson/{lesson_to_delete.lesson_id}', follow=True)
+
+        response = self.client.get(
+            f'/lessons/delete_lesson/{lesson_to_delete.lesson_id}',
+            follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/lessons/instructor_admin/')
-        self.assertFalse(Lesson.objects.filter(lesson_name='Y Lesson').exists())
+        self.assertFalse(
+            Lesson.objects.filter(lesson_name='Y Lesson').exists())
         self.assertContains(response, 'Lesson deleted')
 
     def test_invalid_lessonid(self):
@@ -58,10 +55,15 @@ class TestDeleteLessonView(TestCase):
         login_successful = self.client.login(username='instructor_1',
                                              password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get(f'/lessons/delete_lesson/{self.invalid_lesson_id}', follow=True)
+
+        response = self.client.get(
+            f'/lessons/delete_lesson/{self.invalid_lesson_id}',
+            follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/lessons/instructor_admin/')
-        self.assertContains(response, 'Invalid lesson ID, no lessons were deleted.')
+        self.assertContains(response, ('Invalid lesson ID, no lessons '
+                                       'were deleted.'))
 
     def test_delete_lesson_not_your_lesson(self):
         '''
@@ -72,7 +74,11 @@ class TestDeleteLessonView(TestCase):
         login_successful = self.client.login(username='instructor_3',
                                              password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get(f'/lessons/delete_lesson/{not_your_lesson.lesson_id}', follow=True)
+        
+        response = self.client.get(
+            f'/lessons/delete_lesson/{not_your_lesson.lesson_id}',
+            follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/lessons/instructor_admin/')
         self.assertTrue(Lesson.objects.filter(lesson_name='A Lesson').exists())
@@ -86,12 +92,16 @@ class TestDeleteLessonView(TestCase):
         login_successful = self.client.login(username='instructor_2',
                                              password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get(f'/lessons/delete_lesson/{lesson_sold.lesson_id}', follow=True)
+
+        response = self.client.get(
+            f'/lessons/delete_lesson/{lesson_sold.lesson_id}',
+            follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/lessons/instructor_admin/')
         self.assertTrue(Lesson.objects.filter(lesson_name='Z Lesson').exists())
-        self.assertContains(response, ('You cannot delete a lesson customers have '
-                                       'purchased.'))
+        self.assertContains(response, ('You cannot delete a lesson customers '
+                                       'have purchased.'))
 
     def test_delete_lesson_paid_lesson_customers_have_not_bought(self):
         '''
@@ -101,8 +111,35 @@ class TestDeleteLessonView(TestCase):
         login_successful = self.client.login(username='instructor_1',
                                              password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get(f'/lessons/delete_lesson/{lesson_not_sold.lesson_id}', follow=True)
+
+        response = self.client.get(
+            f'/lessons/delete_lesson/{lesson_not_sold.lesson_id}',
+            follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/lessons/instructor_admin/')
-        self.assertFalse(Lesson.objects.filter(lesson_name='B Lesson').exists())
+        self.assertFalse(
+            Lesson.objects.filter(lesson_name='B Lesson').exists())
         self.assertContains(response, 'Lesson deleted')
+
+    def test_normal_user_attempts_delete(self):
+        '''
+        A non-instructor cannot delete lessons
+        '''
+        lesson_to_delete = Lesson.objects.get(lesson_name='Y Lesson')
+        login_successful = self.client.login(username='complete_user',
+                                             password='orange99')
+        self.assertTrue(login_successful)
+
+        response = self.client.get(
+            f'/lessons/delete_lesson/{lesson_to_delete.lesson_id}',
+            follow=True)
+
+        self.assertRedirects(response,
+                             expected_url=reverse('home'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertTemplateUsed(response, 'home/index.html')
+        self.assertContains(response, 'Only instructors can do this.')
+        # Lesson Still exists
+        self.assertTrue(Lesson.objects.filter(lesson_name='Y Lesson').exists())
