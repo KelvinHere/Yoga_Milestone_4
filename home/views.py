@@ -97,4 +97,9 @@ def update_instructor_status(request, user_to_update, status):
 
 def handle_404(request, exception):
     """ 404 page not found view """
-    return render(request, '/404.html', status=404)
+    return render(request, '404.html', status=404)
+
+
+def handle_500(request, exception):
+    """ 500 internal server error """
+    return render(request, "500.html", status=500)
