@@ -130,7 +130,7 @@ def lessons(request):
                 messages.error(request, ('Your query returned no lessons '
                                          'please try again'))
 
-    # Apply Sort direction, if sortby = rating 
+    # Apply Sort direction, if sortby = rating
     # subsort by annotated review_count
     if sort_direction == 'asc':
         if sortby == 'rating':
@@ -317,8 +317,8 @@ def create_lesson(request):
                 lesson.instructor_profile = profile
                 lesson.save()
             else:
-                messages.error(request, ('Invalid form data, please try again. '
-                                         'No lesson was created.'))
+                messages.error(request, ('Invalid form data, please try again.'
+                                         ' No lesson was created.'))
             return redirect('instructor_admin')
         else:
             messages.error(request, 'You already have a lesson named this.')
@@ -388,9 +388,10 @@ def review_lesson(request, lesson_id):
 
     # Make sure if paid lesson, user owns it
     if not lesson.is_free:
-        if not OrderLineItem.objects.filter(profile=profile, lesson=lesson).exists():
+        if not OrderLineItem.objects.filter(profile=profile,
+                                            lesson=lesson).exists():
             messages.error(request, ('You cannot review a lesson'
-                                 ' you do not own.'))
+                                     ' you do not own.'))
             return redirect(reverse('home'))
 
     # Try to get existing review

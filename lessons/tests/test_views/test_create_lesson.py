@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.shortcuts import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from decimal import Decimal
@@ -24,7 +23,7 @@ class TestCreateLessonView(TestCase):
         Logged out users will be redirect to login page
         '''
         response = self.client.get(
-            f'/lessons/create_lesson/', follow=True)
+            '/lessons/create_lesson/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(
             response, '/accounts/login/?next=/lessons/create_lesson/')
@@ -41,8 +40,9 @@ class TestCreateLessonView(TestCase):
                                              password='orange99')
         self.assertTrue(login_successful)
 
-        response = self.client.get(
-            f'/lessons/create_lesson/', follow=True)
+        response = self.client.get('/lessons/create_lesson/',
+                                   follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/')
         self.assertContains(response, 'Only instructors can do this.')
@@ -58,7 +58,7 @@ class TestCreateLessonView(TestCase):
         self.assertTrue(login_successful)
 
         response = self.client.get(
-            f'/lessons/create_lesson', follow=True)
+            '/lessons/create_lesson', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'lessons/create_lesson.html')
 

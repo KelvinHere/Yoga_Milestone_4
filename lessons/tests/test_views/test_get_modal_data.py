@@ -1,8 +1,6 @@
 from django.test import TestCase
 from django.shortcuts import reverse
 
-import html
-
 from profiles.models import UserProfile
 from lessons.models import Lesson
 
@@ -13,10 +11,15 @@ class TestGetModalData(TestCase):
     def setUp(self):
         # Get a review
         self.lesson = Lesson.objects.filter().first()
+
         # Login as normal user and create flag on that review
-        self.flagger_profile = UserProfile.objects.get(user__username='incomplete_user')
-        login_successful = self.client.login(username=self.flagger_profile.user.username,
-                                             password='orange99')
+        self.flagger_profile = UserProfile.objects.get(
+            user__username='incomplete_user')
+
+        login_successful = self.client.login(
+            username=self.flagger_profile.user.username,
+            password='orange99')
+        self.assertTrue(login_successful)
 
     def test_get_modal_data(self):
         ''' Returns lesson information in json format '''
@@ -53,5 +56,3 @@ class TestGetModalData(TestCase):
         self.assertContains(
             response,
             'You cannot perform this action')
-
-

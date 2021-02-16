@@ -24,7 +24,7 @@ class TestLessonForm(TestCase):
         self.assertIn('card_description', form.errors.keys())
         self.assertEqual(form.errors['card_description'][0],
                          'This field is required.')
-    
+
     def test_image_required(self):
         form = LessonForm({'image': ''})
         self.assertFalse(form.is_valid())

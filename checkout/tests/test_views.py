@@ -6,6 +6,7 @@ from checkout.models import OrderLineItem, Order
 from profiles.models import UserProfile
 from lessons.models import Lesson
 
+
 class TestCheckoutViews(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
 
@@ -27,7 +28,8 @@ class TestCheckoutViews(TestCase):
         response = self.client.get('/checkout/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(response, '/accounts/login/?next=/checkout/')
-        self.assertContains(response, 'If you have not created an account yet, then please')
+        self.assertContains(response, ('If you have not created an account '
+                                       'yet, then please'))
 
     def test_checkout_valid_request(self):
         '''
@@ -66,7 +68,7 @@ class TestCheckoutViews(TestCase):
         '''
         response = self.client.get('/checkout/', follow=True)
         self.assertRedirects(response,
-                             expected_url=reverse(f'home'),
+                             expected_url=reverse('home'),
                              status_code=302,
                              target_status_code=200)
         self.assertTemplateUsed(response, 'home/index.html')
@@ -103,20 +105,21 @@ class TestCheckoutViews(TestCase):
                              status_code=302,
                              target_status_code=200)
         self.assertTemplateUsed(response, 'home/index.html')
-        self.assertContains(response, 
+        self.assertContains(response,
                             ('This order was not found, please contact '
                              f'{settings.DEFAULT_FROM_EMAIL} for support'))
 
     def test_checkout_success_not_correct_profile(self):
         '''
         Accessing an order number that does not belong
-        to logged in user on checkout success page, redirects 
+        to logged in user on checkout success page, redirects
         user home with error message
         '''
         # Login as incomplete user
         self.client.logout()
         login_successful = self.client.login(username='incomplete_user',
                                              password='orange99')
+        self.assertTrue(login_successful)
 
         # Get complete users order
         order = Order.objects.filter(

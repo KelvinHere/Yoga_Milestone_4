@@ -244,7 +244,8 @@ class TestReviewLessonView(TestCase):
                                              password='orange99')
         self.assertTrue(login_successful)
 
-        response = self.client.post(f'/lessons/review_lesson/{lesson.lesson_id}',
+        response = self.client.post(
+            f'/lessons/review_lesson/{lesson.lesson_id}',
             {"id": 1,
              "profile": profile.id,
              "lesson": lesson.id,

@@ -74,7 +74,7 @@ class TestDeleteLessonView(TestCase):
         login_successful = self.client.login(username='instructor_3',
                                              password='orange99')
         self.assertTrue(login_successful)
-        
+
         response = self.client.get(
             f'/lessons/delete_lesson/{not_your_lesson.lesson_id}',
             follow=True)

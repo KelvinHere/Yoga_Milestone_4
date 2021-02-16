@@ -53,7 +53,7 @@ class TestSubscriptionView(TestCase):
         response = self.client.get('/lessons/subscriptions/',
                                    {'subscribe': 'true',
                                     'lesson_id': self.free_lesson.lesson_id},
-                                    follow=True)
+                                   follow=True)
         self.assertTrue(response, 200)
         self.assertTrue(Subscription.objects.filter(
             lesson=self.free_lesson, user=profile).exists())

@@ -1,8 +1,6 @@
 from django.test import TestCase
 from django.shortcuts import reverse
 
-import html
-
 from profiles.models import UserProfile
 from lessons.models import LessonReview, LessonReviewFlagged
 
@@ -33,6 +31,7 @@ class TestRemoveFlagView(TestCase):
         response = self.client.get(
             '/lessons/remove_flag/',
             follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(
             response,
@@ -51,10 +50,12 @@ class TestRemoveFlagView(TestCase):
         login_successful = self.client.login(username=profile.user.username,
                                              password='orange99')
         self.assertTrue(login_successful)
+
         response = self.client.post(
             '/lessons/remove_flag/',
             data={'flagged_review_pk': self.review_flag.id},
             follow=True)
+
         self.assertRedirects(response,
                              expected_url=reverse('home'),
                              status_code=302,
@@ -73,8 +74,10 @@ class TestRemoveFlagView(TestCase):
         login_successful = self.client.login(username=profile.user.username,
                                              password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get(f'/lessons/remove_flag/',
+
+        response = self.client.get('/lessons/remove_flag/',
                                    follow=True)
+
         self.assertRedirects(response,
                              expected_url=reverse('home'),
                              status_code=302,
@@ -92,10 +95,12 @@ class TestRemoveFlagView(TestCase):
         login_successful = self.client.login(username=profile.user.username,
                                              password='orange99')
         self.assertTrue(login_successful)
+
         response = self.client.post(
             '/lessons/remove_flag/',
             data={'flagged_review_pk': self.review_flag.id},
             follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertContains(response, '"removed_flag": "True"')
         # Flag removed

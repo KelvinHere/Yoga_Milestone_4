@@ -43,12 +43,15 @@ def add_to_basket(request):
             lesson = Lesson.objects.get(lesson_id=lesson_id)
             # If lesson is free
             if lesson.is_free:
-                json_response = json.dumps({'item_added': 'invalid_item_is_free'})
+                json_response = json.dumps(
+                    {'item_added': 'invalid_item_is_free'})
+
                 return HttpResponse(json_response,
                                     content_type='application/json')
 
             # If already owned
-            if OrderLineItem.objects.filter(lesson=lesson, profile=profile).exists():
+            if OrderLineItem.objects.filter(lesson=lesson,
+                                            profile=profile).exists():
                 json_response = json.dumps({'item_added': 'already_owned'})
                 return HttpResponse(json_response,
                                     content_type='application/json')

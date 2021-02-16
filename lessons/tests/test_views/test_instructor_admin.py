@@ -10,7 +10,7 @@ class TestInstructorAdminView(TestCase):
 
     def setUp(self):
         self.user = {'username': 'complete_user',
-                              'password': 'orange99'}
+                     'password': 'orange99'}
         self.instructor = {'username': 'instructor_2',
                                        'password': 'orange99'}
 

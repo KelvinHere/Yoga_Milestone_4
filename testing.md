@@ -25,6 +25,10 @@ coverage run --source lessons manage.py test - 98%
  
  
 ## **2 - Manual Tests**
+
+Linting python code in gitpod
+`python3 -m flake8`
+Gives a list lines that are non complient.
 ***
 !!!!!!!!!!!!! Looks on different browsers / screen sizes??done
 !!!!!!!!!!!!! Code validation html /css /js etc

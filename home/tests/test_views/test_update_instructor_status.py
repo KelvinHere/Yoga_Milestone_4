@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.shortcuts import reverse
 
-from lessons.models import Subscription
 from profiles.models import UserProfile
 
 

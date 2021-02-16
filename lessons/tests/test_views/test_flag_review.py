@@ -1,8 +1,6 @@
 from django.test import TestCase
 from django.shortcuts import reverse
 
-import html
-
 from profiles.models import UserProfile
 from lessons.models import LessonReview, LessonReviewFlagged
 
@@ -18,10 +16,13 @@ class TestFlagReviewView(TestCase):
         response = self.client.get(
             f'/lessons/flag_review/{self.review.pk}/{self.review.lesson.id}',
             follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertRedirects(
             response,
-            f'/accounts/login/?next=/lessons/flag_review/{self.review.pk}/{self.review.lesson.id}')
+            ('/accounts/login/?next=/lessons/flag_review/'
+             f'{self.review.pk}/{self.review.lesson.id}'))
+
         self.assertContains(
             response,
             'If you have not created an account yet, then please')
@@ -37,14 +38,17 @@ class TestFlagReviewView(TestCase):
         login_successful = self.client.login(username=profile.user.username,
                                              password='orange99')
         self.assertTrue(login_successful)
+
         response = self.client.get(
             f'/lessons/flag_review/{invalid_review_pk}/{lesson_id}',
             follow=True)
+
         self.assertRedirects(response,
                              expected_url=reverse('studio', args=(lesson_id,)),
                              status_code=302,
                              target_status_code=200)
-        self.assertContains(response, 'Invalid review, please contact support if you think this is an error')
+        self.assertContains(response, ('Invalid review, please contact support'
+                                       ' if you think this is an error'))
 
     def test_flag_review(self):
         '''
@@ -58,13 +62,18 @@ class TestFlagReviewView(TestCase):
         login_successful = self.client.login(username=profile.user.username,
                                              password='orange99')
         self.assertTrue(login_successful)
-        response = self.client.get(f'/lessons/flag_review/{review_pk}/{lesson_id}',
-                                   follow=True)
+
+        response = self.client.get(
+            f'/lessons/flag_review/{review_pk}/{lesson_id}',
+            follow=True)
+
         self.assertRedirects(response,
                              expected_url=reverse('studio', args=(lesson_id,)),
                              status_code=302,
                              target_status_code=200)
-        self.assertContains(response, 'review has been flagged and will be reviewed by an administrator soon')
+
+        self.assertContains(response, ('review has been flagged and will be '
+                                       'reviewed by an administrator soon'))
         self.assertTrue(LessonReviewFlagged.objects.filter(
             profile=profile, review=self.review).exists())
 
@@ -77,7 +86,7 @@ class TestFlagReviewView(TestCase):
         login_successful = self.client.login(username=profile.user.username,
                                              password='orange99')
         self.assertTrue(login_successful)
-        
+
         # Create review flag
         LessonReviewFlagged.objects.create(profile=profile,
                                            review=self.review)
@@ -91,7 +100,8 @@ class TestFlagReviewView(TestCase):
                              target_status_code=200)
         self.assertContains(
             response,
-            'You have already flagged complete_user&#x27;s review, it will be reviewd by an administrator soon')
+            ('You have already flagged complete_user&#x27;s review, it will be'
+             ' reviewd by an administrator soon'))
 
     def test_flags_appear_in_superuser_admin(self):
         '''

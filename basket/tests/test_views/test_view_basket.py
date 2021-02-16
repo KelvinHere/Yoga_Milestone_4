@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.shortcuts import reverse
 from django.conf import settings
 
 import html

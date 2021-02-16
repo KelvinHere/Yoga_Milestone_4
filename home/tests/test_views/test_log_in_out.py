@@ -1,7 +1,5 @@
 from django.test import TestCase
 
-from lessons.models import Subscription
-
 
 class TestIndexView(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
@@ -22,4 +20,3 @@ class TestIndexView(TestCase):
             response,
             ('Breathe deep <strong>Instructor_1</strong> and continue your '
              'Yoga journey'))
-

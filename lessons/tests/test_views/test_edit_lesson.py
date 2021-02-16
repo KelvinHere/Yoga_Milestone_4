@@ -54,7 +54,9 @@ class TestEditLessonView(TestCase):
         self.assertTrue(login_successful)
 
         response = self.client.get(
-            f'/lessons/edit_lesson/INVALID_ID', follow=True)
+            '/lessons/edit_lesson/INVALID_ID',
+            follow=True)
+
         self.assertRedirects(response,
                              expected_url=reverse('instructor_admin'),
                              status_code=302,
@@ -80,13 +82,14 @@ class TestEditLessonView(TestCase):
 
         response = self.client.get(
             f'/lessons/edit_lesson/{another_lesson.lesson_id}', follow=True)
+
         self.assertRedirects(response,
                              expected_url=reverse('instructor_admin'),
                              status_code=302,
                              target_status_code=200)
         self.assertTemplateUsed(response, 'lessons/instructor_admin.html')
         self.assertContains(response, ('You can only edit your own lessons, '
-                                     'please check your username.'))
+                                       'please check your username.'))
 
     def test_valid_lesson_id(self):
         '''
@@ -100,7 +103,9 @@ class TestEditLessonView(TestCase):
         self.assertTrue(login_successful)
 
         response = self.client.get(
-            f'/lessons/edit_lesson/{self.lesson.lesson_id}', follow=True)
+            f'/lessons/edit_lesson/{self.lesson.lesson_id}',
+            follow=True)
+
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'lessons/edit_lesson.html')
         self.assertContains(response, self.lesson.lesson_name)
@@ -163,5 +168,4 @@ class TestEditLessonView(TestCase):
                             'Updated from a form with bad price data')
         self.assertNotEqual(updated_lesson.price, 'INVALID_PRICE_FOR_FORM')
         self.assertContains(response, ('Invalid form data, please try again. '
-                                     'No lessons were updated.'))
-
+                                       'No lessons were updated.'))
