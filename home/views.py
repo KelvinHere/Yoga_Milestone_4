@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from lessons.models import Subscription, LessonReviewFlagged
-from profiles.models import UserProfile, User
+from profiles.models import UserProfile
 
 from yoga.utils import get_profile_or_none
 
@@ -81,7 +81,7 @@ def update_instructor_status(request, user_to_update, status):
         update_profile = UserProfile.objects.get(user__username=user_to_update)
     except Exception:
         messages.error(request, 'User does not exist.')
-        return redirect(reverse('superuser_admin'))    
+        return redirect(reverse('superuser_admin'))
 
     if status == 'accept':
         update_profile.is_instructor = True

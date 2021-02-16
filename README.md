@@ -16,7 +16,6 @@ tools, set lesson prices and view the details of all the sales they have made on
 contact email and social media links
 image change on forms
 make a JS carouselle on the front page from random lessons
-lesson flags count down when being dealt with
 
 404 page
 setup development database before submitting
