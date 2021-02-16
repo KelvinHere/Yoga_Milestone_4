@@ -17,9 +17,6 @@ contact email and social media links
 image change on forms
 make a JS carouselle on the front page from random lessons
 
-404 page
-setup development database before submitting
-
 ## Bugs
 Error on stripe checkout when checking out on deployed version
 
