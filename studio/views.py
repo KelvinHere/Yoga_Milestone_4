@@ -37,7 +37,8 @@ def studio(request, id):
     }
 
     if (paid_lessons.filter(lesson=lesson) or lesson.is_free or
-            lesson.instructor_profile == profile):
+            lesson.instructor_profile == profile or
+            profile.user.is_superuser):
         return render(request, template, context)
     else:
         messages.error(request, 'You do not own this lesson.')
