@@ -3,11 +3,6 @@
 
 {% block page_header %}
 <div class="container header-container">
-    <div class="row">
-        <div class="col">
-            <h1 class="text-center title-text my-3 {% if show_discount_banner %}pt-xl-4{% endif %}">Page Not Found : 404</h1>
-        </div>
-    </div>
 </div>
 
 {% endblock %}
@@ -16,6 +11,7 @@
         <div class="account-overlay"></div>
         <div class="account-container pt-4 d-flex justify-content-center">
             <div class="row bg-white py-4 px-2 account-border">
+                <h1 class="text-center title-text my-3 {% if show_discount_banner %}pt-xl-4{% endif %}">Page Not Found : 404</h1>
                 <div class="col-12">
                     <a class="btn btn-lg btn-custom-darken" href="#" role="button">
                         <strong>Home Page</strong>
