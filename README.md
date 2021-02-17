@@ -159,7 +159,7 @@ and content which will become the heart of the app.
  
 A quick review of features on the site, more detailed descriptions further down.
  
-- User can:
+- **User can**:
     - Register / Sign In / Signout / Confirm Email / Reset Password
     - View their profile
         - Edit their profile
@@ -187,13 +187,13 @@ A quick review of features on the site, more detailed descriptions further down.
         - Create / Edit / Delete their reviews
         - Flag a review for administrator review
  
-- Instructor can:
+- **Instructor can**:
     - Do anything a User can
     - View a list of lessons they created
         - Create / Edit / Delete their lessons
     - View their sales
  
-- Administrator can:
+- **Administrator can**:
     - Do anything a User can
     - View all requests to be an instructor
         - Accept / Reject that request
