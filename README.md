@@ -671,6 +671,12 @@ The enviromental variables here allow the app to automatically switch between de
 * [Sun salutation image](https://www.ladylair.net/yoga-sun-salutation-poses/)
 * [Yoga Pose Clipart](http://clipart-library.com/images/kcMK47bXi.jpg)
 * [Illustrated Pose Images](https://www.sheknows.com/health-and-wellness/articles/1020135/12-basic-yoga-poses-for-beginners/)
+* [AdrianasCoreWorkout](https://www.90monkeys.com/2017/08/60-minute-yoga-class-watering-fullness-yoga/)
+* [AdrianasBreathClass.jpg](https://pixabay.com/photos/women-yoga-classes-asana-fitness-1178187/)
+* [AdrianasFocusedMind.jpg](https://pixabay.com/photos/woman-happiness-sunrise-silhouette-570883/)
+* [AdrianasMeditationHour](https://pixabay.com/photos/women-yoga-classes-fitness-asana-1179435/)
+* [young-woman-1178123_1920](https://pixabay.com/photos/young-woman-yoga-classes-fitness-1178123/)
+
  
  
 ### Acknowledgements
