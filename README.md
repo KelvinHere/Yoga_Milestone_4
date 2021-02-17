@@ -479,7 +479,7 @@ project, they are listed below.
  
 ## Testing
  
-[Testing Documentation](#) - Documentation for testing
+[Testing Documentation](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/testing.md) - Documentation for testing
  
 ## Technologies Used
  
