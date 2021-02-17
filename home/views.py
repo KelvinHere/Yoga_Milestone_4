@@ -87,7 +87,7 @@ def update_instructor_status(request, user_to_update, status):
         update_profile.is_instructor = True
         update_profile.requested_instructor_status = True
         update_profile.save()
-    elif status == 'reject':
+    elif status == 'rejectremove':
         update_profile.is_instructor = False
         update_profile.requested_instructor_status = False
         update_profile.save()

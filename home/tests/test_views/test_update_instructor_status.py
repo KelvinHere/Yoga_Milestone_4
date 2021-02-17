@@ -109,7 +109,7 @@ class TestIndexView(TestCase):
         self.assertTrue(login_successful)
 
         response = self.client.get(
-            f'/update_instructor_status/{request_from}/reject',
+            f'/update_instructor_status/{request_from}/rejectremove',
             follow=True)
 
         self.assertRedirects(response,
