@@ -34,8 +34,7 @@ class UserProfile(models.Model):
 
     def test_profile_is_complete(self):
         """ Tests to see if the profile is complete returns bool """
-        if (self.first_name and self.last_name and
-                self.profile_description and self.image):
+        if (self.first_name and self.last_name and self.image):
             return True
         else:
             return False
@@ -64,7 +63,7 @@ class UserProfile(models.Model):
         self.save()
 
 
-@receiver(post_save, sender=User)
+#@receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
     Create or update the user profile through signals/reciever

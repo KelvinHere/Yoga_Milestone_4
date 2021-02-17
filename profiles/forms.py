@@ -39,7 +39,8 @@ class ProfileForm(forms.ModelForm):
                 )
         else:
             profile_description_placeholder = (
-                'Optional, something about you.')
+                ('Optional for students, Something about you.\n'
+                 'Required for instructors, About your studio.'))
             self.fields['card_description'].widget = forms.HiddenInput()
 
         self.fields['user'].disabled = True

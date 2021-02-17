@@ -5,4 +5,7 @@ class TestProfileForm(TestCase):
 
     def test_form_method_profile_is_complete_false(self):
         '''
-        An incomplete profile should
+        An incomplete profile (no first name, last
+        name or profile image returns false
+        '''
+        
