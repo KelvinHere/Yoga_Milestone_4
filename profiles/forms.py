@@ -7,16 +7,14 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = '__all__'
-        widgets = {
-            'user': forms.HiddenInput,
-            'is_instructor': forms.HiddenInput,
-            'rating': forms.HiddenInput,
-            'requested_instructor_status': forms.HiddenInput,
-        }
+        fields = ['first_name',
+                  'last_name',
+                  'card_description',
+                  'profile_description',
+                  'image',
+                  ]
         labels = {
             'card_description': 'Instructor card description',
-            'profile_description': 'About You',
         }
 
     # Over-ride init
@@ -27,25 +25,27 @@ class ProfileForm(forms.ModelForm):
         if self.profile.is_instructor:
             profile_description_placeholder = (
                 'This is displayed as a header above your lessons '
-                ' when a user enters your studio.')
+                'when a user enters your studio.')
+            
             card_desctiption_placeholder = (
                 'This will be shown on your instructor card, when users '
                 'search for instructors.')
+            
             self.fields['card_description'].widget = forms.Textarea(
                 attrs={'rows': 3,
                        'cols': 25,
                        'maxlength': 254,
                        'placeholder': card_desctiption_placeholder}
                 )
+            self.fields['profile_description'].label = 'Instructor Studio Info'
         else:
             profile_description_placeholder = (
                 ('Optional for students: Something about you.\n'
                  'Required for instructors: About yourself and studio.'))
+            
             self.fields['card_description'].widget = forms.HiddenInput()
+            self.fields['profile_description'].label = 'About You'
 
-        self.fields['user'].disabled = True
-        self.fields['is_instructor'].disabled = True
-        self.fields['rating'].disabled = True
         self.fields['profile_description'].widget = forms.Textarea(
             attrs={'placeholder': profile_description_placeholder}
         )

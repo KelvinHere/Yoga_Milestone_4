@@ -85,7 +85,7 @@ class TestInstructorAdminView(TestCase):
                              'card and profile data help users choose your '
                              'lessons.  Thankyou.'))
 
-        self.assertContains(response, 'Complete Instructor Profile')
+        self.assertContains(response, 'Complete Your Instructor Profile')
 
     def test_instructor_not_completed_card_description(self):
         '''
@@ -115,4 +115,4 @@ class TestInstructorAdminView(TestCase):
                              'card and profile data help users choose your '
                              'lessons.  Thankyou.'))
 
-        self.assertContains(response, 'Complete Instructor Profile')
+        self.assertContains(response, 'Complete Your Instructor Profile')
