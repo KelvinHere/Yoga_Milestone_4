@@ -16,28 +16,61 @@
 4. [**Interesting Bugs Solved**](#4---interesting-bugs-solved)
  
 ## **1 - Automated Tests**
-***You must remove the signal for create user profile when running the automated tests (receiver in profiles.models.py)***
-coverage run --source lessons manage.py test - 98%
- 
-## **Code Validation**
+
+Automated testing carried out by unit testing, and coverage of these tests was monitored by using **Coverage** (`pip3 install coverage`), coverage will create a report to show how much of the code is covered by the unit tests.
+
+Coverage can be run on individial apps like this `coverage run --source lessons manage.py test`
+The report from this can be viewed simply with `coverage report`
+Create an in depth report with visulisation of the code tested with `coverage html`
+View this indepth report by viewing **index.html** in the directory **htmlcov** in gitpod by
+    - starting a http server `python3 -m http.server`
+    - open the port and navigate to **htmlcov/index.html**
+
+### Running unit tests from the console
+Create a local deployment as explained on ['Local Deployment' section of readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment)
+
+This apps unit tests use fixtures in the **profiles app**, for these to be loaded correctly the automatic creation of user profiles must be disabled in **Profiles app > models.py** the reciever decorator above `def create_or_update_user_profile` function must be commented out.
+
+- To run all the tests
+    - From the console run `python3 manage.py test`
+
+- To run tests on an app, ie lessons app
+    - From the console run `python3 manage.py test lessons`
+
+You can keep narrowing the search requirements down like `python3 manage.py test lessons.tests.test_views.test_create_lesson` for example, depending on directory structure.
+
+### My Unit Test Results
+![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/tests/unit_tests_run_all.jpg "Unit Tests")
+
 ## **Unit Testing**
 ## **Writing your own unittests**
+## **Code Validation**
  
  
 ## **2 - Manual Tests**
 
-Linting python code in gitpod
-`python3 -m flake8`
-Gives a list lines that are non complient.
-***
-!!!!!!!!!!!!! Looks on different browsers / screen sizes??done
+### Browser testing
+- This project has had all its pages and responsive states viewed on the following browsers.
+    - Chrome
+    - Firefox
+    - Edge
+    - Opera
+
+### Code linting and compliance
+
+#### Python
+The python code in this project was linted by using `python3 -m flake8`, this gives a list of lines that are non complient and a link to quickly access and correct them.
+Some select lines were not corrected as it would make the code harder to read or break links.
+
+#### HTML
 !!!!!!!!!!!!! Code validation html /css /js etc
-!!!!!!!!!!!!! 
-!!!!!!!!!!!!! 
-!!!!!!!!!!!!! 
-!!!!!!!!!!!!! 
-!!!!!!!!!!!!! 
- 
+
+#### CSS
+!!!!!!!!!!!!!
+
+#### JavaScript
+!!!!!!!!!!!!!!
+
 ## **Site Actions Tested**
 - User can:
     - Register / Sign In / Signout / Confirm Email / Reset Password
