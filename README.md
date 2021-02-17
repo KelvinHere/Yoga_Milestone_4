@@ -25,9 +25,8 @@ tools, set lesson prices and view the details of all the sales they have made on
 1. [**UX**](#ux)
    * [Project Purpose](#project-purpose)
    * [Wireframe Designs](#wireframe-designs)
-   * [User Stories](#user-stories)
    * [Database](#database)
-   * [Business Goals](#business-goals)
+   * [User Stories](#user-stories)
    * [Developer Goals](#developer-goals)
    * [Design Choices](#design-choices)   
        * [*General Design*](#general-design)
@@ -43,11 +42,10 @@ tools, set lesson prices and view the details of all the sales they have made on
    * [Basket Page Features](#basket-page-features)
    * [Checkout Success Page Features](#checkout-success-page-features)
    * [Performance](#performance)
-   * [Feature Changes During Development](#feature-changes-during-development)
-   * [Future Features](#future-features)
-       * [*Near Future*](#near-future)
-       * [*Far Future*](#far-future)
 3. * [**Changes during Development**](#changes-during-development)
+       * [Future Features](#future-features)
+       * [Near Future](#near-future)
+       * [Far Future](#far-future)
 4. * [**Testing**](#testing)
 5. * [**Technologies Used**](#technologies-used)
 6. * [**Deployment**](#deployment)
@@ -447,7 +445,7 @@ Regarding signals, if for any reason an `OrderLineItem` (the database entry that
     - Action: After a review is created and saved it will call its lesson to run a method to update its average score.  This is only done when a review is created, once the lesson rating is updated it will call the Instructor that created it to run a method that updates their score from all their (precalculated) lesson ratings.
     - Result: Now when a lesson list is called the average scores have been pre-calculated and in this example only 100 objects in the queryset are returned as opposed to 100,000
  
-### Feature Changes during development
+## Changes during development
 As this was a learning project some changes were made in development to get the most out of it.  Most notably I changed 
 a "book video time" feature with a "paid lesson" feature.  This allowed me to make a more comprehensive "store", and create
 a system where once a lesson is paid for is is unlocked for the user, showing another example of defensive programming in
@@ -460,12 +458,12 @@ of the results than to cram more results onto a single page, this combined with 
 The database was changed over the course of the project as I added more interesting features to the app, such as the rating
 cascading rating system and review / review flagging system.
  
-### Future Features
+#### Future Features
  
 In making this app, there are ideas I would like to implement at a later date that are beyond the scope and deadline of this
 project, they are listed below.
  
-##### Near Future
+#### Near Future
 - Implement a time limit on uploading images so a user cannot spam images to the application.
 - Use a private video hosting service to give the site more control and better security for paid lessons (sharing of urls).
 - Ignore users flags feature, will allow an administrator to ignore flags created by a user in case they misuse this feature.
@@ -473,7 +471,7 @@ project, they are listed below.
     - Check lesson was on at a normal price for at least 2 months
     - When taken off sale cannot be put back on sale for at least 2 months to avoid spamming sales to reach the front page.
  
-##### Far Future
+#### Far Future
 - Refactor the instructor logic with the `@permission_required` decorator to remove a lot or repeated checks for `.is_instructor` in the UserProfile model
 - Create live-streaming paid lessons, where an instructor can sell limited positions to join realtime lessons with direct tutor feedback.
  

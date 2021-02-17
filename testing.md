@@ -5,7 +5,7 @@
    * [Unit Testing](#unit-testing)
    * [Writing your own unittests](#writing-your-own-unittests)
 2. [**Manual Testing**](#2---manual-tests)
-   * [Site Actions Tested](#site-actions)
+   * [Site Actions Tested](#site-actions-tested)
    * [Home Page](#home-page)
    * [Lessons Page](#lessons-page)
    * [Profile Page](#profile-page)
@@ -15,8 +15,8 @@
 3. [**User Stories Solved**](#3---user-stories-solved)
 4. [**Interesting Bugs Solved**](#4---interesting-bugs-solved)
  
-## **1 - Automated Tests**
-
+## 1 - Automated Tests
+***
 Automated testing carried out by unit testing, and coverage of these tests was monitored by using **Coverage** (`pip3 install coverage`), coverage will create a report to show how much of the code is covered by the unit tests.
 
 Coverage can be run on individial apps like this `coverage run --source lessons manage.py test`
@@ -140,13 +140,11 @@ You can keep narrowing the search requirements down like `python3 manage.py test
 ### My Unit Test Results
 ![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/tests/unit_tests_run_all.jpg "Unit Tests")
 
-## **Unit Testing**
 ## **Writing your own unittests**
-## **Code Validation**
- 
- 
-## **2 - Manual Tests**
+!!!!!!!!!!!!!!!!!!!
 
+## 2 - Manual Tests
+***
 ### Browser testing
 - This project has had all its pages and responsive states viewed on the following browsers.
     - Chrome
