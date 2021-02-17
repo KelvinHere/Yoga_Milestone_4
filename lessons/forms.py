@@ -9,17 +9,19 @@ class LessonForm(forms.ModelForm):
 
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = ['lesson_name',
+                  'card_description',
+                  'description',
+                  'image',
+                  'video_url',
+                  'time',
+                  'price',
+                 ]
 
         image = forms.ImageField(label='Image',
                                  required=True,
                                  widget=CustomClearableFileInput)
 
-        widgets = {
-            'instructor_profile': forms.HiddenInput,
-            'rating': forms.HiddenInput,
-            'is_free': forms.HiddenInput
-        }
         labels = {
             'card_description': 'Short Description for lesson card',
             'description': 'Lesson Description',
@@ -31,9 +33,6 @@ class LessonForm(forms.ModelForm):
     # Over-ride init
     def __init__(self, *args, **kwargs):
         super(LessonForm, self).__init__(*args, **kwargs)
-        self.fields['instructor_profile'].disabled = True
-        self.fields['rating'].disabled = True
-        self.fields['is_free'].disabled = True
         self.fields['card_description'].widget = forms.Textarea(attrs={
             'rows': 3,
             'cols': 25,

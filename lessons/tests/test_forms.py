@@ -53,11 +53,16 @@ class TestLessonForm(TestCase):
         self.assertEqual(form.errors['price'][0],
                          'This field is required.')
 
-    def test_sensitive_fields_are_disabled(self):
+    def test_fields_are_explicit_in_metaclass(self):
         form = LessonForm()
-        self.assertEqual(form.fields['instructor_profile'].disabled, True)
-        self.assertEqual(form.fields['rating'].disabled, True)
-        self.assertEqual(form.fields['is_free'].disabled, True)
+        self.assertEqual(form.Meta.fields, ['lesson_name',
+                                            'card_description',
+                                            'description',
+                                            'image',
+                                            'video_url',
+                                            'time',
+                                            'price',
+                                            ])
 
 
 class TestReviewForm(TestCase):
@@ -76,4 +81,25 @@ class TestReviewForm(TestCase):
         self.assertEqual(form.errors['rating'][0],
                          'This field is required.')
 
-    # Sensitive fields handled in lessons.review view
+    def test_fields_hidden_fields(self):
+        '''
+        Test that hidden fields widget is
+        applied to appropriate fields
+        '''
+        form = ReviewForm()
+
+        self.assertIn(
+            'django.forms.widgets.HiddenInput',
+            str(form.fields['profile'].widget))
+
+        self.assertIn(
+            'django.forms.widgets.HiddenInput',
+            str(form.fields['lesson'].widget))
+
+        self.assertIn(
+            'django.forms.widgets.HiddenInput',
+            str(form.fields['date'].widget))
+
+        self.assertIn(
+            'django.forms.widgets.HiddenInput',
+            str(form.fields['rating'].widget))
