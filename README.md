@@ -474,6 +474,7 @@ project, they are listed below.
     - When taken off sale cannot be put back on sale for at least 2 months to avoid spamming sales to reach the front page.
  
 ##### Far Future
+- Refactor the instructor logic with the `@permission_required` decorator to remove a lot or repeated checks for `.is_instructor` in the UserProfile model
 - Create live-streaming paid lessons, where an instructor can sell limited positions to join realtime lessons with direct tutor feedback.
  
 ## Testing
