@@ -105,7 +105,7 @@
                                             <p class="m-0 pl-2">Email : {{ instructor.user.email }}</p>
                                         </div>
                                         <div class="col-12 col-sm-4 p-2 d-flex">
-                                            <p class="m-auto"><a class="btn btn-danger" href="{% url 'update_instructor_status' instructor 'remove' %}" role="button">Remove</a></p>
+                                            <p class="m-auto"><a class="btn btn-danger" href="{% url 'update_instructor_status' instructor 'rejectremove' %}" role="button">Remove</a></p>
                                         </div>
                                     </div>
                                 {% endfor %}
