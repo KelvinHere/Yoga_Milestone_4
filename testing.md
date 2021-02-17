@@ -510,11 +510,11 @@ Some select lines were not corrected as it would make the code harder to read or
 ## 4 - Interesting Bugs Solved
 ***
 - **Instructor deletes lesson that is already a users basket**
-- Situation - If an instructor deletes a lesson that is already in a users basket the user will receive a 404 error whenever the basket context processor is called because of this line `lesson = get_object_or_404(Lesson, lesson_id=lesson_id)`
+- Situation - If an instructor deletes a lesson that is already in a users basket the user will receive a 404 error whenever the basket context processor is called because the lesson no longer exists in the database but its ID is still in the users basket.
  
-- Task - Have the context processor handle lessons that have become invalid.
+- Task - Have the basket context processor handle lessons that have become invalid.
  
-- Action - An `if` statement with djangos built in `.exists()` method checks to see if a lesson is still valid, if it is not the lesson_id is added to a list to be dealt with once the basket has been iterated through.  I did this as removing elements from a dictionary while iterating through it is a bad idea.  Once this is done lesson_ids in the invalid lessons list are popped off the basket session.
+- Action - Use djangos built in `.exists()` method to check if a lessons in the basket are still valid, if it is not the case the lesson_id is added to a removal list to be dealt with once the basket has been iterated through.  I did this as removing elements from a list or dictionary while iterating through it is a bad idea.  Once this is done lesson_ids in the invalid lessons list are popped off the basket session.
  
     - Code Before
     ```
@@ -552,7 +552,9 @@ Some select lines were not corrected as it would make the code harder to read or
             basket.pop(invalid_lesson)
         invalid_lessons_to_remove = []
     ```
- 
+
+- Result - The lesson is removed from the basket before the user can get a 404 error.
+***
 - **'Sort lesson by rating - high to low' feature had all non-rated lessons listed at the top**
 - Situation - Code would show unrated lessons higher than rated lessons
  
@@ -571,7 +573,7 @@ Some select lines were not corrected as it would make the code harder to read or
         lessons = lessons.order_by(F(sortkey).desc(nulls_last=True))
     ```
 - Result - The lessons are now sorted correctly, though I can't append a simple tag `-` to reverse the sort direction so an if else statement is used instead
- 
+ ***
 - **Anonymous users**
 - Situation - A lot of features on this site require a user profile to function properly, catering to anonymous users involved a lot of code to `try:` getting the user profile with `get_object_or_404` bloating code
  
@@ -589,7 +591,7 @@ Some select lines were not corrected as it would make the code harder to read or
     ```
  
 - Result - Any part of the app where it matters if a user is logged in or not will use a single line `get_profile_or_none(request)` to return a valid profile or a None object, reducing patterns in the code.
- 
+ ***
 - **MEDIA_URL on a template no going through django's interpreter**
  
 - Situation - 'Lesson modal' content reviews and lesson description are retrieved through a json response, this html string is created from a template using render to string, when being created the {{ MEDIA_URL }} is not rendered into the string, giving the wrong url to the default_profile_image.jpg
@@ -615,4 +617,3 @@ Some select lines were not corrected as it would make the code harder to read or
 ```
 - Result - The static file now has access to the CSRF Token again and the buttons function correctly
  
-
