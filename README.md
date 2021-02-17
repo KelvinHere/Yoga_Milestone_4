@@ -13,12 +13,12 @@ tools, set lesson prices and view the details of all the sales they have made on
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
  
 ## ToDo
-contact email and social media links
-image change on forms
-make a JS carousel on the front page from random lessons
+- contact email and social media links
+- image change on forms
+- make a JS carousel on the front page from random lessons
  
 ## Bugs
-Error on stripe checkout when checking out on deployed version
+- Error on stripe checkout when checking out on deployed version
  
 ## Contents
  
