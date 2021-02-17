@@ -95,7 +95,7 @@ students to sell their premium lessons to.
  
 #### User Stories
  
-**ID** | **As A/AN** | **I want to be able to...** | **So that I can**
+**ID** | **As a/an** | **I want to be able to...** | **So that I can**
 --- | --- | --- | ---
 1 | Site User | Register to the site | Have a personalised experience 
 2 | " | Quickly Login/Out | To access my subscriptions and purchases

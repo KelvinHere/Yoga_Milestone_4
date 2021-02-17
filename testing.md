@@ -26,6 +26,104 @@ View this indepth report by viewing **index.html** in the directory **htmlcov** 
     - starting a http server `python3 -m http.server`
     - open the port and navigate to **htmlcov/index.html**
 
+**Current Coverage Report**
+Name                                                          |Stmts    |Miss  |Cover
+--------------------------------------------------------------|---------|------|------
+basket/__init__.py                                            |    0    |  0   |100%
+basket/admin.py                                               |    0    |  0   |100%
+basket/apps.py                                                |    3    |  3   |  0%
+basket/contexts.py                                            |   31    |  4   | 87%
+basket/models.py                                              |    0    |  0   |100%
+basket/tests/__init__.py                                      |    0    |  0   |100%
+basket/tests/test_views/__init__.py                           |    0    |  0   |100%
+basket/tests/test_views/test_add_to_basket.py                 |   47    |  0   |100%
+basket/tests/test_views/test_remove_from_basket.py            |   34    |  0   |100%
+basket/tests/test_views/test_view_basket.py                   |   57    |  0   |100%
+basket/urls.py                                                |    3    |  0   |100%
+basket/views.py                                               |   59    |  5   | 92%
+checkout/__init__.py                                          |    1    |  0   |100%
+checkout/admin.py                                             |   11    |  0   |100%
+checkout/apps.py                                              |    5    |  0   |100%
+checkout/forms.py                                             |   11    |  0   |100%
+checkout/models.py                                            |   44    |  6   | 86%
+checkout/signals.py                                           |   15    |  0   |100%
+checkout/tests/__init__.py                                    |    0    |  0   |100%
+checkout/tests/test_forms.py                                  |   16    |  0   |100%
+checkout/tests/test_views.py                                  |   61    |  1   | 98%
+checkout/urls.py                                              |    4    |  0   |100%
+checkout/views.py                                             |   80    | 29   | 64%
+checkout/webhook_handler.py                                   |   58    | 41   | 29%
+checkout/webhooks.py                                          |   28    | 19   | 32%
+custom_storages.py                                            |    6    |  6   |  0%
+home/__init__.py                                              |    0    |  0   |100%
+home/admin.py                                                 |    0    |  0   |100%
+home/apps.py                                                  |    3    |  3   |  0%
+home/contexts.py                                              |   13    |  0   |100%
+home/models.py                                                |    0    |  0   |100%
+home/tests/__init__.py                                        |    0    |  0   |100%
+home/tests/test_views/__init__.py                             |    0    |  0   |100%
+home/tests/test_views/test_index.py                           |   35    |  0   |100%
+home/tests/test_views/test_log_in_out.py                      |   11    |  0   |100%
+home/tests/test_views/test_superuser_admin.py                 |   40    |  0   |100%
+home/tests/test_views/test_update_instructor_status.py        |   62    |  0   |100%
+home/urls.py                                                  |    3    |  0   |100%
+home/views.py                                                 |   58    |  2   | 97%
+lessons/__init__.py                                           |    0    |  0   |100%
+lessons/admin.py                                              |   18    |  0   |100%
+lessons/apps.py                                               |    3    |  3   |  0%
+lessons/forms.py                                              |   26    |  0   |100%
+lessons/models.py                                             |   71    |  6   | 92%
+lessons/templatetags/site_utils.py                            |   10    |  0   |100%
+lessons/tests/__init__.py                                     |    0    |  0   |100%
+lessons/tests/test_forms.py                                   |   58    |  0   |100%
+lessons/tests/test_views/__init__.py                          |    0    |  0   |100%
+lessons/tests/test_views/test_create_lesson.py                |   55    |  0   |100%
+lessons/tests/test_views/test_delete_lesson.py                |   66    |  0   |100%
+lessons/tests/test_views/test_delete_review.py                |   52    |  0   |100%
+lessons/tests/test_views/test_edit_lesson.py                  |   77    |  0   |100%
+lessons/tests/test_views/test_flag_review.py                  |   57    |  0   |100%
+lessons/tests/test_views/test_get_modal_data.py               |   28    |  0   |100%
+lessons/tests/test_views/test_instructor_admin.py             |   47    |  0   |100%
+lessons/tests/test_views/test_lessons.py                      |  140    |  0   |100%
+lessons/tests/test_views/test_remove_flag.py                  |   43    |  0   |100%
+lessons/tests/test_views/test_review_lesson.py                |  113    |  0   |100%
+lessons/tests/test_views/test_subscriptions.py                |   62    |  0   |100%
+lessons/urls.py                                               |    3    |  0   |100%
+lessons/views.py                                              |  325    |  9   | 97%
+lessons/widgets.py                                            |    7    |  0   |100%
+manage.py                                                     |   12    |  2   | 83%
+profiles/__init__.py                                          |    0    |  0   |100%
+profiles/admin.py                                             |   12    |  0   |100%
+profiles/apps.py                                              |    3    |  3   |  0%
+profiles/forms.py                                             |   19    |  0   |100%
+profiles/models.py                                            |   43    |  5   | 88%
+profiles/tests/__init__.py                                    |    0    |  0   |100%
+profiles/tests/test_forms.py                                  |   52    |  0   |100%
+profiles/tests/test_views/__init__.py                         |    0    |  0   |100%
+profiles/tests/test_views/test_edit_profile.py                |   31    |  0   |100%
+profiles/tests/test_views/test_instructors.py                 |  114    |  0   |100%
+profiles/tests/test_views/test_profile.py                     |   13    |  0   |100%
+profiles/tests/test_views/test_request_instructor_status.py   |   23    |  0   |100%
+profiles/urls.py                                              |    3    |  0   |100%
+profiles/views.py                                             |   83    | 10   | 88%
+studio/__init__.py                                            |    0    |  0   |100%
+studio/admin.py                                               |    0    |  0   |100%
+studio/apps.py                                                |    3    |  3   |  0%
+studio/models.py                                              |    0    |  0   |100%
+studio/tests/__init__.py                                      |    0    |  0   |100%
+studio/tests/test_views.py                                    |   46    |  0   |100%
+studio/urls.py                                                |    3    |  0   |100%
+studio/views.py                                               |   25    |  0   |100%
+yoga/__init__.py                                              |    0    |  0   |100%
+yoga/asgi.py                                                  |    4    |  4   |  0%
+yoga/settings.py                                              |   68    | 21   | 69%
+yoga/urls.py                                                  |    7    |  0   |100%
+yoga/utils.py                                                 |   20    |  0   |100%
+yoga/wsgi.py                                                  |    4    |  4   |  0%
+--------------------------------------------------------------|---------|------|-----
+TOTAL                                                         | 2648    |189   | 93%
+
+
 ### Running unit tests from the console
 Create a local deployment as explained on ['Local Deployment' section of readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment)
 
