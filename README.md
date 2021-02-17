@@ -615,13 +615,41 @@ The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed wi
     - The App should now be running through Heroku
  
 ### Differences - Local and deployed
- 
-- !!!!!!!!!!! Code and env vars to switch between dev and deployment
- 
+
+The enviromental variables here allow the app to automatically switch between development mode and deployed.  They also handle what database to connect to, cloud storage, email access and stripe payments.  Below is a list of deployed vs developer enviromental variables.
+
+- Local version
+    - `DATABASE_URL` var is not present in the environment, the database will default to the local sqlite3
+    - `DEVELOPEMENT` is present in the environment, DEBUG will = True, debug messages will be available and email authentication will be availavle through the console
+    - `USE_AWS` is not present in the enviroment, static and media file storage stay local
+
+- Deployed version (Heroku)
+    - `DATABASE_URL` contains the postgres url
+    - `DEVELOPMENT` is not present and DEBUG will be false, stopping any sensitive information leaking out to the internet
+    
+    - `USE_AWS` is present and settings.py will define all the variables for amazon S3 storage for media and static files
+    - `AWS_ACCESS_KEY_ID` public access key for S3 storage
+    - `AWS_SECRET_ACCESS_KEY` secret access key for S3 storage
+
+    - `DISABLE_COLLECTSTATIC` when present stops redeploying all static and media files to S3 storage
+
+    - `EMAIL_HOST_USER` email address for django to send emails from
+    - `EMAIL_HOST_PASS` password to access the email address
+
+    - `SECRET_KEY` djangos secret key for protecting signed data
+
+    - `STRIPE_PUBLIC_KEY` stripes public key
+    - `STRIPE_SECRET_KEY` stripes secret key to protect signed data
+    - `STRIPE_WH_SECRET` stripes secret key for webhooks to protect signed data
+
 ## Credits
  
 - [Code](https://stackoverflow.com/questions/26298821/django-testing-model-with-imagefield) - Films answer: For testing an imagefield without an image
-- [Colour scheme inspired by icolorpalette](https://icolorpalette.com/palette-by-themes/yoga) - How to create an image without an image file for testing image fields in forms in tests. `small_gif = (b'\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x05\x04\x04\x00\x00\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3b')`
+- [Colour scheme inspired by icolorpalette](https://icolorpalette.com/palette-by-themes/yoga) - How to create an image without an image file for testing image fields in forms in tests.
+    ```
+    small_gif = (b'\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x05\x04\x04\x00\x00
+                    \x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3b')
+    ```
 - [Generated Photos](https://generated.photos/) - AI generated Student Faces used for student profiles
  
  
