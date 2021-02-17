@@ -501,10 +501,10 @@ Some select lines were not corrected as it would make the code harder to read or
 12 | Instructor | Create free lessons | Get students interested in me | **Instructors can make free lessons**
 13 | " | Create paid lessons and price them | Earn some money for my time | **Instructors can create and price paid lessons**
 14 | " | Edit / Delete my lessons | Remove a lesson or mistakes from one | **Instructors can use instructor admin page to perform these tasks**
-15 | " | View lesson sales | To see my earnings and how well a lesson is performing **Instructors can view their sales in instructor admin page**
-16 | Administrator | See requests from instructors | Vet them and grant/reject them instructor status **Superuser Admin page displays these requests with appropriate action buttons**
-17 | " | Remove instructor status from an instructor | remove instructors that break rules or are inactive **Superuser Admin page can display all instructors with appropriate action button**
-18 | " | View flagged comments | Decide to remove the review if it is inappropriate **Superuser Admin page displays these flags with appropriate action buttons**
+15 | " | View lesson sales | To see my earnings and how well a lesson is performing | **Instructors can view their sales in instructor admin page**
+16 | Administrator | See requests from instructors | Vet them and grant/reject them instructor status | **Superuser Admin page displays these requests with appropriate action buttons**
+17 | " | Remove instructor status from an instructor | remove instructors that break rules or are inactive | **Superuser Admin page can display all instructors with appropriate action button**
+18 | " | View flagged comments | Decide to remove the review if it is inappropriate | **Superuser Admin page displays these flags with appropriate action buttons**
  
  
 ## 4 - Interesting Bugs Solved
