@@ -54,10 +54,10 @@ class TestIndexView(TestCase):
         self.assertTemplateUsed(response, 'home/superuser_admin.html')
         self.assertContains(response, 'User does not exist.')
 
-    def test_superuser_update_status_not_accept(self):
+    def test_superuser_update_status_invalid(self):
         '''
-        Superusers submitting any status other than accept will
-        default to the request being rejected
+        Superusers submitting an invalid stats
+        will get an error messagge
         '''
         # User who has requested instructor status and check status
         request_from = UserProfile.objects.get(user__username='complete_user')
@@ -80,18 +80,57 @@ class TestIndexView(TestCase):
                              status_code=302,
                              target_status_code=200)
         self.assertTemplateUsed(response, 'home/superuser_admin.html')
-        self.assertNotContains(
-            response, f'id="acive-instructor-{request_from.user.username}"')
-        self.assertContains(response, 'Submitted invalid status.')
 
-        # Refresh request_from, is_instructor should still be false
+        # Refresh request_from
         request_from = UserProfile.objects.get(user__username='complete_user')
+        # Requested still here
+        self.assertEqual(request_from.requested_instructor_status, True)
+        # is_instructor still
         self.assertEqual(request_from.is_instructor, False)
 
-    def test_superuser_update_valid_user_valid_status(self):
+        self.assertContains(response, ('Submitted invalid status. No '
+                                       'changes made.'))
+
+    def test_superuser_update_status_reject(self):
         '''
-        Superusers submitting valid user and status will
-        update the users is_instructor status to True
+        Superusers submitting rejcet status will
+        reject the users request
+        '''
+        # User who has requested instructor status and check status
+        request_from = UserProfile.objects.get(user__username='complete_user')
+        # Is not instructor
+        self.assertEqual(request_from.is_instructor, False)
+        # Requested to become instructor
+        self.assertEqual(request_from.requested_instructor_status, True)
+
+        # Superuser
+        login_successful = self.client.login(username='kelvinhere',
+                                             password='orange99')
+        self.assertTrue(login_successful)
+
+        response = self.client.get(
+            f'/update_instructor_status/{request_from}/reject',
+            follow=True)
+
+        self.assertRedirects(response,
+                             expected_url=reverse('superuser_admin'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertTemplateUsed(response, 'home/superuser_admin.html')
+        self.assertNotContains(
+            response, f'id="acive-instructor-{request_from.user.username}"')
+
+        # Refresh request_from
+        request_from = UserProfile.objects.get(user__username='complete_user')
+        # Request removed
+        self.assertNotEqual(request_from.requested_instructor_status, True)
+        # is_instructor still false
+        self.assertEqual(request_from.is_instructor, False)
+
+    def test_superuser_update_status_accept(self):
+        '''
+        Superusers submitting valid user and accept status
+        will update the users is_instructor status to True
         and user will be added to Active instructors
         list on superuser_admin page.
         '''
