@@ -90,7 +90,9 @@ class StripeWH_Handler:
                     profile=profile,
                     stripe_id=payment_intent_id,
                     original_basket=basket,
-                    full_name=intent.charges.data[0]['billing_details']['name'],
+                    full_name=(intent.charges.data[0]
+                                                  ['billing_details']
+                                                  ['name']),
                     email=intent.charges.data[0]['billing_details']['email'],
                 )
                 for lesson_id, value in json.loads(basket).items():

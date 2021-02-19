@@ -97,7 +97,8 @@ def checkout_success(request, order_number):
     if profile != order.profile:
         messages.error(request, ('This order does not belong to this account, '
                                  'if this is an misake please contact '
-                                 f'{settings.DEFAULT_FROM_EMAIL} for support.'))
+                                 f'{settings.DEFAULT_FROM_EMAIL} for '
+                                 'support.'))
         return redirect(reverse('home'))
 
     messages.success(request, f'Order successfully processed! \
