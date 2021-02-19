@@ -19,10 +19,12 @@
 ***
 Automated testing carried out by unit testing, and coverage of these tests was monitored by using **Coverage** (`pip3 install coverage`), coverage will create a report to show how much of the code is covered by the unit tests.
 
-Coverage can be run on individial apps like this `coverage run --source lessons manage.py test`
-The report from this can be viewed simply with `coverage report`
-Create an in depth report with visulisation of the code tested with `coverage html`
-View this indepth report by viewing **index.html** in the directory **htmlcov** in gitpod by
+- Coverage can be run on individial apps like this `coverage run --source lessons manage.py test`
+    - I used the additional omit function to remove migrations from the coverage, see below
+    - `coverage run --omit=*/migrations/* --source lessons manage.py test`
+- The report from this can be viewed simply with `coverage report`
+- Create an in depth report with visulisation of the code tested with `coverage html`
+- View this indepth report by viewing **index.html** in the directory **htmlcov** in gitpod by
     - starting a http server `python3 -m http.server`
     - open the port and navigate to **htmlcov/index.html**
 
@@ -599,7 +601,34 @@ Some select lines were not corrected as it would make the code harder to read or
 - Action - Just before the modal is rendered to string, a variable `MEDIA_URL_for_json = settings.MEDIA_URL` is also passed as context to the render_to_string method
  
 - Result - The correct MEDIA_URL location is rendered into the string without having to hard code a location in the template.
- 
+
+- **404 error creating a 500 internal server error on deployed project**
+
+- Situation - When deployed and testing to get a 404 error page by giving an invalid URL, I was receiving a 500 internal server error rather than the expected 404 error.
+
+- Task - Find out what was causing the 500 server error with debugging turned off.
+
+- Action -  The django documentation on [Logging](https://docs.djangoproject.com/en/3.1/topics/logging/) gives examples of loggers, I used these to get more information on the 500 error I was getting by creating a logger and viewing the results of these logs through logging into Heroku in the console and running `heroku log -t` which would then give much more information.
+```
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}
+```
+
+- Result - Given the extra log information I was able to find the source of the 500 internal server error and correct it, the logging can now be activated by adding an enviromental EXTRA_LOGGING variable if needed.
+
 - **No CSRF Token in static js file**
  
 - Situation - When moving my lesson buttons JavaScript to a static file my Ajax POST request was giving a Forbidden error because of a missing CSRF Token as the token was initially rendered into the script by a template tag.

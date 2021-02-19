@@ -16,7 +16,7 @@ class LessonForm(forms.ModelForm):
                   'video_url',
                   'time',
                   'price',
-                 ]
+                  ]
 
         image = forms.ImageField(label='Image',
                                  required=True,

@@ -11,29 +11,37 @@ class Lesson(models.Model):
     """
     A lesson model
     """
-    lesson_id = models.CharField(max_length=32, null=False, editable=False)
-    instructor_profile = models.ForeignKey(
-        UserProfile, on_delete=models.SET_NULL, null=True,
-        blank=True, related_name='lessons'
-        )
-    lesson_name = models.CharField(max_length=32, null=False, editable=True)
+    lesson_id = models.CharField(max_length=32,
+                                 null=False,
+                                 editable=False)
+    instructor_profile = models.ForeignKey(UserProfile,
+                                           on_delete=models.SET_NULL,
+                                           null=True,
+                                           blank=True,
+                                           related_name='lessons')
+    lesson_name = models.CharField(max_length=32,
+                                   null=False,
+                                   editable=True)
     card_description = models.TextField(max_length=254)
     description = models.TextField(max_length=2048)
-    image = ResizedImageField(
-        size=[600, 600], quality=75, crop=['middle', 'center'],
-        force_format='JPEG', upload_to='lesson_images/'
-        )
-    rating = models.DecimalField(
-        max_digits=5, decimal_places=0, null=True, blank=True
-        )
-    video_url = models.URLField(
-        max_length=1024, blank=False, null=False
-        )
+    image = ResizedImageField(size=[600, 600],
+                              quality=75,
+                              crop=['middle', 'center'],
+                              force_format='JPEG',
+                              upload_to='lesson_images/')
+    rating = models.DecimalField(max_digits=5,
+                                 decimal_places=0,
+                                 null=True, blank=True)
+    video_url = models.URLField(max_length=1024,
+                                blank=False,
+                                null=False)
     time = models.IntegerField(blank=False, null=False)
     is_free = models.BooleanField(default=True)
-    price = models.DecimalField(
-        max_digits=6, decimal_places=2, blank=False, null=False, default=0.00
-        )
+    price = models.DecimalField(max_digits=6,
+                                decimal_places=2,
+                                blank=False,
+                                null=False,
+                                default=0.00)
 
     def _generate_lesson_id(self):
         """
@@ -60,8 +68,7 @@ class Lesson(models.Model):
         # Send a list of all lessons by this instructor to
         # its profile for rating update
         lessons_by_this_instructor = Lesson.objects.filter(
-            instructor_profile=self.instructor_profile
-            )
+            instructor_profile=self.instructor_profile)
         self.instructor_profile._update_rating(lessons_by_this_instructor)
 
     def save(self, *args, **kwargs):
@@ -94,11 +101,9 @@ class Subscription(models.Model):
     """
     lesson = models.ForeignKey(
         Lesson, null=False, blank=False, on_delete=models.CASCADE,
-        related_name='Subscriptions'
-        )
+        related_name='Subscriptions')
     user = models.ForeignKey(
-        UserProfile, null=False, blank=False, on_delete=models.CASCADE
-        )
+        UserProfile, null=False, blank=False, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Lesson "{self.lesson.lesson_name}" subscribed to \
@@ -112,14 +117,16 @@ class LessonReview(models.Model):
     """
     A lesson review
     """
-    profile = models.ForeignKey(
-        UserProfile, null=False, on_delete=models.CASCADE,
-        blank=False, related_name='reviewer'
-        )
-    lesson = models.ForeignKey(
-        Lesson, null=False, blank=False, on_delete=models.CASCADE,
-        related_name='reviewedLesson'
-        )
+    profile = models.ForeignKey(UserProfile,
+                                null=False,
+                                on_delete=models.CASCADE,
+                                blank=False,
+                                related_name='reviewer')
+    lesson = models.ForeignKey(Lesson,
+                               null=False,
+                               blank=False,
+                               on_delete=models.CASCADE,
+                               related_name='reviewedLesson')
     review = models.TextField(max_length=512)
     rating = models.IntegerField()
     date = models.DateTimeField(default=datetime.now, blank=True)
@@ -141,14 +148,16 @@ class LessonReviewFlagged(models.Model):
     A flag for a lesson review that may
     contain inapropriate content
     """
-    profile = models.ForeignKey(
-        UserProfile, null=False, on_delete=models.CASCADE,
-        blank=False, related_name='profileThatFlaggedReview'
-        )
-    review = models.ForeignKey(
-        LessonReview, null=False, blank=False, on_delete=models.CASCADE,
-        related_name='flaggedReview'
-        )
+    profile = models.ForeignKey(UserProfile,
+                                null=False,
+                                on_delete=models.CASCADE,
+                                blank=False,
+                                related_name='profileThatFlaggedReview')
+    review = models.ForeignKey(LessonReview,
+                               null=False,
+                               blank=False,
+                               on_delete=models.CASCADE,
+                               related_name='flaggedReview')
 
     def __str__(self):
         return f'Review of "{self.review.lesson.lesson_name}" \

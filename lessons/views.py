@@ -1,6 +1,8 @@
-from django.shortcuts import (
-    render, get_object_or_404, redirect, reverse, HttpResponse
-    )
+from django.shortcuts import (render,
+                              get_object_or_404,
+                              redirect,
+                              reverse,
+                              HttpResponse)
 from django.db.models import Q, F, Count
 from django.contrib import messages
 from django.conf import settings
@@ -10,9 +12,10 @@ from django.core.paginator import Paginator, EmptyPage
 
 from .models import UserProfile
 from checkout.models import OrderLineItem
-from lessons.models import (
-    Lesson, Subscription, LessonReview, LessonReviewFlagged
-    )
+from lessons.models import (Lesson,
+                            Subscription,
+                            LessonReview,
+                            LessonReviewFlagged)
 
 import json
 from yoga.utils import get_profile_or_none
@@ -23,8 +26,8 @@ def lessons(request):
     """ View to return the lessons page """
     # Lesson & Profile data
     profile = get_profile_or_none(request)
-    lessons = Lesson.objects.all().annotate(
-        review_count=Count('reviewedLesson'))
+    lessons = (Lesson.objects.all().annotate(
+               review_count=Count('reviewedLesson')))
     subscribed_lesson_list = []
     paid_lesson_list = []
 

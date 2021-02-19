@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.conf import settings
 
 from django_resized import ResizedImageField
 
@@ -19,14 +20,17 @@ class UserProfile(models.Model):
     profile_description = models.TextField(max_length=650,
                                            blank=True,
                                            default='')
-    image = ResizedImageField(
-        size=[600, 600], quality=75, crop=['middle', 'center'],
-        force_format='JPEG', null=True, blank=True,
-        upload_to='profile_images/'
-        )
-    rating = models.DecimalField(
-        max_digits=5, decimal_places=0, null=True, blank=True
-        )
+    image = ResizedImageField(size=[600, 600],
+                              quality=75,
+                              crop=['middle', 'center'],
+                              force_format='JPEG',
+                              null=True,
+                              blank=True,
+                              upload_to='profile_images/')
+    rating = models.DecimalField(max_digits=5,
+                                 decimal_places=0,
+                                 null=True,
+                                 blank=True)
     lesson_count = models.IntegerField(default=0, editable=False)
 
     def __str__(self):
@@ -69,7 +73,8 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     Create or update the user profile through signals/reciever
     Needs post_save and reviever importing
     """
-    if created:
-        UserProfile.objects.create(user=instance)
-    # If user exists just save the profile
-    instance.userprofile.save()
+    if settings.RUNNING_UNIT_TESTS is False:
+        if created:
+            UserProfile.objects.create(user=instance)
+        # If user exists just save the profile
+        instance.userprofile.save()

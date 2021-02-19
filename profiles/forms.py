@@ -26,11 +26,11 @@ class ProfileForm(forms.ModelForm):
             profile_description_placeholder = (
                 'This is displayed as a header above your lessons '
                 'when a user enters your studio.')
-            
+
             card_desctiption_placeholder = (
                 'This will be shown on your instructor card, when users '
                 'search for instructors.')
-            
+
             self.fields['card_description'].widget = forms.Textarea(
                 attrs={'rows': 3,
                        'cols': 25,
@@ -42,7 +42,7 @@ class ProfileForm(forms.ModelForm):
             profile_description_placeholder = (
                 ('Optional for students: Something about you.\n'
                  'Required for instructors: About yourself and studio.'))
-            
+
             self.fields['card_description'].widget = forms.HiddenInput()
             self.fields['profile_description'].label = 'About You'
 
