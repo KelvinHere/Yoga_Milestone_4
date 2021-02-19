@@ -1,5 +1,7 @@
 # Testing Documentation for Social Yoga
- 
+
+!!!! Add webhook and basket checkout manual tests
+
 1. [**Automated Tests**](#1---automated-tests)
    * [Code Validation](#code-validation)
    * [Unit Testing](#unit-testing)
@@ -601,10 +603,10 @@ Some select lines were not corrected as it would make the code harder to read or
 - Action - Just before the modal is rendered to string, a variable `MEDIA_URL_for_json = settings.MEDIA_URL` is also passed as context to the render_to_string method
  
 - Result - The correct MEDIA_URL location is rendered into the string without having to hard code a location in the template.
-
+***
 - **404 error creating a 500 internal server error on deployed project**
 
-- Situation - When deployed and testing to get a 404 error page by giving an invalid URL, I was receiving a 500 internal server error rather than the expected 404 error.
+- Situation - When deployed, testing for a 404 error page by giving an invalid URL.  I was receiving a 500 internal server error rather than the expected 404 error, with debugging turned off I had not enought information to figure out the problem.
 
 - Task - Find out what was causing the 500 server error with debugging turned off.
 
@@ -628,7 +630,7 @@ LOGGING = {
 ```
 
 - Result - Given the extra log information I was able to find the source of the 500 internal server error and correct it, the logging can now be activated by adding an enviromental EXTRA_LOGGING variable if needed.
-
+***
 - **No CSRF Token in static js file**
  
 - Situation - When moving my lesson buttons JavaScript to a static file my Ajax POST request was giving a Forbidden error because of a missing CSRF Token as the token was initially rendered into the script by a template tag.
