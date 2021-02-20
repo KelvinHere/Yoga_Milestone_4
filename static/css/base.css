@@ -1,6 +1,6 @@
-/* ---------------------------------------- Main */
+/* ---------------------------------------- General */
 html {
-    height: 100%
+    height: 100%;
 }
 
 body {
@@ -26,10 +26,6 @@ body {
     font-size: 1rem;
 }
 
-.lesson-sort-bar {
-    width: 100%;
-}
-
 .overlay {
     height: 100%;
     width: 100%;
@@ -38,6 +34,16 @@ body {
     position: fixed;
     background: white;
     z-index: -1;
+}
+
+.header-container {
+    margin-top: 0px;
+}
+
+.custom-border {
+    border: solid 1px #534a47;
+    border-radius: .25rem;
+    
 }
 
 /* ---------------------------------------- Fonts */
@@ -51,6 +57,33 @@ body {
 
 .text-white {
     color: white;
+}
+
+/* ---------------------------------------- Buttons */
+.btn-custom-invert {
+    background: white;
+    color: #534a47 !important;
+    border: 1px solid black;
+}
+
+.btn-custom-invert:hover,
+.btn-custom-invert:active,
+.btn-custom-invert:focus {
+    background: #534a47;
+    color: white !important;
+}
+
+.btn-custom-darken {
+    background: #534a47;
+    color: #fff !important;
+    border: 1px solid black;
+}
+
+.btn-custom-darken:hover,
+.btn-custom-darken:active,
+.btn-custom-darken:focus {
+    background: #3b3532;
+    color: #fff !important;
 }
 
 /* ---------------------------------------- Icons */
@@ -86,23 +119,8 @@ body {
     color: #fff;
 }
 
-.bg-colour-primary {
-    background-color: #534a47;
-}
-
-.bg-colour-secondary {
-    background-color: #e0d8d0;
-}
-
 .colour-primary {
     color: #534a47 !important;
-}
-
-/* ---------------------------------------- Global */
-.custom-border {
-    border: solid 1px #534a47;
-    border-radius: .25rem;
-    
 }
 
 /* ---------------------------------------- Nav */
@@ -121,11 +139,6 @@ body {
     box-shadow: none;
 }
 
-/* ---------------------------------------- Header */
-.header-container {
-    margin-top: 0px;
-}
-
 /* ---------------------------------------- Account pages */
 .account-container {
     display: inline-block;
@@ -142,10 +155,6 @@ body {
 }
 
 /* ---------------------------------------- Profiles pages */
-.profile-table td {
-    padding-right: 20px;
-}
-
 .profile-buttons a {
     width: 100%;
     max-width: 425px;
@@ -180,15 +189,15 @@ body {
 }
 
 .w-image {
-    width: 15%
+    width: 15%;
 }
 
 .w-name {
-    width: 65%
+    width: 65%;
 }
 
 .w-price {
-    width: 20%
+    width: 20%;
 }
 
 /* ---------------------------------------- Studo & Reviews */
@@ -203,31 +212,6 @@ body {
     font-size: 14px;
 }
 
-.btn-custom-invert {
-    background: white;
-    color: #534a47 !important;
-    border: 1px solid black;
-}
-
-.btn-custom-invert:hover,
-.btn-custom-invert:active,
-.btn-custom-invert:focus {
-    background: #534a47;
-    color: white !important;
-}
-
-.btn-custom-darken {
-    background: #534a47;
-    color: #fff !important;
-    border: 1px solid black;
-}
-
-.btn-custom-darken:hover,
-.btn-custom-darken:active,
-.btn-custom-darken:focus {
-    background: #3b3532;
-    color: #fff !important;
-}
 /* ---------------------------------------- Instructor Admin */
 .instructor-admin-button {
     width: 100%;
@@ -237,7 +221,7 @@ body {
 
 /* ---------------------------------------- Toasts */
 .toast-topbar {
-    height: 3px;
+    height: 5px;
 }
 
 .custom-toast {

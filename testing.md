@@ -154,12 +154,6 @@ You can keep narrowing the search requirements down like `python3 manage.py test
     - Edge
     - Opera
 
-### Code linting and compliance
-
-#### Python
-The python code in this project was linted by using `python3 -m flake8`, this gives a list of lines that are non complient and a link to quickly access and correct them.
-Some select lines were not corrected as it would make the code harder to read or break links.
-
 #### HTML
 !!!!!!!!!!!!! Code validation html /css /js etc
 
@@ -168,6 +162,11 @@ Some select lines were not corrected as it would make the code harder to read or
 
 #### JavaScript
 !!!!!!!!!!!!!!
+
+#### Python
+The python code in this project was linted by using `python3 -m flake8`, this gives a list of lines that are non complient and a link to quickly access and correct them.
+Some select lines were not corrected as it would make the code harder to read or break links.
+
 
 ## **Site Actions Tested**
 - User can:
