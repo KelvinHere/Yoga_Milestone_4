@@ -158,26 +158,31 @@ You can keep narrowing the search requirements down like `python3 manage.py test
 #### HTML
 
 - Live links below
-- [**Home Page** - Validation](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2F#l295c39)
-- [**Sign in Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Flogin%2F)
-- [**Sign up Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Fsignup%2F)
-- [**Instructors Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2Finstructors%2F)
-- [**Lessons Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Flessons%2F)
+    - [**Home Page** - Validation](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2F#l295c39)
+    - [**Sign in Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Flogin%2F)
+    - [**Sign up Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Fsignup%2F)
+    - [**Instructors Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2Finstructors%2F)
+    - [**Lessons Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Flessons%2F)
 
 - Pages where login was required use direct input on the validator
-- Sign Out page - Validated
-- Create Lesson page - Validated
-- Profile page - Validated
-- Instructor Admin page- - validated
-- 
+    - Sign Out page - Validated
+    - Create Lesson page - Validated
+    - Profile page - Validated
+    - Instructor Admin page - Validated
+    - Superuser Admin page - Validated
+    - Basket Page - Validated
+    - Checkout Page - Validated
+        - 1 Error: "Empty H1", ignored as it has content injected from JavaScript
+    
+
 
 #### CSS
 
-CSS was validated through **W3C CSS Validation Service** see the links below.
+CSS was validated through **W3C CSS Validation Service**.
 
 - Live links below
-- [**base.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcss%2Fbase.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
-- [**checkout.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcheckout%2Fcss%2Fcheckout.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+    - [**base.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcss%2Fbase.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+    - [**checkout.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcheckout%2Fcss%2Fcheckout.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
 #### JavaScript
 !!!!!!!!!!!!!!
