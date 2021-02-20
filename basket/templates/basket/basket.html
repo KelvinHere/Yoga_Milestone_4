@@ -85,7 +85,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script type="text/javascript">
+<script>
     function remove_from_basket(lesson_id) {
         var csrfToken = "{{ csrf_token }}";
         event.preventDefault();
