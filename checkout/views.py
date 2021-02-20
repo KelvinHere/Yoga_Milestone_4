@@ -1,6 +1,8 @@
-from django.shortcuts import (
-    render, redirect, reverse, get_object_or_404, HttpResponse
-    )
+from django.shortcuts import (render,
+                              redirect,
+                              reverse,
+                              get_object_or_404,
+                              HttpResponse)
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
@@ -27,8 +29,8 @@ def checkout(request):
         order_form = OrderForm(request.POST)
         if order_form.is_valid():
             order = order_form.save(commit=False)
-            payment_intent_id = request.POST.get(
-                'client_secret').split('_secret')[0]
+            payment_intent_id = (request.POST.get('client_secret')
+                                             .split('_secret')[0])
             order.stripe_id = payment_intent_id
             order.original_basket = json.dumps(basket)
             order.profile = profile
@@ -43,13 +45,13 @@ def checkout(request):
                     )
                     order_line_item.save()
                 except Lesson.DoesNotExist:
-                    messages.error(request, "One of the lessons was not found \
-                                             please contact us for assistance")
+                    messages.error(request, ("One of the lessons was not found "
+                                             "please contact us for assistance"))
             return redirect(reverse('checkout_success',
                                     args=[order.order_number]))
         else:
-            messages.error(request, 'There was an error with your form, no \
-                                     charges have been made.')
+            messages.error(request, ("There was an error with your form, no "
+                                     "charges have been made."))
             return redirect(reverse('checkout'))
 
     else:
@@ -65,8 +67,7 @@ def checkout(request):
         stripe.api_key = stripe_secret_key
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY
-        )
+            currency=settings.STRIPE_CURRENCY)
 
         order_form = OrderForm()
 
@@ -102,8 +103,8 @@ def checkout_success(request, order_number):
         return redirect(reverse('home'))
 
     messages.success(request, f'Order successfully processed! \
-        Order number : {order_number} \
-        An email has been sent to {order.email}.')
+                                Order number : {order_number} \
+                                An email has been sent to {order.email}.')
 
     if 'basket' in request.session:
         del request.session['basket']
@@ -120,8 +121,8 @@ def checkout_success(request, order_number):
 @login_required
 def attach_basket_to_intent(request):
     try:
-        payment_intent_id = request.POST.get(
-            'client_secret').split('_secret')[0]
+        payment_intent_id = (request.POST.get('client_secret')
+                                         .split('_secret')[0])
         # Setup stripe with secret key so payment intent can be modified
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(payment_intent_id, metadata={

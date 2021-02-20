@@ -9,18 +9,25 @@ from lessons.models import Lesson
 
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
-    profile = models.ForeignKey(UserProfile, null=False, blank=False,
+    profile = models.ForeignKey(UserProfile,
+                                null=False,
+                                blank=False,
                                 on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     date = models.DateTimeField(auto_now_add=True)
-    discount = models.DecimalField(max_digits=10, decimal_places=2,
+    discount = models.DecimalField(max_digits=10,
+                                   decimal_places=2,
                                    null=False, default=0)
-    order_total = models.DecimalField(max_digits=10, decimal_places=2,
+    order_total = models.DecimalField(max_digits=10,
+                                      decimal_places=2,
                                       null=False, default=0)
-    grand_total = models.DecimalField(max_digits=10, decimal_places=2,
+    grand_total = models.DecimalField(max_digits=10,
+                                      decimal_places=2,
                                       null=False, default=0)
-    stripe_id = models.CharField(max_length=254, null=False, blank=False,
+    stripe_id = models.CharField(max_length=254,
+                                 null=False,
+                                 blank=False,
                                  default='')
     original_basket = models.TextField(null=False, blank=False, default='')
 
@@ -59,21 +66,27 @@ class Order(models.Model):
 
 
 class OrderLineItem(models.Model):
-    order = models.ForeignKey(
-        Order, null=False, blank=False, on_delete=models.CASCADE,
-        related_name='lineitems')
-    lesson = models.ForeignKey(
-        Lesson, null=False, blank=False, on_delete=models.CASCADE
-        )
-    profile = models.ForeignKey(
-        UserProfile, null=False, blank=False, on_delete=models.CASCADE
-        )
+    order = models.ForeignKey(Order,
+                              null=False,
+                              blank=False,
+                              on_delete=models.CASCADE,
+                              related_name='lineitems')
+    lesson = models.ForeignKey(Lesson,
+                               null=False,
+                               blank=False,
+                               on_delete=models.CASCADE)
+    profile = models.ForeignKey(UserProfile,
+                                null=False,
+                                blank=False,
+                                on_delete=models.CASCADE)
     sales_percentage = models.PositiveSmallIntegerField(
-        default=settings.SITE_SALES_PERCENTAGE, editable=False, blank=False
-        )
-    lineitem_total = models.DecimalField(
-        max_digits=6, decimal_places=2, null=False, blank=False, editable=False
-        )
+        default=settings.SITE_SALES_PERCENTAGE,
+        editable=False, blank=False)
+    lineitem_total = models.DecimalField(max_digits=6,
+                                         decimal_places=2,
+                                         null=False,
+                                         blank=False,
+                                         editable=False)
 
     def save(self, *args, **kwargs):
         """
