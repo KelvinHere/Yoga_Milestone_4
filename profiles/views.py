@@ -104,10 +104,10 @@ def instructors(request):
     # Apply Sort
     if sort_direction == 'desc':
         instructor_list = instructor_list.order_by(F(
-            sort_by).desc(nulls_last=True))
+                           sort_by).desc(nulls_last=True))
     else:
         instructor_list = instructor_list.order_by(F(
-            sort_by).asc(nulls_last=True))
+                           sort_by).asc(nulls_last=True))
 
     template = 'profiles/instructors.html'
 
