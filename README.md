@@ -220,7 +220,13 @@ case "Instructor deletes lesson that is already a users basket".
         - User: My Profile / Logout
         - Instructor: Instructor Admin / My Profile / Logout
         - Administrator: Superuser Admin / My Profile / Logout
- 
+
+### Custom Template Tags
+
+For convenience, when rendering the instructor sales page, I included a custom template tag that will deduct
+the current STIE_SALES_PERCENTAGE in settings.py, to display the total earned by the instructor after the websites cut.  This 
+is located in lessons.templatetags.site_utils.py and registers the function as a filter with the decorator `@register.filter`.
+
 ### Home Page Features
  
 The page is responsive and the buttons and background image reposition between mobile, tablet, desktop 

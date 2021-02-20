@@ -1,4 +1,5 @@
 // Handle subscribe / unsubscribe / start_lesson buttons
+//jshint esversion: 6
 function subscribe(subscribe, lesson_id, filter) {
     $.ajax({
         type:"GET",
@@ -8,7 +9,7 @@ function subscribe(subscribe, lesson_id, filter) {
             lesson_id: lesson_id,
         },
         success: function(json_response){
-            if (json_response['subscription_status'] == 'unsubscribed') {
+            if (json_response.subscription_status == 'unsubscribed') {
                 // Unsub button
                 $('#unsubscribe_lesson_button_id_'+lesson_id).hide();
                 // Sub button
@@ -19,7 +20,7 @@ function subscribe(subscribe, lesson_id, filter) {
                 if (filter == 'mylessons') {
                     $('#'+lesson_id).remove();
                 }
-            } else if (json_response['subscription_status'] == 'subscribed') {
+            } else if (json_response.subscription_status == 'subscribed') {
                 // Unsub button
                 $('#unsubscribe_lesson_button_id_'+lesson_id).removeAttr('hidden');
                 $('#unsubscribe_lesson_button_id_'+lesson_id).show();
@@ -30,7 +31,7 @@ function subscribe(subscribe, lesson_id, filter) {
                 $('#start_lesson_button_id_'+lesson_id).show();
             }
         }
-    })
+    });
 }
 
 // Create added to basket popover
@@ -52,7 +53,7 @@ function add_to_basket(lesson_id) {
             lesson_id: lesson_id,
         },
         success: function(json_response){
-            if (json_response['item_added'] == 'True'){
+            if (json_response.item_added == 'True'){
                 // Increment item count on navbar basket button
                 let count = String($('#nav-cart-amount').text());
                 count = count.replace('+', '');
@@ -63,15 +64,15 @@ function add_to_basket(lesson_id) {
                     count = count + 1;
                 }
                 $('#nav-cart-amount').text('+'+count);
-                $('#add_'+lesson_id).text('Added')
+                $('#add_'+lesson_id).text('Added');
                 // Popover to confirm item has been added
                 $('#navbar-basket').popover('toggle');
                 // Change banner to show discount is applied if discount delta = 0
-                if (json_response['discount_delta'] == true) {
-                    $('#discount-applied').removeAttr('hidden')
-                    $('#discount-not-applied').hide()
+                if (json_response.discount_delta === true) {
+                    $('#discount-applied').removeAttr('hidden');
+                    $('#discount-not-applied').hide();
                 }
-            } else if (json_response['item_added'] == 'already_added'){
+            } else if (json_response.item_added == 'already_added'){
                 // Create already_added to button popover
                 $('#add_'+lesson_id).popover({
                     content: "You have already added this to your basket",
@@ -91,7 +92,7 @@ function add_to_basket(lesson_id) {
                 $('#add_'+lesson_id).popover('toggle');
             }
         }
-    })
+    });
 }
 
 // Handle modal requests via AJAX
@@ -105,11 +106,11 @@ function get_modal_data(lesson_id) {
             lesson_id: lesson_id,
         },
         success: function(json_response){
-            if (json_response['status'] = 'valid_lesson'){
+            if (json_response.status == 'valid_lesson'){
                 $('#modal-container').empty();
-                $('#modal-container').html(json_response['modal']);
+                $('#modal-container').html(json_response.modal);
                 $('#moreDetailsModal').modal('show');
             }
         }
-    })
+    });
 }

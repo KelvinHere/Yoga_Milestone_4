@@ -1,4 +1,5 @@
 <script>
+    //jshint esversion: 6
     // Delete review
     function delete_review(review_pk) {
         let csrfToken = "{{ csrf_token }}";
@@ -53,7 +54,7 @@
                     let numberOfFlags = (parseInt($('#total-flag-number').text())) - 1;
                     $('#total-flag-number').text(numberOfFlags);
                 } else {
-                    let target = '#flagged_div_' + review_pk +' #flagged_buttons_' + review_pk
+                    let target = '#flagged_div_' + review_pk +' #flagged_buttons_' + review_pk;
                     $(target).empty();
                     $(target).append(`<div class="w-100">
                                         <p class="text-center text-danger">

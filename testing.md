@@ -190,6 +190,9 @@ CSS was validated through **W3C CSS Validation Service**.
 The following files were validated through [beautifytools.com](https://beautifytools.com/javascript-validator.php) javascript validator
 
 - [stripe_elements.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/checkout/static/checkout/js/stripe_elements.js)
+- [superuser_admin_js.html](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/home/templates/home/includes/superuser_admin_js.html)
+- [delete_lesson_modal.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/delete_lesson_modal.js)
+- [lesson_buttons.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/lesson_buttons.js)
 
 
 #### Python Validation
