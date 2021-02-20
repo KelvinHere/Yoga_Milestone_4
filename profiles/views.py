@@ -111,6 +111,9 @@ def instructors(request):
 
     template = 'profiles/instructors.html'
 
+    for each in instructor_list:
+        print(each.__dict__)
+
     # Create page from Paginator
     p = Paginator(instructor_list, instructors_on_page)
     try:
