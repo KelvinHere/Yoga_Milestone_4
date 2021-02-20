@@ -18,12 +18,12 @@ def studio(request, id):
         messages.error(request, 'Invalid lesson.')
         return redirect('home')
 
-    existing_user_review = LessonReview.objects.filter(
-        profile=profile, lesson=lesson).first()
+    existing_user_review = LessonReview.objects.filter(profile=profile,
+                                                       lesson=lesson).first()
     paid_lessons = OrderLineItem.objects.filter(profile=profile)
     # Get and sort reviews
     lesson_reviews = LessonReview.objects.filter(
-        lesson=lesson).exclude(profile=profile)
+                      lesson=lesson).exclude(profile=profile)
     lesson_reviews = lesson_reviews.order_by('-date')
     my_review = LessonReview.objects.filter(lesson=lesson, profile=profile)
 
