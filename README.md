@@ -225,7 +225,7 @@ case "Instructor deletes lesson that is already a users basket".
 
 For convenience, when rendering the instructor sales page, I included a custom template tag that will deduct
 the current STIE_SALES_PERCENTAGE in settings.py, to display the total earned by the instructor after the websites cut.  This 
-is located in lessons.templatetags.site_utils.py and registers the function as a filter with the decorator `@register.filter`.
+is located in [lessons.templatetags.site_utils.py](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/templatetags/site_utils.py) and registers the function as a filter with the decorator `@register.filter`.
 
 ### Home Page Features
  

@@ -187,7 +187,7 @@ CSS was validated through **W3C CSS Validation Service**.
 
 #### JavaScript Validation
 
-The following files were validated through [beautifytools.com](https://beautifytools.com/javascript-validator.php) javascript validator
+The following files were validated through manually pasting the content into [beautifytools.com](https://beautifytools.com/javascript-validator.php) javascript validator.
 
 - [stripe_elements.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/checkout/static/checkout/js/stripe_elements.js)
 - [superuser_admin_js.html](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/home/templates/home/includes/superuser_admin_js.html)
@@ -200,10 +200,10 @@ The following files were validated through [beautifytools.com](https://beautifyt
 The python code in this project was linted by using `python3 -m flake8`, this gives a list of lines that are non complient and a link to quickly access and correct them.
 Some select lines were not corrected as it would make the code harder to read or break links.
 
-
 The following errors remain.
 - \<!DOCTYPE html> missing from some html files:  These were not included in "includes" template files or files that extend from base to avoid getting HTML validation errors with out of place /<!DOCTYPE>'s through the pages.
 - `./checkout/apps.py:8:9: F401 'checkout.signals' imported but unused` This sets up signals for checkout.signals.py
+- `./checkout/webhooks.py:43:80: E501 line too long (86 > 79 characters)` Left as not to break the payment intent line
 - Below, the AUTH_PASSWORD_VALIDATORS receive a line too long warning, these are setup up in the django file by default at this length, I have left them as is, the lines in question are below, with a quote from docs.djangoproject.com.
 ```
 AUTH_PASSWORD_VALIDATORS = [
