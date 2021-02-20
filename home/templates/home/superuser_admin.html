@@ -27,10 +27,10 @@
                 </li>
             </ul>
             <div class="tab-content" id="adminTabContent">
-                <div class="tab-pane fade show active" id="requests" role="tabpanel" aria-labelledby="home-tab">
+                <!-- Requests Tab-->
+                <div class="tab-pane fade show active" id="requests" role="tabpanel" aria-labelledby="requests-tab">
                     <div class="row mx-auto">
                         <div class="col-12">
-                            <!-- User requesting instructor status-->
                             <p class="text-center mb-3"><strong>User requests to become instructors</strong></p>
                             {% if user_requests %}
                                 {% for request in user_requests %}
@@ -91,10 +91,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="instructors" role="tabpanel" aria-labelledby="profile-tab">
+                <!-- Active Instrctors Tab-->
+                <div class="tab-pane fade" id="instructors" role="tabpanel" aria-labelledby="instructors-tab">
                     <div class="row mx-auto">
                         <div class="col-12">
-                            <!-- List of active instructors -->
                             <p class="text-center mb-3"><strong>Active instructors</strong></p>
                             {% if instructors %}
                                 {% for instructor in instructors %}
@@ -114,10 +114,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="flagged" role="tabpanel" aria-labelledby="contact-tab">
+                <!-- Flagged Reviews Tab -->
+                <div class="tab-pane fade" id="flagged" role="tabpanel" aria-labelledby="flagged-tab">
                     <div class="row mx-auto">
                         <div class="col-12">
-                            <!-- Flagged Reviews -->
                             <p class="text-center mb-3"><strong>Flagged Reviews</strong></p>
                             {% if sorted_flagged_reviews %}
                                 {% for key, flagged in sorted_flagged_reviews.items %}

@@ -164,11 +164,12 @@ You can keep narrowing the search requirements down like `python3 manage.py test
 - [**Instructors Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2Finstructors%2F)
 - [**Lessons Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Flessons%2F)
 
-- Log in as a student before following these links
-- [**Profile Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2F)
-- [**index.html** - Validation]()
-- [**index.html** - Validation]()
-- [**index.html** - Validation]()
+- Pages where login was required use direct input on the validator
+- Sign Out page - Validated
+- Create Lesson page - Validated
+- Profile page - Validated
+- Instructor Admin page- - validated
+- 
 
 #### CSS
 
