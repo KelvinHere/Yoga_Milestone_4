@@ -24,34 +24,32 @@
                     <p class="card-text"><small class="text-muted">Price: <strong>Free!</strong></small></p>
                 {% endif %}
                 <p class="card-text alt-font">{{ lesson.card_description }}</p>
-                
                 <p class="card-text alt-font mb-2 mt-auto text-center text-info"><a href="" onclick="javascript:get_modal_data('{{ lesson.lesson_id }}')" class=""><strong>More Details</strong></a></p>
-
                 <div class="lesson-card-button-container mt-0 w-100 d-flex">
                     <div class="buttons mx-auto">
                         {% if user.is_authenticated %}
                             {% if lesson.lesson_id not in paid_lesson_list and lesson.is_free == False %}
                                 {% if lesson.instructor_profile == profile %}
-                                <!-- Lesson belongs to this instructor -->
-                                <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">View Your Lesson</a>
+                                    <!-- Lesson belongs to this instructor -->
+                                    <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">View Your Lesson</a>
                                 {% elif user.is_superuser %}
-                                <!-- Superusers can access all lessons -->
-                                <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">View As Superuser</a>
+                                    <!-- Superusers can access all lessons -->
+                                    <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">View As Superuser</a>
                                 {% else %}
-                                <!-- Lesson has not been bought and is not free -->
-                                <a class="btn btn-warning" href="" onclick="javascript:add_to_basket('{{ lesson.lesson_id }}')" id="add_{{ lesson.lesson_id }}" role="button"><span>{% if lesson.lesson_id in basket_item_ids %}In basket{% else %}€{{ lesson.price }}{% endif %}</span>
+                                    <!-- Lesson has not been bought and is not free -->
+                                    <a class="btn btn-warning" href="" onclick="javascript:add_to_basket('{{ lesson.lesson_id }}')" id="add_{{ lesson.lesson_id }}" role="button"><span>{% if lesson.lesson_id in basket_item_ids %}In basket{% else %}€{{ lesson.price }}{% endif %}</span>
                                         <span class="icon">
                                             <i class="fas fa-cart-plus"></i>
                                         </span>
                                     </a>
                                 {% endif %}
                             {% elif lesson.lesson_id in subscribed_lesson_list and lesson%}
-                            <!-- Lesson is subscribed to-->
+                                <!-- Lesson is subscribed to-->
                                 <span class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Unsubscribe</span>
                                 <span hidden class="btn btn-danger" href="" id="subscribe_lesson_button_id_{{ lesson.lesson_id }}" onclick="javascript:subscribe('true', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Subscribe to lesson</span>
                                 <a class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
                             {% else %}
-                            <!-- Lesson is not subscribed to-->
+                                <!-- Lesson is not subscribed to-->
                                 <span hidden class="btn btn-warning button-unsubscribe" id="unsubscribe_lesson_button_id_{{ lesson.lesson_id }}" href="" onclick="javascript:subscribe('false', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Unsubscribe</span>
                                 <span class="btn btn-danger" href="" id="subscribe_lesson_button_id_{{ lesson.lesson_id }}" onclick="javascript:subscribe('true', '{{ lesson.lesson_id }}', '{{ current_filter }}')" role="button">Subscribe to lesson</span>
                                 <a hidden class="btn btn-success" href="{% url 'studio' lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>

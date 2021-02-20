@@ -35,11 +35,12 @@
                                     <div class="mx-2 mt-2">
                                         <p><strong>{{ item.lesson.lesson_name }}</strong></p>
                                         <p>By: {{item.lesson.instructor_profile }}</p>
-                                        <a class="remove-item cursor-pointer text-danger" href="" onclick="javascript:remove_from_basket('{{ item.lesson.lesson_id }}')"">
+                                        <a class="remove-item cursor-pointer text-danger" href="" onclick="javascript:remove_from_basket('{{ item.lesson.lesson_id }}')">
                                             <span class="icon">
                                                 <i class="fas fa-small fa-trash-alt mb-2"></i>
                                             </span>
                                         </a>
+                                    </div>
                                 </td>
                                 <td class="w-price">
                                     <p class="text-right mx-2 mt-2"><strong>€{{ item.lesson.price }}</strong></p>
@@ -103,4 +104,3 @@
     }
 </script>
 {% endblock %}
-
