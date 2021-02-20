@@ -33,13 +33,13 @@
         <div class="col-12">
             <ul class="nav nav-tabs my-2" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="lessons-tab" data-toggle="tab" href="#lessons" role="tab" aria-controls="home" aria-selected="true">Lessons</a>
+                    <a class="nav-link active" id="lessons-tab" data-toggle="tab" href="#lessons" role="tab" aria-controls="lessons" aria-selected="true">Lessons</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sales</a>
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" aria-selected="false">Sales</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="support-tab" data-toggle="tab" href="#support" role="tab" aria-controls="contact" aria-selected="false">Support</a>
+                    <a class="nav-link" id="support-tab" data-toggle="tab" href="#support" role="tab" aria-controls="support" aria-selected="false">Support</a>
                 </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -95,7 +95,7 @@
                     {% endif %}
                 </div>
                 <!-- Sales tab -->
-                <div class="tab-pane fade mb-2" id="profile" role="profile" aria-labelledby="profile-tab">
+                <div class="tab-pane fade mb-2" id="sales" role="tabpanel" aria-labelledby="sales-tab">
                     {% if sales %}
                         {% for sale in sales %}
                             <div class="row border custom-border my-1 bg-light">
@@ -118,7 +118,7 @@
                     {% endif %}
                 </div>
                 <!-- Support tab-->
-                <div class="tab-pane fade" id="support" role="support" aria-labelledby="support-tab">
+                <div class="tab-pane fade" id="support" role="tabpanel" aria-labelledby="support-tab">
                     <p class="text-center my-2">Contact support at</p>
                     <p class="text-center"><a href="mailto:{{ site_email }}">{{ site_email }}</a></p>
                     <p class="text-center mt-3 mx-5"><strong>Instructor Admin</strong> allows you to create lessons and view your sales, if you are having any difficulty please contact support on the above email address.</p>
