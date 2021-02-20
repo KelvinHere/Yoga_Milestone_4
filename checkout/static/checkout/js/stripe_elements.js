@@ -18,7 +18,7 @@ var style = {
         iconColor: '#dc3545'
     }
 };
-var card = elements.create('card', {style: style});
+var card = elements.create('card', {hidePostalCode: true, style: style});
 card.mount('#card-element');
 
 //Handle realitime card validation errors, display under card element
