@@ -171,9 +171,9 @@ You can keep narrowing the search requirements down like `python3 manage.py test
     - Instructor Admin page - Validated
     - Superuser Admin page - Validated
     - Basket Page - Validated
+    - Checkout Success Page - Validated
     - Checkout Page - Validated
-        - 1 Error: "Empty H1", ignored as it has content injected from JavaScript
-    
+        - 1 Error: "Empty H1", ignored as it is waiting for content from JavaScript
 
 
 #### CSS

@@ -46,7 +46,7 @@ class Order(models.Model):
         self.save()
 
     def __str__(self):
-        return self.order_number
+        return (f'{self.order_number} - {self.profile}')
 
     def save(self, *args, **kwargs):
         """
