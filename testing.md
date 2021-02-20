@@ -149,13 +149,15 @@ You can keep narrowing the search requirements down like `python3 manage.py test
 ## 2 - Manual Tests
 ***
 ### Browser testing
-- This project has had all its pages and responsive states viewed on the following browsers.
+- This project has had all its pages, routes and responsive states viewed on the following browsers.
     - Chrome
     - Firefox
     - Edge
     - Opera
 
-#### HTML
+Read on to see all tests carried out on each page.
+
+#### HTML Validation
 
 - Live links below
     - [**Home Page** - Validation](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2F#l295c39)
@@ -164,7 +166,7 @@ You can keep narrowing the search requirements down like `python3 manage.py test
     - [**Instructors Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2Finstructors%2F)
     - [**Lessons Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Flessons%2F)
 
-- Pages where login was required use direct input on the validator
+- Pages where login was required, these use direct input on the validator
     - Sign Out page - Validated
     - Create Lesson page - Validated
     - Profile page - Validated
@@ -175,8 +177,7 @@ You can keep narrowing the search requirements down like `python3 manage.py test
     - Checkout Page - Validated
         - 1 Error: "Empty H1", ignored as it is waiting for content from JavaScript
 
-
-#### CSS
+#### CSS Validation
 
 CSS was validated through **W3C CSS Validation Service**.
 
@@ -184,13 +185,51 @@ CSS was validated through **W3C CSS Validation Service**.
     - [**base.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcss%2Fbase.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
     - [**checkout.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcheckout%2Fcss%2Fcheckout.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
-#### JavaScript
-!!!!!!!!!!!!!!
+#### JavaScript Validation
 
-#### Python
+The following files were validated through [beautifytools.com](https://beautifytools.com/javascript-validator.php) javascript validator
+
+- [stripe_elements.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/checkout/static/checkout/js/stripe_elements.js)
+
+
+#### Python Validation
+
 The python code in this project was linted by using `python3 -m flake8`, this gives a list of lines that are non complient and a link to quickly access and correct them.
 Some select lines were not corrected as it would make the code harder to read or break links.
 
+
+The following errors remain.
+- \<!DOCTYPE html> missing from some html files:  These were not included in "includes" template files or files that extend from base to avoid getting HTML validation errors with out of place /<!DOCTYPE>'s through the pages.
+- `./checkout/apps.py:8:9: F401 'checkout.signals' imported but unused` This sets up signals for checkout.signals.py
+- Below, the AUTH_PASSWORD_VALIDATORS receive a line too long warning, these are setup up in the django file by default at this length, I have left them as is, the lines in question are below, with a quote from docs.djangoproject.com.
+```
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+"""
+From : https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/
+
+An exception to PEP 8 is our rules on line lengths. Don’t limit lines of 
+code to 79 characters if it means the code looks significantly uglier or 
+is harder to read. We allow up to 119 characters as this is the width of 
+GitHub code review; anything longer requires horizontal scrolling which makes 
+review more difficult. This check is included when you run flake8. 
+Documentation, comments, and docstrings should be wrapped at 79 characters, 
+even though PEP 8 suggests 72.
+"""
+```
 
 ## **Site Actions Tested**
 - User can:

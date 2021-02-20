@@ -45,8 +45,9 @@ def checkout(request):
                     )
                     order_line_item.save()
                 except Lesson.DoesNotExist:
-                    messages.error(request, ("One of the lessons was not found "
-                                             "please contact us for assistance"))
+                    messages.error(request, ("One of the lessons was not "
+                                             "found please contact us for "
+                                             " assistance"))
             return redirect(reverse('checkout_success',
                                     args=[order.order_number]))
         else:

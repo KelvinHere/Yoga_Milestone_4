@@ -10,7 +10,7 @@
                 'review_pk': review_pk,
             },
             success: function(json_response){
-                if (json_response['success'] == 'True') {
+                if (json_response.success == 'True') {
                     $('#flagged_div_'+review_pk).empty();
                     $('#flagged_div_'+review_pk).append(`<div class="col">
                                                             <div class="w-100">
@@ -20,7 +20,7 @@
                     let numberOfFlags = (parseInt($('#total-flag-number').text())) - 1;
                     $('#total-flag-number').text(numberOfFlags);
                 } else {
-                    let target = '#flagged_div_' + review_pk +' #flagged_buttons_' + review_pk
+                    let target = '#flagged_div_' + review_pk +' #flagged_buttons_' + review_pk;
                     $(target).empty();
                     $(target).append(`<div class="w-100">
                                         <p class="text-center text-danger">
@@ -29,7 +29,7 @@
                                        </div>`);
                 }
             }
-        })
+        });
     }
 
     // Remove all flags for this review
@@ -43,7 +43,7 @@
                 'flagged_review_pk': review_pk,
             },
             success: function(json_response){
-                if (json_response['removed_flag'] == 'True') {
+                if (json_response.removed_flag == 'True') {
                     $('#flagged_div_'+review_pk).empty();
                     $('#flagged_div_'+review_pk).append(`<div class="col">
                                                             <div class="w-100">
@@ -62,7 +62,6 @@
                                        </div>`);
                 }
             }
-        })
+        });
     }
-
 </script>

@@ -59,9 +59,6 @@ class StripeWH_Handler:
         basket = intent.metadata.basket
         username = intent.metadata.user
 
-        billing_details = intent.charges.data[0].billing_details
-        grand_total = round(intent.charges.data[0].amount / 100, 2)
-
         order_exists = False
         attempt = 1
         while attempt <= 5:

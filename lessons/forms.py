@@ -1,7 +1,6 @@
 from django import forms
 from .widgets import CustomClearableFileInput
 from .models import Lesson, LessonReview
-from django_resized import ResizedImageField
 
 
 class LessonForm(forms.ModelForm):
@@ -58,7 +57,7 @@ class ReviewForm(forms.ModelForm):
         (8, '8'),
         (9, '9'),
         (10, '10'), )
-        
+
     rating_dropdown = forms.ChoiceField(choices=RATING_CHOICES,
                                         label="Rating out of 10")
 
