@@ -57,8 +57,8 @@ class ReviewForm(forms.ModelForm):
         (7, '7'),
         (8, '8'),
         (9, '9'),
-        (10, '10'),
-    )
+        (10, '10'), )
+        
     rating_dropdown = forms.ChoiceField(choices=RATING_CHOICES,
                                         label="Rating out of 10")
 

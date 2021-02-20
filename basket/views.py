@@ -1,6 +1,8 @@
-from django.shortcuts import (
-    render, HttpResponse, redirect, reverse, get_object_or_404
-    )
+from django.shortcuts import (render,
+                              HttpResponse,
+                              redirect,
+                              reverse,
+                              get_object_or_404)
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
@@ -78,7 +80,7 @@ def add_to_basket(request):
     # If not post request
     else:
         messages.error(request, "Invalid request, please select lessons from \
-                                  the lessons page")
+                                 the lessons page")
         return redirect(reverse('home'))
 
 

@@ -69,6 +69,7 @@ class Lesson(models.Model):
         # its profile for rating update
         lessons_by_this_instructor = Lesson.objects.filter(
             instructor_profile=self.instructor_profile)
+
         self.instructor_profile._update_rating(lessons_by_this_instructor)
 
     def save(self, *args, **kwargs):
@@ -86,6 +87,7 @@ class Lesson(models.Model):
         super().save(*args, **kwargs)
         total_lessons = Lesson.objects.filter(
             instructor_profile=self.instructor_profile).count()
+
         self.instructor_profile._update_lesson_count(total_lessons)
 
     def __str__(self):
@@ -99,11 +101,15 @@ class Subscription(models.Model):
     """
     A lesson item and its subscribed student
     """
-    lesson = models.ForeignKey(
-        Lesson, null=False, blank=False, on_delete=models.CASCADE,
-        related_name='Subscriptions')
-    user = models.ForeignKey(
-        UserProfile, null=False, blank=False, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson,
+                               null=False,
+                               blank=False,
+                               on_delete=models.CASCADE,
+                               related_name='Subscriptions')
+    user = models.ForeignKey(UserProfile,
+                             null=False,
+                             blank=False,
+                             on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Lesson "{self.lesson.lesson_name}" subscribed to \

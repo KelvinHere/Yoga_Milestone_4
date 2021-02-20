@@ -121,8 +121,7 @@ def lessons(request):
                 page_title = f"Welcome to {instructor_to_display}'s Studio"
                 filter_subtitle = f" in {instructor_to_display}'s Studio"
                 lessons = lessons.filter(
-                    instructor_profile=instructor_to_display
-                    )
+                    instructor_profile=instructor_to_display)
 
         # Get Query and filter if valid
         if 'q' in request.GET:
@@ -190,10 +189,9 @@ def subscriptions(request):
             lesson_id = request.GET['lesson_id']
             lesson_object = Lesson.objects.get(lesson_id=lesson_id)
         except Exception:
-            messages.error(
-                request,
-                'Invalid request, no lessons have been subscribed \
-                or unsubscribed to.')
+            messages.error(request,
+                           ('Invalid request, no lessons have been subscribed '
+                            'or unsubscribed to.'))
             return redirect(reverse('lessons'))
 
         if request.GET['subscribe'] == 'false':
@@ -211,17 +209,15 @@ def subscriptions(request):
             return HttpResponse(json_response, content_type='application/json')
 
         else:
-            messages.error(
-                request,
-                'Invalid request, no lessons have been subscribed \
-                or unsubscribed to.')
+            messages.error(request,
+                           ('Invalid request, no lessons have been subscribed '
+                            'or unsubscribed to.'))
             return redirect(reverse('lessons'))
 
     if request.method == 'POST':
-        messages.error(
-            request,
-            'Invalid request, no lessons have been subscribed \
-            or unsubscribed to.')
+        messages.error(request,
+                       ('Invalid request, no lessons have been subscribed '
+                        'or unsubscribed to.'))
         return redirect(reverse('lessons'))
 
 
@@ -526,8 +522,7 @@ def remove_flag(request):
         try:
             flagged_review_pk = request.POST['flagged_review_pk']
             review_to_ignore = get_object_or_404(LessonReview,
-                                                 pk=flagged_review_pk
-                                                 )
+                                                 pk=flagged_review_pk)
         except Exception:
             json_response = json.dumps({'removed_flag': 'False'})
             return HttpResponse(json_response, content_type='application/json')
@@ -551,8 +546,7 @@ def get_modal_data(request):
             if not Lesson.objects.filter(lesson_id=lesson_id).exists():
                 json_response = json.dumps({'status': 'invalid_lesson'})
                 return HttpResponse(json_response,
-                                    content_type='application/json'
-                                    )
+                                    content_type='application/json')
 
             # Get lesson and its reviews
             lesson = Lesson.objects.get(lesson_id=lesson_id)
@@ -568,12 +562,10 @@ def get_modal_data(request):
                     'lesson_reviews': lesson_reviews,
                     'review_count': review_count,
                     'MEDIA_URL_for_json': MEDIA_URL_for_json
-                }
-            )
+                })
 
             json_response = json.dumps({'status': 'valid_lesson',
-                                        'modal': modal_string,
-                                        })
+                                        'modal': modal_string, })
             return HttpResponse(json_response, content_type='application/json')
         else:
             json_response = json.dumps({'status': 'invalid_request'})

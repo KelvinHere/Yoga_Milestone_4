@@ -9,11 +9,20 @@ class SubscriptionAdmin(admin.ModelAdmin):
 
 
 class LessonAdmin(admin.ModelAdmin):
-    readonly_fields = ('lesson_id', 'rating', 'is_free')
+    readonly_fields = ('lesson_id',
+                       'rating',
+                       'is_free')
 
-    fields = ('lesson_id', 'instructor_profile', 'lesson_name',
-              'card_description', 'description', 'image',
-              'video_url', 'rating', 'time', 'is_free',
+    fields = ('lesson_id',
+              'instructor_profile',
+              'lesson_name',
+              'card_description',
+              'description',
+              'image',
+              'video_url',
+              'rating',
+              'time',
+              'is_free',
               'price', )
 
     list_display = (
@@ -36,6 +45,5 @@ class LessonReviewFlaggedAdmin(admin.ModelAdmin):
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Subscription, SubscriptionAdmin)
 admin.site.register(LessonReview, LessonReviewAdmin)
-admin.site.register(
-    LessonReviewFlagged, LessonReviewFlaggedAdmin
-    )
+admin.site.register(LessonReviewFlagged,
+                    LessonReviewFlaggedAdmin)

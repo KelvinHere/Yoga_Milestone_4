@@ -36,8 +36,7 @@ def superuser_admin(request):
     template = "home/superuser_admin.html"
     user_requests = UserProfile.objects.filter(
         is_instructor=False,
-        requested_instructor_status=True
-        )
+        requested_instructor_status=True)
     instructors = UserProfile.objects.filter(is_instructor=True)
     flagged_reviews = LessonReviewFlagged.objects.all().order_by('review')
 
