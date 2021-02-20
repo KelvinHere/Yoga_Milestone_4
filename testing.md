@@ -158,7 +158,11 @@ You can keep narrowing the search requirements down like `python3 manage.py test
 !!!!!!!!!!!!! Code validation html /css /js etc
 
 #### CSS
-!!!!!!!!!!!!!
+
+CSS was validated through **W3C CSS Validation Service** see the links below.
+
+- [**base.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcss%2Fbase.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+- [**checkout.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcheckout%2Fcss%2Fcheckout.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
 #### JavaScript
 !!!!!!!!!!!!!!
