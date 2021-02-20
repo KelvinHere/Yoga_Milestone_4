@@ -98,35 +98,37 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 mt-2">
-                <hr>
-                <!-- Order history -->
-                <p class="text-center"><strong>Order History</strong></p>
-                {% if Users_OrderdLineItems %}
-                <div class="table-responsive">
-                    <table class="table table-sm table-borderless basket-item-table">
-                        {% for item in Users_OrderdLineItems %}
-                            <tr class="bg-light my-5" id="row_for_{{ item.lesson.lesson_id }}">
-                                <td class="w-image">
-                                    <img src="{{ item.lesson.image.url }}" class="img-fluid" alt="{{ item.lesson.lesson_name }}'s image'">
-                                </td>
-                                <td class="w-name">
-                                    <div class="mx-2 mt-2">
-                                        <p><strong>{{ item.lesson.lesson_name }}</strong></p>
-                                        <p>By: {{item.lesson.instructor_profile }}</p>
-                                        <a class="btn btn-sm btn-success" href="{% url 'studio' item.lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
-                                    </div>
-                                </td>
-                                <td class="w-price">
-                                    <p class="text-right mx-2 mt-2"><strong>€{{ item.lineitem_total }}</strong></p>
-                                </td>
-                            </tr>
-                    {% endfor %}
-                    </table>
+            <!-- Order history -->
+            <hr>
+            <div class="row w-100">
+                <div class="col-12 col-lg-6 mt-2 mx-auto">
+                    <p class="text-center"><strong>Order History</strong></p>
+                    {% if Users_OrderdLineItems %}
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless basket-item-table">
+                            {% for item in Users_OrderdLineItems %}
+                                <tr class="bg-light my-5" id="row_for_{{ item.lesson.lesson_id }}">
+                                    <td class="w-image align-middle">
+                                        <img src="{{ item.lesson.image.url }}" class="img-fluid" alt="{{ item.lesson.lesson_name }}'s image'">
+                                    </td>
+                                    <td class="w-name">
+                                        <div class="mx-2 mt-2">
+                                            <p><strong>{{ item.lesson.lesson_name }}</strong></p>
+                                            <p>By: {{item.lesson.instructor_profile }}</p>
+                                            <a class="btn btn-sm btn-success" href="{% url 'studio' item.lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Start Lesson</a>
+                                        </div>
+                                    </td>
+                                    <td class="w-price">
+                                        <p class="text-right mx-2 mt-2"><strong>€{{ item.lineitem_total }}</strong></p>
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p class="text-center" >You have no purchased lessons yet.</p>
+                    {% endif %}
                 </div>
-                {% else %}
-                    <p class="text-center" >You have no purchased lessons yet.</p>
-                {% endif %}
             </div>
         </div>
     </div>

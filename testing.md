@@ -162,7 +162,7 @@ You can keep narrowing the search requirements down like `python3 manage.py test
 - [**Sign in Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Flogin%2F)
 - [**Sign up Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Fsignup%2F)
 - [**Instructors Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2Finstructors%2F)
-- [**Lessons Page** - Validation]()
+- [**Lessons Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Flessons%2F)
 - [**index.html** - Validation]()
 - [**index.html** - Validation]()
 - [**index.html** - Validation]()
