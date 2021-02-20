@@ -156,12 +156,23 @@ You can keep narrowing the search requirements down like `python3 manage.py test
     - Opera
 
 #### HTML
-!!!!!!!!!!!!! Code validation html /css /js etc
+
+- Live links below
+- [**Home Page** - Validation](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2F#l295c39)
+- [**Sign in Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Flogin%2F)
+- [**Sign up Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Fsignup%2F)
+- [**Instructors Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2Finstructors%2F)
+- [**Lessons Page** - Validation]()
+- [**index.html** - Validation]()
+- [**index.html** - Validation]()
+- [**index.html** - Validation]()
+- [**index.html** - Validation]()
 
 #### CSS
 
 CSS was validated through **W3C CSS Validation Service** see the links below.
 
+- Live links below
 - [**base.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcss%2Fbase.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 - [**checkout.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcheckout%2Fcss%2Fcheckout.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 

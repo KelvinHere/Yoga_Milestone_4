@@ -25,10 +25,10 @@
 <div class="row">
     <div class="col-6">
         <div class="dropdown d-flex justify-content-end my-2">
-            <a class="btn btn-custom-darken btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-custom-darken btn-sm dropdown-toggle" href="#" role="button" id="filterDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Filter
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-menu" aria-labelledby="filterDropdownMenuLink">
                 <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter=all_lessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">All lessons  {% if filter_by == 'all_lessons' %}<i class="fas fa-check text-success"></i>{% endif %}</a>
                 <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter=subscribed_lessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">Subscribed Lessons  {% if filter_by == 'subscribed_lessons' %}<i class="fas fa-check text-success"></i>{% endif %}</a>
                 <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter=purchased_lessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">Purchased Lessons {% if filter_by == 'purchased_lessons' %}<i class="fas fa-check text-success"></i>{% endif %}</a>
@@ -37,10 +37,10 @@
     </div>
     <div class="col-6">
         <div class="dropdown d-flex justify-content-start my-2">
-            <a class="btn btn-custom-darken btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-custom-darken btn-sm dropdown-toggle" href="#" role="button" id="sortDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Sort
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sortDropdownMenuLink">
                 <!-- Sort by rating -->
                 <div class="dropdown-item w-100 d-flex justify-content-between px-2">
                     <a href="{% url 'lessons' %}?sort=rating&direction=desc&filter={{ filter_by }}{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="flex-item">

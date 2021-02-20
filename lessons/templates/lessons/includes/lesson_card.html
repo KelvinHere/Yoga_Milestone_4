@@ -12,11 +12,15 @@
                 <h5 class="card-title">{{ lesson.lesson_name }}</h5>
                 <p class="card-text mb-0"><small>By: <a href="{% url 'lessons' %}?instructor={{ lesson.instructor_profile.id }}">{{ lesson.instructor_profile }}</a> | Rating: {{ lesson.rating }}{% if lesson.rating %}/10{% endif %}</small></p>
                 {% if lesson.price > 0 %}
-                    <p class="card-text"><small class="text-muted">Price: 
+                    <p class="card-text"><small class="text-muted">Price: </small>
                         {% if lesson.lesson_id in purchased_lesson_ids %}
-                            <span class="text-success"><strong>Purchased!</strong></small></span>
+                            <span class="text-success">
+                                <strong><small>Purchased!</small></strong>
+                            </span>
                         {% else %}
-                            <span> €{{ lesson.price }}</small></span>
+                            <span>
+                                <small>€{{ lesson.price }}</small>
+                            </span>
                         {% endif %}
                     </p>
                 {% else %}
