@@ -1,7 +1,5 @@
 # Testing Documentation for Social Yoga
 
-!!!! Add webhook and basket checkout manual tests
-
 1. [**Automated Tests**](#1---automated-tests)
    * [Code Validation](#code-validation)
    * [Unit Testing](#unit-testing)
@@ -455,8 +453,9 @@ Some select lines were not corrected as it would make the code harder to read or
  
 1. **checkout**
 - **Valid requests**
-    - GET request renders `checkout/checkout.html` with the checkout form and card payment option
-    - POST request creates OrderForm and associated LineItems
+    - GET: Request renders `checkout/checkout.html` with the checkout form and card payment option
+    - POST: Request with correct field entries and card details creates an OrderForm and associated LineItems
+    - STRIPE: When processing the order, when stripe returns a patmentIntent.status = succeeded, the order form will be submit to the checkout view and the cusotmer will have access to their purchases (see checkout success below).
     
  
 - **Error and Invalid request handling**
@@ -464,6 +463,9 @@ Some select lines were not corrected as it would make the code harder to read or
     - GET:  Users who manually go to checkout with nothing in their basket are redirected home with the error message "Your basket is empty"
     - POST:  Users who submit an invalid basket are redirected back to the checkout page with the error "There was an error with your form, no charges have been made."
     - POST:  While the order form and its associated lineitems are being created, If a lesson does not exist they are warned of that on the checkout success page
+    - STRIPE: Invalid card details fetch stripe error messages and display them below the card field
+    - STRIPE: If the user closes the browser or there is an issue before the app receives the STRIPE paymentIntent, the OrderForm will not be created, but the checkout.webhook_handler.py will listen for the stripe webhook and create the OrderForm there instead.
+    
  
 2. **checkout_success**
 - **Valid requests**
