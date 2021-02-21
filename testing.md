@@ -18,10 +18,12 @@
  
 ## 1 - Automated Tests
 ***
-Automated testing carried out by unit testing, and coverage of these tests was monitored by using **Coverage** (`pip3 install coverage`), coverage will create a report to show how much of the code is covered by the unit tests.
+Automated testing is carried out by unit testing.  Coverage of these tests was monitored by 
+using **Coverage** (`pip3 install coverage`), Coverage will create a report to show how much 
+of the code is covered by the unit tests.
 
 - Coverage can be run on individial apps like this `coverage run --source lessons manage.py test`
-    - I used the additional omit function to remove migrations from the coverage, see below
+    - I used the additional omit function to remove migrations, see below
     - `coverage run --omit=*/migrations/* --source lessons manage.py test`
 - The report from this can be viewed simply with `coverage report`
 - Create an in depth report with visulisation of the code tested with `coverage html`
@@ -130,21 +132,22 @@ TOTAL                                                         | 2648    |189   |
 ### Running unit tests from the console
 Create a local deployment as explained on ['Local Deployment' section of readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment)
 
-This apps unit tests use fixtures in the **profiles app**, for these to be loaded correctly the automatic creation of user profiles must be disabled in **Profiles app > models.py** the reciever decorator above `def create_or_update_user_profile` function must be commented out.
+This apps unit tests use fixtures in the **profiles app**, for these to be loaded correctly the automatic creation of user profiles must be disabled, do this by setting `RUNNING_UNIT_TESTS` in settings.py to `True`
 
-- To run all the tests
-    - From the console run `python3 manage.py test`
+- To run all the tests - `python3 manage.py test`
+- To run tests on an app, ie lessons app - `python3 manage.py test lessons`
 
-- To run tests on an app, ie lessons app
-    - From the console run `python3 manage.py test lessons`
-
-You can keep narrowing the search requirements down like `python3 manage.py test lessons.tests.test_views.test_create_lesson` for example, depending on directory structure.
+You can keep narrowing the tests run like this, `python3 manage.py test lessons.tests.test_views.test_create_lesson` 
 
 ### My Unit Test Results
 ![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/tests/unit_tests_run_all.jpg "Unit Tests")
 
-## **Writing your own unittests**
-!!!!!!!!!!!!!!!!!!!
+### **Writing your own unittests**
+
+- Follow [Running unit tests from the console](#running-unit-tests-from-the-console) to create a local deployment of the app.
+- In settings.py set `RUNNING_UNIT_TESTS` to true, this will disable a view to allow fixtures to be loaded properly.
+- Create your unit tests in the app you want to test for example lessons.tests.test_mynewtests.py
+- Run the tests with `python3 manage.py test` to run the full test suite, or `python3 manage.py test lessons.tests.test_mynewtest` for just the example above.
 
 ## 2 - Manual Tests
 ***
@@ -166,7 +169,7 @@ Read on to see all tests carried out on each page.
     - [**Instructors Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2Finstructors%2F)
     - [**Lessons Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Flessons%2F)
 
-- Pages where login was required, these use direct input on the validator
+- Pages where login was required, these were input directly to the validator :-
     - Sign Out page - Validated
     - Create Lesson page - Validated
     - Profile page - Validated
@@ -187,13 +190,12 @@ CSS was validated through **W3C CSS Validation Service**.
 
 #### JavaScript Validation
 
-The following files were validated through manually pasting the content into [beautifytools.com](https://beautifytools.com/javascript-validator.php) javascript validator.
+The following files were validated through manually pasting the content into [beautifytools.com](https://beautifytools.com/javascript-validator.php) JavaScript validator.
 
 - [stripe_elements.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/checkout/static/checkout/js/stripe_elements.js)
 - [superuser_admin_js.html](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/home/templates/home/includes/superuser_admin_js.html)
 - [delete_lesson_modal.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/delete_lesson_modal.js)
 - [lesson_buttons.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/lesson_buttons.js)
-
 
 #### Python Validation
 
@@ -201,9 +203,9 @@ The python code in this project was linted by using `python3 -m flake8`, this gi
 Some select lines were not corrected as it would make the code harder to read or break links.
 
 The following errors remain.
-- \<!DOCTYPE html> missing from some html files:  These were not included in "includes" template files or files that extend from base to avoid getting HTML validation errors with out of place /<!DOCTYPE>'s through the pages.
-- `./checkout/apps.py:8:9: F401 'checkout.signals' imported but unused` This sets up signals for checkout.signals.py
-- `./checkout/webhooks.py:43:80: E501 line too long (86 > 79 characters)` Left as not to break the payment intent line
+- \<!DOCTYPE html> missing from some html files:  These were omitted from "includes" template files or files that extend from base to avoid getting HTML validation errors with out of place /<!DOCTYPE>'s through the final rendered pages.
+- `./checkout/apps.py:8:9: F401 'checkout.signals' imported but unused` This sets up signals for checkout.signals.py.
+- `./checkout/webhooks.py:43:80: E501 line too long (86 > 79 characters)` Left as not to break the payment intent line.
 - Below, the AUTH_PASSWORD_VALIDATORS receive a line too long warning, these are setup up in the django file by default at this length, I have left them as is, the lines in question are below, with a quote from docs.djangoproject.com.
 ```
 AUTH_PASSWORD_VALIDATORS = [
