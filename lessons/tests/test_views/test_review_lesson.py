@@ -316,3 +316,50 @@ class TestReviewLessonView(TestCase):
         self.assertFalse(
             LessonReview.objects.filter(lesson=lesson,
                                         profile=profile).exists())
+
+    def test_rating_euqals_none_if_all_reviews_deleted(self):
+        '''
+        If all reviews are deleted the lessons
+        rating should return to None even if
+        reviews are deleted from Django admin
+        '''
+        # Lesson exists with a valid integer rating
+        lesson = Lesson.objects.get(lesson_name="A Lesson")
+        self.assertTrue(lesson.rating in range(1, 11))
+
+        # Lesson rating returns to None
+        LessonReview.objects.all().delete()
+        self.assertTrue(lesson.rating, None)
+
+    def test_rating_changed_when_review_added(self):
+        '''
+        The lesson rating changes 
+        when a review is added
+        '''
+        # Old Lesson has one 10 star review
+        lesson = Lesson.objects.get(lesson_name='H Lesson')
+        self.assertTrue(lesson.rating, 10)
+        old_rating = lesson.rating
+
+        profile = UserProfile.objects.get(user__username='incomplete_user')
+        login_successful = self.client.login(username=profile.user.username,
+                                             password='orange99')
+        self.assertTrue(login_successful)
+
+        # Give lesson an 8 star review
+        response = self.client.post(
+            f'/lessons/review_lesson/{lesson.lesson_id}',
+            {"id": 1,
+             "profile": profile.id,
+             "lesson": lesson.id,
+             "review": "I am a new review that has just been created",
+             "rating_dropdown": 8,
+             "date": datetime.now()},
+            follow=True)
+
+        self.assertTrue(response.status_code, 200)
+
+        # New review will equal 9
+        lesson = Lesson.objects.get(lesson_name='H Lesson')
+        new_rating = lesson.rating
+        self.assertAlmostEquals(new_rating, 9)

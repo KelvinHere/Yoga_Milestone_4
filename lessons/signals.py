@@ -9,5 +9,4 @@ def update_on_delete(sender, instance, **kwargs):
     """
     Update lesson rating on review deleted
     """
-    print('#REVIEW DELETED IN POST DELETE')
     instance.lesson._update_rating()
