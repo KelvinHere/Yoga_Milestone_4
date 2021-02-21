@@ -18,9 +18,6 @@ def profile(request):
     # Get purchased lessons
     Users_OrderdLineItems = OrderLineItem.objects.filter(profile=profile)
 
-    if 'error' in request.GET:
-        messages.warning(request, 'You must complete your profile first!')
-
     template = 'profiles/profile.html'
     context = {
         'profile': profile,
@@ -79,12 +76,7 @@ def instructors(request):
             page_number = request.GET.get('page')
 
         if 'sort_by' in request.GET:
-            if request.GET['sort_by'] not in valid_sort_values:
-                messages.error(request, 'Invalid sort value, displaying all \
-                                         instructors by rating in descending \
-                                         order')
-                return redirect(reverse('instructors'))
-            else:
+            if request.GET['sort_by'] in valid_sort_values:
                 sort_by = request.GET['sort_by']
 
         if 'sort_direction' in request.GET:

@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.shortcuts import reverse
 
 
 class TestInstructorsView(TestCase):
@@ -102,6 +103,17 @@ class TestInstructorsView(TestCase):
         self.assertNotContains(response, 'instructor_2')
         self.assertNotContains(response, 'instructor_3')
 
+    def test_instructor_query_zero_results(self):
+        ''' No results on a query returns error message '''
+        response = self.client.get(
+            '/profiles/instructors/', {"q": "NO_ONE_IS_CALLED_THIS"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+        self.assertNotContains(response, 'instructor_1')
+        self.assertNotContains(response, 'instructor_2')
+        self.assertNotContains(response, 'instructor_3')
+        self.assertContains(response, "Your query returned no instructors")
+
     # Instructor view, Stacked Query & Sorting
     def test_instructor_query_and_sort_name_ascending(self):
         response = self.client.get(
@@ -194,3 +206,19 @@ class TestInstructorsView(TestCase):
         html_str = response.content.decode("utf-8")
         self.assertGreater(
             html_str.index('instructor_3'), html_str.index('instructor_1'))
+
+    # Pagination
+    def test_pagination_page_does_not_exist(self):
+        '''
+        A user trying to access a paginated page that
+        does not exist will get an error message and
+        returned to page 1
+        '''
+        try_page = 950
+        response = self.client.get(f'/profiles/instructors/?page={try_page}')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/instructors.html')
+
+        self.assertContains(response, ('Page does not exist, returning '
+                                       'to page 1'))
+        self.assertContains(response, 'Page 1 of')

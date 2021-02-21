@@ -279,10 +279,8 @@ def delete_lesson(request, id):
 
     if lesson.instructor_profile == profile:
         instructor_profile = lesson.instructor_profile
+        print('#####Lesson deletged')
         lesson.delete()
-        total_lessons = Lesson.objects.filter(
-            instructor_profile=instructor_profile).count()
-        instructor_profile._update_lesson_count(total_lessons)
         messages.success(request, 'Lesson deleted.')
         return redirect('instructor_admin')
     else:

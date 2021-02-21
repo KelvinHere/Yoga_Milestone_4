@@ -18,7 +18,6 @@ def get_profile_or_none(request):
 
 def discount_delta_zero(request):
     """ Returns True if discount has been reached """
-
     total = 0
     basket = request.session.get('basket', {})
     discount_delta_zero = False

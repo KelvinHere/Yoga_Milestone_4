@@ -57,3 +57,30 @@ class TestRequestInstructorStatusView(TestCase):
         self.assertNotContains(
             response,
             'Error, you must complete your profile first.')
+
+    def test_unrequest_instructor_status(self):
+        '''
+        User requests then unrequests
+        instructor status
+        '''
+        login_successful = self.client.login(username='complete_user',
+                                             password='orange99')
+        self.assertTrue(login_successful)
+
+        # Request
+        response = self.client.get(
+            '/profiles/request_instructor_status/request',
+            follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        # Unrequest
+        response = self.client.get(
+            '/profiles/request_instructor_status/unrequest',
+            follow=True)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertRedirects(response,
+                             expected_url=reverse('profile'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertContains(response, 'Request Instructor Status')

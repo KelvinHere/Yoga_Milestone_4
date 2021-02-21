@@ -32,9 +32,9 @@ Automated testing is carried out by unit testing.  Coverage of these tests was m
 using **Coverage** (`pip3 install coverage`), Coverage will create a report to show how much 
 of the code is covered by the unit tests.
 
-- Coverage can be run on individial apps like this `coverage run --source lessons manage.py test`
-    - I used the additional omit function to remove migrations, see below
-    - `coverage run --omit=*/migrations/* --source lessons manage.py test`
+- Coverage can be run on individial apps like this `coverage run --source lessons manage.py test lessons`
+    - I used the additional omit function when testing each individial app to remove migrations, see below for an example
+    - `coverage run --omit=*/migrations/* --source lessons manage.py test lessons`
 - The report from this can be viewed simply with `coverage report`
 - Create an in depth report with visulisation of the code tested with `coverage html`
 - View this indepth report by viewing **index.html** in the directory **htmlcov** in gitpod by
