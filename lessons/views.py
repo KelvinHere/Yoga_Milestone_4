@@ -469,7 +469,6 @@ def delete_review(request, review_pk):
 
     if review.profile == profile or request.user.is_superuser:
         review.delete()
-        lesson._update_rating()
         if request.user.is_superuser and request.method == 'POST':
             # Stay on superuser admin page
             json_response = json.dumps({'success': 'True'})
