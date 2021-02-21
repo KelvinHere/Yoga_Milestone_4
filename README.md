@@ -224,8 +224,9 @@ case "Instructor deletes lesson that is already a users basket".
 ### Custom Template Tags
 
 For convenience, when rendering the instructor sales page, I included a custom template tag that will deduct
-the current STIE_SALES_PERCENTAGE in settings.py, to display the total earned by the instructor after the websites cut.  This 
-is located in [lessons.templatetags.site_utils.py](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/templatetags/site_utils.py) and registers the function as a filter with the decorator `@register.filter`.
+the current STIE_SALES_PERCENTAGE in the OrderLineItem model, to display the total earned by the instructor after the websites cut.  This 
+is located in [lessons.templatetags.site_utils.py](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/templatetags/site_utils.py) and 
+registers the function as a filter with the decorator `@register.filter`.
 
 ### Home Page Features
  
@@ -580,7 +581,7 @@ The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed wi
     - Retrieve and add the keys as heroku envorimental variables
         - AWS_ACCESS_KEY_ID
         - AWS_SECRET_ACCESS_KEY
-        - USE_AWS = True (Without this the app will default to using a local database)
+        - USE_AWS = True (Without this the app will default to using a local images in the /media and /static directories of the project)
     - Copy the media files from the local project to the bucket while keeping the same directory structure
  
 7. Setup Stripe payments

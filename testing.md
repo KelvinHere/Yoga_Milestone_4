@@ -1,11 +1,17 @@
 # Testing Documentation for Social Yoga
 !!!!!! Retest CSS validation after the last COLLECT STATIC!
 
-1. [**Automated Tests**](#1---automated-tests)
-   * [Code Validation](#code-validation)
-   * [Unit Testing](#unit-testing)
-   * [Writing your own unittests](#writing-your-own-unittests)
-2. [**Manual Testing**](#2---manual-tests)
+1. [**Automated Testing**](#1---automated-testing)
+   * [Running unit tests](#running-unit-tests)
+   * [Unit Test Results](#unit-test-results)
+   * [Creating Unit Tests](#creating-unit-tests)
+2. [**Manual Testing**](#2---manual-testing)
+   * [Code Validation](#code-validation) 
+        * [Browser Testing](#browser-testing)
+        * [HTML Validation](#html-validation)
+        * [CSS Validation](#css-validation)
+        * [JavaScript Validation](#javascript-validation)
+        * [Python Validation](#python-validation)
    * [Site Actions Tested](#site-actions-tested)
    * [Home Page](#home-page)
    * [Lessons Page](#lessons-page)
@@ -13,10 +19,11 @@
    * [Studio Page](#studio-page)
    * [Basket Page](#basket-page)
    * [Checkout Page](#checkout-page)
+   * [Account Pages](#account-pages)
 3. [**User Stories Solved**](#3---user-stories-solved)
 4. [**Interesting Bugs Solved**](#4---interesting-bugs-solved)
  
-## 1 - Automated Tests
+## 1 - Automated Testing
 ***
 Automated testing is carried out by unit testing.  Coverage of these tests was monitored by 
 using **Coverage** (`pip3 install coverage`), Coverage will create a report to show how much 
@@ -30,6 +37,7 @@ of the code is covered by the unit tests.
 - View this indepth report by viewing **index.html** in the directory **htmlcov** in gitpod by
     - starting a http server `python3 -m http.server`
     - open the port and navigate to **htmlcov/index.html**
+
 
 **Current Coverage Report**
 Name                                                          |Stmts    |Miss  |Cover
@@ -129,7 +137,7 @@ yoga/wsgi.py                                                  |    4    |  4   |
 TOTAL                                                         | 2648    |189   | 93%
 
 
-### Running unit tests from the console
+### Running unit tests
 Create a local deployment as explained on ['Local Deployment' section of readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment)
 
 This apps unit tests use fixtures in the **profiles app**, for these to be loaded correctly the automatic creation of user profiles must be disabled, do this by setting `RUNNING_UNIT_TESTS` in settings.py to `True`
@@ -139,19 +147,20 @@ This apps unit tests use fixtures in the **profiles app**, for these to be loade
 
 You can keep narrowing the tests run like this, `python3 manage.py test lessons.tests.test_views.test_create_lesson` 
 
-### My Unit Test Results
+### Unit Test Results
 ![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/tests/unit_tests_run_all.jpg "Unit Tests")
 
-### **Writing your own unittests**
+### Creating Unit Tests
 
 - Follow [Running unit tests from the console](#running-unit-tests-from-the-console) to create a local deployment of the app.
 - In settings.py set `RUNNING_UNIT_TESTS` to true, this will disable a view to allow fixtures to be loaded properly.
 - Create your unit tests in the app you want to test for example lessons.tests.test_mynewtests.py
 - Run the tests with `python3 manage.py test` to run the full test suite, or `python3 manage.py test lessons.tests.test_mynewtest` for just the example above.
 
-## 2 - Manual Tests
+## 2 - Manual Testing
 ***
-### Browser testing
+### **Code Validation**
+### Browser Testing
 - This project has had all its pages, routes and responsive states viewed on the following browsers.
     - Chrome
     - Firefox
@@ -491,11 +500,9 @@ even though PEP 8 suggests 72.
 1. **view_basket**
 - **Valid requests**
     - Renders `basket/basket.html` which shows all items currently in users basket (sessions)
-    
  
 - **Error and Invalid request handling**
     - Users who are not logged in are redirected to sign in page
- 
  
 2. **add_to_basket**
 - **Valid requests**
@@ -523,6 +530,7 @@ even though PEP 8 suggests 72.
     - GET: Request renders `checkout/checkout.html` with the checkout form and card payment option
     - POST: Request with correct field entries and card details creates an OrderForm and associated LineItems
     - STRIPE: When processing the order, when stripe returns a patmentIntent.status = succeeded, the order form will be submit to the checkout view and the cusotmer will have access to their purchases (see checkout success below).
+    - On a complete order an email is sent with an order confirmation to the email input on the checkout page.
     
  
 - **Error and Invalid request handling**
@@ -552,7 +560,18 @@ even though PEP 8 suggests 72.
     - Users who try to GET request this page are handled by the django @require_POST decorator
     - If the logic of this view fails, users are given the message "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction."
  
- 
+## **Account Pages**
+
+- **Valid requests**
+    - User logging in with correct details is logged in and receives a success message
+    - User logging out is logged out
+    - User signing up with valid details will have an account created and a validation email setting
+    - Validation emails contain a link that activate the account
+    - Reset password will send a reset password email to the accounts email
+
+- **Error and Invalid request handling**
+    - Invalid details will not let a user log in
+    - Incorrectly input form data will display an error message on the form
  
 ## 3 - User Stories Solved
 ***
@@ -714,4 +733,3 @@ LOGGING = {
     </script>
 ```
 - Result - The static file now has access to the CSRF Token again and the buttons function correctly
- 
