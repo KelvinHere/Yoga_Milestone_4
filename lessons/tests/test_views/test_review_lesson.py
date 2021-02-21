@@ -96,6 +96,34 @@ class TestReviewLessonView(TestCase):
         self.assertContains(response, ('Cannot create/edit a review for an '
                                        'invalid lesson'))
 
+    def test_invalid_form(self):
+        '''
+        Invalid form sends user back to lesson
+        page with an error message
+        '''
+        profile = UserProfile.objects.get(user__username='incomplete_user')
+        lesson = Lesson.objects.get(lesson_name='H Lesson')
+        login_successful = self.client.login(username=profile.user.username,
+                                             password='orange99')
+        self.assertTrue(login_successful)
+
+        response = self.client.post(
+            f'/lessons/review_lesson/{lesson.lesson_id}',
+            {"id": 1,
+             "profile": profile.id,
+             "lesson": lesson.id,
+             "review": ("Error line too long, Error line too long, ") * 500,
+             "rating_dropdown": 5,
+             "date": datetime.now()},
+            follow=True)
+
+        self.assertRedirects(response, f'/studio/{lesson.lesson_id}/')
+        self.assertContains(response, ('Error in review form:'))
+        # No review created
+        self.assertFalse(
+            LessonReview.objects.filter(lesson=lesson,
+                                        profile=profile).exists())
+
     def test_cant_review_your_own_lesson(self):
         '''
         Instructors trying to review their own lessons are

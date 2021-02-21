@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.shortcuts import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from decimal import Decimal
@@ -129,3 +130,38 @@ class TestCreateLessonView(TestCase):
         self.assertNotEqual(updated_lesson.price, 'INVALID_PRICE_FOR_FORM')
         self.assertContains(response, ('Invalid form data, please try again. '
                                        'No lesson was created.'))
+
+    def test_create_duplicate_lesson_name(self):
+        '''
+        If a user creates a lesson with a duplicated name
+        from their own created lessons receive an error
+        message and redirect to instructor admin page
+        '''
+        # Login and check lesson exists
+        profile = UserProfile.objects.get(user__username='instructor_1')
+        login_successful = self.client.login(username=profile.user.username,
+                                             password='orange99')
+        self.assertTrue(login_successful)
+        self.assertTrue(Lesson.objects.filter(lesson_name='A Lesson').exists())
+
+        # Create a lesson with the same name as above
+        response = self.client.post(
+            '/lessons/create_lesson/',
+            {'lesson_name': 'A Lesson',
+             'card_description': 'New Card',
+             'description': 'New Description',
+             'image': SimpleUploadedFile('small.gif',
+                                         small_gif,
+                                         content_type='image/gif'),
+             'video_url': 'https://www.new',
+             'time': '99',
+             'price': '99.99'},
+            follow=True)
+
+        self.assertRedirects(response,
+                             expected_url=reverse('instructor_admin'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertTemplateUsed(response, 'lessons/instructor_admin.html')
+
+        self.assertContains(response, 'You already have a lesson named this.')

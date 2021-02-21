@@ -105,6 +105,22 @@ class TestRemoveFlagView(TestCase):
         self.assertContains(response, '"removed_flag": "True"')
         # Flag removed
         self.assertFalse(
-            LessonReviewFlagged.objects.filter(
-                profile=self.flagger_profile,
-                review=self.review).exists())
+            LessonReviewFlagged.objects.filter(profile=self.flagger_profile,
+                                               review=self.review).exists())
+
+    def test_invalid_flag(self):
+        '''
+        Invalid flag will not cause error
+        '''
+        profile = UserProfile.objects.get(user__username='kelvinhere')
+        login_successful = self.client.login(username=profile.user.username,
+                                             password='orange99')
+        self.assertTrue(login_successful)
+
+        response = self.client.post(
+            '/lessons/remove_flag/',
+            data={'flagged_review_pk': 'Invalid Flag'},
+            follow=True)
+
+        self.assertTrue(response.status_code, 200)
+        self.assertContains(response, '"removed_flag": "False"')

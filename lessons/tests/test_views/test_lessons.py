@@ -5,6 +5,7 @@ import html
 
 from profiles.models import UserProfile
 from checkout.models import OrderLineItem
+from lessons.models import Subscription
 
 
 class TestLessonsView(TestCase):
@@ -277,6 +278,27 @@ class TestLessonsView(TestCase):
         self.assertContains(response, 'Z Lesson')
 
         self.assertNotContains(response, 'A Lesson')
+        self.assertNotContains(response, 'B Lesson')
+        self.assertNotContains(response, 'H Lesson')
+        self.assertNotContains(response, 'Y Lesson')
+
+    def test_subscribed_lessons_filter_with_no_subscribed_lessons(self):
+        '''
+        Subscribed filter with no subscribed lessons
+        displays a message in place of lessons
+        '''
+        Subscription.objects.all().delete()
+        response = self.client.get('/lessons/',
+                                   {"filter": "subscribed_lessons"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lessons/lessons.html')
+
+        self.assertContains(response, ('You are currently not subscribed to '
+                                       'any lessons'))
+
+        self.assertNotContains(response, 'A Lesson')
+        self.assertNotContains(response, 'Z Lesson')
         self.assertNotContains(response, 'B Lesson')
         self.assertNotContains(response, 'H Lesson')
         self.assertNotContains(response, 'Y Lesson')

@@ -112,8 +112,8 @@ class Subscription(models.Model):
                              on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Lesson "{self.lesson.lesson_name}" subscribed to \
-                 by "{self.user}"'
+        return (f'Lesson "{self.lesson.lesson_name}" subscribed to '
+                f'by "{self.user}"')
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -166,8 +166,8 @@ class LessonReviewFlagged(models.Model):
                                related_name='flaggedReview')
 
     def __str__(self):
-        return f'Review of "{self.review.lesson.lesson_name}" \
-                 flagged by "{self.profile}"'
+        return (f'Review of "{self.review.lesson.lesson_name}" '
+                f'flagged by "{self.profile}"')
 
     class Meta:
         verbose_name_plural = "Lesson Reviews Flagged"

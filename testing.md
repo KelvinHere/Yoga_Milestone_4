@@ -2,6 +2,7 @@
 !!!!!! Retest CSS validation after the last COLLECT STATIC!
 
 1. [**Automated Testing**](#1---automated-testing)
+   * [Unit Tests and Coverage](#unit-tests-and-coverage)
    * [Running unit tests](#running-unit-tests)
    * [Unit Test Results](#unit-test-results)
    * [Creating Unit Tests](#creating-unit-tests)
@@ -25,6 +26,8 @@
  
 ## 1 - Automated Testing
 ***
+
+### Unit Tests and Coverage
 Automated testing is carried out by unit testing.  Coverage of these tests was monitored by 
 using **Coverage** (`pip3 install coverage`), Coverage will create a report to show how much 
 of the code is covered by the unit tests.
