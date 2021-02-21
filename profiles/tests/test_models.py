@@ -64,3 +64,10 @@ class TestProfileModels(TestCase):
         If all lessons are removed for an instructor
         the rating returns to None
         '''
+        instructor = UserProfile.objects.get(user__username='instructor_1')
+        lessons = Lesson.objects.filter(instructor_profile=instructor)
+        
+        # Loop to allow signal to fire, does not work on bulk delete
+        for lesson in lessons:
+            lesson.delete()
+        self.assertTrue(instructor.rating, None)

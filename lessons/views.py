@@ -278,8 +278,6 @@ def delete_lesson(request, id):
         return redirect(reverse('instructor_admin'))
 
     if lesson.instructor_profile == profile:
-        instructor_profile = lesson.instructor_profile
-        print('#####Lesson deletged')
         lesson.delete()
         messages.success(request, 'Lesson deleted.')
         return redirect('instructor_admin')
