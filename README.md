@@ -75,21 +75,21 @@ students to sell their premium lessons to.
 #### Wireframe Designs
  
 - The home page
-![HomePage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/1-Index.jpg "Home page")
+![HomePage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/1-Index.jpg "Home page")
 - Signup / Register / Logout page
-![AccountsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/2-Login_Out.jpg "Login / out / signup page")
+![AccountsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/2-Login_Out.jpg "Login / out / signup page")
 - Sortable list of instructors on the site
-![InstructorsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/3-Instructors.jpg "Instructors page")
+![InstructorsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/3-Instructors.jpg "Instructors page")
 - An instructors page, includes profile and all lessons with ability to subscribe or buy
-![InstructorPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/4-Instructor.jpg "Instructor page")
+![InstructorPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/4-Instructor.jpg "Instructor page")
 - A typical lesson page, paid or free
-![LessonPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/wireframe/5-Lesson.jpg "Lesson page")
+![LessonPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/5-Lesson.jpg "Lesson page")
  
 ### Database
  
  - For the app I used a postgres relational database, below is the final map with all features included.
  
-![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/design/database/db_design.jpg "Database design")
+![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/database/db_design.jpg "Database design")
  
 #### User Stories
  

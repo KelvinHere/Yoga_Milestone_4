@@ -28,7 +28,6 @@ def checkout(request):
         basket = request.session.get('basket', {})
         order_form = OrderForm(request.POST)
         if order_form.is_valid():
-            print(request.POST)
             order = order_form.save(commit=False)
             payment_intent_id = (request.POST.get('client_secret')
                                              .split('_secret')[0])
@@ -127,7 +126,8 @@ def attach_basket_to_intent(request):
         })
         return HttpResponse(status=200)
     except Exception as e:
-        messages.error(request, 'Sorry, your payment cannot be processed. \
-            please try again later. \
-            You have NOT been charged for this transaction.')
+        messages.error(request, ('Sorry, your payment cannot be processed. '
+                                 'please try again later.  You have NOT been '
+                                 'charged for this transaction.'
+                                 f' Error: {e}'))
         return HttpResponse(content=e, status=400)

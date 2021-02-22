@@ -97,5 +97,5 @@ class OrderLineItem(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Order no: {self.order.order_number} - \
-                 Item: {self.lesson.lesson_name}'
+        return (f'Order no: {self.order.order_number} - '
+                f'Item: {self.lesson.lesson_name}')

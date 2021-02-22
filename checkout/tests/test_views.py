@@ -6,8 +6,6 @@ from checkout.models import OrderLineItem, Order
 from profiles.models import UserProfile
 from lessons.models import Lesson
 
-import re
-
 
 class TestCheckoutViews(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
@@ -149,18 +147,14 @@ class TestCheckoutViews(TestCase):
         # Remove all purchases
         Order.objects.all().delete()
 
-        # Add items
+        # Add item and check it is in basket
         lesson = Lesson.objects.get(lesson_name='B Lesson')
         response = self.client.post('/basket/add_to_basket/',
                                     {'lesson_id': lesson.lesson_id},
                                     follow=True)
         self.assertTrue(response.status_code, 200)
-
-        # Check basket has item
-        response = self.client.get('/basket/', follow=True)
-        self.assertTrue(response.status_code, 200)
-        self.assertTemplateUsed(response, 'basket/basket.html')
-        self.assertContains(response, 'B Lesson')
+        basket = self.client.session.get('basket', {})
+        self.assertEqual(basket, {lesson.lesson_id: 1})
 
         # Checkout
         response = self.client.get('/checkout/', follow=True)
@@ -168,17 +162,11 @@ class TestCheckoutViews(TestCase):
         self.assertTemplateUsed(response, 'checkout/checkout.html')
         self.assertContains(response, 'For 1 item')
 
-        # Get client secret from rendered page
-        client_secret = re.search(
-            r'id_client_secret" type="application\/json">"(.+?_secret).+',
-            response.content.decode("utf-8")
-            )[1]
-
         # Response redirects to checkout success and order is created
         response = self.client.post('/checkout/',
                                     {'full_name': 'CompleteUser',
                                      'email': 'complete_user@test.com',
-                                     'client_secret': client_secret, },
+                                     'client_secret': 'client_secret', },
                                     follow=True)
 
         self.assertTemplateUsed(response, 'checkout/checkout_success.html')
@@ -195,12 +183,14 @@ class TestCheckoutViews(TestCase):
         # Remove all purchases
         Order.objects.all().delete()
 
-        # Add items
+        # Add item and check it is in basket
         lesson = Lesson.objects.get(lesson_name='B Lesson')
         response = self.client.post('/basket/add_to_basket/',
                                     {'lesson_id': lesson.lesson_id},
                                     follow=True)
         self.assertTrue(response.status_code, 200)
+        basket = self.client.session.get('basket', {})
+        self.assertEqual(basket, {lesson.lesson_id: 1})
 
         # Checkout
         response = self.client.get('/checkout/', follow=True)
@@ -212,10 +202,8 @@ class TestCheckoutViews(TestCase):
         response = self.client.post('/checkout/',
                                     {'full_name': 'CompleteUser',
                                      'WRONG_FIELD': 'complete_user@test.com',
-                                     'client_secret': 'INVALID_SECRET', },
+                                     'client_secret': 'client_secret', },
                                     follow=True)
-
-        print(response.content.decode("UTF-8"))
 
         self.assertRedirects(response,
                              expected_url=reverse('checkout'),
