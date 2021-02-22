@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.shortcuts import reverse
 
 from profiles.models import UserProfile
 from lessons.models import Lesson
@@ -94,3 +95,20 @@ class TestAddToBasketView(TestCase):
         html_str = response.content.decode("utf-8")
         # Only contains one of this item in basket
         self.assertEqual(html_str.count(f'id="row_for_{lesson.lesson_id}'), 1)
+
+    def test_invalid_get_requests(self):
+        '''
+        Add to basket view does not accept get requests,
+        returns user home with error message
+        '''
+        response = self.client.get('/basket/add_to_basket/',
+                                   {'INVALID': 'REQUEST'},
+                                   follow=True)
+
+        self.assertRedirects(response,
+                             expected_url=reverse('home'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertTemplateUsed(response, 'home/index.html')
+        self.assertContains(response, ("Invalid request, please select lessons"
+                                       " from the lessons page"))

@@ -524,7 +524,6 @@ even though PEP 8 suggests 72.
 - **Error and Invalid request handling**
     - Users who are not logged in are redirected to sign in page
     - Users who POST invalid data/lesson_id are returned to the basket with the error "Invalid request, no lesson was specified for deletion"
-    - If the removal fails for any other reason the user is returned to the basket with the error "Something went wrong, please contact {settings.DEFAULT_FROM_EMAIL} if you need assistance."
  
 ## **Checkout Page**
  

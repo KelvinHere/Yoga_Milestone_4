@@ -135,3 +135,32 @@ class TestCheckoutViews(TestCase):
         self.assertTemplateUsed(response, 'home/index.html')
         self.assertContains(response, ('This order does not belong to this '
                                        'account'))
+
+    def test_checkout_valid_post(self):
+        '''
+        Submitting a valid checkout form will
+        carry out the order process
+        '''
+        # Add items
+        lesson = Lesson.objects.get(lesson_name='B Lesson')
+        response = self.client.post('/basket/add_to_basket/',
+                                    {'lesson_id': lesson.lesson_id},
+                                    follow=True)
+        self.assertTrue(response.status_code, 200)
+
+        # Check basket has both items
+        response = self.client.get('/basket/', follow=True)
+        self.assertTrue(response.status_code, 200)
+        self.assertTemplateUsed(response, 'basket/basket.html')
+        self.assertContains(response, 'B Lesson')
+
+        # Checkout
+        response = self.client.get('/checkout/')
+        self.assertTrue(response.status_code, 200)
+        self.assertTemplateUsed(response, 'checkout/checkout.html')
+        self.assertContains(response, 'For 1 item')
+
+        #response = self.client.post('/checkout/',
+        #                            {'full_name': 'CompleteUser',
+        #                             'email': 'complete_user@test.com'})
+            

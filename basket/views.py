@@ -79,8 +79,8 @@ def add_to_basket(request):
             return HttpResponse(json_response, content_type='application/json')
     # If not post request
     else:
-        messages.error(request, "Invalid request, please select lessons from \
-                                 the lessons page")
+        messages.error(request, ("Invalid request, please select lessons from "
+                                 "the lessons page"))
         return redirect(reverse('home'))
 
 
@@ -89,21 +89,15 @@ def remove_from_basket(request):
     """ Removes item from basket """
     basket = request.session.get('basket', {})
 
-    try:
-        if 'lesson_id' in request.POST:
-            lesson_id = request.POST.get('lesson_id')
-            if Lesson.objects.filter(lesson_id=lesson_id).exists():
-                basket.pop(lesson_id)
-                request.session['basket'] = basket
-                json_response = json.dumps({'item_removed': 'True'})
-                return HttpResponse(json_response,
-                                    content_type='application/json')
+    if 'lesson_id' in request.POST:
+        lesson_id = request.POST.get('lesson_id')
+        if Lesson.objects.filter(lesson_id=lesson_id).exists():
+            basket.pop(lesson_id)
+            request.session['basket'] = basket
+            json_response = json.dumps({'item_removed': 'True'})
+            return HttpResponse(json_response,
+                                content_type='application/json')
 
-        messages.error(request, ("Invalid request, invalid lesson or bad "
-                                 " form data"))
-        return redirect(reverse('view_basket'))
-    except Exception as e:
-        messages.error(request, f"Something went wrong, please contact \
-                                 {settings.DEFAULT_FROM_EMAIL} if you need \
-                                 assistance.  Error: {e}")
-        return redirect(reverse('view_basket'))
+    messages.error(request, ("Invalid request, invalid lesson or bad "
+                             " form data"))
+    return redirect(reverse('view_basket'))

@@ -38,6 +38,7 @@ class TestViewBasketViews(TestCase):
                                     follow=True)
         self.assertContains(response, '"item_added": "True"')
 
+        # View Basket page
         response = self.client.get('/basket/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'basket/basket.html')
@@ -94,6 +95,8 @@ class TestViewBasketViews(TestCase):
 
         # Discount delta
         discount_delta = settings.DISCOUNT_THRESHOLD - lesson.price
+        
+        # View basket page
         self.assertContains(
             response, html.escape(f'Spend €{discount_delta} more for a '
                                   f'{settings.DISCOUNT_PERCENTAGE}% '
