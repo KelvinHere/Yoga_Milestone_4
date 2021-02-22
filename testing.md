@@ -49,20 +49,20 @@ Home Coverage Report
 Missing from these tests are the custom 404 and 500 pages, these have been tested manually on the deployed app.
 
 Profiles Coverage Report
-![ProfilesCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/unittests/profiles.JPG "Profiles Coverage Report")
+![ProfilesCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/profiles.JPG "Profiles Coverage Report")
 
 Basket Coverage Report
-![BasketCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/unittests/basket.JPG "Basket Coverage Report")
+![BasketCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/basket.JPG "Basket Coverage Report")
 
 Checkout Coverage Report
-![CheckoutCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/unittests/checkout.JPG "Checkout Coverage Report")
+![CheckoutCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/checkout.JPG "Checkout Coverage Report")
 Missing from these tests are the webhooks and webhook handlers, these have been tested on the deployed app and confirmed through stripe.
 
 Sudio Coverage Report
-![StudioCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/unittests/studio.JPG "Studio Coverage Report")
+![StudioCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/studio.JPG "Studio Coverage Report")
 
 Lessons Coverage Report
-![LessonsCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/unittests/lessons.JPG "Lessons Coverage Report")
+![LessonsCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/lessons.JPG "Lessons Coverage Report")
 
 
 ### Running unit tests
@@ -486,7 +486,14 @@ even though PEP 8 suggests 72.
     - Users who are not logged in are redirected to sign in page
     - Users who try to GET request this page are handled by the django @require_POST decorator
     - If the logic of this view fails, users are given the message "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction."
- 
+
+4. **webhooks**
+- **Valid requests**
+    - Checkout page creates a payment intent and if that succeeds 
+    !!!!!! Do more here
+- **Error handling**
+    - If user closes the browser or the order form is not submitted via JavaScript, the backend will look for the orderform for 5 times over 5 seconds, if still not found the Order will be created in the webhook.
+
 ## **Account Pages**
 
 - **Valid requests**
