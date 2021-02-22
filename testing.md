@@ -553,7 +553,7 @@ even though PEP 8 suggests 72.
     - Users who pass invalid order numbers are redirected home with the error message "This order was not found, please contact {settings.DEFAULT_FROM_EMAIL} for support."
     - Users who try to view someone else's order number through this view are given the error message "This order does not belong to this account, if this is a mistake please contact {settings.DEFAULT_FROM_EMAIL} for support."
  
-3. **attach_to_basket_intent**
+3. **attach_basket_to_intent**
 - **Valid requests**
     - POST:  Sets up Stripe keys and adds metadata to Stripe payment intent
  
@@ -735,3 +735,20 @@ LOGGING = {
     </script>
 ```
 - Result - The static file now has access to the CSRF Token again and the buttons function correctly
+
+***
+- **End to end testing Checkout**
+
+- Situation - End to end testing the checkout fails because the stripe payment_intent is passed by JavaScript that is rendered on the checkout page.
+
+- Task - Get payment_intent from the HTML response.
+
+- Action - Use regex to get the line the payment intent is situated an isolate it `(.+?_secret)` is contained in index 1 of the results.
+'''
+client_secret = re.search(
+            r'id_client_secret" type="application\/json">"(.+?_secret).+',
+            response.content.decode("utf-8")
+            )[1]
+'''
+
+- Result - The payment intent is now in a variable in the test and can be passed along as form data.

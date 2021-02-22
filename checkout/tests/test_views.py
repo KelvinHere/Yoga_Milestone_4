@@ -6,18 +6,19 @@ from checkout.models import OrderLineItem, Order
 from profiles.models import UserProfile
 from lessons.models import Lesson
 
+import re
+
 
 class TestCheckoutViews(TestCase):
     fixtures = ['profiles/fixtures/sample_fixtures.json', ]
 
     def setUp(self):
         # Login
-        profile = UserProfile.objects.get(user__username='complete_user')
-        login_successful = self.client.login(username=profile.user.username,
-                                             password='orange99')
+        self.profile = UserProfile.objects.get(user__username='complete_user')
+        login_successful = self.client.login(
+            username=self.profile.user.username,
+            password='orange99')
         self.assertTrue(login_successful)
-        # Remove previous purchases
-        OrderLineItem.objects.all().delete()
 
     # Checkout Page
     def test_checkout_logged_out(self):
@@ -35,6 +36,9 @@ class TestCheckoutViews(TestCase):
         '''
         Checkout GET request takes user to checkout page
         '''
+        # Remove previous purchases
+        Order.objects.all().delete()
+
         # Add items
         lesson = Lesson.objects.get(lesson_name='B Lesson')
         response = self.client.post('/basket/add_to_basket/',
@@ -90,7 +94,7 @@ class TestCheckoutViews(TestCase):
 
         # All lessons pruchased are included in page
         for item in items_in_order:
-            self.assertNotContains(response, item.lesson.lesson_name)
+            self.assertContains(response, item.lesson.lesson_name)
 
     def test_checkout_success_invalid_order_number(self):
         '''
@@ -138,9 +142,13 @@ class TestCheckoutViews(TestCase):
 
     def test_checkout_valid_post(self):
         '''
-        Submitting a valid checkout form will
-        carry out the order process
+        Submitting a valid checkout form will carry out
+        the order process then redirect the user to the
+        checkout success page with success message
         '''
+        # Remove all purchases
+        Order.objects.all().delete()
+
         # Add items
         lesson = Lesson.objects.get(lesson_name='B Lesson')
         response = self.client.post('/basket/add_to_basket/',
@@ -148,19 +156,74 @@ class TestCheckoutViews(TestCase):
                                     follow=True)
         self.assertTrue(response.status_code, 200)
 
-        # Check basket has both items
+        # Check basket has item
         response = self.client.get('/basket/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'basket/basket.html')
         self.assertContains(response, 'B Lesson')
 
         # Checkout
-        response = self.client.get('/checkout/')
+        response = self.client.get('/checkout/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'checkout/checkout.html')
         self.assertContains(response, 'For 1 item')
 
-        #response = self.client.post('/checkout/',
-        #                            {'full_name': 'CompleteUser',
-        #                             'email': 'complete_user@test.com'})
-            
+        # Get client secret from rendered page
+        client_secret = re.search(
+            r'id_client_secret" type="application\/json">"(.+?_secret).+',
+            response.content.decode("utf-8")
+            )[1]
+
+        # Response redirects to checkout success and order is created
+        response = self.client.post('/checkout/',
+                                    {'full_name': 'CompleteUser',
+                                     'email': 'complete_user@test.com',
+                                     'client_secret': client_secret, },
+                                    follow=True)
+
+        self.assertTemplateUsed(response, 'checkout/checkout_success.html')
+        self.assertContains(response, 'B Lesson')
+        self.assertContains(response, ('Your order was successfully placed, '
+                                       'below is your order information'))
+        self.assertTrue(Order.objects.filter(profile=self.profile).exists())
+
+    def test_checkout_invalid_post(self):
+        '''
+        Submitting an invalid checkout form returns
+        user to checkout with error message
+        '''
+        # Remove all purchases
+        Order.objects.all().delete()
+
+        # Add items
+        lesson = Lesson.objects.get(lesson_name='B Lesson')
+        response = self.client.post('/basket/add_to_basket/',
+                                    {'lesson_id': lesson.lesson_id},
+                                    follow=True)
+        self.assertTrue(response.status_code, 200)
+
+        # Checkout
+        response = self.client.get('/checkout/', follow=True)
+        self.assertTrue(response.status_code, 200)
+        self.assertTemplateUsed(response, 'checkout/checkout.html')
+        self.assertContains(response, 'For 1 item')
+
+        # Response redirects to checkout with error message
+        response = self.client.post('/checkout/',
+                                    {'full_name': 'CompleteUser',
+                                     'WRONG_FIELD': 'complete_user@test.com',
+                                     'client_secret': 'INVALID_SECRET', },
+                                    follow=True)
+
+        print(response.content.decode("UTF-8"))
+
+        self.assertRedirects(response,
+                             expected_url=reverse('checkout'),
+                             status_code=302,
+                             target_status_code=200)
+        self.assertTemplateUsed(response, 'checkout/checkout.html')
+
+        self.assertContains(response, 'For 1 item')
+        self.assertContains(response, ("There was an error with your form, no "
+                                       "charges have been made."))
+        self.assertFalse(Order.objects.filter(profile=self.profile).exists())

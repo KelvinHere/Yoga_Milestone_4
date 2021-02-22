@@ -28,6 +28,7 @@ def checkout(request):
         basket = request.session.get('basket', {})
         order_form = OrderForm(request.POST)
         if order_form.is_valid():
+            print(request.POST)
             order = order_form.save(commit=False)
             payment_intent_id = (request.POST.get('client_secret')
                                              .split('_secret')[0])
@@ -37,17 +38,11 @@ def checkout(request):
             order.save()
             for item in basket.items():
                 lesson = get_object_or_404(Lesson, lesson_id=item[0])
-                try:
-                    order_line_item = OrderLineItem(
-                        order=order,
-                        lesson=lesson,
-                        profile=profile,
-                    )
-                    order_line_item.save()
-                except Lesson.DoesNotExist:
-                    messages.error(request, ("One of the lessons was not "
-                                             "found please contact us for "
-                                             " assistance"))
+                order_line_item = OrderLineItem(
+                    order=order,
+                    lesson=lesson,
+                    profile=profile,)
+                order_line_item.save()
             return redirect(reverse('checkout_success',
                                     args=[order.order_number]))
         else:
