@@ -45,23 +45,29 @@ of the code is covered by the unit tests.
 **Current Coverage Reports**
 
 Home Coverage Report
+
 ![HomeCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/home.JPG "Home Coverage Report")
 Missing from these tests are the custom 404 and 500 pages, these have been tested manually on the deployed app.
 
 Profiles Coverage Report
+
 ![ProfilesCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/profiles.JPG "Profiles Coverage Report")
 
 Basket Coverage Report
+
 ![BasketCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/basket.JPG "Basket Coverage Report")
 
 Checkout Coverage Report
+
 ![CheckoutCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/checkout.JPG "Checkout Coverage Report")
 Missing from these tests are the webhooks and webhook handlers, these have been tested on the deployed app and confirmed through stripe.
 
 Sudio Coverage Report
+
 ![StudioCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/studio.JPG "Studio Coverage Report")
 
 Lessons Coverage Report
+
 ![LessonsCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/lessons.JPG "Lessons Coverage Report")
 
 
