@@ -115,11 +115,6 @@ body {
     background-color: #534a47;
 }
 
-.bg-featured {
-    background-color: #534a47;
-    border: 1px solid white;
-}
-
 .navbar-custom a{
     color: #e0d8d0;
 }
@@ -151,6 +146,11 @@ body {
 /* ---------------------------------------- Home page */
 #featured-lessons {
     width: 50%;
+}
+
+.bg-featured {
+    background-color: #534a47;
+    border: 1px solid #e0d8d0;
 }
 
 /* ---------------------------------------- Account pages */
