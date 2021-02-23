@@ -135,7 +135,7 @@ class LessonReview(models.Model):
                                related_name='reviewedLesson')
     review = models.TextField(max_length=512)
     rating = models.IntegerField()
-    date = models.DateTimeField(default=datetime.now, blank=True)
+    date = models.DateTimeField(default=datetime.now)
 
     def save(self, *args, **kwargs):
         """

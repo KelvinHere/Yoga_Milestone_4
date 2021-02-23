@@ -1,10 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from lessons.models import Subscription, LessonReviewFlagged
+
+from lessons.models import Subscription, LessonReviewFlagged, Lesson
 from profiles.models import UserProfile
 
 from yoga.utils import get_profile_or_none
+
+import json
 
 
 def index(request):
@@ -16,10 +19,19 @@ def index(request):
         if Subscription.objects.filter(user=profile).count() > 0:
             subscribed_lessons = True
 
+    # Get 4 random lessons with score from 8 to 10
+    random_lessons = Lesson.objects.filter(rating__range=[5, 10],
+                                           is_free=True)
+    random_lesson_values = random_lessons.values('lesson_name',
+                                                 'image').order_by("?")[:4]
+    json_lessons = json.dumps(list(random_lesson_values))
+    print(json_lessons)
+
     template = "home/index.html"
     context = {
         'profile': profile,
         'subscribed_lessons': subscribed_lessons,
+        'json_lessons': json_lessons,
     }
 
     return render(request, template, context)

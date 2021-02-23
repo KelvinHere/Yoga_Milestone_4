@@ -34,7 +34,22 @@
                         <a href="{% url 'instructors' %}" class="btn btn-lg btn-success rounded-20 py-3 my-4">Find an instructor</a>
                     </div>                
                 {% endif %}
+                <div id="random-lessons">
+                    <a href="" id="random_image_link">
+                        <img src="" alt="" id="random_image">
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    {{ json_lessons|json_script:"json_lessons" }}
+    <script>
+        //$(function() {
+        //    let images = 
+        //}
+    </script>
 {% endblock %}
