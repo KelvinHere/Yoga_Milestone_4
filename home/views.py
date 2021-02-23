@@ -25,6 +25,7 @@ def index(request):
     random_lesson_values = random_lessons.values('lesson_name',
                                                  'image').order_by("?")[:4]
     json_lessons = json.dumps(list(random_lesson_values))
+    #json_lessons = json_lessons.replace("\"", "\'")
     print(json_lessons)
 
     template = "home/index.html"

@@ -46,10 +46,20 @@
 
 {% block postloadjs %}
     {{ block.super }}
-    {{ json_lessons|json_script:"json_lessons" }}
+    <script id="json_lessons">
+        {{ json_lessons|safe }}
+    </script>
     <script>
-        //$(function() {
-        //    let images = 
-        //}
+    $(document).ready(function() {
+        let lessons = document.getElementById("json_lessons").textContent.trim()
+        console.log('###')
+        console.log('!' + lessons + '!')
+        l = JSON.parse(lessons)
+        console.log(l)
+        console.log(l[0])
+        //$.each(l, function(k, v) {
+        //    alert(v)
+        //});
+    });
     </script>
 {% endblock %}
