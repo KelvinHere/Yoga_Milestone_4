@@ -23,11 +23,9 @@ def index(request):
     random_lessons = Lesson.objects.filter(rating__range=[5, 10],
                                            is_free=True)
     random_lesson_values = random_lessons.values('lesson_name',
-                                                 'lesson_id',   
+                                                 'lesson_id',
                                                  'image').order_by("?")[:4]
     json_lessons = json.dumps(list(random_lesson_values))
-    #json_lessons = json_lessons.replace("\"", "\'")
-    print(json_lessons)
 
     template = "home/index.html"
     context = {

@@ -48,7 +48,7 @@ class TestIndexView(TestCase):
         Normal users with subscriptions are logged in are sent
         to home page with:-
         - A personalised message
-        - Your Subscribed Lessons Button
+        - Subscribed Lessons Button
         '''
         login_successful = self.client.login(username='complete_user',
                                              password='orange99')
@@ -57,7 +57,7 @@ class TestIndexView(TestCase):
         response = self.client.get('/', follow=True)
         self.assertTrue(response.status_code, 200)
         self.assertTemplateUsed(response, 'home/index.html')
-        self.assertContains(response, 'Your Subscribed Lessons')
+        self.assertContains(response, 'Subscribed Lessons')
         self.assertContains(
             response,
             ('Breathe deep <strong>Complete_User</strong> and continue your '

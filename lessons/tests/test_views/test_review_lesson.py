@@ -333,13 +333,12 @@ class TestReviewLessonView(TestCase):
 
     def test_rating_changed_when_review_added(self):
         '''
-        The lesson rating changes 
+        The lesson rating changes
         when a review is added
         '''
         # Old Lesson has one 10 star review
         lesson = Lesson.objects.get(lesson_name='H Lesson')
         self.assertTrue(lesson.rating, 10)
-        old_rating = lesson.rating
 
         profile = UserProfile.objects.get(user__username='incomplete_user')
         login_successful = self.client.login(username=profile.user.username,

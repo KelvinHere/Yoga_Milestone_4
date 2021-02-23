@@ -163,7 +163,10 @@ Some select lines were not corrected as it would make the code harder to read or
 
 The following errors remain.
 - \<!DOCTYPE html> missing from some html files:  These were omitted from "includes" template files or files that extend from base to avoid getting HTML validation errors with out of place /<!DOCTYPE>'s through the final rendered pages.
-- `./checkout/apps.py:8:9: F401 'checkout.signals' imported but unused` This sets up signals for checkout.signals.py.
+- The three errors below set up signals for checkout/lessons/profile signals.py.
+    - `./checkout/apps.py:8:9: F401 'checkout.signals' imported but unused`
+    - `./profiles/apps.py:8:9: F401 'profiles.signals' imported but unused`
+    - `./lessons/apps.py:8:9: F401 'lessons.signals' imported but unused` 
 - `./checkout/webhooks.py:43:80: E501 line too long (86 > 79 characters)` Left as not to break the payment intent line.
 - Below, the AUTH_PASSWORD_VALIDATORS receive a line too long warning, these are setup up in the django file by default at this length, I have left them as is, the lines in question are below, with a quote from docs.djangoproject.com.
 ```

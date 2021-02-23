@@ -66,7 +66,7 @@ class TestProfileModels(TestCase):
         '''
         instructor = UserProfile.objects.get(user__username='instructor_1')
         lessons = Lesson.objects.filter(instructor_profile=instructor)
-        
+
         # Loop to allow signal to fire, does not work on bulk delete
         for lesson in lessons:
             lesson.delete()

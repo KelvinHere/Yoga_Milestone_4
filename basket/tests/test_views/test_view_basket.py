@@ -95,7 +95,7 @@ class TestViewBasketViews(TestCase):
 
         # Discount delta
         discount_delta = settings.DISCOUNT_THRESHOLD - lesson.price
-        
+
         # View basket page
         self.assertContains(
             response, html.escape(f'Spend €{discount_delta} more for a '
