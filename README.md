@@ -238,6 +238,10 @@ screens to always look pleasing.
 - Button: "Your subscribed lessons" call to action button appears if the user is logged in to push engagement.
 - Button: "Instructor admin" call to action button appears if the user is an Instructor to promote engagement.
 - Personalised Toast to show login success in an unobtrusive position.
+- A featured lessons button that displays random 4 free lessons with a rating higher than a set value
+
+Note on featured lessons - This was added as a requirement of the course, I feel it does go well with the feel of the app so
+is defaulted to be hidden.
  
  
 ### Superuser_admin Page Features

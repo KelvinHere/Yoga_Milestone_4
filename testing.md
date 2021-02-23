@@ -202,6 +202,7 @@ even though PEP 8 suggests 72.
     - Search available instructors
         - Sort these results by Name / Rating / Number of lessons available
     - View lessons
+        - View 4 random, high rated, free, featured lessons on the homepage
         - By Instructor
         - Search lessons
         - Filter these results by All / Purchased / Subscribed
@@ -242,6 +243,7 @@ even though PEP 8 suggests 72.
 - While logged in, superusers can access "Superuser admin" where they can
     - Accept/reject users requests to become an instructor
     - Remove instructor status from an instructor
+- Press the featured lessons button to display a cycling card of high rated, random, free lessons
  
 - **Error and Invalid request handling**
 - While logged out, users cannot access the following views
