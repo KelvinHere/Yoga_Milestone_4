@@ -10,6 +10,14 @@ $(document).ready(function() {
     let count = 1;
     let mediaUrl = $('#media_url_id').text().slice(1,-1);
     let studioUrl = $('#studio_url_id').text().trim().slice(1,-1);
+    let preloaded = new Array()
+
+    // Preload image
+    $.each(json_lessons, function() {
+        console.log(this.image);
+        preloaded.push(new Image().src = mediaUrl + this.image);
+    });
+    console.log(preloaded)
 
     // Setup first featured lesson
     $('#featured-title').text(json_lessons[count % size].lesson_name);
