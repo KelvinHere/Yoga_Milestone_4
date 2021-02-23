@@ -1,12 +1,13 @@
 // Script for showing hiding and cycling featured lessons
+//jshint esversion: 6
 
 // Display random lessons with delay
 $(document).ready(function() {
     // Get Lessons and convert to json object
-    let lessons = document.getElementById("json_lessons").textContent.trim()
-    let json_lessons = JSON.parse(lessons)
-    let size = Object.keys(json_lessons).length
-    let count = 1
+    let lessons = document.getElementById("json_lessons").textContent.trim();
+    let json_lessons = JSON.parse(lessons);
+    let size = Object.keys(json_lessons).length;
+    let count = 1;
     let mediaUrl = $('#media_url_id').text().slice(1,-1);
     let studioUrl = $('#studio_url_id').text().trim().slice(1,-1);
 
@@ -33,4 +34,4 @@ $(document).ready(function() {
 // Toggle featured lessons
 function toggle_featured(){
     $('#featured-lessons').toggle();
-};
+}

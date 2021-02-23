@@ -152,6 +152,9 @@ The following files were validated through manually pasting the content into [be
 - [superuser_admin_js.html](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/home/templates/home/includes/superuser_admin_js.html)
 - [delete_lesson_modal.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/delete_lesson_modal.js)
 - [lesson_buttons.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/lesson_buttons.js)
+- [featured_lessons.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/home/static/home/js/featured_lessons.js)
+
+Errors : in featured_lessons.js the function `toggle_featured` has the error "is defined but never used." but is used by a button in home.html to toggle the featured lessons card.
 
 #### Python Validation
 
