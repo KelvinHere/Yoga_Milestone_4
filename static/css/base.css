@@ -19,7 +19,7 @@ body {
 
 .index-main-text {
     font-size: 1.5rem;
-    background-color: rgba(255, 255, 255, .5);
+    background-color: rgba(255, 255, 255, .7);
 }
 
 .smaller-text {
@@ -71,6 +71,8 @@ body {
 .btn-custom-invert:focus {
     background: #534a47;
     color: white !important;
+    outline: none !important;
+    box-shadow: none;
 }
 
 .btn-custom-darken {
@@ -84,6 +86,8 @@ body {
 .btn-custom-darken:focus {
     background: #3b3532;
     color: #fff !important;
+    outline: none !important;
+    box-shadow: none;
 }
 
 /* ---------------------------------------- Icons */
@@ -109,6 +113,11 @@ body {
 /* ---------------------------------------- Colours */
 .navbar-custom {
     background-color: #534a47;
+}
+
+.bg-featured {
+    background-color: #534a47;
+    border: 1px solid white;
 }
 
 .navbar-custom a{
