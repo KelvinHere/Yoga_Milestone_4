@@ -139,6 +139,11 @@ body {
     box-shadow: none;
 }
 
+/* ---------------------------------------- Home page */
+#featured-lessons {
+    width: 50%;
+}
+
 /* ---------------------------------------- Account pages */
 .account-container {
     display: inline-block;
@@ -314,5 +319,9 @@ body {
 
         .instructor-admin-button {
             width: 50%;
+        }
+
+        #featured-lessons {
+            width: 25%;
         }
 }

@@ -29,14 +29,16 @@
                         {% endif %}
                     </div>
                 {% else %}
-                    <h1 class="display-4 me-auto my-4 mx-4 p-3 index-main-text rounded shadow-sm alt-text">Breathe deep and begin your Yoga journey here</h1>
+                    <h1 class="display-4 me-auto mx-4 p-3 index-main-text rounded shadow-sm alt-text">Breathe deep and begin your Yoga journey here</h1>
                     <div>
                         <a href="{% url 'instructors' %}" class="btn btn-lg btn-success rounded-20 py-3 my-4">Find an instructor</a>
                     </div>                
                 {% endif %}
-                <div id="featured-lessons">
-                    <a href="" id="featured_image_link">
-                        <img src="" alt="" id="featured_image">
+                <div class="mx-auto mt-3 bg-success rounded p-1" id="featured-lessons">
+                    <a href="" class="mx-auto style-link" id="featured-image-link">
+                        <p class="text-white m-0 pb-1" id="featured-title">kjh</p>
+                        <img src="javascript_injects" alt="javascript_injects" class="img-fluid rounded border-right-success border-left-success" id="featured-image">
+                        <p class="text-white m-0 pt-1">Featured Free Lesson!</p>
                     </a>
                 </div>
             </div>
@@ -56,20 +58,19 @@
         let lessons = document.getElementById("json_lessons").textContent.trim()
         let json_lessons = JSON.parse(lessons)
         let size = Object.keys(json_lessons).length
-        let count = 0
-        let mediaUrl = {{ MEDIA_URL }}
+        let count = 1
+        let mediaUrl = '{{ MEDIA_URL }}'
+        let studioUrl = '{% url "studio" "lesson_id" %}'
 
-        $.each(json_lessons, function() {
-            console.log(this.lesson_name)
-            console.log(this.image)
-        });
-
-        setInterval(function() {
-            console.log('##');
-            console.log(json_lessons[count % size].image);
-            $('#featured_image').attr("src",mediaUrl + json_lessons[count % size].image);
-            count++;}
-            , 5000);
+        function next() {
+            $('#featured-title').text(json_lessons[count % size].lesson_name)
+            $('#featured-image').attr("src",mediaUrl + json_lessons[count % size].image);
+            $('#featured-image-link').attr('href', studioUrl.replace('lesson_id', json_lessons[count % size].lesson_id))
+            count++;
+            setTimeout(next, 5000);
+        };
+        next();
+        
     });
     </script>
 {% endblock %}
