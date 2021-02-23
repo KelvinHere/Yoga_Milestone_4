@@ -55,40 +55,9 @@
     <script id="json_lessons">
         {{ json_lessons|safe }}
     </script>
-    <script>
-    // Display random lessons with delay
-    $(document).ready(function() {
-        // Get Lessons and convert to json object
-        let lessons = document.getElementById("json_lessons").textContent.trim()
-        let json_lessons = JSON.parse(lessons)
-        let size = Object.keys(json_lessons).length
-        let count = 1
-        let mediaUrl = '{{ MEDIA_URL }}'
-        let studioUrl = '{% url "studio" "lesson_id" %}'
-
-        // Setup first featured lesson
-        $('#featured-title').text(json_lessons[count % size].lesson_name);
-        $('#featured-image').attr("src",mediaUrl + json_lessons[count % size].image);
-        $('#featured-image-link').attr('href', studioUrl.replace('lesson_id', json_lessons[count % size].lesson_id));
-        count++;
-        
-        setInterval (function() {
-            // Change title
-            $('#featured-title').text(json_lessons[count % size].lesson_name);
-            $('#featured-image').fadeTo(50, 0.01, function(){
-                // Swap image
-                $('#featured-image').attr("src",mediaUrl + json_lessons[count % size].image);
-                // Change link
-                $('#featured-image-link').attr('href', studioUrl.replace('lesson_id', json_lessons[count % size].lesson_id));
-                count++;
-                $(this).delay(50).fadeTo(50, 1);
-            });
-        }, 7000);
-    });
-    
-    // Toggle featured lessons
-    function toggle_featured(){
-        $('#featured-lessons').toggle();
-    };
+    <script id="studio_url_id">
+        '{% url "studio" "lesson_id" %}'
     </script>
+    {{ MEDIA_URL|json_script:"media_url_id" }}
+    <script src="{% static 'home/js/featured_lessons.js' %}"></script>
 {% endblock %}
