@@ -34,9 +34,9 @@
                         <a href="{% url 'instructors' %}" class="btn btn-lg btn-success rounded-20 py-3 my-4">Find an instructor</a>
                     </div>                
                 {% endif %}
-                <div id="random-lessons">
-                    <a href="" id="random_image_link">
-                        <img src="" alt="" id="random_image">
+                <div id="featured-lessons">
+                    <a href="" id="featured_image_link">
+                        <img src="" alt="" id="featured_image">
                     </a>
                 </div>
             </div>
@@ -50,16 +50,26 @@
         {{ json_lessons|safe }}
     </script>
     <script>
+    // Display random lessons with delay
     $(document).ready(function() {
+        // Get Lessons and convert to json object
         let lessons = document.getElementById("json_lessons").textContent.trim()
-        console.log('###')
-        console.log('!' + lessons + '!')
-        l = JSON.parse(lessons)
-        console.log(l)
-        console.log(l[0])
-        //$.each(l, function(k, v) {
-        //    alert(v)
-        //});
+        let json_lessons = JSON.parse(lessons)
+        let size = Object.keys(json_lessons).length
+        let count = 0
+        let mediaUrl = {{ MEDIA_URL }}
+
+        $.each(json_lessons, function() {
+            console.log(this.lesson_name)
+            console.log(this.image)
+        });
+
+        setInterval(function() {
+            console.log('##');
+            console.log(json_lessons[count % size].image);
+            $('#featured_image').attr("src",mediaUrl + json_lessons[count % size].image);
+            count++;}
+            , 5000);
     });
     </script>
 {% endblock %}
