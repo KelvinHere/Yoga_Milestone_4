@@ -54,10 +54,10 @@ tools, set lesson prices and view the details of all the sales they have made on
        * [Content](#content)
        * [Media](#media)
        * [Acknowledgements](#acknowledgements)
-
+ 
 *** 
 ## UX
-
+ 
 ### Project Purpose
  
 The purpose of this app is to create a platform where students can learn Yoga remotely and
@@ -148,10 +148,10 @@ mellow, natural and modern without resorting to garish colours.  Text will be na
 consistency.  The only strong colours are call to action and function buttons to help the user navigate the interface.  All
 this will be a canvas for the instructor generated content and it should not take away from their lesson and profile images
 and content which will become the heart of the app.
-
+ 
 *** 
 ## Features
-
+ 
 ### Quick feature breakdown
  
 A quick review of features on the site, more detailed descriptions further down.
@@ -221,7 +221,7 @@ case "Instructor deletes lesson that is already a users basket".
         - User: My Profile / Logout
         - Instructor: Instructor Admin / My Profile / Logout
         - Administrator: Superuser Admin / My Profile / Logout
-
+ 
 ### Home Page Features
  
 The page is responsive and the buttons and background image reposition for mobile, tablet, and desktop 
@@ -234,7 +234,7 @@ screens to always look pleasing.
     - Button: "Find an Instructor" appears if the user is not logged in or is not currently subscribed to any lessons.
     - Button: "Subscribed Lessons" call to action button replaces "Find an instructor" button if the user has subscribed to any lessons to push engagement.
     - Button: "Instructor admin" call to action button appears if the user is an Instructor to promote engagement this replaces any of the other buttons.
-
+ 
 Note on featured lessons - This was added as a requirement of the project, I feel it does go well with the feel of the app so
 is defaulted to be hidden.
  
@@ -248,7 +248,7 @@ The page is responsive, the tabs are collapsed to a vertical arrangement on mobi
  
 - **Requests Tab:**
     - **Functionality**
-        - User requestes to become instructors display here.
+        - User requests to become instructors display here.
         - The tab title displays the current amount of user requests, using a styled red icon, ie 'Requests **+2**'.
         - Each request displays the user's profile and **email link**, so an administrator can easily contact and vet them before deciding to 'Accept' of 'Reject' the request via the buttons.
         - Accepted users are granted instructor status.  This gives access to the Instructor Admin page, to create / edit / delete lessons.  The request is then removed from the superuser_admin page.
@@ -385,7 +385,7 @@ This is the page where the actual lesson happens, it has the lesson name, the em
  
 ### Profile Page Features
  
-The profile page shows users their profiles, lets them edit it and request to become an instructor.  A list of purchased lessons and buttons to start them are also on this page for quick access.
+The profile page shows users their profiles, lets them edit it and requests to become an instructor.  A list of purchased lessons and buttons to start them are also on this page for quick access.
  
 - **Functionality**
 - An 'Edit Profile' button takes the user to a form where they can edit their profile information and change their picture.
@@ -440,14 +440,14 @@ Also a list of all lessons ordered with buttons to start them.
     - On smaller screens the checkout window takes the full screen.
  
 Regarding signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a `signal` (pre_delete) is used to delete the subscriptions the user may have for the lesson.
-
+ 
 ### Custom Template Tags
-
+ 
 For convenience, when rendering the instructor sales page, I included a custom template tag that will deduct
 the current STIE_SALES_PERCENTAGE in the OrderLineItem model, to display the total earned by the instructor after the websites cut.  This 
 is located in [lessons.templatetags.site_utils.py](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/templatetags/site_utils.py) and 
 registers the function as a filter with the decorator `@register.filter`.
-
+ 
 ### Performance
  
 - This app has been written with performance in mind, to try and only access the database when necessary and to make the queries and model access as lightweight as possible, below is an example.
@@ -477,7 +477,7 @@ In making this app, there are ideas I would like to implement at a later date th
 project, they are listed below.
  
 #### Near Future
-- Lesson history for quick links back to a lesson whos name cannot be remembered
+- Lesson history for quick links back to a lesson whose name cannot be remembered
 - Implement a time limit on uploading images so a user cannot spam images to the application.
 - Use a private video hosting service to give the site more control and better security for paid lessons (sharing of urls).
 - Ignore users flags feature, will allow an administrator to ignore flags created by a user in case they misuse this feature.
@@ -488,15 +488,15 @@ project, they are listed below.
 #### Far Future
 - Refactor the instructor logic with the `@permission_required` decorator to remove a lot or repeated checks for `.is_instructor` in the UserProfile model
 - Create live-streaming paid lessons, where an instructor can sell limited positions to join realtime lessons with direct tutor feedback.
-
+ 
 *** 
 ## Testing
-
+ 
 [Testing Documentation](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/testing.md) - Documentation for testing
  
 ***
 ## Technologies Used
-
+ 
 - **HTML5/CSS3**
 - [Django](https://www.djangoproject.com/) - Framework to create the app
 - [Heroku](https://www.heroku.com/) - Cloud Application Platform to deploy the app to 
@@ -523,10 +523,10 @@ project, they are listed below.
 - [Pillow](https://github.com/python-pillow/Pillow/blob/fcc42e0d344146ee9d265d1f43c094ce5a0ec4cf/docs/index.rst) - Pillow adds image processing capabilities to the Python interpreter.
 - [psycopg2-binary](https://www.psycopg.org/) - A PostgreSQL adapter for python it will convert database data into python lists.
 - [s3transfer](https://pypi.org/project/s3transfer/) - A python library for managing S3 transfers
-
+ 
 ***
 ## Deployment
-
+ 
 This project was created in [GitPod](https://gitpod.io/) with the [Code Institute template](https://github.com/Code-Institute-Org/gitpod-full-template) and version controlled through 'Git', the project was committed and pushed to [GitHub](https://github.com/).
 The project was then deployed to [Heroku](https://www.heroku.com/) with media and static files hosted on [Amazon s3](https://aws.amazon.com/).
  
@@ -630,14 +630,14 @@ The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed wi
     - The App should now be running through Heroku
  
 ### Differences - Local and deployed
-
-The enviromental variables here allow the app to automatically switch between development mode and deployed.  They also handle what database to connect to, cloud storage, email access and stripe payments.  Below is a list of deployed vs developer enviromental variables.
-
+ 
+The environmental variables here allow the app to automatically switch between development mode and deployed.  They also handle what database to connect to, cloud storage, email access and stripe payments.  Below is a list of deployed vs developer enviromental variables.
+ 
 - Local version
     - `DATABASE_URL` var is not present in the environment, the database will default to the local sqlite3
-    - `DEVELOPEMENT` is present in the environment, DEBUG will = True, debug messages will be available and email authentication will be availavle through the console
-    - `USE_AWS` is not present in the enviroment, static and media file storage stay local
-
+    - `DEVELOPMENT` is present in the environment, DEBUG will = True, debug messages will be available and email authentication will be available through the console
+    - `USE_AWS` is not present in the environment, static and media file storage stay local
+ 
 - Deployed version (Heroku)
     - `DATABASE_URL` contains the postgres url
     - `DEVELOPMENT` is not present and DEBUG will be false, stopping any sensitive information leaking out to the internet
@@ -645,18 +645,18 @@ The enviromental variables here allow the app to automatically switch between de
     - `USE_AWS` is present and settings.py will define all the variables for amazon S3 storage for media and static files
     - `AWS_ACCESS_KEY_ID` public access key for S3 storage
     - `AWS_SECRET_ACCESS_KEY` secret access key for S3 storage
-
+ 
     - `DISABLE_COLLECTSTATIC` when present stops redeploying all static and media files to S3 storage
-
+ 
     - `EMAIL_HOST_USER` email address for django to send emails from
     - `EMAIL_HOST_PASS` password to access the email address
-
-    - `SECRET_KEY` djangos secret key for protecting signed data
-
+ 
+    - `SECRET_KEY` django's secret key for protecting signed data
+ 
     - `STRIPE_PUBLIC_KEY` stripes public key
     - `STRIPE_SECRET_KEY` stripes secret key to protect signed data
     - `STRIPE_WH_SECRET` stripes secret key for webhooks to protect signed data
-
+ 
 ***
 ## Credits
  
@@ -668,7 +668,7 @@ The enviromental variables here allow the app to automatically switch between de
     ```
 - [Generated Photos](https://generated.photos/) - AI generated Student Faces used for student profiles
  
-
+ 
 ### Content
  
 - This project was created by KelvinHere
@@ -695,7 +695,7 @@ The enviromental variables here allow the app to automatically switch between de
     * [AdrianasFocusedMind.jpg](https://pixabay.com/photos/woman-happiness-sunrise-silhouette-570883/)
     * [AdrianasMeditationHour](https://pixabay.com/photos/women-yoga-classes-fitness-asana-1179435/)
     * [young-woman-1178123_1920](https://pixabay.com/photos/young-woman-yoga-classes-fitness-1178123/)
-
+ 
   
 ### Acknowledgements
  
@@ -703,4 +703,3 @@ The enviromental variables here allow the app to automatically switch between de
 * [Django Documentation](https://docs.djangoproject.com/en/3.1/).
 * [Code Institute](https://codeinstitute.net/).
 * My mentor Spencer.
- 
