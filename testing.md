@@ -43,9 +43,9 @@ of the code is covered by the unit tests.
     - starting a http server `python3 -m http.server`
     - open the server and navigate to **htmlcov/index.html**
  
-**Current Coverage Reports**
+### Current Coverage Reports
  
-***
+
  
 Home Coverage Report
  
@@ -99,7 +99,6 @@ You can keep narrowing the tests like this, `python3 manage.py test lessons.test
 ## Unit Test Results
 ![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/unit_tests_run_all.jpg "Unit Tests")
  
-!!!!!! update this
  
 ## Creating Unit Tests
  
@@ -250,7 +249,7 @@ even though PEP 8 suggests 72.
  
 ## **Content Testing**
  
-To avoid duplicating too much text, the content of each page was tested by checking the page content against what was expected on the ['Features' section of the readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment#features)
+To avoid duplicating too much text, the content of each page was tested by checking the page content against what was expected on the ['Features' section of the readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment#features).
  
 # **Valid Requests and Error Handling**
 ## **Home Page**
@@ -730,7 +729,7 @@ LOGGING = {
         - Disable JavaScript so the form is submitted without stripe_elements.js checking that payment.intent has succeeded
         - Enjoy free lessons
  
-- Task: Remove this exploit.
+- Task: Remove this exploit
  
 - Action: After reading in the Stripe documentation you can retrieve a payment intent, I added a check in the checkout view that fetches the intent from stripe.  This intent contains `Paid: True` in its JSON to confirm the purchase.  If this does not exist the item has not been paid for and the user is redirected to the basket page with an error message.  Code below.
 '''
@@ -746,7 +745,7 @@ LOGGING = {
             return redirect(reverse('view_basket'))
 '''
  
-- Result: Users will be unable to bypass the payment system with this exploit.
+- Result: Users will be unable to bypass the payment system with this exploit
  
  
 
