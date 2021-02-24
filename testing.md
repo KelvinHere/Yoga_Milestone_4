@@ -697,12 +697,30 @@ LOGGING = {
 
 ### Place an order without paying
 
-**Situation**
+- Situation: Payment system can be bypassed and orders can be completed for free
     - Steps to defeat the payment system
         - Add item to basket
         - Go to checkout page and remove the stripe card element so the submit form will be valid
         - Disable JavaScript so the form is sbmitted without stripe_elements.js checking that payment.intent has succeeded
         - Enjoy free lessons
 
-**Task**
-    - Remove this exploit
+- Task: Remove this exploit.
+
+- Action: After reading in the Stripe documentation you can retrieve a payment intent, I added a check in the checkout view that fetches the intent from stripe.  This intent contains `Paid: True` in its JSON to confirm the purchase.  If this does not exists the item has not been paid for and the user is redirected to the basket page with an error message.  Code below.
+'''
+# Confirm with stripe this order has been paid for
+        try:
+            payment_intent_id = (request.POST.get('client_secret')
+                                            .split('_secret')[0])
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            fetched_intent = stripe.PaymentIntent.retrieve(payment_intent_id, )
+            paid = fetched_intent['charges']['data'][0]['paid']
+        except Exception:
+            messages.error(request, ("Error:  Could not confirm order with "
+                                     "stripe no charges have been made."))
+            return redirect(reverse('view_basket'))
+'''
+
+- Result: Users will be unable to bypass the payment system with this exploit.
+
+

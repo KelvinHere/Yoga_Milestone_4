@@ -27,7 +27,21 @@ def checkout(request):
     if request.method == 'POST':
         basket = request.session.get('basket', {})
         order_form = OrderForm(request.POST)
-        if order_form.is_valid():
+
+        # Confirm with stripe this order has been paid for
+        try:
+            payment_intent_id = (request.POST.get('client_secret')
+                                            .split('_secret')[0])
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            fetched_intent = stripe.PaymentIntent.retrieve(payment_intent_id, )
+            paid = fetched_intent['charges']['data'][0]['paid']
+        except Exception:
+            messages.error(request, ("Error:  Could not confirm order with "
+                                     "stripe no charges have been made."))
+            return redirect(reverse('view_basket'))
+
+        # Create order if form is valid and has been paid for
+        if order_form.is_valid() and paid:
             order = order_form.save(commit=False)
             payment_intent_id = (request.POST.get('client_secret')
                                              .split('_secret')[0])
