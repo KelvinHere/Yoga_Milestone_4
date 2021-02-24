@@ -97,7 +97,7 @@ This apps unit tests use fixtures in the **profiles app**, for these to be loade
 You can keep narrowing the tests like this, `python3 manage.py test lessons.tests.test_views.test_create_lesson` 
  
 ## Unit Test Results
-![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/tests/unit_tests_run_all.jpg "Unit Tests")
+![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/unit_tests_run_all.jpg "Unit Tests")
  
 !!!!!! update this
  
