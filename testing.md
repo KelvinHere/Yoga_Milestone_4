@@ -23,6 +23,7 @@
    * [Account Pages](#account-pages)
 3. [**User Stories Solved**](#3---user-stories-solved)
 4. [**Interesting Bugs Solved**](#4---interesting-bugs-solved)
+5. [**Payment Attacks**](#5---payment-attack)
  
 ## 1 - Automated Testing
 
@@ -510,10 +511,12 @@ even though PEP 8 suggests 72.
 4. **webhooks**
 - **Valid requests**
     - Viewing the checkout page creates a payment intent for stripe and the card input is added to the checkout form
-    - Submitting valid form data on the checkout page :-
-        - Calls attach_basket_to_intent this adds the email and basket to the payment intents "meta data"
-        - The request to make the charge is sent to stripe, if successful stripe sends a "charge.succeeded" webhook
-        - Stripe sends another payment intent webhook (succeeded), now payment has been made and the OrderForm is submitted allowing the user to access the content.
+    - On payment intetnt succeeded, an email is sent out to the user with order information
+    - Submitting valid form data on the checkout page flow :-
+        - attach_basket_to_intent view adds the email and basket to the payment intents "meta data"
+        - The request to make the charge is sent to stripe, if successful stripe returns "paymentIntent.status": "succeeded"
+        - Now payment has been made and the OrderForm is submitted
+        - checkout view retrieves the payment intent from stripe and checks payment has been made (and not bypassed) allowing the user to access the content.
 
 - **Error handling**
     - If user closes the browser or the order form is not submitted via JavaScript, the backend will look for the orderform for 5 times over 5 seconds, if still not found the Order will be created in the webhook.
@@ -521,11 +524,11 @@ even though PEP 8 suggests 72.
 ## **Account Pages**
 
 - **Valid requests**
-    - User logging in with correct details is logged in and receives a success message
-    - User logging out is logged out
-    - User signing up with valid details will have an account created and a validation email setting
+    - Logging in with correct details, logs in and receive a success message
+    - Logging out, logs out
+    - Signing up with valid details created an account and sends a validation email
     - Validation emails contain a link that activate the account
-    - Reset password will send a reset password email to the accounts email
+    - Reset password sends a 'reset password' email to the accounts email
 
 - **Error and Invalid request handling**
     - Invalid details will not let a user log in
@@ -558,7 +561,7 @@ even though PEP 8 suggests 72.
 ## 4 - Interesting Bugs Solved
 ***
 - **Instructor deletes lesson that is already a users basket**
-- Situation - If an instructor deletes a lesson that is already in a users basket the user will receive a 404 error whenever the basket context processor is called because the lesson no longer exists in the database but its ID is still in the users basket.
+- Situation - If an instructor deletes a lesson that is already in a users basket, the user will receive a 404 error whenever the basket context processor is called.  This is because the lesson no longer exists in the database, but its ID is still in the users basket.
  
 - Task - Have the basket context processor handle lessons that have become invalid.
  
@@ -701,14 +704,13 @@ LOGGING = {
     - Steps to defeat the payment system
         - Add item to basket
         - Go to checkout page and remove the stripe card element so the submit form will be valid
-        - Disable JavaScript so the form is sbmitted without stripe_elements.js checking that payment.intent has succeeded
+        - Disable JavaScript so the form is submitted without stripe_elements.js checking that payment.intent has succeeded
         - Enjoy free lessons
 
 - Task: Remove this exploit.
 
 - Action: After reading in the Stripe documentation you can retrieve a payment intent, I added a check in the checkout view that fetches the intent from stripe.  This intent contains `Paid: True` in its JSON to confirm the purchase.  If this does not exists the item has not been paid for and the user is redirected to the basket page with an error message.  Code below.
 '''
-# Confirm with stripe this order has been paid for
         try:
             payment_intent_id = (request.POST.get('client_secret')
                                             .split('_secret')[0])
@@ -722,5 +724,3 @@ LOGGING = {
 '''
 
 - Result: Users will be unable to bypass the payment system with this exploit.
-
-
