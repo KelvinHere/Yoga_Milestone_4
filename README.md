@@ -1,10 +1,10 @@
 # Social Yoga - Full Stack - Milestone 4
  
-The idea of this app is to create a space where people can learn yoga from a multitude of instructors.
+This app creates a space where people can learn yoga from a multitude of instructors.
  
 Users can sign up and find lessons that instructors have created, free or paid.  Users can find out 
 about these lessons through descriptions / reviews and ratings and decide if they would like to subscribe
-or buy them.
+to or buy them.
 Instructors who decide to use this site will be able to create and manage their lessons through the apps
 tools, set lesson prices and view the details of all the sales they have made on the site.
  
@@ -15,10 +15,7 @@ tools, set lesson prices and view the details of all the sales they have made on
 ## ToDo
 - contact email and social media links
 - image change on forms
-- make a JS carousel on the front page from random lessons
- 
-## Bugs
-- Error on stripe checkout when checking out on deployed version
+- Bug "Uncaught IntegrationError: Please call Stripe() with your publishable key. You used an empty string."
  
 ## Contents
  
@@ -57,22 +54,23 @@ tools, set lesson prices and view the details of all the sales they have made on
        * [Content](#content)
        * [Media](#media)
        * [Acknowledgements](#acknowledgements)
- 
+
+*** 
 ## UX
- 
-#### Project Purpose
+
+### Project Purpose
  
 The purpose of this app is to create a platform where students can learn Yoga remotely and
-instructors can create and sell lessons.  Users will be able to find an instructor and lessons 
+instructors can create and sell lessons.  Users can find an instructor and lessons 
 through search and filtering options, then view ratings on instructors and reviews/ratings on
 lessons.  The store for this app is built around instructor generated content, the idea being
 after a while it could potentially grow itself.
  
-It will offer instructors set of tools to easily create and manage their lessons, adjust prices,
-lesson content and cultivate through quality lessons, good reviews, ratings and a following of
+It offers instructors a set of tools to easily create and manage their lessons, adjust prices,
+and content.  Though these lessons cultivate good reviews, ratings and a following of
 students to sell their premium lessons to.
  
-#### Wireframe Designs
+### Wireframe Designs
  
 - The home page
 ![HomePage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/1-Index.jpg "Home page")
@@ -87,11 +85,11 @@ students to sell their premium lessons to.
  
 ### Database
  
- - For the app I used a postgres relational database, below is the final map with all features included.
+ - A postgres relational database is used for the app, below is the final map with all features included.
  
 ![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/database/db_design.jpg "Database design")
  
-#### User Stories
+### User Stories
  
 **ID** | **As a/an** | **I want to be able to...** | **So that I can**
 --- | --- | --- | ---
@@ -114,30 +112,30 @@ students to sell their premium lessons to.
 17 | " | Remove instructor status from an instructor | remove instructors that break rules or are inactive
 18 | " | View flagged comments | Decide to remove the review if it is inappropriate
  
-#### Developer Goals
+### Developer Goals
  
 Each feature must be well programmed, function properly and tested to be bug free.
  
-This project will display I have an understanding of full stack development from inception
+This project will display that I have an understanding of full stack development from inception
 to deployment, giving a good showcase project for a portfolio.
  
 Show an understanding of Django, Python, Postgres, Javascript, jQuery,
-HTML, CSS, Gunicorn, Stripe payments and more, and how they all interact to form a final product.
+HTML, CSS, Gunicorn, Stripe payments, unit testing and more, and how they all interact to form a final product.
  
-#### Design Choices
+### Design Choices
  
-##### General Design
+#### **General Design**
  
-Bootstrap is my chosen framework to create the app as it is quick to style pages in a familiar way.  It will follow 
+Bootstrap is my chosen CSS framework as it is quick to style pages in a familiar way.  The app will follow 
 common design principles so it will be familiar and intuitive to use.  The site will keep a minimal clean look to keep 
 information clear on smaller screens as this will be a responsive mobile first app.
  
 To allow this site to scale when the database of instructors and lessons grow; filtering, searching, sorting and subscribing
 lessons & searching for instructors is available.
  
-Navigation and selection will be consistent throughout the app, with no need to use the browser back button.
+Navigation and selection is consistent throughout the app, with no need to use the browser back button.
  
-##### Colours and Fonts
+#### **Colours and Fonts**
  
 **Font 1**  - Lato is used for branding, titles, a strong font that is not completely serious lines up with the style 
 and feel of this app.
@@ -150,9 +148,10 @@ mellow, natural and modern without resorting to garish colours.  Text will be na
 consistency.  The only strong colours are call to action and function buttons to help the user navigate the interface.  All
 this will be a canvas for the instructor generated content and it should not take away from their lesson and profile images
 and content which will become the heart of the app.
- 
+
+*** 
 ## Features
- 
+
 ### Quick feature breakdown
  
 A quick review of features on the site, more detailed descriptions further down.
@@ -173,6 +172,7 @@ A quick review of features on the site, more detailed descriptions further down.
             - All searching, sorting and filtering can be applied in any order and the results will stack
         - Subscribe / Unsubscribe to a lesson
         - Start a lesson that is free or they own
+        - View 4 random, high rated, free, featured lessons on the homepage
     - Buy lessons
         - Add a lesson they do not own to their basket
         - Remove a lesson from their basket
@@ -202,9 +202,10 @@ A quick review of features on the site, more detailed descriptions further down.
  
 ### NavBar Features
  
-The nav bar appears on every page, it is locked to the top on larger screens and can be scrolled away on smaller screens.  The basket will display how many
-items it has inside.  Each time the navbar is loaded it uses a variable in a context processor in the checkout app called `product_count`, which allows the navbar
-to always have the information needed, this context processor is documented in the 
+The nav bar appears on every page, it is locked to the top on larger screens and can be scrolled away on smaller screens. 
+The basket will display how many items it has inside.  Each time the navbar is loaded it uses a variable in a context 
+processor in the checkout app called `product_count`, which allows the navbar to always have the information needed, this
+context processor is documented in the 
 [Solved Interesting Bugs](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/testing.md#solved-interesting-bugs) section of testing.md as an interesting 
 case "Instructor deletes lesson that is already a users basket".
  
@@ -216,31 +217,25 @@ case "Instructor deletes lesson that is already a users basket".
 - If logged in, 'Lessons' dropdown gives a choice of All / Subscribed / Purchased lessons.
 - 'Account' link is personalised if the user is logged in and has the following options.
     - Logged out: Register / Sign In
-    - Logged in:
+    - Logged in as a:
         - User: My Profile / Logout
         - Instructor: Instructor Admin / My Profile / Logout
         - Administrator: Superuser Admin / My Profile / Logout
 
-### Custom Template Tags
-
-For convenience, when rendering the instructor sales page, I included a custom template tag that will deduct
-the current STIE_SALES_PERCENTAGE in the OrderLineItem model, to display the total earned by the instructor after the websites cut.  This 
-is located in [lessons.templatetags.site_utils.py](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/templatetags/site_utils.py) and 
-registers the function as a filter with the decorator `@register.filter`.
-
 ### Home Page Features
  
-The page is responsive and the buttons and background image reposition between mobile, tablet, desktop 
+The page is responsive and the buttons and background image reposition for mobile, tablet, and desktop 
 screens to always look pleasing.
  
 - The website's main text is personalised if the user is logged in.
-- Button: "Find an Instructor" appears if the user is not logged in or is not currently subscribed to any lessons.
-- Button: "Subscribed Lessons" call to action button appears if the user is logged in to push engagement.
-- Button: "Instructor admin" call to action button appears if the user is an Instructor to promote engagement.
 - Personalised Toast to show login success in an unobtrusive position.
-- A featured lessons button that displays random 4 free lessons with a rating higher than a set value
+- A featured lessons button displays random 4 free lessons with a rating higher than a set value can be toggled from the 'Featured Lessons' button.
+- Contextual buttons
+    - Button: "Find an Instructor" appears if the user is not logged in or is not currently subscribed to any lessons.
+    - Button: "Subscribed Lessons" call to action button replaces "Find an instructor" button if the user has subscribed to any lessons to push engagement.
+    - Button: "Instructor admin" call to action button appears if the user is an Instructor to promote engagement this replaces any of the other buttons.
 
-Note on featured lessons - This was added as a requirement of the course, I feel it does go well with the feel of the app so
+Note on featured lessons - This was added as a requirement of the project, I feel it does go well with the feel of the app so
 is defaulted to be hidden.
  
  
@@ -251,58 +246,58 @@ It consists of three tabs, Requests / All Instructors / Flagged.
  
 The page is responsive, the tabs are collapsed to a vertical arrangement on mobile and horizontal on larger screens.
  
-- Requests Tab:
+- **Requests Tab:**
     - **Functionality**
-    - Users who have requested to become instructors through their profile will show here.
-    - This tab title will display the current amount of user requests using a styled red icon, ie 'Requests **+2**'.
-    - Each card under this shows the user's profile and **email link** so an administrator can easily contact, vet them and decide to 'Accept' of 'Reject' the request by the buttons below the request.
-    - If accepted the user is granted instructor status which gives access to the Instructor Admin page to create / edit / delete lessons.  The request is then removed from the superuser_admin page.
-    - If rejected the user's request is set back to standard user and the request is removed from the superuser_admin page.
+        - User requestes to become instructors display here.
+        - The tab title displays the current amount of user requests, using a styled red icon, ie 'Requests **+2**'.
+        - Each request displays the user's profile and **email link**, so an administrator can easily contact and vet them before deciding to 'Accept' of 'Reject' the request via the buttons.
+        - Accepted users are granted instructor status.  This gives access to the Instructor Admin page, to create / edit / delete lessons.  The request is then removed from the superuser_admin page.
+        - Rejected requests set the user back to standard user, the request is removed from the superuser_admin page.
     - **Responsiveness**
-    - The user request changes layout between small and large screens for easier viewing.
+        - The user request changes layout between small and large screens for easier viewing.
  
-- All Instructors Tab:
+- **All Instructors Tab:**
     - **Functionality**
-    - This tab displays a list of all current instructors.
-    - A button to remove instructor status is on each instructor if needed.
+        - Displays a list of all current instructors.
+        - Remove instructor status button available for each instructor.
     - **Responsiveness**
-    - Items change layout from small to larger screens for easier viewing.
+        - Items change layout from small to larger screens for easier viewing.
  
-- Flagged Tab:
+- **Flagged Tab:**
     - **Functionality**
-    - This tab displays a list of flagged reviews.
-    - Like the Requests Tab, this tab shows a red **+n** icon next to the tab to alert admins something needs attention.
-    - The flagged review cards show:
-        - Who created the review
-        - The lesson it was created for
-        - The review content
-        - A **list** of people who flagged the review
-        - An 'Ignore' button if the review is fine
-        - A 'Remove Review' button to remove the review from the database
-    - `LessonReviewFlagged` is the model used to handle flags:
-        - It contains two foreign key fields `Profile` of the user who flagged the review and `LessonReview` the actual review.
-        - If a flag is ignored all entries of `LessonReviewFlagged` that contain the `LessonReview` in question are deleted to save the administrator having to delete them individually or them staying redundantly in the database forever.
-        - If a `LessonReview` is deleted all entries of `lessonReviewFlagged` that contain the foreign key `LessonReview` are removed as the field is set to on_delete=models.CASCADE.
+        - Displays a list of flagged reviews.
+        - Tab title displays a red **+n** icon next to the tab to alert admins how many flags need attention.
+        - The flagged review cards show:
+            - Who created the review
+            - The lesson it was created for
+            - The review content
+            - A **list** of people who flagged the review
+            - An 'Ignore' button if the review is fine
+            - A 'Remove Review' button to remove the review from the database
+        - `LessonReviewFlagged` is the model used to handle flags:
+            - It contains two foreign key fields `Profile` of the user who flagged the review and `LessonReview` the actual review.
+            - If a flag is ignored all entries of `LessonReviewFlagged` that contain the `LessonReview` in question are deleted to save the administrator having to delete them individually or them staying redundantly in the database forever.
+            - If a `LessonReview` is deleted all entries of `lessonReviewFlagged` that contain the foreign key `LessonReview` are removed as the field is set to on_delete=models.CASCADE.
     - **Responsiveness**
-    - None needed
+        - None needed
  
 ### Instructors Page Features
  
-This page gives the user a list of instructors, by default they are sorted by rating high to low.
+This page gives the user a list of instructors to choose, by default they are sorted by rating high to low.
  
 - **Functionality**
-- Instructors can be searched by name or partial name.
-- Instructors can be sorted by Rating / Name / Number of lessons available.
-- Sorting can be stacked with searching.
-- The user can press the "Enter Studio" button to get more information about an instructor and a list of their lessons to start / subscribe / buy.
-    - With this "studio page" the user can filter, sort **and** query the passed instructors lessons.
+    - Instructors can be searched by name or partial name.
+    - Instructors can be sorted by Rating / Name / Number of lessons available.
+    - Sorting can be stacked with searching.
+    - The "Enter Studio" button gives more information about an instructor and a list of their lessons to start / subscribe / buy.
+        - With this "Studio page" the user can filter, sort **and** query the passed instructors lessons.
 - **Responsiveness**
-- On small screens the instructor card is vertically stacked with a small profile image.
-- Larger screens the card is laid out horizontally with a larger profile image.
+    - On small screens the instructor card is vertically stacked with a small profile image.
+    - Larger screens the card is laid out horizontally with a larger profile image.
  
 ### Instructor Admin Page Features
  
-Through tabs the instructor can view Created Lessons / Sales / Support.  They can create, delete and edit lessons, view a list of sales from their paid lessons and have access to support information.
+Through tabs, the instructor can view Created Lessons / Sales / Support.  They can create, delete and edit lessons, view a list of sales from their paid lessons and have access to support information.
  
 - **Functionality**
     - Lessons Tab:
@@ -310,8 +305,8 @@ Through tabs the instructor can view Created Lessons / Sales / Support.  They ca
         - 'Create lesson' allows an instructor to make a new lesson.
         - 'Edit' button allows the user to edit a lesson.
         - 'Delete' button allows an instructor to delete a lesson as long as no one has bought it.
-        - After lesson is created the lesson finds out how many lessons were made by this instructor can passes it to the instructor profile method `_update_lesson_count()`
-        - After lesson is deleted, the a method is called in the instructors `UserProfile` to update the amount of lessons they have created
+        - After lesson is created a signal updates the instructors total lesson count
+        - After lesson is deleted, a signal updates the instructors total lesson count
         - Instructor can't make two lessons with the same name
         - Instructor can make a lesson with the same name as another instructor to prevent 'name reserving'
     - Sales Tab:  Displays all sales this instructor has made.
@@ -325,7 +320,7 @@ Through tabs the instructor can view Created Lessons / Sales / Support.  They ca
  
 This page shows a list of lessons using pagination, they can be searched, filtered and sorted.
  
-To save on repeat code (DRY principle) the 'instructor studio' uses this lessons page with an 'instructor_profile_header' snippet activated by context to display instructor information over their filtered lessons.
+To save on repeat code (DRY principle) the 'instructor studio' uses this lessons page with an 'instructor_profile_header' 'includes html' activated by context to display instructor information over their filtered lessons.
  
 - **Searching / Sorting / Filtering**
 - Lessons can be searched, filtered and sorted
@@ -359,7 +354,7 @@ A lesson card contains all lesson information and context sensitive buttons.
             - Clicking 'Unsubscribe' replaces itself and the 'Start Lesson' button using JS with the 'Subscribe' button.
             - Clicking 'Start Lesson' starts the lesson.
 - **Dynamic**
-    - The rating score is an average of all the reviews the lesson has, if there are no reviews the lesson says Rating: None so the user knows it is not an awful 0 rated lesson.
+    - The lesson rating score is an average of all the reviews the lesson has, if there are no reviews the lesson says Rating: None so the user knows it is not an awful 0 rated lesson.
     - Paid lessons that have been purchased have their price changed to a green "Purchased" to inform the user is one of their purchased lessons.
     - On mobile the lesson cards are vertically stacked with a small image.
     - On larger screens the cards are laid out horizontally with a larger image.
@@ -445,7 +440,14 @@ Also a list of all lessons ordered with buttons to start them.
     - On smaller screens the checkout window takes the full screen.
  
 Regarding signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a `signal` (pre_delete) is used to delete the subscriptions the user may have for the lesson.
- 
+
+### Custom Template Tags
+
+For convenience, when rendering the instructor sales page, I included a custom template tag that will deduct
+the current STIE_SALES_PERCENTAGE in the OrderLineItem model, to display the total earned by the instructor after the websites cut.  This 
+is located in [lessons.templatetags.site_utils.py](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/templatetags/site_utils.py) and 
+registers the function as a filter with the decorator `@register.filter`.
+
 ### Performance
  
 - This app has been written with performance in mind, to try and only access the database when necessary and to make the queries and model access as lightweight as possible, below is an example.
@@ -475,6 +477,7 @@ In making this app, there are ideas I would like to implement at a later date th
 project, they are listed below.
  
 #### Near Future
+- Lesson history for quick links back to a lesson whos name cannot be remembered
 - Implement a time limit on uploading images so a user cannot spam images to the application.
 - Use a private video hosting service to give the site more control and better security for paid lessons (sharing of urls).
 - Ignore users flags feature, will allow an administrator to ignore flags created by a user in case they misuse this feature.
@@ -485,13 +488,15 @@ project, they are listed below.
 #### Far Future
 - Refactor the instructor logic with the `@permission_required` decorator to remove a lot or repeated checks for `.is_instructor` in the UserProfile model
 - Create live-streaming paid lessons, where an instructor can sell limited positions to join realtime lessons with direct tutor feedback.
- 
+
+*** 
 ## Testing
- 
+
 [Testing Documentation](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/testing.md) - Documentation for testing
  
+***
 ## Technologies Used
- 
+
 - **HTML5/CSS3**
 - [Django](https://www.djangoproject.com/) - Framework to create the app
 - [Heroku](https://www.heroku.com/) - Cloud Application Platform to deploy the app to 
@@ -518,9 +523,10 @@ project, they are listed below.
 - [Pillow](https://github.com/python-pillow/Pillow/blob/fcc42e0d344146ee9d265d1f43c094ce5a0ec4cf/docs/index.rst) - Pillow adds image processing capabilities to the Python interpreter.
 - [psycopg2-binary](https://www.psycopg.org/) - A PostgreSQL adapter for python it will convert database data into python lists.
 - [s3transfer](https://pypi.org/project/s3transfer/) - A python library for managing S3 transfers
- 
+
+***
 ## Deployment
- 
+
 This project was created in [GitPod](https://gitpod.io/) with the [Code Institute template](https://github.com/Code-Institute-Org/gitpod-full-template) and version controlled through 'Git', the project was committed and pushed to [GitHub](https://github.com/).
 The project was then deployed to [Heroku](https://www.heroku.com/) with media and static files hosted on [Amazon s3](https://aws.amazon.com/).
  
@@ -651,6 +657,7 @@ The enviromental variables here allow the app to automatically switch between de
     - `STRIPE_SECRET_KEY` stripes secret key to protect signed data
     - `STRIPE_WH_SECRET` stripes secret key for webhooks to protect signed data
 
+***
 ## Credits
  
 - [Code](https://stackoverflow.com/questions/26298821/django-testing-model-with-imagefield) - Films answer: For testing an imagefield without an image
@@ -661,35 +668,35 @@ The enviromental variables here allow the app to automatically switch between de
     ```
 - [Generated Photos](https://generated.photos/) - AI generated Student Faces used for student profiles
  
- 
+
 ### Content
  
 - This project was created by KelvinHere
  
 ### Media
  
-* [Background image](https://www.istockphoto.com/photo/young-woman-practicing-yoga-in-the-nature-female-happiness-pose-balance-body-vital-gm1221748282-358248235?clarity=false)
-* [simple_stretching.jpg and stretching descriptions](https://www.realsimple.com/health/fitness-exercise/stretching-yoga/stretching-exercises)
-* [Instructor profile pictures from free images, contributor below](https://www.freeimages.com/)
-    - [Instructor 1 - By Matteo Canessa](https://www.freeimages.com/photo/yoga-relax-1556603)
-    - [Instructor 2 - By Aaron Neifer](https://www.freeimages.com/photo/yoga-1240391)
-    - [Instructor 3 - By Lorant Fulop ](https://www.freeimages.com/photo/yoga-1433499)
-    - [Instructor 4 - By Bimbo Cabochan](https://www.freeimages.com/photo/beach-yoga-1186865)
-    - [Instructor 5 - By Martin Louis](https://www.freeimages.com/photo/yoga-1482810)
-* [Drawn lesson poses](https://www.tummee.com/)
-* [Lesson image poses 'self'](https://www.self.com/gallery/must-know-yoga-poses-for-beginners)
-* [Yoga studio image on account and checkout pages](https://classpass.com/classes/space-yoga-studio-brighton?page=37)
-* [Sun salutation image](https://www.ladylair.net/yoga-sun-salutation-poses/)
-* [Yoga Pose Clipart](http://clipart-library.com/images/kcMK47bXi.jpg)
-* [Illustrated Pose Images](https://www.sheknows.com/health-and-wellness/articles/1020135/12-basic-yoga-poses-for-beginners/)
-* [AdrianasCoreWorkout](https://www.90monkeys.com/2017/08/60-minute-yoga-class-watering-fullness-yoga/)
-* [AdrianasBreathClass.jpg](https://pixabay.com/photos/women-yoga-classes-asana-fitness-1178187/)
-* [AdrianasFocusedMind.jpg](https://pixabay.com/photos/woman-happiness-sunrise-silhouette-570883/)
-* [AdrianasMeditationHour](https://pixabay.com/photos/women-yoga-classes-fitness-asana-1179435/)
-* [young-woman-1178123_1920](https://pixabay.com/photos/young-woman-yoga-classes-fitness-1178123/)
+* Images used in the app
+    * [Background image](https://www.istockphoto.com/photo/young-woman-practicing-yoga-in-the-nature-female-happiness-pose-balance-body-vital-gm1221748282-358248235?clarity=false)
+    * [simple_stretching.jpg and stretching descriptions](https://www.realsimple.com/health/fitness-exercise/stretching-yoga/stretching-exercises)
+    * [Instructor profile pictures from free images, contributor below](https://www.freeimages.com/)
+        - [Instructor 1 - By Matteo Canessa](https://www.freeimages.com/photo/yoga-relax-1556603)
+        - [Instructor 2 - By Aaron Neifer](https://www.freeimages.com/photo/yoga-1240391)
+        - [Instructor 3 - By Lorant Fulop ](https://www.freeimages.com/photo/yoga-1433499)
+        - [Instructor 4 - By Bimbo Cabochan](https://www.freeimages.com/photo/beach-yoga-1186865)
+        - [Instructor 5 - By Martin Louis](https://www.freeimages.com/photo/yoga-1482810)
+    * [Drawn lesson poses](https://www.tummee.com/)
+    * [Lesson image poses 'self'](https://www.self.com/gallery/must-know-yoga-poses-for-beginners)
+    * [Yoga studio image on account and checkout pages](https://classpass.com/classes/space-yoga-studio-brighton?page=37)
+    * [Sun salutation image](https://www.ladylair.net/yoga-sun-salutation-poses/)
+    * [Yoga Pose Clipart](http://clipart-library.com/images/kcMK47bXi.jpg)
+    * [Illustrated Pose Images](https://www.sheknows.com/health-and-wellness/articles/1020135/12-basic-yoga-poses-for-beginners/)
+    * [AdrianasCoreWorkout](https://www.90monkeys.com/2017/08/60-minute-yoga-class-watering-fullness-yoga/)
+    * [AdrianasBreathClass.jpg](https://pixabay.com/photos/women-yoga-classes-asana-fitness-1178187/)
+    * [AdrianasFocusedMind.jpg](https://pixabay.com/photos/woman-happiness-sunrise-silhouette-570883/)
+    * [AdrianasMeditationHour](https://pixabay.com/photos/women-yoga-classes-fitness-asana-1179435/)
+    * [young-woman-1178123_1920](https://pixabay.com/photos/young-woman-yoga-classes-fitness-1178123/)
 
- 
- 
+  
 ### Acknowledgements
  
 * [Geeks for Geeks - Ajax information](https://www.geeksforgeeks.org/handling-ajax-request-in-django/)

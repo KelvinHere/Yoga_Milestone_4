@@ -50,7 +50,7 @@ def lessons(request):
 
     # Pagination
     page_number = 1  # Default page number
-    lessons_on_page = 5  # No of lessons on a page at once
+    lessons_on_page = 6  # No of lessons on a page at once
 
     # If authenticated get a list of subscribed & purchased lessons
     if request.user.is_authenticated:

@@ -1,6 +1,6 @@
 # Testing Documentation for Social Yoga
 !!!!!! Retest CSS validation after the last COLLECT STATIC!
-
+ 
 1. [**Automated Testing**](#1---automated-testing)
    * [Unit Tests and Coverage](#unit-tests-and-coverage)
    * [Running unit tests](#running-unit-tests)
@@ -13,122 +13,123 @@
         * [CSS Validation](#css-validation)
         * [JavaScript Validation](#javascript-validation)
         * [Python Validation](#python-validation)
-   * [Site Actions Tested](#site-actions-tested)
-   * [Home Page](#home-page)
-   * [Lessons Page](#lessons-page)
-   * [Profile Page](#profile-page)
-   * [Studio Page](#studio-page)
-   * [Basket Page](#basket-page)
-   * [Checkout Page](#checkout-page)
-   * [Account Pages](#account-pages)
+   * [Content Testing](#content-testing)
+   * [Valid Requests and Error Handling](#valid-requests-and-error-handling)
+        * [Site Actions Tested](#site-actions-tested)
+        * [Home Page](#home-page)
+        * [Lessons Page](#lessons-page)
+        * [Profile Page](#profile-page)
+        * [Studio Page](#studio-page)
+        * [Basket Page](#basket-page)
+        * [Checkout Page](#checkout-page)
+        * [Account Pages](#account-pages)
 3. [**User Stories Solved**](#3---user-stories-solved)
 4. [**Interesting Bugs Solved**](#4---interesting-bugs-solved)
-5. [**Payment Attacks**](#5---payment-attack)
+5. [**Payment Attacks**](#5---payment-attacks)
  
-## 1 - Automated Testing
-
-### Unit Tests and Coverage
+# 1 - Automated Testing
+ 
+## Unit Tests and Coverage
 Automated testing is carried out by unit testing.  Coverage of these tests is monitored by 
 using **Coverage** (`pip3 install coverage`), Coverage will create a report to show how much 
 of the code is covered by the unit tests.
-
-- Coverage can be run on individial apps like this `coverage run --source lessons manage.py test lessons`
+ 
+- Coverage can be run on individual apps like this `coverage run --source lessons manage.py test lessons`
     - I used the additional omit argument when testing each app to remove migrations, see below for an example
     - `coverage run --omit=*/migrations/* --source lessons manage.py test lessons`
 - The report from this can be viewed with `coverage report`
-- To create an in depth report with visulisation of the code tested use `coverage html`
+- To create an in depth report with visualization of the code tested use `coverage html`
 - View this in depth report by viewing the coverage created **htmlcov/index.html** by
     - starting a http server `python3 -m http.server`
     - open the server and navigate to **htmlcov/index.html**
-
+ 
 **Current Coverage Reports**
-
+ 
 ***
-
+ 
 Home Coverage Report
-
+ 
 ![HomeCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/home.JPG "Home Coverage Report")
-
+ 
 Missing from these tests are the custom 404 and 500 pages, these have been tested manually on the deployed app.
-
+ 
 ***
-
+ 
 Profiles Coverage Report
-
+ 
 ![ProfilesCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/profiles.JPG "Profiles Coverage Report")
-
+ 
 ***
-
+ 
 Basket Coverage Report
-
+ 
 ![BasketCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/basket.JPG "Basket Coverage Report")
-
+ 
 ***
-
+ 
 Checkout Coverage Report
-
+ 
 ![CheckoutCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/checkout.JPG "Checkout Coverage Report")
-
+ 
 Missing from these tests are the webhooks and webhook handlers, these have been tested on the deployed app and confirmed through stripe.
-
+ 
 ***
-
+ 
 Sudio Coverage Report
-
+ 
 ![StudioCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/studio.JPG "Studio Coverage Report")
-
+ 
 ***
-
+ 
 Lessons Coverage Report
-
+ 
 ![LessonsCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/lessons.JPG "Lessons Coverage Report")
-
-
-### Running unit tests
+ 
+ 
+## Running unit tests
 Create a local deployment as explained on ['Local Deployment' section of readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment)
-
+ 
 This apps unit tests use fixtures in the **profiles app**, for these to be loaded correctly the automatic creation of user profiles must be disabled, do this in settings.py by setting `RUNNING_UNIT_TESTS` to `True`
-
+ 
 - To run all the tests - `python3 manage.py test`
 - To run tests on an app, ie lessons app - `python3 manage.py test lessons`
-
+ 
 You can keep narrowing the tests like this, `python3 manage.py test lessons.tests.test_views.test_create_lesson` 
-
-### Unit Test Results
+ 
+## Unit Test Results
 ![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/tests/unit_tests_run_all.jpg "Unit Tests")
-
+ 
 !!!!!! update this
-
-### Creating Unit Tests
-
+ 
+## Creating Unit Tests
+ 
 - Follow [Running unit tests from the console](#running-unit-tests-from-the-console) to create a local deployment of the app.
 - In settings.py set `RUNNING_UNIT_TESTS` to true, this will disable a view to allow fixtures to be loaded properly.
 - Create your unit tests in the app you want to test, for example lessons.tests.test_mynewtests.py
 - Run the tests with `python3 manage.py test` to run the full test suite, or `python3 manage.py test lessons.tests.test_mynewtest` for just the example above.
-
-## 2 - Manual Testing
-***
-### **Code Validation**
-### Browser Testing
+ 
+# 2 - Manual Testing
+## **Code Validation**
+### **Browser Testing**
 - This project has had all its pages, routes and responsive states viewed on the following browsers.
     - Chrome
     - Firefox
     - Edge
     - Opera
-
+ 
 Read on to see all tests carried out on each page.
-
-#### HTML Validation
-
+ 
+### **HTML Validation**
+ 
 HTML pages were validated through [W3C Markup Validation Service](https://validator.w3.org/)
-
+ 
 - Live links below
     - [**Home Page** - Validation](https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2F#l295c39)
     - [**Sign in Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Flogin%2F)
     - [**Sign up Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Fsignup%2F)
     - [**Instructors Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2Finstructors%2F)
     - [**Lessons Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Flessons%2F)
-
+ 
 - Pages where login was required, these were input directly to the validator :-
     - Sign Out page - Validated
     - Create Lesson page - Validated
@@ -139,32 +140,32 @@ HTML pages were validated through [W3C Markup Validation Service](https://valida
     - Checkout Success Page - Validated
     - Checkout Page - Validated
         - 1 Error: "Empty H1", ignored as it is waiting for content from JavaScript
-
-#### CSS Validation
-
+ 
+### **CSS Validation**
+ 
 CSS was validated through [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/).
-
+ 
 - Live links below
     - [**base.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcss%2Fbase.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
     - [**checkout.css** - Validation](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fms4-yoga-kelvinhere.s3-eu-west-1.amazonaws.com%2Fstatic%2Fcheckout%2Fcss%2Fcheckout.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
-
-#### JavaScript Validation
-
+ 
+### **JavaScript Validation**
+ 
 The following files were validated through manually pasting the content into [beautifytools.com](https://beautifytools.com/javascript-validator.php) JavaScript validator.
-
+ 
 - [stripe_elements.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/checkout/static/checkout/js/stripe_elements.js)
 - [superuser_admin_js.html](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/home/templates/home/includes/superuser_admin_js.html)
 - [delete_lesson_modal.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/delete_lesson_modal.js)
 - [lesson_buttons.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/lesson_buttons.js)
 - [featured_lessons.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/home/static/home/js/featured_lessons.js)
-
+ 
 Errors - in featured_lessons.js: the function `toggle_featured` has the error "is defined but never used." but is used by a button in home.html to toggle the featured lessons card.
-
-#### Python Validation
-
-The python code in this project was linted by using `python3 -m flake8`, this gives a list of lines that are non complient and a link to quickly access and correct them.
+ 
+### **Python Validation**
+ 
+The python code in this project was limited by using `python3 -m flake8`, this gives a list of lines that are non compliant and a link to quickly access and correct them.
 Some select lines were not corrected as it would make the code harder to read or break links.
-
+ 
 The following errors remain.
 - \<!DOCTYPE html> missing from some html files:  These were omitted from "includes" template files, or files that extend from base, to avoid getting HTML validation errors with out of place /<!DOCTYPE>'s after the page is rendered.
 - The three errors below set up signals for checkout/lessons/profile signals.py.
@@ -188,20 +189,20 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+ 
 """
 From : https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/
-
+ 
 An exception to PEP 8 is our rules on line lengths. Don’t limit lines of 
 code to 79 characters if it means the code looks significantly uglier or 
 is harder to read. We allow up to 119 characters as this is the width of 
 GitHub code review; anything longer requires horizontal scrolling which makes 
-review more difficult. This check is included when you run flake8. 
+Review is more difficult. This check is included when you run flake8. 
 Documentation, comments, and docstrings should be wrapped at 79 characters, 
 even though PEP 8 suggests 72.
 """
 ```
-
+ 
 ## **Site Actions Tested**
 - User can:
     - Register / Sign In / Signout / Confirm Email / Reset Password
@@ -247,6 +248,11 @@ even though PEP 8 suggests 72.
     - View a list of flagged reviews
         - Ignore the flag or delete the review
  
+## **Content Testing**
+ 
+To avoid duplicating too much text, the content of each page was tested by checking the page content against what was expected on the ['Features' section of the readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment#features)
+ 
+# **Valid Requests and Error Handling**
 ## **Home Page**
  
 - **Valid requests**
@@ -264,6 +270,23 @@ even though PEP 8 suggests 72.
 - While logged out, users cannot access the following views
     - `/superuser_admin` - Result: Redirect to login page
     - `/update_instructor_status/<user_to_update>/<status>` - Result: Redirect to login page
+ 
+## **Nav Bar**
+- The nav bar branding is the link home
+- Navbar links are collapsed on small screens
+- The basket is always displayed on the navbar if logged in and absent if logged out
+- Basket number increments when adding to basket and decrements when items are removed
+- Instructors link navigates to the instructors page
+- If logged in as a students
+    - All lessons redirects to the lessons page with no Filters
+    - Subscribed lessons redirects to the lessons page with subscribed filter
+    - Purchased lessons only appears when lessons have been purchased and redirects to the lessons page with purchased filter
+    - My profile redirects to profile page
+    - Logout redirects to logout page
+- If logged in as instructor
+    - Instructor admin redirects to instructor admin page
+- If logged in as superuser
+    - Superuser Admin redirects to superuser admin page
  
 ## **Lessons Page**
  
@@ -295,7 +318,7 @@ even though PEP 8 suggests 72.
         - `lessons/?sort=INVALID_SORT_ARGUMENT` - Invalid sort arguments will default the sort to name in ascending order"
  
     - Instructor
-        - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passing a user that is not an instructor, redirectes to instructors page with the error message "This user is not an instructor, please pick one from the instructor list."
+        - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passing a user that is not an instructor, redirects to instructors page with the error message "This user is not an instructor, please pick one from the instructor list."
         - `lessons/?instructor=INVALID_USER` Passing a user that does not exist, redirects to instructor page with error message "Instructor was not found, please pick one from the instructor list."
     
     - Pages / Pagination
@@ -306,11 +329,11 @@ even though PEP 8 suggests 72.
 2. **subscribe view**
 - **Valid Requests**
     - Passing a valid lesson_id along with
-        - `subscribe=true` creates subscription to the lesson, and JS updates the buttons from "Subscribe" to "Unsubscribe" and "Sart Lesson" buttons.
+        - `subscribe=true` creates a subscription to the lesson, and JS updates the buttons from "Subscribe" to "Unsubscribe" and "Sart Lesson" buttons.
         - `subscribe=false` unsubscribes from the lessons, and JS updates the buttons from "Unsubscribed" and "Start Lesson" to "Subscribe"
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - Submit an invalid lesson_id `/lessons/subscriptions/?subscribe=true&lesson_id=INVALID_LESSON_ID` redirects to the lessons page, with the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
     - Altering the subscription status of a lesson using something other than `true` or `false`, redirects to the lessons page and gives the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
     - Submitting a request with invalid arguments, redirects to the lesson page with the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
@@ -321,16 +344,16 @@ even though PEP 8 suggests 72.
     - Sales tab displays a list of lessons bought from this instructor with lesson name, buyer, date and price before and after the sales percentage at the time of sale is removed .
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - Accessing while not an instructor redirects to the homepage, with the error message "Only instructors can do this"
  
 4. **delete_lesson view**
 - **Valid requests and requirements**
     - Passing a valid lesson_id that the user created deletes that lesson.
-    - Delete lesson buttons are disabled when users have purchased that lesson, to avoid customers loosing content
+    - Delete lesson buttons are disabled when users have purchased that lesson, to avoid customers losing content
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
     - Passing the lesson_id from a lesson created by another instructor, gives the error message "This lesson does not belong to you and has not been deleted, please check your username and try again."
     - Passing an invalid lesson_id gives the error message "Invalid lesson ID, no lessons were deleted."
@@ -342,10 +365,10 @@ even though PEP 8 suggests 72.
     - POST request creates a lesson from the form data, and redirects to instructor admin page
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
-    - Accesing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
+    - Accessing while logged out redirects to the sign in page
+    - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
     - Creating a lesson with a duplicate name of another lesson on the same account, redirects to instructor admin page, with the error message "You already have a lesson named this."
-    - Creating a lesson with a duplacte name of a different instructor is allowed
+    - Creating a lesson with a duplicate name of a different instructor is allowed
         - Regarding duplicate names, different instructors can have lessons with the same name to avoid "reserving" of popular names such as simple yoga poses, ie both 'Benny' and 'Charle' can have a lesson named 'Mountain Pose'
  
  
@@ -355,10 +378,10 @@ even though PEP 8 suggests 72.
     - POST request updates a lesson with the new form data
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
-    - Accesing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
+    - Accessing while logged out redirects to the sign in page
+    - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
     - POSTing data to an invalid lesson_id redirects to the instructor admin with the error message "Invalid lesson ID, no lessons were updated."
-    - GET request with another instructors lesson_id, redirects to instructor admin page, with the error message "You can only edit your own lessons, please check your username."
+    - GET request with another instructor's lesson_id, redirects to instructor admin page, with the error message "You can only edit your own lessons, please check your username."
  
 7. **review_lesson view**
 - **Valid requests**
@@ -366,8 +389,8 @@ even though PEP 8 suggests 72.
     - POST request creates a new review, or updates an existing review
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
-    - Passing an invalid lesson_id will redirects home, with the error "Cannot create/edit a review for an invalid lesson."
+    - Accessing while logged out redirects to the sign in page
+    - Passing an invalid lesson_id will redirect home, with the error "Cannot create/edit a review for an invalid lesson."
     - Submitting an invalid form redirects back to the current lesson the review was for, with the error message "Error in review form: {form.errors}"
     - POSTing an invalid rating out of the range 1-10, redirects back to the lesson page with the error message "You entered an invalid rating, please try again."
     - Trying to review your own lesson redirects back to the lesson page, with the error "You cannot review your own lessons."
@@ -383,13 +406,13 @@ even though PEP 8 suggests 72.
 9. **delete_review view**
 - **Valid requests**
     - Submitting a review primary key, the review is deleted with any associated flags and redirects back to the lesson page.
-    - Activated from superuser admin, review is deleted with any associated flags, jquery will removes the review div so the admin can remove multiple reviews without the page reloading multiple times.
+    - Activated from superuser admin, review is deleted with any associated flags, jquery will remove the review div so the admin can remove multiple reviews without the page reloading multiple times.
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - Passing an invalid review primary key redirects home, with the error "Cannot delete review, review not found."
     - Submitting a primary key that is not owned by that account redirects back to the lesson page, with the error message "Cannot delete review, it does not belong to this account."
-    - Submitting any review primary key as a superuser deletes the reivew
+    - Submitting any review primary key as a superuser deletes the review
     - Superusers whos ajax request does not return {'success': 'True} are given the message in the request card "Error: Please check this item in django's admin panel"
  
 ## **Profile Page**
@@ -398,7 +421,7 @@ even though PEP 8 suggests 72.
     - None
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - Cancel button redirects back to the profile page
  
 2. **edit_profile view**
@@ -407,7 +430,7 @@ even though PEP 8 suggests 72.
     - POST request updates a lesson with the new form data and redirects back to the profile page
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - Submitting invalid form data redirects to the profile page, with the error "There was an error in your profile data: {error}, please try again."
  
 3. **instructors**
@@ -429,7 +452,7 @@ even though PEP 8 suggests 72.
     - If user profile is complete and "status" is invalid, profile is untouched, redirects back to profile page
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - If the user profile is not completed, redirects back to the profile page with the error message "You must complete your profile first."
  
 ## **Studio Page**
@@ -439,7 +462,7 @@ even though PEP 8 suggests 72.
     - Given a valid lesson_id displays the lesson if it is free or has been purchased
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - Submitting an invalid lesson_id redirects home, with the error message "Error, Invalid lesson"
     - Submitting a paid lesson_id that has not been not purchased will be redirect home, with the error message "You do not own this lesson"
  
@@ -448,17 +471,17 @@ even though PEP 8 suggests 72.
 1. **view_basket**
 - **Valid requests**
     - Viewing displays all items currently in users basket
-    - Viewing with and empty baskey, shows the prompt "Your basket is empty. Browse our instructors to find a lesson to suit you!" and a Find Instructor button.
+    - Viewing with an empty basket, shows the prompt "Your basket is empty. Browse our instructors to find a lesson to suit you!" and a Find Instructor button.
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
  
 2. **add_to_basket**
 - **Valid requests**
     - Adds an item to the session basket
     
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - GET request are redirected to the home page with the error "Invalid request, please select lessons from the lessons page"
     - POSTing incorrect form data redirects to the home page, with the error "Invalid request, please select lessons from the lessons page"
     - Submitting and invalid lesson_id redirectes to the home page, with the error "Invalid lesson, please select lessons from the lessons page"
@@ -468,7 +491,7 @@ even though PEP 8 suggests 72.
     - Removes an item from the session basket
     
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - POSTing invalid data/lesson_id redirects to the basket with the error "Invalid request, no lesson was specified for deletion"
  
 ## **Checkout Page**
@@ -477,13 +500,13 @@ even though PEP 8 suggests 72.
 - **Valid requests**
     - GET: Request renders `checkout/checkout.html` with the checkout form and card payment option
     - POST: Request with correct field entries and card details creates an OrderForm and associated LineItems
-    - STRIPE: When processing the order, when stripe returns a webhook with patmentIntent.status = succeeded, the order form will be submit to the checkout view and the cusotmer will have access to their purchases (see checkout success below).
+    - STRIPE: When processing the order, when stripe returns a webhook with patmentIntent.status = succeeded, the order form will be submitted to the checkout view and the customer will have access to their purchases (see checkout success below).
     - A complete order sends an email with an order confirmation to the email input on the checkout page.
-
-
+ 
+ 
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
-    - GET:  Manually going to checkout with nothing in the basket, redirectes home with the error message "Your basket is empty"
+    - Accessing while logged out redirects to the sign in page
+    - GET:  Manually going to checkout with nothing in the basket, redirected home with the error message "Your basket is empty"
     - POST:  Submitting an invalid basket redirects back to the checkout page, with the error "There was an error with your form, no charges have been made."
     - POST:  While the order form and its associated lineitems are being created, If a lesson does not exist a warning is generated on the checkout success page
     - STRIPE: Invalid card details fetch stripe error messages and display them below the card field and do not allow checkout submission
@@ -495,47 +518,47 @@ even though PEP 8 suggests 72.
     - Given a valid order id, renders the checkout success page, with confirmation of order, order details, and buttons to start the lessons purchased.
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - Passing invalid order number redirects home, with the error message "This order was not found, please contact {settings.DEFAULT_FROM_EMAIL} for support."
-    - Passing someone elses order number redirects home , with the error message "This order does not belong to this account, if this is a mistake please contact {settings.DEFAULT_FROM_EMAIL} for support."
+    - Passing someone else's order number redirects home , with the error message "This order does not belong to this account, if this is a mistake please contact {settings.DEFAULT_FROM_EMAIL} for support."
  
 3. **attach_basket_to_intent**
 - **Valid requests**
     - POST:  Sets up Stripe keys and adds metadata to Stripe payment intent
  
 - **Error and Invalid request handling**
-    - Accesing while logged out redirectes to the sign in page
+    - Accessing while logged out redirects to the sign in page
     - GET requests ignored by the django @require_POST decorator on this view
     - Errors generate a toats error, "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction." along with the exception.
-
+ 
 4. **webhooks**
 - **Valid requests**
     - Viewing the checkout page creates a payment intent for stripe and the card input is added to the checkout form
-    - On payment intetnt succeeded, an email is sent out to the user with order information
+    - On payment intent succeeded, an email is sent out to the user with order information
     - Submitting valid form data on the checkout page flow :-
         - attach_basket_to_intent view adds the email and basket to the payment intents "meta data"
         - The request to make the charge is sent to stripe, if successful stripe returns "paymentIntent.status": "succeeded"
         - Now payment has been made and the OrderForm is submitted
         - checkout view retrieves the payment intent from stripe and checks payment has been made (and not bypassed) allowing the user to access the content.
-
+ 
 - **Error handling**
-    - If user closes the browser or the order form is not submitted via JavaScript, the backend will look for the orderform for 5 times over 5 seconds, if still not found the Order will be created in the webhook.
-
+    - If a user closes the browser or the order form is not submitted via JavaScript, the backend will look for the order form for 5 times over 5 seconds, if still not found the Order will be created in the webhook.
+ 
 ## **Account Pages**
-
+ 
 - **Valid requests**
     - Logging in with correct details, logs in and receive a success message
     - Logging out, logs out
     - Signing up with valid details created an account and sends a validation email
     - Validation emails contain a link that activate the account
     - Reset password sends a 'reset password' email to the accounts email
-
+ 
 - **Error and Invalid request handling**
     - Invalid details will not let a user log in
     - Incorrectly input form data will display an error message on the form
  
-## 3 - User Stories Solved
-***
+# 3 - User Stories Solved
+ 
 **ID** | **As A/AN** | **I want to be able to...** | **So that I can** | **Outcome**
 --- | --- | --- | --- | ---
 1 | Site User | Register to the site | Have a personalised experience | **User can register**
@@ -558,14 +581,14 @@ even though PEP 8 suggests 72.
 18 | " | View flagged comments | Decide to remove the review if it is inappropriate | **Superuser Admin page displays these flags with appropriate action buttons**
  
  
-## 4 - Interesting Bugs Solved
-***
+# 4 - Interesting Bugs Solved
+ 
 - **Instructor deletes lesson that is already a users basket**
 - Situation - If an instructor deletes a lesson that is already in a users basket, the user will receive a 404 error whenever the basket context processor is called.  This is because the lesson no longer exists in the database, but its ID is still in the users basket.
  
 - Task - Have the basket context processor handle lessons that have become invalid.
  
-- Action - Use djangos built in `.exists()` method to check if a lessons in the basket are still valid, if it is not the case the lesson_id is added to a removal list to be dealt with once the basket has been iterated through.  I did this as removing elements from a list or dictionary while iterating through it is a bad idea.  Once this is done lesson_ids in the invalid lessons list are popped off the basket session.
+- Action - Use djangos built in `.exists()` method to check if a lesson in the basket is still valid, if it is not the case the lesson_id is added to a removal list to be dealt with once the basket has been iterated through.  I did this as removing elements from a list or dictionary while iterating through it is a bad idea.  Once this is done lesson_ids in the invalid lessons list are popped off the basket session.
  
     - Code Before
     ```
@@ -603,7 +626,7 @@ even though PEP 8 suggests 72.
             basket.pop(invalid_lesson)
         invalid_lessons_to_remove = []
     ```
-
+ 
 - Result - The lesson is removed from the basket before the user can get a 404 error.
 ***
 - **'Sort lesson by rating - high to low' feature had all non-rated lessons listed at the top**
@@ -654,11 +677,11 @@ even though PEP 8 suggests 72.
 - Result - The correct MEDIA_URL location is rendered into the string without having to hard code a location in the template.
 ***
 - **404 error creating a 500 internal server error on deployed project**
-
-- Situation - When deployed, testing for a 404 error page by giving an invalid URL.  I was receiving a 500 internal server error rather than the expected 404 error, with debugging turned off I had not enought information to figure out the problem.
-
+ 
+- Situation - When deployed, testing for a 404 error page by giving an invalid URL.  I was receiving a 500 internal server error rather than the expected 404 error, with debugging turned off I had not enough information to figure out the problem.
+ 
 - Task - Find out what was causing the 500 server error with debugging turned off.
-
+ 
 - Action -  The django documentation on [Logging](https://docs.djangoproject.com/en/3.1/topics/logging/) gives examples of loggers, I used these to get more information on the 500 error I was getting by creating a logger and viewing the results of these logs through logging into Heroku in the console and running `heroku log -t` which would then give much more information.
 ```
 LOGGING = {
@@ -677,8 +700,8 @@ LOGGING = {
     },
 }
 ```
-
-- Result - Given the extra log information I was able to find the source of the 500 internal server error and correct it, the logging can now be activated by adding an enviromental EXTRA_LOGGING variable if needed.
+ 
+- Result - Given the extra log information I was able to find the source of the 500 internal server error and correct it, the logging can now be activated by adding an environment EXTRA_LOGGING variable if needed.
 ***
 - **No CSRF Token in static js file**
  
@@ -694,22 +717,22 @@ LOGGING = {
     </script>
 ```
 - Result - The static file now has access to the CSRF Token again and the buttons function correctly
-
-## 4 - Payment Attacks
-***
-
-### Place an order without paying
-
+ 
+# 5 - Payment Attacks
+ 
+ 
+## Place an order without paying
+ 
 - Situation: Payment system can be bypassed and orders can be completed for free
     - Steps to defeat the payment system
         - Add item to basket
         - Go to checkout page and remove the stripe card element so the submit form will be valid
         - Disable JavaScript so the form is submitted without stripe_elements.js checking that payment.intent has succeeded
         - Enjoy free lessons
-
+ 
 - Task: Remove this exploit.
-
-- Action: After reading in the Stripe documentation you can retrieve a payment intent, I added a check in the checkout view that fetches the intent from stripe.  This intent contains `Paid: True` in its JSON to confirm the purchase.  If this does not exists the item has not been paid for and the user is redirected to the basket page with an error message.  Code below.
+ 
+- Action: After reading in the Stripe documentation you can retrieve a payment intent, I added a check in the checkout view that fetches the intent from stripe.  This intent contains `Paid: True` in its JSON to confirm the purchase.  If this does not exist the item has not been paid for and the user is redirected to the basket page with an error message.  Code below.
 '''
         try:
             payment_intent_id = (request.POST.get('client_secret')
@@ -722,5 +745,8 @@ LOGGING = {
                                      "stripe no charges have been made."))
             return redirect(reverse('view_basket'))
 '''
-
+ 
 - Result: Users will be unable to bypass the payment system with this exploit.
+ 
+ 
+

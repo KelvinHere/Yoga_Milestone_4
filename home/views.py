@@ -20,7 +20,7 @@ def index(request):
             subscribed_lessons = True
 
     # Get 4 random lessons with score from 8 to 10
-    random_lessons = Lesson.objects.filter(rating__range=[5, 10],
+    random_lessons = Lesson.objects.filter(rating__range=[8, 11],
                                            is_free=True)
     random_lesson_values = random_lessons.values('lesson_name',
                                                  'lesson_id',
