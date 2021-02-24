@@ -337,125 +337,117 @@ even though PEP 8 suggests 72.
  
 5. **create_lesson view**
 - **Valid requests**
-    - GET requests display a lesson creation form to the user!!!!!!!!!!! from here
-    - POST request will create a lesson from the form data and return the user to their created lesson list
+    - GET request redirects to the lesson creation form
+    - POST request creates a lesson from the form data, and redirects to instructor admin page
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - If a user who is not an instructor tries to access this view they are directed to the home page with the error "Only instructors can do this."
-    - If an instructor tries to create a lesson with the same name as one of their existing lessons they are directed back to their created lessons page with the error message "You already have a lesson named this."
+    - Accesing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
+    - Creating a lesson with a duplicate name of another lesson on the same account, redirects to instructor admin page, with the error message "You already have a lesson named this."
+    - Creating a lesson with a duplacte name of a different instructor is allowed
         - Regarding duplicate names, different instructors can have lessons with the same name to avoid "reserving" of popular names such as simple yoga poses, ie both 'Benny' and 'Charle' can have a lesson named 'Mountain Pose'
  
  
 6. **edit_lesson view**
 - **Valid requests**
-    - GET requests given a valid lesson_id will display a pre-filled lesson form ready for editing
-    - POST requests will update a lesson with the new form data
+    - GET request with a valid lesson_id displays a pre-filled lesson form ready for editing
+    - POST request updates a lesson with the new form data
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - If a user who is not an instructor tries to access this view they are directed to the home page with the error "Only instructors can do this."
-    - If an instructor tries to POST data to an invalid lesson_id they are redirected to their created lessons page with the error message "Invalid lesson ID, no lessons were updated."
-    - if an instructor tries to GET another instructors lesson_id they are redirected to their created lessons page with the error message "You can only edit your own lessons, please check your username."
+    - Accesing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
+    - POSTing data to an invalid lesson_id redirects to the instructor admin with the error message "Invalid lesson ID, no lessons were updated."
+    - GET request with another instructors lesson_id, redirects to instructor admin page, with the error message "You can only edit your own lessons, please check your username."
  
 7. **review_lesson view**
 - **Valid requests**
-    - GET request will display a review form for the lesson or pre-fill the form with the existing review for editing
-    - POST request will create a new review or update an existing review if available
+    - GET request displays a review form for the lesson, or a pre-filled form with the existing review data for editing
+    - POST request creates a new review, or updates an existing review
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - User who passes an invalid lesson_id will be redirected home with the error "Cannot create/edit a review for an invalid lesson."
-    - User who submits an invalid form are redirected back to the current lesson they were creating a review for with the error message "Error in review form: {form.errors}"
-    - POSTs with an invalid rating out the range of 1-10 will be directed back to the lesson page with the error message "You entered an invalid rating, please try again."
-    - Users cannot create reviews on their own lessons, they are returned to the lesson page with the error "You cannot review your own lessons."
+    - Passing an invalid lesson_id will redirects home, with the error "Cannot create/edit a review for an invalid lesson."
+    - Submitting an invalid form redirects back to the current lesson the review was for, with the error message "Error in review form: {form.errors}"
+    - POSTing an invalid rating out of the range 1-10, redirects back to the lesson page with the error message "You entered an invalid rating, please try again."
+    - Trying to review your own lesson redirects back to the lesson page, with the error "You cannot review your own lessons."
  
 8. **flag_review view**
 - **Valid requests**
-    - Request with a valid review.pk will create a flag for the review in question to be reviewed by an administrator, the user will be redirected back to the lesson page with a success message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
+    - Request with a valid review.pk creates a flag for the review in question to be reviewed by an administrator, and redirects back to the lesson page with a success message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
  
 - **Error and Invalid request handling**
-    - Users who pass an invalid review.pk will be taken back to the lesson page with an error message "Invalid review, please contact support if you think this is an error"
-    - Users who try to flag a review multiple times will be taken back to the lesson page with the error message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
+    - Passing an invalid review.pk redirects back to the lesson page, with the error message "Invalid review, please contact support if you think this is an error"
+    - Flagging a review multiple times redirects to the lesson page, with the error message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
  
 9. **delete_review view**
 - **Valid requests**
-    - Given a review primary key the review will be deleted and the user directed back to the studio page they were on.
-    - Activated from superuser admin, review will be deleted and admin will stay on the same page jquery will remove the review div.
+    - Submitting a review primary key, the review is deleted with any associated flags and redirects back to the lesson page.
+    - Activated from superuser admin, review is deleted with any associated flags, jquery will removes the review div so the admin can remove multiple reviews without the page reloading multiple times.
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - User who passes an invalid review primary key will be redirected home with the error "Cannot delete review, review not found."
-    - Users who submit a primary key that is not theirs (barring superusers who do have this authority) will be directed back to the lesson page with the error message "Cannot delete review, it does not belong to this account."
+    - Passing an invalid review primary key redirects home, with the error "Cannot delete review, review not found."
+    - Submitting a primary key that is not owned by that account redirects back to the lesson page, with the error message "Cannot delete review, it does not belong to this account."
+    - Submitting any review primary key as a superuser deletes the reivew
+    - Superusers whos ajax request does not return {'success': 'True} are given the message in the request card "Error: Please check this item in django's admin panel"
  
 ## **Profile Page**
-- **Valid requests**
-    - Request from a user will delete their review (and any associated flags against that review) and redirect them to the current lesson with a success message of "Review deleted"
-    - Request from superuser in superuser_admin.html are handled by ajax and will delete the review (and any associated flags against that review) and update request card without reloading with the message "Review deleted"
- 
-- **Error and Invalid request handling**
-    - Superusers whos ajax request does not return {'success': 'True} are given the message in the request card "Error: Please check this item in django's admin panel"
-    - Users who submit a review to delete that does not exists are returned to the home page (as the lesson itself may be invalid now) and given the error message "Cannot delete review, review does not exist"
-    - Users who submit a review to delete that does not belong to them are returned to the lesson page with the error message "Cannot delete review, it does not belong to this account."
-    
- 
-- **Error and Invalid request handling**
-    - Users who pass an invalid review.pk will be taken back to the lesson page with an error message "Invalid review, please contact support if you think this is an error"
- 
 1. **profile view**
 - **Valid requests**
-    - GET requests given a valid lesson_id will display a pre-filled lesson form ready for editing
-    - POST requests will update a lesson with the new form data
+    - None
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
+    - Cancel button redirects back to the profile page
  
 2. **edit_profile view**
 - **Valid requests**
-    - GET requests will render a template with a profile form `profiles/edit_profile.html`, pre-filled if any data exists on that profile
-    - POST requests will update a profile with the new form data and return the user to their profile page (`profile` view)
+    - GET request given a valid lesson_id displays a pre-filled lesson form ready for editing
+    - POST request updates a lesson with the new form data and redirects back to the profile page
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - User who submits invalid form will be redirected to the profile page with the error "There was an error in your profile data: {error}, please try again."
+    - Submitting invalid form data redirects to the profile page, with the error "There was an error in your profile data: {error}, please try again."
  
 3. **instructors**
 - **Valid requests**
-    - Request will render a template with a card list of all instructors `profiles/instructors.html`
-    - `profiles/instructors/?sort_by=rating&sort_direction=desc` will display instructors by rating in descending order
-    - `profiles/instructors/?q=ben` will only show instructors with "ben" in their username
-    - `profiles/instructors/?sort_by=rating&sort_direction=desc&q=ben` will only show instructors with "ben" in their username by rating in descending order
+    - Renders a template with a card list of all instructors `profiles/instructors.html`
+    - `profiles/instructors/?sort_by=rating&sort_direction=desc` displays instructors by rating in descending order
+    - `profiles/instructors/?q=ben` only shows instructors with "ben" in their username
+    - `profiles/instructors/?sort_by=rating&sort_direction=desc&q=ben` only shows instructors with "ben" in their username by rating in descending order
  
 - **Error and Invalid request handling**
-    - Entering an invalid sort will redirect the user back to the instructor page with the error message "Invalid sort value displaying all instructors by rating in descending order"
-    - Invalid sort direction will default to descending order
-    - Passing an empty query will redirect the user back to the instructors page with the error message "You did not enter any search query, please try again"
+    - Entering an invalid sort will redirects back to the instructor page, with the error message "Invalid sort value displaying all instructors by rating in descending order"
+    - Invalid sort direction defaults to descending order
+    - Passing an empty query redirects back to the instructors page, with the error message "You did not enter any search query, please try again"
  
 4. **request_instructor_status**
 - **Valid requests**
-    - If user profile is complete and status is "request" profile is updated to `profile.requested_instructor_status: True`
-    - If user profile is complete and status is anything but "request" profile is updated to `profile.requested_instructor_status: False`
+    - If user profile is complete and "status" is "request", the profile is updated to `profile.requested_instructor_status: True`, redirects back to profile page
+    - If user profile is complete and "status" is "unrequest" profile is updated to `profile.requested_instructor_status: False`, redirects back to profile page
+    - If user profile is complete and "status" is invalid, profile is untouched, redirects back to profile page
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - If the user profile is not completed, the user is redirected back to the profile page with the error message "You must complete your profile first."
+    - If the user profile is not completed, redirects back to the profile page with the error message "You must complete your profile first."
  
 ## **Studio Page**
  
 1. **studio view**
 - **Valid requests**
-    - Requests given a valid lesson_id will display the lesson if it is free or has been purchased
+    - Given a valid lesson_id displays the lesson if it is free or has been purchased
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - User who submits an invalid lesson_id will be redirected `home` with the error message "Error, Invalid lesson"
-    - User who submits a paid lesson_id they have not purchased will be redirected `home` with the error message "You do not own this lesson"
+    - Submitting an invalid lesson_id redirects home, with the error message "Error, Invalid lesson"
+    - Submitting a paid lesson_id that has not been not purchased will be redirect home, with the error message "You do not own this lesson"
  
 ## **Basket Page**
  
 1. **view_basket**
 - **Valid requests**
-    - Renders `basket/basket.html` which shows all items currently in users basket (sessions)
+    - Viewing displays all items currently in users basket
+    - Viewing with and empty baskey, shows the prompt "Your basket is empty. Browse our instructors to find a lesson to suit you!" and a Find Instructor button.
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
@@ -466,17 +458,17 @@ even though PEP 8 suggests 72.
     
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - Users who try a GET request are redirected to the home page with the error "Invalid request, please select lessons from the lessons page"
-    - Users who post incorrect POST data are redirected to the home page with the error "Invalid request, please select lessons from the lessons page"
-    - If a lesson_id is invalid users will be redirected to the home page with the error "Invalid lesson, please select lessons from the lessons page"
+    - GET request are redirected to the home page with the error "Invalid request, please select lessons from the lessons page"
+    - POSTing incorrect form data redirects to the home page, with the error "Invalid request, please select lessons from the lessons page"
+    - Submitting and invalid lesson_id redirectes to the home page, with the error "Invalid lesson, please select lessons from the lessons page"
  
 2. **remove_from_basket**
 - **Valid requests**
-    - Removed an item from the session basket
+    - Removes an item from the session basket
     
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - Users who POST invalid data/lesson_id are returned to the basket with the error "Invalid request, no lesson was specified for deletion"
+    - POSTing invalid data/lesson_id redirects to the basket with the error "Invalid request, no lesson was specified for deletion"
  
 ## **Checkout Page**
  
@@ -484,27 +476,27 @@ even though PEP 8 suggests 72.
 - **Valid requests**
     - GET: Request renders `checkout/checkout.html` with the checkout form and card payment option
     - POST: Request with correct field entries and card details creates an OrderForm and associated LineItems
-    - STRIPE: When processing the order, when stripe returns a patmentIntent.status = succeeded, the order form will be submit to the checkout view and the cusotmer will have access to their purchases (see checkout success below).
-    - On a complete order an email is sent with an order confirmation to the email input on the checkout page.
-    
- 
+    - STRIPE: When processing the order, when stripe returns a webhook with patmentIntent.status = succeeded, the order form will be submit to the checkout view and the cusotmer will have access to their purchases (see checkout success below).
+    - A complete order sends an email with an order confirmation to the email input on the checkout page.
+
+
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - GET:  Users who manually go to checkout with nothing in their basket are redirected home with the error message "Your basket is empty"
-    - POST:  Users who submit an invalid basket are redirected back to the checkout page with the error "There was an error with your form, no charges have been made."
-    - POST:  While the order form and its associated lineitems are being created, If a lesson does not exist they are warned of that on the checkout success page
-    - STRIPE: Invalid card details fetch stripe error messages and display them below the card field
+    - GET:  Manually going to checkout with nothing in the basket, redirectes home with the error message "Your basket is empty"
+    - POST:  Submitting an invalid basket redirects back to the checkout page, with the error "There was an error with your form, no charges have been made."
+    - POST:  While the order form and its associated lineitems are being created, If a lesson does not exist a warning is generated on the checkout success page
+    - STRIPE: Invalid card details fetch stripe error messages and display them below the card field and do not allow checkout submission
     - STRIPE: If the user closes the browser or there is an issue before the app receives the STRIPE paymentIntent, the OrderForm will not be created, but the checkout.webhook_handler.py will listen for the stripe webhook and create the OrderForm there instead.
     
  
 2. **checkout_success**
 - **Valid requests**
-    - Renders `checkout/checkout_success.html` with confirmation of order and order details
+    - Given a valid order id, renders the checkout success page, with confirmation of order, order details, and buttons to start the lessons purchased.
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - Users who pass invalid order numbers are redirected home with the error message "This order was not found, please contact {settings.DEFAULT_FROM_EMAIL} for support."
-    - Users who try to view someone else's order number through this view are given the error message "This order does not belong to this account, if this is a mistake please contact {settings.DEFAULT_FROM_EMAIL} for support."
+    - Passing invalid order number redirects home, with the error message "This order was not found, please contact {settings.DEFAULT_FROM_EMAIL} for support."
+    - Passing someone elses order number redirects home , with the error message "This order does not belong to this account, if this is a mistake please contact {settings.DEFAULT_FROM_EMAIL} for support."
  
 3. **attach_basket_to_intent**
 - **Valid requests**
@@ -512,13 +504,17 @@ even though PEP 8 suggests 72.
  
 - **Error and Invalid request handling**
     - Accesing while logged out redirectes to the sign in page
-    - Users who try to GET request this page are handled by the django @require_POST decorator
-    - If the logic of this view fails, users are given the message "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction."
+    - GET requests ignored by the django @require_POST decorator on this view
+    - Errors generate a toats error, "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction." along with the exception.
 
 4. **webhooks**
 - **Valid requests**
-    - Checkout page creates a payment intent and if that succeeds 
-    !!!!!! Do more here
+    - Viewing the checkout page creates a payment intent for stripe and the card input is added to the checkout form
+    - Submitting valid form data on the checkout page :-
+        - Calls attach_basket_to_intent this adds the email and basket to the payment intents "meta data"
+        - The request to make the charge is sent to stripe, if successful stripe sends a "charge.succeeded" webhook
+        - Stripe sends another payment intent webhook (succeeded), now payment has been made and the OrderForm is submitted allowing the user to access the content.
+
 - **Error handling**
     - If user closes the browser or the order form is not submitted via JavaScript, the backend will look for the orderform for 5 times over 5 seconds, if still not found the Order will be created in the webhook.
 
@@ -695,3 +691,18 @@ LOGGING = {
     </script>
 ```
 - Result - The static file now has access to the CSRF Token again and the buttons function correctly
+
+## 4 - Payment Attacks
+***
+
+### Place an order without paying
+
+**Situation**
+    - Steps to defeat the payment system
+        - Add item to basket
+        - Go to checkout page and remove the stripe card element so the submit form will be valid
+        - Disable JavaScript so the form is sbmitted without stripe_elements.js checking that payment.intent has succeeded
+        - Enjoy free lessons
+
+**Task**
+    - Remove this exploit
