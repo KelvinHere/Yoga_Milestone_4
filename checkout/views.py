@@ -31,7 +31,7 @@ def checkout(request):
         # Confirm with stripe this order has been paid for
         try:
             payment_intent_id = (request.POST.get('client_secret')
-                                            .split('_secret')[0])
+                                 .split('_secret')[0])
             stripe.api_key = settings.STRIPE_SECRET_KEY
             fetched_intent = stripe.PaymentIntent.retrieve(payment_intent_id, )
             paid = fetched_intent['charges']['data'][0]['paid']
