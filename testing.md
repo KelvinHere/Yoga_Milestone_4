@@ -746,6 +746,3 @@ LOGGING = {
 '''
  
 - Result: Users will be unable to bypass the payment system with this exploit
- 
- 
-
