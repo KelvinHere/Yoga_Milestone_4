@@ -11,12 +11,14 @@ tools, set lesson prices and view the details of all the sales they have made on
  
 * [Live link to site](https://ms4-yoga-kelvinhere.herokuapp.com/ 'Live website link')
 * [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
- 
-## ToDo
-- contact email and social media links
-- image change on forms
-- Bug "Uncaught IntegrationError: Please call Stripe() with your publishable key. You used an empty string."
- 
+
+```
+**ToDo**
+ contact email and social media links
+ image change on forms
+ Bug "Uncaught IntegrationError: Please call Stripe() with your publishable key. You used an empty string."
+```
+
 ## Contents
  
 1. [**UX**](#ux)
@@ -55,10 +57,10 @@ tools, set lesson prices and view the details of all the sales they have made on
        * [Media](#media)
        * [Acknowledgements](#acknowledgements)
  
-*** 
-## UX
+
+# UX
  
-### Project Purpose
+## Project Purpose
  
 The purpose of this app is to create a platform where students can learn Yoga remotely and
 instructors can create and sell lessons.  Users can find an instructor and lessons 
@@ -70,7 +72,7 @@ It offers instructors a set of tools to easily create and manage their lessons, 
 and content.  Though these lessons cultivate good reviews, ratings and a following of
 students to sell their premium lessons to.
  
-### Wireframe Designs
+## Wireframe Designs
  
 - The home page
 ![HomePage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/1-Index.jpg "Home page")
@@ -83,13 +85,13 @@ students to sell their premium lessons to.
 - A typical lesson page, paid or free
 ![LessonPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/5-Lesson.jpg "Lesson page")
  
-### Database
+## Database
  
  - A postgres relational database is used for the app, below is the final map with all features included.
  
 ![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/database/db_design.jpg "Database design")
  
-### User Stories
+## User Stories
  
 **ID** | **As a/an** | **I want to be able to...** | **So that I can**
 --- | --- | --- | ---
@@ -112,7 +114,7 @@ students to sell their premium lessons to.
 17 | " | Remove instructor status from an instructor | remove instructors that break rules or are inactive
 18 | " | View flagged comments | Decide to remove the review if it is inappropriate
  
-### Developer Goals
+## Developer Goals
  
 Each feature must be well programmed, function properly and tested to be bug free.
  
@@ -122,9 +124,9 @@ to deployment, giving a good showcase project for a portfolio.
 Show an understanding of Django, Python, Postgres, Javascript, jQuery,
 HTML, CSS, Gunicorn, Stripe payments, unit testing and more, and how they all interact to form a final product.
  
-### Design Choices
+## Design Choices
  
-#### **General Design**
+### **General Design**
  
 Bootstrap is my chosen CSS framework as it is quick to style pages in a familiar way.  The app will follow 
 common design principles so it will be familiar and intuitive to use.  The site will keep a minimal clean look to keep 
@@ -135,7 +137,7 @@ lessons & searching for instructors is available.
  
 Navigation and selection is consistent throughout the app, with no need to use the browser back button.
  
-#### **Colours and Fonts**
+### **Colours and Fonts**
  
 **Font 1**  - Lato is used for branding, titles, a strong font that is not completely serious lines up with the style 
 and feel of this app.
@@ -149,10 +151,10 @@ consistency.  The only strong colours are call to action and function buttons to
 this will be a canvas for the instructor generated content and it should not take away from their lesson and profile images
 and content which will become the heart of the app.
  
-*** 
-## Features
+
+# Features
  
-### Quick feature breakdown
+## Quick feature breakdown
  
 A quick review of features on the site, more detailed descriptions further down.
  
@@ -200,7 +202,7 @@ A quick review of features on the site, more detailed descriptions further down.
     - View a list of flagged reviews
         - Ignore the flag or delete the review
  
-### NavBar Features
+## NavBar Features
  
 The nav bar appears on every page, it is locked to the top on larger screens and can be scrolled away on smaller screens. 
 The basket will display how many items it has inside.  Each time the navbar is loaded it uses a variable in a context 
@@ -222,7 +224,7 @@ case "Instructor deletes lesson that is already a users basket".
         - Instructor: Instructor Admin / My Profile / Logout
         - Administrator: Superuser Admin / My Profile / Logout
  
-### Home Page Features
+## Home Page Features
  
 The page is responsive and the buttons and background image reposition for mobile, tablet, and desktop 
 screens to always look pleasing.
@@ -239,7 +241,7 @@ Note on featured lessons - This was added as a requirement of the project, I fee
 is defaulted to be hidden.
  
  
-### Superuser_admin Page Features
+## Superuser_admin Page Features
  
 Allows an administrator to quickly and easily deal with user requests, review flags and privileges without using the django /admin page.
 It consists of three tabs, Requests / All Instructors / Flagged.
@@ -281,7 +283,7 @@ The page is responsive, the tabs are collapsed to a vertical arrangement on mobi
     - **Responsiveness**
         - None needed
  
-### Instructors Page Features
+## Instructors Page Features
  
 This page gives the user a list of instructors to choose, by default they are sorted by rating high to low.
  
@@ -295,7 +297,7 @@ This page gives the user a list of instructors to choose, by default they are so
     - On small screens the instructor card is vertically stacked with a small profile image.
     - Larger screens the card is laid out horizontally with a larger profile image.
  
-### Instructor Admin Page Features
+## Instructor Admin Page Features
  
 Through tabs, the instructor can view Created Lessons / Sales / Support.  They can create, delete and edit lessons, view a list of sales from their paid lessons and have access to support information.
  
@@ -316,7 +318,7 @@ Through tabs, the instructor can view Created Lessons / Sales / Support.  They c
 - Larger screens, the lesson card is laid out horizontally with a larger profile image.
 - The sales and flag cards reorder content for easier viewing over screen sizes.
  
-### Lessons Page Features
+## Lessons Page Features
  
 This page shows a list of lessons using pagination, they can be searched, filtered and sorted.
  
@@ -364,7 +366,7 @@ A lesson card contains all lesson information and context sensitive buttons.
     - This modal contains the lesson information with a longer description of the lesson and all of its reviews.
     - The modal is created by using render_to_string on a snippet called lesson_modal.html that is given the context 'lesson instance' and 'MEDIA_URL_for_json' as it will not be parsed the same as a standard rendered template.
  
-### Studio page Features
+## Studio page Features
  
 This is the page where the actual lesson happens, it has the lesson name, the embedded video, a dropdown for description and reviews underneath.
  
@@ -383,7 +385,7 @@ This is the page where the actual lesson happens, it has the lesson name, the em
         - If a user flags a review they will receive a success message "{{ User }}'s review has been flagged and will be reviewed by an administrator soon.".
         - If a user tries to flag a review more than once they will receive the error message "You have already flagged {{ User }}'s review it will be reviewed by an administrator soon.".
  
-### Profile Page Features
+## Profile Page Features
  
 The profile page shows users their profiles, lets them edit it and requests to become an instructor.  A list of purchased lessons and buttons to start them are also on this page for quick access.
  
@@ -398,7 +400,7 @@ The profile page shows users their profiles, lets them edit it and requests to b
 - On small screens the instructor profile is vertically stacked with a small profile image and purchased lessons underneath.
 - Larger screens the instructor profile is laid out horizontally with a larger profile image and purchased lessons underneath.
  
-### Basket Page Features
+## Basket Page Features
  
 The basket page shows cards of items added to the basket with image, title, instructor, price and a delete button.
 The Total, any discount and grand total are shown with a prompt of how much more they need to spend to avail of a discount if they have not reached that amount yet.
@@ -410,7 +412,7 @@ Finally a checkout button at the bottom of this information.
 - **Responsiveness**
     - The table resizes itself to fit nicely on any size screen over 300px wide.
  
-### Checkout Page Features
+## Checkout Page Features
  
 The checkout page displays the total that will be charged to the user and how many items they are buying.  For example "Total: €8.99 \ For 2 items"
 A form asks for a full name and email-address where a confirmation email will be sent, and a card number.
@@ -427,7 +429,7 @@ A form asks for a full name and email-address where a confirmation email will be
     - On larger screens the checkout window sits on top of a blurred yoga studio image as there is little information on this screen and having it all white was too jarring.
     - On smaller screens the checkout window takes the full screen.
  
-### Checkout Success Page Features
+## Checkout Success Page Features
  
 The checkout success page tells the user their order was successful and gives them their order information of, name, email, order number, total, discount if applicable.
 Also a list of all lessons ordered with buttons to start them.
@@ -441,14 +443,14 @@ Also a list of all lessons ordered with buttons to start them.
  
 Regarding signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a `signal` (pre_delete) is used to delete the subscriptions the user may have for the lesson.
  
-### Custom Template Tags
+## Custom Template Tags
  
 For convenience, when rendering the instructor sales page, I included a custom template tag that will deduct
 the current STIE_SALES_PERCENTAGE in the OrderLineItem model, to display the total earned by the instructor after the websites cut.  This 
 is located in [lessons.templatetags.site_utils.py](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/templatetags/site_utils.py) and 
 registers the function as a filter with the decorator `@register.filter`.
  
-### Performance
+## Performance
  
 - This app has been written with performance in mind, to try and only access the database when necessary and to make the queries and model access as lightweight as possible, below is an example.
  
@@ -458,7 +460,7 @@ registers the function as a filter with the decorator `@register.filter`.
     - Action: After a review is created and saved it will call its lesson to run a method to update its average score.  This is only done when a review is created, once the lesson rating is updated it will call the Instructor that created it to run a method that updates their score from all their (precalculated) lesson ratings.
     - Result: Now when a lesson list is called the average scores have been pre-calculated and in this example only 100 objects in the queryset are returned as opposed to 100,000
  
-## Changes during development
+# Changes during development
 As this was a learning project some changes were made in development to get the most out of it.  Most notably I changed 
 a "book video time" feature with a "paid lesson" feature.  This allowed me to make a more comprehensive "store", and create
 a system where once a lesson is paid for is is unlocked for the user, showing another example of defensive programming in
@@ -471,12 +473,12 @@ of the results than to cram more results onto a single page, this combined with 
 The database was changed over the course of the project as I added more interesting features to the app, such as the rating
 cascading rating system and review / review flagging system.
  
-#### Future Features
+## Future Features
  
 In making this app, there are ideas I would like to implement at a later date that are beyond the scope and deadline of this
 project, they are listed below.
  
-#### Near Future
+### Near Future
 - Lesson history for quick links back to a lesson whose name cannot be remembered
 - Implement a time limit on uploading images so a user cannot spam images to the application.
 - Use a private video hosting service to give the site more control and better security for paid lessons (sharing of urls).
@@ -485,17 +487,17 @@ project, they are listed below.
     - Check lesson was on at a normal price for at least 2 months
     - When taken off sale cannot be put back on sale for at least 2 months to avoid spamming sales to reach the front page.
  
-#### Far Future
+### Far Future
 - Refactor the instructor logic with the `@permission_required` decorator to remove a lot or repeated checks for `.is_instructor` in the UserProfile model
 - Create live-streaming paid lessons, where an instructor can sell limited positions to join realtime lessons with direct tutor feedback.
  
-*** 
-## Testing
+
+# Testing
  
 [Testing Documentation](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/testing.md) - Documentation for testing
  
-***
-## Technologies Used
+
+# Technologies Used
  
 - **HTML5/CSS3**
 - [Django](https://www.djangoproject.com/) - Framework to create the app
@@ -524,13 +526,12 @@ project, they are listed below.
 - [psycopg2-binary](https://www.psycopg.org/) - A PostgreSQL adapter for python it will convert database data into python lists.
 - [s3transfer](https://pypi.org/project/s3transfer/) - A python library for managing S3 transfers
  
-***
-## Deployment
+# Deployment
  
 This project was created in [GitPod](https://gitpod.io/) with the [Code Institute template](https://github.com/Code-Institute-Org/gitpod-full-template) and version controlled through 'Git', the project was committed and pushed to [GitHub](https://github.com/).
 The project was then deployed to [Heroku](https://www.heroku.com/) with media and static files hosted on [Amazon s3](https://aws.amazon.com/).
  
-### Version Control
+## Version Control
 * After files are created or modified they are committed to a GitHub repository using git by :-
     - adding the modified files locally using `git add .` or `git add filename.extension`
     - commiting the modified files with a message of changes using `git commit -m "changes here"`
@@ -542,7 +543,7 @@ The project was then deployed to [Heroku](https://www.heroku.com/) with media an
     - Once the feature was working in the `Add pagination branch` I created a `pull request` to `merge` this new branch back into the `master`, since the master branch was a couple of `commits` ahead at this point I had to confirm there were no `conflicts` and I was happy to go ahead with this operation.
     - With the merge complete the master branch now contains the pagination feature and the commits in the master branch that were ahead of my `Add pagination branch` at the time.
  
-### Local Deployment
+## Local Deployment
  
 * Requirements
     - Local computer with an IDE, Python 3.8.6, git and pip.
@@ -562,7 +563,7 @@ Clone this repository to your local workspace :-
 10. Run `python3 manage.py runserver` to start the app
 11. Open the given link in your IDE and the app will be ready to use.
  
-### Heroku Deployment
+## Heroku Deployment
  
 The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed with the following steps.
  
@@ -629,7 +630,7 @@ The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed wi
     - Click 'Open App' 
     - The App should now be running through Heroku
  
-### Differences - Local and deployed
+## Differences - Local and deployed
  
 The environmental variables here allow the app to automatically switch between development mode and deployed.  They also handle what database to connect to, cloud storage, email access and stripe payments.  Below is a list of deployed vs developer enviromental variables.
  
@@ -657,8 +658,7 @@ The environmental variables here allow the app to automatically switch between d
     - `STRIPE_SECRET_KEY` stripes secret key to protect signed data
     - `STRIPE_WH_SECRET` stripes secret key for webhooks to protect signed data
  
-***
-## Credits
+# Credits
  
 - [Code](https://stackoverflow.com/questions/26298821/django-testing-model-with-imagefield) - Films answer: For testing an imagefield without an image
 - [Colour scheme inspired by icolorpalette](https://icolorpalette.com/palette-by-themes/yoga) - How to create an image without an image file for testing image fields in forms in tests.
@@ -668,12 +668,11 @@ The environmental variables here allow the app to automatically switch between d
     ```
 - [Generated Photos](https://generated.photos/) - AI generated Student Faces used for student profiles
  
- 
-### Content
+## Content
  
 - This project was created by KelvinHere
  
-### Media
+## Media
  
 * Images used in the app
     * [Background image](https://www.istockphoto.com/photo/young-woman-practicing-yoga-in-the-nature-female-happiness-pose-balance-body-vital-gm1221748282-358248235?clarity=false)
@@ -697,7 +696,7 @@ The environmental variables here allow the app to automatically switch between d
     * [young-woman-1178123_1920](https://pixabay.com/photos/young-woman-yoga-classes-fitness-1178123/)
  
   
-### Acknowledgements
+## Acknowledgements
  
 * [Geeks for Geeks - Ajax information](https://www.geeksforgeeks.org/handling-ajax-request-in-django/)
 * [Django Documentation](https://docs.djangoproject.com/en/3.1/).
