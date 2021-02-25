@@ -150,13 +150,14 @@ CSS was validated through [W3C CSS Validation Service](https://jigsaw.w3.org/css
  
 ### **JavaScript Validation**
  
-The following files were validated through manually pasting the content into [beautifytools.com](https://beautifytools.com/javascript-validator.php) JavaScript validator.
+The following files were validated through manually pasting the content into [beautifytools.com](https://beautifytools.com/javascript-validator.php) JavaScript validator (with Assume I'm Using: Jquery in options).
  
 - [stripe_elements.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/checkout/static/checkout/js/stripe_elements.js)
 - [superuser_admin_js.html](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/home/templates/home/includes/superuser_admin_js.html)
 - [delete_lesson_modal.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/delete_lesson_modal.js)
 - [lesson_buttons.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/lesson_buttons.js)
 - [featured_lessons.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/home/static/home/js/featured_lessons.js)
+- [form_file_changer.js](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/lessons/static/lessons/js/form_file_changer.js)
  
 Errors - in featured_lessons.js: the function `toggle_featured` has the error "is defined but never used." but is used by a button in home.html to toggle the featured lessons card.
  
@@ -367,6 +368,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Accessing while logged out redirects to the sign in page
     - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
     - Creating a lesson with a duplicate name of another lesson on the same account, redirects to instructor admin page, with the error message "You already have a lesson named this."
+    - Invalid form input is detected
     - Creating a lesson with a duplicate name of a different instructor is allowed
         - Regarding duplicate names, different instructors can have lessons with the same name to avoid "reserving" of popular names such as simple yoga poses, ie both 'Benny' and 'Charle' can have a lesson named 'Mountain Pose'
  
@@ -375,12 +377,15 @@ To avoid duplicating too much text, the content of each page was tested by check
 - **Valid requests**
     - GET request with a valid lesson_id displays a pre-filled lesson form ready for editing
     - POST request updates a lesson with the new form data
+    - Current lesson image is disaplayed
+    - If lesson image is updated the current one is removed from the page and replaced with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
  
 - **Error and Invalid request handling**
     - Accessing while logged out redirects to the sign in page
     - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
     - POSTing data to an invalid lesson_id redirects to the instructor admin with the error message "Invalid lesson ID, no lessons were updated."
     - GET request with another instructor's lesson_id, redirects to instructor admin page, with the error message "You can only edit your own lessons, please check your username."
+    - Invalid form input is detected
  
 7. **review_lesson view**
 - **Valid requests**
@@ -393,6 +398,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Submitting an invalid form redirects back to the current lesson the review was for, with the error message "Error in review form: {form.errors}"
     - POSTing an invalid rating out of the range 1-10, redirects back to the lesson page with the error message "You entered an invalid rating, please try again."
     - Trying to review your own lesson redirects back to the lesson page, with the error "You cannot review your own lessons."
+    - Invalid form input is detected
  
 8. **flag_review view**
 - **Valid requests**
@@ -401,6 +407,7 @@ To avoid duplicating too much text, the content of each page was tested by check
 - **Error and Invalid request handling**
     - Passing an invalid review.pk redirects back to the lesson page, with the error message "Invalid review, please contact support if you think this is an error"
     - Flagging a review multiple times redirects to the lesson page, with the error message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
+    - Invalid form input is detected
  
 9. **delete_review view**
 - **Valid requests**
@@ -427,6 +434,8 @@ To avoid duplicating too much text, the content of each page was tested by check
 - **Valid requests**
     - GET request given a valid lesson_id displays a pre-filled lesson form ready for editing
     - POST request updates a lesson with the new form data and redirects back to the profile page
+    - Current profile image is displayed
+    - Updating profile image removes profile image from the form and updates it with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
  
 - **Error and Invalid request handling**
     - Accessing while logged out redirects to the sign in page

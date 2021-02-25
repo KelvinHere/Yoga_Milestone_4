@@ -1,4 +1,5 @@
 // Controls content for changing an image file
+//jshint esversion: 6
 
 $(document).ready(function() {      
     // Remove unwanted content
@@ -18,11 +19,11 @@ $(document).ready(function() {
         let fileName = event.target.value;
         
         // windows vs linux directory seperator
-        fileName = fileName.replace('/', '\\')
+        fileName = fileName.replace('/', '\\');
         
         // split by \
         let split = fileName.split("\\");
         $('#current-image-container').empty();
-        $('#current-image-container').html("<p>Updated image to <strong>" + split.slice(-1) + "</strong>");
+        $('#current-image-container').html("<p>Update image to <strong>" + split.slice(-1) + "</strong></p>");
     });
 });

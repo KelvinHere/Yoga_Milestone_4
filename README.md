@@ -442,7 +442,7 @@ Also a list of all lessons ordered with buttons to start them.
     - On smaller screens the checkout window takes the full screen.
  
 Regarding signals, if for any reason an `OrderLineItem` (the database entry that shows a lesson has been purchased by a user) is or has to be deleted, a `signal` (pre_delete) is used to delete the subscriptions the user may have for the lesson.
- 
+
 ## Custom Template Tags
  
 For convenience, when rendering the instructor sales page, I included a custom template tag that will deduct
