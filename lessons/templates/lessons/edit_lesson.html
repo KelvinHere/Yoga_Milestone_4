@@ -22,7 +22,14 @@
                         {% if field.name != 'image' %}
                             {{ field | as_crispy_field }}
                         {% else %}
-                            {{ field }}
+                            <p>Current Image*</p>
+                            <div class="current-image-container" id="current-image-container">
+                                <img class="mb-3" src="{{ MEDIA_URL }}{{ lesson.image }}" alt="image for {{ lesson.lesson_name }}" width="100" height="100" id="current-image">
+                            </div>
+                            <div id="change-image">
+                                <label for="id_image" id="id_image_label" class="btn btn-custom-darken">Change Image</label>
+                                {{ field }}
+                            </div>
                         {% endif %}
                     {% endfor %}
                     <div class="checkout-buttons mt-5">
@@ -35,4 +42,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script src="{% static 'lessons/js/file_image_changer.js' %}"></script>
 {% endblock %}

@@ -90,6 +90,15 @@ body {
     box-shadow: none;
 }
 
+#id_image_label {
+    cursor: pointer;
+}
+
+#id_image {
+    opacity: 0;
+    position: absolute;
+    z-index: -1; 
+}
 /* ---------------------------------------- Icons */
 .custom-icon-image {
     width: 38px;

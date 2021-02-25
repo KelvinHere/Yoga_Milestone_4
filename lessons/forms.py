@@ -1,5 +1,5 @@
 from django import forms
-from .widgets import CustomClearableFileInput
+
 from .models import Lesson, LessonReview
 
 
@@ -16,10 +16,6 @@ class LessonForm(forms.ModelForm):
                   'time',
                   'price',
                   ]
-
-        image = forms.ImageField(label='Image',
-                                 required=True,
-                                 widget=CustomClearableFileInput)
 
         labels = {
             'card_description': 'Short Description for lesson card',
@@ -39,8 +35,8 @@ class LessonForm(forms.ModelForm):
             })
 
         # Add styling
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'custom-crispy-form-styling'
+        #for field_name, field in self.fields.items():
+        #    field.widget.attrs['class'] = 'custom-crispy-form-styling'
 
 
 class ReviewForm(forms.ModelForm):
