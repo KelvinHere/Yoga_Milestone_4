@@ -15,7 +15,6 @@ tools, set lesson prices and view the details of all the sales they have made on
 ```
 **ToDo**
  contact email and social media links
- image change on forms
  Bug "Uncaught IntegrationError: Please call Stripe() with your publishable key. You used an empty string."
 ```
 

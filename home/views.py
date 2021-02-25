@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 from lessons.models import Subscription, LessonReviewFlagged, Lesson
 from profiles.models import UserProfile
@@ -32,6 +33,17 @@ def index(request):
         'profile': profile,
         'subscribed_lessons': subscribed_lessons,
         'json_lessons': json_lessons,
+    }
+
+    return render(request, template, context)
+
+
+def info(request):
+    """ A view to return Info page """
+
+    template = "home/info.html"
+    context = {
+        'email': settings.DEFAULT_FROM_EMAIL
     }
 
     return render(request, template, context)

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="account-overlay"></div>
+    <div class="account-container pt-4 d-flex justify-content-center">
+        <div class="row bg-white py-4 px-2 account-border">
+            <div class="col-12">
+                <h1 class="text-center my-3" id="lesson-page-title">Information</h1>
+                <hr>
+                <p class="text-center"><strong>About: </strong></p>
+                <p class="text-center">Welcome to Social Yoga, here you will find a place to practice and enjoy quality Yoga sessions</p>
+                <hr>
+                <p class="text-center"><strong>I want to be an instructor: </strong></p>
+                <p class="text-center">If you feel you have what it takes to become an instructor, fill in your profile and request instructor status on your <a href="{% url 'edit_profile' %}">Profile</a> page</p>
+                <hr>
+                <p class="text-center"><strong>Check out our social media pages: </strong></p>
+                <div class="row w-100 mx-auto m-0 d-flex justify-content-around">
+                    <div class="col-12 col-md-6 px-0 pb-4 d-flex justify-content-around social-media-buttons">
+                        <a class="btn btn-lg btn-custom-darken" href="https://www.facebook.com" target="_blank">
+                            <i class="fas fa-facebook-messenger fa-2x"></i>
+                        </a>
+                        <a class="btn btn-lg btn-custom-darken" href="https://www.instagram.com/" target="_blank">
+                            <i class="fas fa-instagram-square fa-2x"></i>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6 px-0 pb-4 d-flex justify-content-around social-media-buttons">
+                        <a class="btn btn-lg btn-custom-darken" href="https://twitter.com/" target="_blank">
+                            <i class="fas fa-twitter-square fa-2x"></i>
+                        </a>
+                        <a class="btn btn-lg btn-custom-darken" href="https://www.tiktok.com/" target="_blank">
+                            <i class="fas fa-tiktok fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <p class="text-center"><strong>Contact Us: </strong></p>
+                <p class="text-center">Have a question?  See something you don't like?  Send us an email at <a href="mailto:{{ email }}">{{ email }}</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

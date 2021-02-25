@@ -289,7 +289,7 @@ body {
         top: 0;
         left: 0;
         position: fixed;
-        background: url('/media/account-bg-blur.jpg') no-repeat center center fixed;
+        background: url('/static/images/backgrounds/account-bg-blur.jpg') no-repeat center center fixed;
         background-size: cover;
         z-index: -1;
     }
