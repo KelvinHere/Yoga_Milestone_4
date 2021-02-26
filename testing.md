@@ -724,10 +724,27 @@ LOGGING = {
     </script>
 ```
 - Result - The static file now has access to the CSRF Token again and the buttons function correctly
- 
+
+
+## Remaining Warning Message
+
+A warning message that remains but does not affect the app.  When performing unit tests, the lessons.LessonReview model throws the warning below
+
+```
+RuntimeWarning: DateTimeField LessonReview.date received a naive datetime 
+(2021-02-26 18:17:41.356695) while time zone support is active.
+warnings.warn("DateTimeField %s received a naive datetime (%s)"
+```
+
+I have traced the warning back to a migration, with the help of [this article](https://www.debugcn.com/en/article/64389139.html), using `--verbosity 2` as an argument to the unit tests.
+
+The solution to this problem is [here: warning-because-of-old-migration](https://stackoverflow.com/questions/49341801/warning-because-of-old-migration-how-should-that-be-solved), and involves [squashing the migrations](https://docs.djangoproject.com/en/3.1/topics/migrations/#migration-squashing).
+This solution will squash the selected migrations and optomize them into one, canceling out opposing migrations to give just the end result rather than going through each migration one by one.
+
+This warning message this only affects the unit tests, and since the solution has the potential to introduce deeper issues, this minor bug is marked to be removed in a future update.
+
 # 5 - Payment Attacks
- 
- 
+  
 ## Place an order without paying
  
 - Situation: Payment system can be bypassed and orders can be completed for free
@@ -740,7 +757,7 @@ LOGGING = {
 - Task: Remove this exploit
  
 - Action: After reading in the Stripe documentation you can retrieve a payment intent, I added a check in the checkout view that fetches the intent from stripe.  This intent contains `Paid: True` in its JSON to confirm the purchase.  If this does not exist the item has not been paid for and the user is redirected to the basket page with an error message.  Code below.
-'''
+```
         try:
             payment_intent_id = (request.POST.get('client_secret')
                                             .split('_secret')[0])
@@ -751,6 +768,6 @@ LOGGING = {
             messages.error(request, ("Error:  Could not confirm order with "
                                      "stripe no charges have been made."))
             return redirect(reverse('view_basket'))
-'''
+```
  
 - Result: Users will be unable to bypass the payment system with this exploit

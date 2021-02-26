@@ -639,7 +639,7 @@ The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed wi
 The local database is very simple, with easy to understand data entries, for example, all instructors are named 'instructor_1', 'instructor_2' etc.  Users are complete_user and incomplete_user.  This allows
 easy debugging when viewing model information in the console.
 
-The production database is populated with examples of what real user-generated content would look like.
+The production database is populated with examples of what real user-generated content would look like, complete with instructors, lessons with individual placeholder videos and comments, user requests and review flags.
 
 The environmental variables here allow the app to automatically switch between development mode and deployed.  They also handle what database to connect to, cloud storage, email access and stripe payments.  Below is a list of deployed vs developer enviromental variables.
  
