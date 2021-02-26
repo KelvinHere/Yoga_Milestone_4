@@ -1,5 +1,4 @@
 # Testing Documentation for Social Yoga
-!!!!!! Retest CSS validation after the last COLLECT STATIC!
  
 1. [**Automated Testing**](#1---automated-testing)
    * [Unit Tests and Coverage](#unit-tests-and-coverage)

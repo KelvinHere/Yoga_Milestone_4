@@ -8,14 +8,9 @@ to or buy them.
 Instructors who decide to use this site will be able to create and manage their lessons through the apps
 tools, set lesson prices and view the details of all the sales they have made on the site.
  
- 
 * [Live link to site](https://ms4-yoga-kelvinhere.herokuapp.com/ 'Live website link')
-* [This Repository](https://github.com/KelvinHere/milestone-4 'Github repository link')
 
-```
-**ToDo**
- Bug "Uncaught IntegrationError: Please call Stripe() with your publishable key. You used an empty string."
-```
+!!!!!! BEFORE SUBMISSION - unit tests to false, re-validate live links
 
 ## Contents
  
