@@ -36,16 +36,16 @@
                 <p class="text-center"><strong>Summary</strong></p>
                 {% for item in order.lineitems.all %}
                 <div class="row order-items my-2 mx-3">
-                        <div class="col-8">
-                            <p class="text-muted text-left mb-1">{{ item.lesson.lesson_name }}</p>
-                        </div>
-                        <div class="col-2">
-                            <p class="text-muted text-right mb-1">€{{ item.lesson.price }}</p>
-                        </div>
-                        <div class="col-2">
-                            <a class="btn btn-sm btn-success" href="{% url 'studio' item.lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Begin</a>
-                        </div>
+                    <div class="col-12 col-sm-8">
+                        <p class="text-muted text-center text-sm-left mb-1">{{ item.lesson.lesson_name }}</p>
                     </div>
+                    <div class="col-6 col-sm-2">
+                        <p class="text-muted text-right mb-1">€{{ item.lesson.price }}</p>
+                    </div>
+                    <div class="col-6 col-sm-2">
+                        <a class="btn btn-sm btn-success" href="{% url 'studio' item.lesson.lesson_id %}" id="start_lesson_button_id_{{ lesson.lesson_id }}" role="button">Begin</a>
+                    </div>
+                </div>
                 {% endfor %}
                 <hr class="mt-4">
             </div>
