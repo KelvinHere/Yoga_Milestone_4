@@ -237,8 +237,19 @@ screens to always look pleasing.
  
 Note on featured lessons - This was added as a requirement of the project, I feel it does go well with the feel of the app so
 is defaulted to be hidden.
- 
- 
+
+## Info Page Features
+
+- Displays information about the site along with
+    - Edit profile link for prospective instructors
+    - Facebook link
+    - Instagram link
+    - Twitter link
+    - Tiktok link
+    - mailto email link pulled from settings.py
+
+For the sake of this project all social media links open a new blank page to their respective home pages.
+
 ## Superuser_admin Page Features
  
 Allows an administrator to quickly and easily deal with user requests, review flags and privileges without using the django /admin page.
