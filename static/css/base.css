@@ -276,6 +276,11 @@ body {
         border: solid 1px #534a47;
     }
 
+    .checkout-border {
+        border: solid 1px #534a47;
+        padding: 30px;
+    }
+
     .instructor-admin-button {
             width: 75%;
         }
