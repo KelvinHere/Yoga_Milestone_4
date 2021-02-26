@@ -83,7 +83,7 @@ class TestInstructorAdminView(TestCase):
                              'instructor profile and have a quick read of '
                              'support before you create any lessons, as your '
                              'card and profile data help users choose your '
-                             'lessons.  Thankyou.'))
+                             'lessons.  Thank You.'))
 
         self.assertContains(response, 'Complete Your Instructor Profile')
 
@@ -113,6 +113,6 @@ class TestInstructorAdminView(TestCase):
                              'instructor profile and have a quick read of '
                              'support before you create any lessons, as your '
                              'card and profile data help users choose your '
-                             'lessons.  Thankyou.'))
+                             'lessons.  Thank You.'))
 
         self.assertContains(response, 'Complete Your Instructor Profile')

@@ -16,7 +16,7 @@ Alternatively you can find it in your profile.
 
 If you have any questions, you can contact us at {{ contact_email }}.
 
-Thankyou for your order!
+Thank you for your order!
 
 Sincerely,
 

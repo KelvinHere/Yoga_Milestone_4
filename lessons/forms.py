@@ -35,8 +35,8 @@ class LessonForm(forms.ModelForm):
             })
 
         # Add styling
-        #for field_name, field in self.fields.items():
-        #    field.widget.attrs['class'] = 'custom-crispy-form-styling'
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'custom-crispy-form-styling'
 
 
 class ReviewForm(forms.ModelForm):
