@@ -15,12 +15,12 @@
    * [Site Actions Tested](#site-actions-tested)
    * [Content Testing](#content-testing)
    * [Valid Requests and Error Handling](#valid-requests-and-error-handling)
-        * [Home Page](#home-page)
-        * [Lessons Page](#lessons-page)
-        * [Profile Page](#profile-page)
-        * [Studio Page](#studio-page)
-        * [Basket Page](#basket-page)
-        * [Checkout Page](#checkout-page)
+        * [Home App](#home-app)
+        * [Lessons App](#lessons-app)
+        * [Profile App](#profile-app)
+        * [Studio App](#studio-app)
+        * [Basket App](#basket-app)
+        * [Checkout App](#checkout-app)
         * [Account Pages](#account-pages)
 3. [**User Stories Solved**](#3---user-stories-solved)
 4. [**Interesting Bugs Solved**](#4---interesting-bugs-solved)
@@ -253,8 +253,9 @@ even though PEP 8 suggests 72.
 To avoid duplicating too much text, the content of each page was tested by checking the page content against what was expected on the ['Features' section of the readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment#features).
  
 # **Valid Requests and Error Handling**
-## **Home Page**
- 
+## **Home app**
+
+1. **index view** 
 - **Valid requests**
 - Buttons
     - Logged out users and users without subscriptions see a 'Find an Instructor' button.
@@ -270,7 +271,19 @@ To avoid duplicating too much text, the content of each page was tested by check
 - While logged out, users cannot access the following views
     - `/superuser_admin` - Result: Redirect to login page
     - `/update_instructor_status/<user_to_update>/<status>` - Result: Redirect to login page
+
+2. **superuser_admin view**
+- **Valid requests**
+    - Get request displays superuser admin tools
  
+- **Error and Invalid request handling**
+    - Accessing while logged out redirects to the sign in page
+    - Accessing while not a superuser redirects to the homepage, with the error message "Sorry only administrators can do this"
+
+3. **info view**
+- **Valid requests**
+    - Displays the info page with contact email, info and social media buttons.
+
 ## **Nav Bar**
 - The nav bar branding is the link home
 - Navbar links are collapsed on small screens
@@ -288,7 +301,7 @@ To avoid duplicating too much text, the content of each page was tested by check
 - If logged in as superuser
     - Superuser Admin redirects to superuser admin page
  
-## **Lessons Page**
+## **Lessons App**
  
 1. **lessons view**
 - **Valid requests**
@@ -423,7 +436,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Submitting any review primary key as a superuser deletes the review
     - Superusers whos ajax request does not return {'success': 'True} are given the message in the request card "Error: Please check this item in django's admin panel"
  
-## **Profile Page**
+## **Profile App**
 1. **profile view**
 - **Valid requests**
     - None
@@ -444,7 +457,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Accessing while logged out redirects to the sign in page
     - Submitting invalid form data redirects to the profile page, with the error "There was an error in your profile data: {error}, please try again."
  
-3. **instructors**
+3. **instructors view**
 - **Valid requests**
     - Renders a template with a card list of all instructors `profiles/instructors.html`
     - Instructors with no lessons are excluded
@@ -457,7 +470,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Invalid sort direction defaults to descending order
     - Passing an empty query redirects back to the instructors page, with the error message "You did not enter any search query, please try again"
  
-4. **request_instructor_status**
+4. **request_instructor_status view**
 - **Valid requests**
     - If user profile is complete and "status" is "request", the profile is updated to `profile.requested_instructor_status: True`, redirects back to profile page
     - If user profile is complete and "status" is "unrequest" profile is updated to `profile.requested_instructor_status: False`, redirects back to profile page
@@ -467,7 +480,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Accessing while logged out redirects to the sign in page
     - If the user profile is not completed, redirects back to the profile page with the error message "You must complete your profile first."
  
-## **Studio Page**
+## **Studio App**
  
 1. **studio view**
 - **Valid requests**
@@ -478,9 +491,9 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Submitting an invalid lesson_id redirects home, with the error message "Error, Invalid lesson"
     - Submitting a paid lesson_id that has not been not purchased will be redirect home, with the error message "You do not own this lesson"
  
-## **Basket Page**
+## **Basket App**
  
-1. **view_basket**
+1. **view_basket view**
 - **Valid requests**
     - Viewing displays all items currently in users basket
     - Viewing with an empty basket, shows the prompt "Your basket is empty. Browse our instructors to find a lesson to suit you!" and a Find Instructor button.
@@ -488,7 +501,7 @@ To avoid duplicating too much text, the content of each page was tested by check
 - **Error and Invalid request handling**
     - Accessing while logged out redirects to the sign in page
  
-2. **add_to_basket**
+2. **add_to_basket view**
 - **Valid requests**
     - Adds an item to the session basket
     
@@ -498,7 +511,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - POSTing incorrect form data redirects to the home page, with the error "Invalid request, please select lessons from the lessons page"
     - Submitting and invalid lesson_id redirectes to the home page, with the error "Invalid lesson, please select lessons from the lessons page"
  
-2. **remove_from_basket**
+2. **remove_from_basket view**
 - **Valid requests**
     - Removes an item from the session basket
     
@@ -506,9 +519,9 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Accessing while logged out redirects to the sign in page
     - POSTing invalid data/lesson_id redirects to the basket with the error "Invalid request, no lesson was specified for deletion"
  
-## **Checkout Page**
+## **Checkout App**
  
-1. **checkout**
+1. **checkout view**
 - **Valid requests**
     - GET: Request renders `checkout/checkout.html` with the checkout form and card payment option
     - POST: Request with correct field entries and card details creates an OrderForm and associated LineItems
@@ -528,7 +541,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - STRIPE: If the user closes the browser or there is an issue before the app receives the STRIPE paymentIntent, the OrderForm will not be created, but the checkout.webhook_handler.py will listen for the stripe webhook and create the OrderForm there instead.
     
  
-2. **checkout_success**
+2. **checkout_success view**
 - **Valid requests**
     - Given a valid order id, renders the checkout success page, with confirmation of order, order details, and buttons to start the lessons purchased.
  
@@ -537,7 +550,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Passing invalid order number redirects home, with the error message "This order was not found, please contact {settings.DEFAULT_FROM_EMAIL} for support."
     - Passing someone else's order number redirects home , with the error message "This order does not belong to this account, if this is a mistake please contact {settings.DEFAULT_FROM_EMAIL} for support."
  
-3. **attach_basket_to_intent**
+3. **attach_basket_to_intent view**
 - **Valid requests**
     - POST:  Sets up Stripe keys and adds metadata to Stripe payment intent
  
