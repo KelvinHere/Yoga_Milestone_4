@@ -1,53 +1,43 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col">
-
-            </div>
-        </div>
-    </div>
-{% endblock %}
-
 {% block content %}
-    <div class="container h-100">
-        <div class="row h-100">
-            <div class="col-12 col-lg-8 my-auto text-center">
-                {% if user.is_authenticated %}
-                    <h1 class="display-4 me-auto mx-4 p-3 index-main-text rounded shadow-sm alt-text">Breathe deep <strong>{{ user|title }}</strong> and continue your Yoga journey</h1>
-                    <div>
-                        <!-- Contextual Button choice -->
-                        {% if profile.is_instructor %}
-                            <p><a href="{% url 'instructor_admin' %}" id="instructor_admin_frontpage_button" class="btn btn-lg btn-warning rounded-20 py-3 my-4">Instructor Admin</a></p>
+<main class="container h-100">
+    <div class="row h-100">
+        <div class="col-12 col-lg-8 my-auto text-center">
+            {% if user.is_authenticated %}
+                <h1 class="display-4 me-auto mx-4 p-3 index-main-text rounded shadow-sm alt-text">Breathe deep <strong>{{ user|title }}</strong> and continue your Yoga journey</h1>
+                <div>
+                    <!-- Contextual Button choice -->
+                    {% if profile.is_instructor %}
+                        <p><a href="{% url 'instructor_admin' %}" id="instructor_admin_frontpage_button" class="btn btn-lg btn-warning rounded-20 py-3 my-4">Instructor Admin</a></p>
+                    {% else %}
+                        {% if subscribed_lessons %}
+                            <a href="{% url 'lessons'%}?filter=subscribed_lessons" class="btn btn-lg btn-success rounded-20 py-3 my-4">Subscribed Lessons</a>
                         {% else %}
-                            {% if subscribed_lessons %}
-                                <a href="{% url 'lessons'%}?filter=subscribed_lessons" class="btn btn-lg btn-success rounded-20 py-3 my-4">Subscribed Lessons</a>
-                            {% else %}
-                                <a href="{% url 'instructors' %}" class="btn btn-lg btn-success rounded-20 py-3 my-4">Find an instructor</a>
-                            {% endif %}
+                            <a href="{% url 'instructors' %}" class="btn btn-lg btn-success rounded-20 py-3 my-4">Find an instructor</a>
                         {% endif %}
-                    </div>
-                {% else %}
-                    <h1 class="display-4 me-auto mx-4 p-3 index-main-text rounded shadow-sm alt-text">Breathe deep and begin your Yoga journey here</h1>
-                    <div>
-                        <a href="{% url 'instructors' %}" class="btn btn-lg btn-success rounded-20 py-3 my-4">Find an instructor</a>
-                    </div>                
-                {% endif %}
-                <div class="mx-auto mt-3 bg-featured rounded p-1" id="featured-lessons" style="display: none;">
-                    <a href="" class="mx-auto style-link" id="featured-image-link">
-                        <p class="text-white m-0 pb-1" id="featured-title"></p>
-                        <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="temp image before javascript injects one" class="img-fluid rounded border-right-success border-left-success" id="featured-image">
-                        <p class="text-white m-0 pt-1">Featured Free Lesson</p>
-                    </a>
+                    {% endif %}
                 </div>
+            {% else %}
+                <h1 class="display-4 me-auto mx-4 p-3 index-main-text rounded shadow-sm alt-text">Breathe deep and begin your Yoga journey here</h1>
+                <div>
+                    <a href="{% url 'instructors' %}" class="btn btn-lg btn-success rounded-20 py-3 my-4">Find an instructor</a>
+                </div>                
+            {% endif %}
+            <div class="mx-auto mt-3 bg-featured rounded p-1" id="featured-lessons" style="display: none;">
+                <a href="" class="mx-auto style-link" id="featured-image-link">
+                    <p class="text-white m-0 pb-1" id="featured-title"></p>
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="temp image before javascript injects one" class="img-fluid rounded border-right-success border-left-success" id="featured-image">
+                    <p class="text-white m-0 pt-1">Featured Free Lesson</p>
+                </a>
             </div>
         </div>
-        <div class="fixed-bottom text-center">
-            <a href="#" class="btn btn-sm btn-custom-darken rounded-20 mb-1" id="featured-lessons-button" onclick="toggle_featured()">Featured Lessons</a>
-        </div>
     </div>
+    <div class="fixed-bottom text-center">
+        <a href="#" class="btn btn-sm btn-custom-darken rounded-20 mb-1" id="featured-lessons-button" onclick="toggle_featured()">Featured Lessons</a>
+    </div>
+</main>
 {% endblock %}
 
 {% block postloadjs %}

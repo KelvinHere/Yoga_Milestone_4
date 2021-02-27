@@ -12,9 +12,9 @@
         * [CSS Validation](#css-validation)
         * [JavaScript Validation](#javascript-validation)
         * [Python Validation](#python-validation)
+   * [Site Actions Tested](#site-actions-tested)
    * [Content Testing](#content-testing)
    * [Valid Requests and Error Handling](#valid-requests-and-error-handling)
-        * [Site Actions Tested](#site-actions-tested)
         * [Home Page](#home-page)
         * [Lessons Page](#lessons-page)
         * [Profile Page](#profile-page)
@@ -109,7 +109,7 @@ You can keep narrowing the tests like this, `python3 manage.py test lessons.test
 # 2 - Manual Testing
 ## **Code Validation**
 ### **Browser Testing**
-- This project has had all its pages, routes and responsive states viewed on the following browsers.
+- This project has had all its pages, routes and **responsive states** viewed on the following browsers.
     - Chrome
     - Firefox
     - Edge
@@ -137,7 +137,8 @@ HTML pages were validated through [W3C Markup Validation Service](https://valida
     - Basket Page - Validated
     - Checkout Success Page - Validated
     - Checkout Page - Validated
-        - 1 Error: "Empty H1", ignored as it is waiting for content from JavaScript
+        - 1 Warning: "Empty H1", ignored as it is waiting for content from JavaScript
+
  
 ### **CSS Validation**
  
@@ -724,7 +725,6 @@ LOGGING = {
     </script>
 ```
 - Result - The static file now has access to the CSRF Token again and the buttons function correctly
-
 
 ## Remaining Warning Message
 

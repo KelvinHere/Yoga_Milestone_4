@@ -254,4 +254,4 @@ if 'EXTRA_LOGGING' in os.environ:
     }
 
 # Stop profile creation when running unit tests
-RUNNING_UNIT_TESTS = False
+RUNNING_UNIT_TESTS = True

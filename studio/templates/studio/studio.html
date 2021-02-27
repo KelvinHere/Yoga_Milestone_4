@@ -2,75 +2,75 @@
 {% load static %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col">
-            </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col">
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="overlay"></div>
-    <div class="container page-contents">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="text-center title-text my-3" id="lesson-page-title">{{ lesson.lesson_name }}</h2>
-                <p class="text-center my-3">By <a href="{% url 'lessons' %}?instructor={{ lesson.instructor_profile.id }}">{{ lesson.instructor_profile }}</a></p>
-            </div>
+<div class="overlay"></div>
+<main class="container page-contents">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center title-text my-3" id="lesson-page-title">{{ lesson.lesson_name }}</h2>
+            <p class="text-center my-3">By <a href="{% url 'lessons' %}?instructor={{ lesson.instructor_profile.id }}">{{ lesson.instructor_profile }}</a></p>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="{{ lesson.video_url }}" allowfullscreen></iframe>
-                </div>
-                <!-- Lesson description collapsed -->
-                <div class="lesson-description my-3">
-                    <p class="text-center">
-                        <a class="btn btn-sm btn-custom-darken" data-toggle="collapse" href="#lesson_description_text" role="button" aria-expanded="false" aria-controls="collapse_lesson_description">
-                            Lesson Description
-                        </a>
-                    </p>
-                    <div class="collapse" id="lesson_description_text">
-                        <div class="card card-body">
-                            <p>{{ lesson.description|linebreaks }}</p>
-                        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="{{ lesson.video_url }}" allowfullscreen></iframe>
+            </div>
+            <!-- Lesson description collapsed -->
+            <div class="lesson-description my-3">
+                <p class="text-center">
+                    <a class="btn btn-sm btn-custom-darken" data-toggle="collapse" href="#lesson_description_text" role="button" aria-expanded="false" aria-controls="collapse_lesson_description">
+                        Lesson Description
+                    </a>
+                </p>
+                <div class="collapse" id="lesson_description_text">
+                    <div class="card card-body">
+                        <p>{{ lesson.description|linebreaks }}</p>
                     </div>
                 </div>
-                <!-- Review Buttons -->
-                <div class="review d-flex justify-content-center">
-                    {% if not existing_user_review and profile != lesson.instructor_profile %}
-                        <a href="{% url 'review_lesson' lesson.lesson_id %}" class="btn btn-sm btn-custom-invert rounded-20 py-1 my-2">Write Review</a>
-                    {% endif %}
-                </div>
-                <!-- Reviews -->
-                <div class="container reviews">
+            </div>
+            <!-- Review Buttons -->
+            <div class="review d-flex justify-content-center">
+                {% if not existing_user_review and profile != lesson.instructor_profile %}
+                    <a href="{% url 'review_lesson' lesson.lesson_id %}" class="btn btn-sm btn-custom-invert rounded-20 py-1 my-2">Write Review</a>
+                {% endif %}
+            </div>
+            <!-- Reviews -->
+            <div class="container reviews">
+                {% if my_review %}
+                    <p class="mt-0 my-2"><strong>My Review</strong></p>
+                    {% for review in my_review %}
+                        {% include 'studio/includes/lesson_review.html' %}
+                    {% endfor %}
+                {% endif %}
+                <p class="mt-0 my-2"><strong>Reviews</strong></p>
+                {% if lesson_reviews %}
+                    {% for review in lesson_reviews %}
+                        {% include 'studio/includes/lesson_review.html' %}
+                    {% endfor %}
+                {% else %}
                     {% if my_review %}
-                        <p class="mt-0 my-2"><strong>My Review</strong></p>
-                        {% for review in my_review %}
-                            {% include 'studio/includes/lesson_review.html' %}
-                        {% endfor %}
-                    {% endif %}
-                    <p class="mt-0 my-2"><strong>Reviews</strong></p>
-                    {% if lesson_reviews %}
-                        {% for review in lesson_reviews %}
-                            {% include 'studio/includes/lesson_review.html' %}
-                        {% endfor %}
+                        <p>No more reviews</p>
                     {% else %}
-                        {% if my_review %}
-                            <p>No more reviews</p>
+                        {% if profile == lesson.instructor_profile %}
+                            <p>No one has reviewed your lesson yet.</p>
                         {% else %}
-                            {% if profile == lesson.instructor_profile %}
-                                <p>No one has reviewed your lesson yet.</p>
-                            {% else %}
-                                <p>No reviews, why dont you write one?</p>
-                            {% endif %}
+                            <p>No reviews, why dont you write one?</p>
                         {% endif %}
                     {% endif %}
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>
+</main>
 {% endblock %}
 
 

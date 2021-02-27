@@ -16,7 +16,7 @@
 
 {% block content %}
 <div class="overlay"></div>
-<div class="container page-contents">
+<main class="container page-contents">
     {% if instructor_to_display %}
         {% include 'lessons/includes/instructor_profile_header.html' %}
     {% endif %}
@@ -78,7 +78,7 @@
             {% endif %}
         </div>
     </div>
-</div>
+</main>
 
 <div id="modal-container"></div>
 {% endblock %}
@@ -91,4 +91,3 @@
     </script>
     <script src="{% static 'lessons/js/lesson_buttons.js' %}"></script>
 {% endblock %}
-

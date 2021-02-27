@@ -2,89 +2,89 @@
 {% load static %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center title-text mt-3 mb-1">Our instructors</h1>
-                <p class="text-center mb-3">Find an instructor to suit you!</p>
-            </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center title-text mt-3 mb-1">Our instructors</h1>
+            <p class="text-center mb-3">Find an instructor to suit you!</p>
         </div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="overlay"></div>
-    <div class="container page-contents">
-        <div class="row">
-            <div class="col-12">
-                {% include 'profiles/includes/instructor_sorting.html' %}
-                <p class="text-center mb-1">
-                <strong>
-                    <small>
-                        {% if instructor_list %}Page {{ instructor_list.number }} of {{ instructor_list.paginator.num_pages }}{% endif %}
-                    </small>
-                </strong>
-                </p>
-                {% if current_query %}
-                <!-- Remove current query -->
-                <p class="text-center my-2">Results for: 
-                    <a href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}" class="btn btn-sm btn-custom-darken text-white py-0">
-                        {{ current_query }}
-                        <span><i class="fas fa-times-circle"></i></span>
-                    </a>
-                </p>
-                {% endif %}
-                {% for instructor in instructor_list %}
-                    <div class="card mb-3 border custom-border">
-                        <div class="row mx-auto w-100">
-                            <div class="col-md-3 my-auto">
-                            {% if instructor.image %}
-                                <div class="my-3 d-flex justify-content-center">
-                                    <img src="{{ instructor.image.url }}" class="instructor-card-image profile-image img-fluid" alt="{{ instructor.first_name }}">
-                                </div>
-                            {% endif %}
+<div class="overlay"></div>
+<main class="container page-contents">
+    <div class="row">
+        <div class="col-12">
+            {% include 'profiles/includes/instructor_sorting.html' %}
+            <p class="text-center mb-1">
+            <strong>
+                <small>
+                    {% if instructor_list %}Page {{ instructor_list.number }} of {{ instructor_list.paginator.num_pages }}{% endif %}
+                </small>
+            </strong>
+            </p>
+            {% if current_query %}
+            <!-- Remove current query -->
+            <p class="text-center my-2">Results for: 
+                <a href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}" class="btn btn-sm btn-custom-darken text-white py-0">
+                    {{ current_query }}
+                    <span><i class="fas fa-times-circle"></i></span>
+                </a>
+            </p>
+            {% endif %}
+            {% for instructor in instructor_list %}
+                <div class="card mb-3 border custom-border">
+                    <div class="row mx-auto w-100">
+                        <div class="col-md-3 my-auto">
+                        {% if instructor.image %}
+                            <div class="my-3 d-flex justify-content-center">
+                                <img src="{{ instructor.image.url }}" class="instructor-card-image profile-image img-fluid" alt="{{ instructor.first_name }}">
                             </div>
-                            <div class="col-md-9">
-                                <div class="card-body h-100 d-flex flex-column p-2">
-                                    <h5 class="card-title mb-1"><a href="{% url 'lessons' %}?instructor={{ instructor.id }}" class="style-link">{{ instructor }}</a></h5>
-                                    <p class="text-muted mb-0"><small>Rating : {{ instructor.rating }}{% if instructor.rating %} / 10{% endif %}</small></p>
-                                    <p class="text-muted mb-2"><small>Lessons available : {{ instructor.lesson_count }}</small></p>
-                                    <p class="card-text alt-font">{{ instructor.card_description }}</p>
-                                    <p class="card-text mt-auto d-flex justify-content-center">
-                                        <a class="btn btn-custom-darken btn-sm w-50" href="{% url 'lessons' %}?instructor={{ instructor.id }}" role="button">
-                                            Enter Studio
-                                        </a>
-                                    </p>
-                                </div>
+                        {% endif %}
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body h-100 d-flex flex-column p-2">
+                                <h5 class="card-title mb-1"><a href="{% url 'lessons' %}?instructor={{ instructor.id }}" class="style-link">{{ instructor }}</a></h5>
+                                <p class="text-muted mb-0"><small>Rating : {{ instructor.rating }}{% if instructor.rating %} / 10{% endif %}</small></p>
+                                <p class="text-muted mb-2"><small>Lessons available : {{ instructor.lesson_count }}</small></p>
+                                <p class="card-text alt-font">{{ instructor.card_description }}</p>
+                                <p class="card-text mt-auto d-flex justify-content-center">
+                                    <a class="btn btn-custom-darken btn-sm w-50" href="{% url 'lessons' %}?instructor={{ instructor.id }}" role="button">
+                                        Enter Studio
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-                <!-- Page buttons -->
-                {% if instructor_list.paginator.num_pages > 1 %}
-                    <div class="row">
-                        <div class="col d-flex justify-content-center">
-                            <nav aria-label="...">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}&q={{ current_query }}{% if instructor_list.has_previous %}&page={{ instructor_list.previous_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}" tabindex="-1" aria-disabled="true">
-                                            <i class="fas fa-chevron-left"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item" aria-current="page">
-                                        <a class="page-link bg-light text-black" href="#">{{ instructor_list.number }} of {{ instructor_list.paginator.num_pages }}</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}&q={{ current_query }}{% if instructor_list.has_next %}&page={{ instructor_list.next_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}">
-                                            <i class="fas fa-chevron-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                </div>
+            {% endfor %}
+            <!-- Page buttons -->
+            {% if instructor_list.paginator.num_pages > 1 %}
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}&q={{ current_query }}{% if instructor_list.has_previous %}&page={{ instructor_list.previous_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}" tabindex="-1" aria-disabled="true">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item" aria-current="page">
+                                    <a class="page-link bg-light text-black" href="#">{{ instructor_list.number }} of {{ instructor_list.paginator.num_pages }}</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link btn btn-custom-darken" href="{% url 'instructors' %}?sort_by={{ sort_by }}&sort_direction={{ sort_direction }}&q={{ current_query }}{% if instructor_list.has_next %}&page={{ instructor_list.next_page_number }}{% else %}&page={{ instructor_list.number }}{% endif %}">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
     </div>
+</main>
 {% endblock %}
