@@ -748,6 +748,7 @@ LOGGING = {
     </script>
 ```
 - Result - The static file now has access to the CSRF Token again and the buttons function correctly
+***
 
 ### Remaining Warning Message
 
