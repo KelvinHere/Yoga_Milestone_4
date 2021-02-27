@@ -44,9 +44,8 @@ of the code is covered by the unit tests.
  
 ### Current Coverage Reports
  
-
- 
-Home Coverage Report
+  
+**Home Coverage Report**
  
 ![HomeCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/home.JPG "Home Coverage Report")
  
@@ -54,19 +53,19 @@ Missing from these tests are the custom 404 and 500 pages, these have been teste
  
 ***
  
-Profiles Coverage Report
+**Profiles Coverage Report**
  
 ![ProfilesCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/profiles.JPG "Profiles Coverage Report")
  
 ***
  
-Basket Coverage Report
+**Basket Coverage Report**
  
 ![BasketCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/basket.JPG "Basket Coverage Report")
  
 ***
  
-Checkout Coverage Report
+**Checkout Coverage Report**
  
 ![CheckoutCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/checkout.JPG "Checkout Coverage Report")
  
@@ -74,13 +73,13 @@ Missing from these tests are the webhooks and webhook handlers, these have been 
  
 ***
  
-Sudio Coverage Report
+**Sudio Coverage Report**
  
 ![StudioCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/studio.JPG "Studio Coverage Report")
  
 ***
  
-Lessons Coverage Report
+**Lessons Coverage Report**
  
 ![LessonsCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/lessons.JPG "Lessons Coverage Report")
  
@@ -127,6 +126,7 @@ HTML pages were validated through [W3C Markup Validation Service](https://valida
     - [**Sign up Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Faccounts%2Fsignup%2F)
     - [**Instructors Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Fprofiles%2Finstructors%2F)
     - [**Lessons Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Flessons%2F)
+    - [**Info Page** - Validation](https://validator.w3.org/nu/?doc=https%3A%2F%2Fms4-yoga-kelvinhere.herokuapp.com%2Finfo%2F)
  
 - Pages where login was required, these were input directly to the validator :-
     - Sign Out page - Validated

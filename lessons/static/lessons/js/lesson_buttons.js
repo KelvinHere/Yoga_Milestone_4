@@ -1,5 +1,5 @@
 // Handle subscribe / unsubscribe / start_lesson buttons
-//jshint esversion: 6
+// jshint esversion: 6
 function subscribe(subscribe, lesson_id, filter) {
     $.ajax({
         type:"GET",

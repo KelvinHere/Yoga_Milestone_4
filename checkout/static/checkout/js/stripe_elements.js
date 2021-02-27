@@ -1,5 +1,5 @@
-//Create and style card element
-//jshint esversion: 6
+//  Create and style card element
+//  jshint esversion: 6
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
@@ -22,7 +22,7 @@ var style = {
 var card = elements.create('card', {hidePostalCode: true, style: style});
 card.mount('#card-element');
 
-//Handle realitime card validation errors, display under card element
+//  Handle realitime card validation errors, display under card element
 card.addEventListener('change', function(event) {
     var errorMessageDiv = document.getElementById('card-error-messages');
     if (event.error) {
