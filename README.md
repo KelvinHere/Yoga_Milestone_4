@@ -641,8 +641,7 @@ The deployed version of 'Social Yoga' is hosted on Heroku and can be deployed wi
  
 ### **Differences - Local and deployed**
 
-The local database is very simple, with easy to understand data entries, for example, all instructors are named 'instructor_1', 'instructor_2' etc.  Users are complete_user and incomplete_user.  This allows
-easy debugging when viewing model information in the console.
+The local database is set up with all passwords as "orange99" if you want to edit any of the entries, the superusers username is 'kelvinhere'.
 
 The production database is populated with examples of what real user-generated content would look like, complete with instructors, lessons with individual placeholder videos and comments, user requests and review flags.
 
@@ -681,6 +680,7 @@ The environmental variables here allow the app to automatically switch between d
                     \x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3b')
     ```
 - [Generated Photos](https://generated.photos/) - AI generated Student Faces used for student profiles
+- [Django_resized](https://pypi.org/project/django-resized/) - This library allows you to resize an image, it is used in this app to size lesson and profile images and prevent huge image sizes being uploaded.
  
 ### **Content**
  
