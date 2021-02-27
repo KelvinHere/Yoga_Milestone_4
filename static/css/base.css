@@ -367,4 +367,8 @@ body {
         #featured-lessons {
             width: 25%;
         }
+
+        .video-page-content {
+            max-width: 65%;
+        }
 }
