@@ -256,33 +256,33 @@ To avoid duplicating too much text, the content of each page was tested by check
 ## **Home app**
 
 1. **index view** 
-- **Valid requests**
-- Buttons
-    - Logged out users and users without subscriptions see a 'Find an Instructor' button.
-    - Logged in users who have subscriptions see a 'Subscriptions' button.
-    - Instructors see an 'Instructor Admin' button.
-    - The featured lessons button displays a cycling card of high rated, random, free lessons.
- 
-- **Error and Invalid request handling**
-- While logged in, non superusers cannot access the following views
-    - `/superuser_admin` - Result "Error message - Sorry only administrators can do this"
-    - `/update_instructor_status/<user_to_update>/<status>` - Result "Error message - Sorry only administrators can do this"
- 
-- While logged out, users cannot access the following views
-    - `/superuser_admin` - Result: Redirect to login page
-    - `/update_instructor_status/<user_to_update>/<status>` - Result: Redirect to login page
+    - **Valid requests**
+    - Buttons
+        - Logged out users and users without subscriptions see a 'Find an Instructor' button.
+        - Logged in users who have subscriptions see a 'Subscriptions' button.
+        - Instructors see an 'Instructor Admin' button.
+        - The featured lessons button displays a cycling card of high rated, random, free lessons.
+    
+    - **Error and Invalid request handling**
+    - While logged in, non superusers cannot access the following views
+        - `/superuser_admin` - Result "Error message - Sorry only administrators can do this"
+        - `/update_instructor_status/<user_to_update>/<status>` - Result "Error message - Sorry only administrators can do this"
+    
+    - While logged out, users cannot access the following views
+        - `/superuser_admin` - Result: Redirect to login page
+        - `/update_instructor_status/<user_to_update>/<status>` - Result: Redirect to login page
 
 2. **superuser_admin view**
-- **Valid requests**
-    - Get request displays superuser admin tools
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Accessing while not a superuser redirects to the homepage, with the error message "Sorry only administrators can do this"
+    - **Valid requests**
+        - Get request displays superuser admin tools
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Accessing while not a superuser redirects to the homepage, with the error message "Sorry only administrators can do this"
 
 3. **info view**
-- **Valid requests**
-    - Displays the info page with contact email, info and social media buttons.
+    - **Valid requests**
+        - Displays the info page with contact email, info and social media buttons.
 
 ## **Nav Bar**
 - The nav bar branding is the link home
@@ -304,274 +304,272 @@ To avoid duplicating too much text, the content of each page was tested by check
 ## **Lessons App**
  
 1. **lessons view**
-- **Valid requests**
-    - Queries
-        - `lessons/?q=`dog` only displays lessons with the word 'dog' in the lesson_name
- 
-    - Filters
-        - Subscribed Lessons filter `/lessons/?filter=mylessons` only displays lessons currently subscribed to, or the message "You are currently not subscribed to any lessons".
-        - Purchased Lessons filter `/lessons/?filter=paidlessons` only displays purchased lessons, or the message "You have not purchased any lessons".
-        - All Lessons filter `/lessons/?filter=None` displays all lessons.
-        - Accessed by the Instructors page `lessons/?instructor=VALID_INSTRUCTOR_ID` will display an instructor header with their searchable / sortable /filterable lessons underneath.
+    - **Valid requests**
+        - Queries
+            - `lessons/?q=`dog` only displays lessons with the word 'dog' in the lesson_name
     
-    - Stacked filter/search/sort
-        - `/lessons/?sort=rating&direction=asc&filter=mylessons&instructor=19&q=dog`
-            - only shows lessons the user is subscribed to, from that instructor, with 'mountain' in the lesson name, sorted by rating, in ascending order.
-        - `/lessons/?sort=price&direction=desc&filter=None&instructor=19&q=dog`
-            - only shows paid lessons from that instructor, that have 'dog' in the lesson name, sorted by price, in descending order.
- 
-    - Pages, the next and previous buttons are pressed, the user is taken to the next or previous page, and any search/sort/filter parameters are preserved.
- 
-- **Error and Invalid request handling**
-    - Filters
-        - `/lessons/?filter=AN_INVALID_FILTER` - Invalid filter defaults to showing all lessons
- 
-    - Sort direction
-        - `lessons/?direction=INVALID_DIRECTION` - Invalid direction argument default the sort to descending
-        - `lessons/?sort=INVALID_SORT_ARGUMENT` - Invalid sort arguments will default the sort to name in ascending order"
- 
-    - Instructor
-        - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passing a user that is not an instructor, redirects to instructors page with the error message "This user is not an instructor, please pick one from the instructor list."
-        - `lessons/?instructor=INVALID_USER` Passing a user that does not exist, redirects to instructor page with error message "Instructor was not found, please pick one from the instructor list."
+        - Filters
+            - Subscribed Lessons filter `/lessons/?filter=mylessons` only displays lessons currently subscribed to, or the message "You are currently not subscribed to any lessons".
+            - Purchased Lessons filter `/lessons/?filter=paidlessons` only displays purchased lessons, or the message "You have not purchased any lessons".
+            - All Lessons filter `/lessons/?filter=None` displays all lessons.
+            - Accessed by the Instructors page `lessons/?instructor=VALID_INSTRUCTOR_ID` will display an instructor header with their searchable / sortable /filterable lessons underneath.
+        
+        - Stacked filter/search/sort
+            - `/lessons/?sort=rating&direction=asc&filter=mylessons&instructor=19&q=dog`
+                - only shows lessons the user is subscribed to, from that instructor, with 'mountain' in the lesson name, sorted by rating, in ascending order.
+            - `/lessons/?sort=price&direction=desc&filter=None&instructor=19&q=dog`
+                - only shows paid lessons from that instructor, that have 'dog' in the lesson name, sorted by price, in descending order.
     
-    - Pages / Pagination
-        - Changing filter/sorting/search parameters when on a page other than one, redirects to **page one** with the new parameters applied.
-        - Pressing **next** on the last page, or **previous** on the first, keeps you on the current page.
-        - Manually entering a page number that does not exist in the address bar redirects to page 1 with the error message "Page does not exist, returning to page 1".
- 
+        - Pages, the next and previous buttons are pressed, the user is taken to the next or previous page, and any search/sort/filter parameters are preserved.
+    
+    - **Error and Invalid request handling**
+        - Filters
+            - `/lessons/?filter=AN_INVALID_FILTER` - Invalid filter defaults to showing all lessons
+    
+        - Sort direction
+            - `lessons/?direction=INVALID_DIRECTION` - Invalid direction argument default the sort to descending
+            - `lessons/?sort=INVALID_SORT_ARGUMENT` - Invalid sort arguments will default the sort to name in ascending order"
+    
+        - Instructor
+            - `lessons/?instructor=NOT_AN_INSTRUCTOR` Passing a user that is not an instructor, redirects to instructors page with the error message "This user is not an instructor, please pick one from the instructor list."
+            - `lessons/?instructor=INVALID_USER` Passing a user that does not exist, redirects to instructor page with error message "Instructor was not found, please pick one from the instructor list."
+        
+        - Pages / Pagination
+            - Changing filter/sorting/search parameters when on a page other than one, redirects to **page one** with the new parameters applied.
+            - Pressing **next** on the last page, or **previous** on the first, keeps you on the current page.
+            - Manually entering a page number that does not exist in the address bar redirects to page 1 with the error message "Page does not exist, returning to page 1".
+    
 2. **subscribe view**
-- **Valid Requests**
-    - Passing a valid lesson_id along with
-        - `subscribe=true` creates a subscription to the lesson, and JS updates the buttons from "Subscribe" to "Unsubscribe" and "Sart Lesson" buttons.
-        - `subscribe=false` unsubscribes from the lessons, and JS updates the buttons from "Unsubscribed" and "Start Lesson" to "Subscribe"
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Submit an invalid lesson_id `/lessons/subscriptions/?subscribe=true&lesson_id=INVALID_LESSON_ID` redirects to the lessons page, with the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
-    - Altering the subscription status of a lesson using something other than `true` or `false`, redirects to the lessons page and gives the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
-    - Submitting a request with invalid arguments, redirects to the lesson page with the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
- 
+    - **Valid Requests**
+        - Passing a valid lesson_id along with
+            - `subscribe=true` creates a subscription to the lesson, and JS updates the buttons from "Subscribe" to "Unsubscribe" and "Sart Lesson" buttons.
+            - `subscribe=false` unsubscribes from the lessons, and JS updates the buttons from "Unsubscribed" and "Start Lesson" to "Subscribe"
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Submit an invalid lesson_id `/lessons/subscriptions/?subscribe=true&lesson_id=INVALID_LESSON_ID` redirects to the lessons page, with the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
+        - Altering the subscription status of a lesson using something other than `true` or `false`, redirects to the lessons page and gives the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
+        - Submitting a request with invalid arguments, redirects to the lesson page with the error message "Invalid request, no lessons have been subscribed or unsubscribed to."
+    
 3. **instructor_admin view**
-- **Valid requests**
-    - Lessons tab displays a list of lessons the instructor has created, or the prompt "You have not created any lessons yet"
-    - Sales tab displays a list of lessons bought from this instructor with lesson name, buyer, date and price before and after the sales percentage at the time of sale is removed .
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Accessing while not an instructor redirects to the homepage, with the error message "Only instructors can do this"
- 
+    - **Valid requests**
+        - Lessons tab displays a list of lessons the instructor has created, or the prompt "You have not created any lessons yet"
+        - Sales tab displays a list of lessons bought from this instructor with lesson name, buyer, date and price before and after the sales percentage at the time of sale is removed .
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Accessing while not an instructor redirects to the homepage, with the error message "Only instructors can do this"
+    
 4. **delete_lesson view**
-- **Valid requests and requirements**
-    - Passing a valid lesson_id that the user created deletes that lesson.
-    - Delete lesson buttons are disabled when users have purchased that lesson, to avoid customers losing content
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
-    - Passing the lesson_id from a lesson created by another instructor, gives the error message "This lesson does not belong to you and has not been deleted, please check your username and try again."
-    - Passing an invalid lesson_id gives the error message "Invalid lesson ID, no lessons were deleted."
-    - Passing a lesson_id of a lesson that has been purchased by customers gives the error message "Cannot Delete.  You can only edit a lesson customers have purchased."
- 
+    - **Valid requests and requirements**
+        - Passing a valid lesson_id that the user created deletes that lesson.
+        - Delete lesson buttons are disabled when users have purchased that lesson, to avoid customers losing content
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
+        - Passing the lesson_id from a lesson created by another instructor, gives the error message "This lesson does not belong to you and has not been deleted, please check your username and try again."
+        - Passing an invalid lesson_id gives the error message "Invalid lesson ID, no lessons were deleted."
+        - Passing a lesson_id of a lesson that has been purchased by customers gives the error message "Cannot Delete.  You can only edit a lesson customers have purchased."
+    
 5. **create_lesson view**
-- **Valid requests**
-    - GET request redirects to the lesson creation form
-    - POST request creates a lesson from the form data, and redirects to instructor admin page
-    - When submitting a loading spinner is displayed while files are uploaded
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
-    - Creating a lesson with a duplicate name of another lesson on the same account, redirects to instructor admin page, with the error message "You already have a lesson named this."
-    - Invalid form input is detected
-    - Creating a lesson with a duplicate name of a different instructor is allowed
-        - Regarding duplicate names, different instructors can have lessons with the same name to avoid "reserving" of popular names such as simple yoga poses, ie both 'Benny' and 'Charle' can have a lesson named 'Mountain Pose'
- 
+    - **Valid requests**
+        - GET request redirects to the lesson creation form
+        - POST request creates a lesson from the form data, and redirects to instructor admin page
+        - When submitting a loading spinner is displayed while files are uploaded
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
+        - Creating a lesson with a duplicate name of another lesson on the same account, redirects to instructor admin page, with the error message "You already have a lesson named this."
+        - Invalid form input is detected
+        - Creating a lesson with a duplicate name of a different instructor is allowed
+            - Regarding duplicate names, different instructors can have lessons with the same name to avoid "reserving" of popular names such as simple yoga poses, ie both 'Benny' and 'Charle' can have a lesson named 'Mountain Pose'
  
 6. **edit_lesson view**
-- **Valid requests**
-    - GET request with a valid lesson_id displays a pre-filled lesson form ready for editing
-    - POST request updates a lesson with the new form data
-    - Current lesson image is disaplayed
-    - If the lesson image is updated, the current image displayed is removed from the page and replaced with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
-    - When submitting a loading spinner is displayed while files are uploaded
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
-    - POSTing data to an invalid lesson_id redirects to the instructor admin with the error message "Invalid lesson ID, no lessons were updated."
-    - GET request with another instructor's lesson_id, redirects to instructor admin page, with the error message "You can only edit your own lessons, please check your username."
-    - Invalid form input is detected
- 
+    - **Valid requests**
+        - GET request with a valid lesson_id displays a pre-filled lesson form ready for editing
+        - POST request updates a lesson with the new form data
+        - Current lesson image is disaplayed
+        - If the lesson image is updated, the current image displayed is removed from the page and replaced with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
+        - When submitting a loading spinner is displayed while files are uploaded
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Accessing this view when not an instructor redirects to the home page, with the error "Only instructors can do this."
+        - POSTing data to an invalid lesson_id redirects to the instructor admin with the error message "Invalid lesson ID, no lessons were updated."
+        - GET request with another instructor's lesson_id, redirects to instructor admin page, with the error message "You can only edit your own lessons, please check your username."
+        - Invalid form input is detected
+    
 7. **review_lesson view**
-- **Valid requests**
-    - GET request displays a review form for the lesson, or a pre-filled form with the existing review data for editing
-    - POST request creates a new review, or updates an existing review
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Passing an invalid lesson_id will redirect home, with the error "Cannot create/edit a review for an invalid lesson."
-    - Submitting an invalid form redirects back to the current lesson the review was for, with the error message "Error in review form: {form.errors}"
-    - POSTing an invalid rating out of the range 1-10, redirects back to the lesson page with the error message "You entered an invalid rating, please try again."
-    - Trying to review your own lesson redirects back to the lesson page, with the error "You cannot review your own lessons."
-    - Invalid form input is detected
- 
+    - **Valid requests**
+        - GET request displays a review form for the lesson, or a pre-filled form with the existing review data for editing
+        - POST request creates a new review, or updates an existing review
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Passing an invalid lesson_id will redirect home, with the error "Cannot create/edit a review for an invalid lesson."
+        - Submitting an invalid form redirects back to the current lesson the review was for, with the error message "Error in review form: {form.errors}"
+        - POSTing an invalid rating out of the range 1-10, redirects back to the lesson page with the error message "You entered an invalid rating, please try again."
+        - Trying to review your own lesson redirects back to the lesson page, with the error "You cannot review your own lessons."
+        - Invalid form input is detected
+    
 8. **flag_review view**
-- **Valid requests**
-    - Request with a valid review.pk creates a flag for the review in question to be reviewed by an administrator, and redirects back to the lesson page with a success message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
- 
-- **Error and Invalid request handling**
-    - Passing an invalid review.pk redirects back to the lesson page, with the error message "Invalid review, please contact support if you think this is an error"
-    - Flagging a review multiple times redirects to the lesson page, with the error message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
-    - Invalid form input is detected
- 
+    - **Valid requests**
+        - Request with a valid review.pk creates a flag for the review in question to be reviewed by an administrator, and redirects back to the lesson page with a success message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
+    
+    - **Error and Invalid request handling**
+        - Passing an invalid review.pk redirects back to the lesson page, with the error message "Invalid review, please contact support if you think this is an error"
+        - Flagging a review multiple times redirects to the lesson page, with the error message "{review.profile}'s review has been flagged and will be reviewed by an administrator soon")"
+        - Invalid form input is detected
+    
 9. **delete_review view**
-- **Valid requests**
-    - Submitting a review primary key, the review is deleted with any associated flags and redirects back to the lesson page.
-    - Activated from superuser admin, review is deleted with any associated flags, jquery will remove the review div so the admin can remove multiple reviews without the page reloading multiple times.
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Passing an invalid review primary key redirects home, with the error "Cannot delete review, review not found."
-    - Submitting a primary key that is not owned by that account redirects back to the lesson page, with the error message "Cannot delete review, it does not belong to this account."
-    - Submitting any review primary key as a superuser deletes the review
-    - Superusers whos ajax request does not return {'success': 'True} are given the message in the request card "Error: Please check this item in django's admin panel"
- 
+    - **Valid requests**
+        - Submitting a review primary key, the review is deleted with any associated flags and redirects back to the lesson page.
+        - Activated from superuser admin, review is deleted with any associated flags, jquery will remove the review div so the admin can remove multiple reviews without the page reloading multiple times.
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Passing an invalid review primary key redirects home, with the error "Cannot delete review, review not found."
+        - Submitting a primary key that is not owned by that account redirects back to the lesson page, with the error message "Cannot delete review, it does not belong to this account."
+        - Submitting any review primary key as a superuser deletes the review
+        - Superusers whos ajax request does not return {'success': 'True} are given the message in the request card "Error: Please check this item in django's admin panel"
+    
 ## **Profile App**
 1. **profile view**
-- **Valid requests**
-    - None
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Cancel button redirects back to the profile page
- 
+    - **Valid requests**
+        - None
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Cancel button redirects back to the profile page
+    
 2. **edit_profile view**
-- **Valid requests**
-    - GET request given a valid lesson_id displays a pre-filled lesson form ready for editing
-    - POST request updates a lesson with the new form data and redirects back to the profile page
-    - Current profile image is displayed
-    - Updating the profile image removes displayed image from the form and updates it with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
-    - When submitting a loading spinner is displayed while files are uploaded
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Submitting invalid form data redirects to the profile page, with the error "There was an error in your profile data: {error}, please try again."
- 
+    - **Valid requests**
+        - GET request given a valid lesson_id displays a pre-filled lesson form ready for editing
+        - POST request updates a lesson with the new form data and redirects back to the profile page
+        - Current profile image is displayed
+        - Updating the profile image removes displayed image from the form and updates it with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
+        - When submitting a loading spinner is displayed while files are uploaded
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Submitting invalid form data redirects to the profile page, with the error "There was an error in your profile data: {error}, please try again."
+    
 3. **instructors view**
-- **Valid requests**
-    - Renders a template with a card list of all instructors `profiles/instructors.html`
-    - Instructors with no lessons are excluded
-    - `profiles/instructors/?sort_by=rating&sort_direction=desc` displays instructors by rating in descending order
-    - `profiles/instructors/?q=ben` only shows instructors with "ben" in their username
-    - `profiles/instructors/?sort_by=rating&sort_direction=desc&q=ben` only shows instructors with "ben" in their username by rating in descending order
- 
-- **Error and Invalid request handling**
-    - Entering an invalid sort will redirects back to the instructor page, with the error message "Invalid sort value displaying all instructors by rating in descending order"
-    - Invalid sort direction defaults to descending order
-    - Passing an empty query redirects back to the instructors page, with the error message "You did not enter any search query, please try again"
- 
+    - **Valid requests**
+        - Renders a template with a card list of all instructors `profiles/instructors.html`
+        - Instructors with no lessons are excluded
+        - `profiles/instructors/?sort_by=rating&sort_direction=desc` displays instructors by rating in descending order
+        - `profiles/instructors/?q=ben` only shows instructors with "ben" in their username
+        - `profiles/instructors/?sort_by=rating&sort_direction=desc&q=ben` only shows instructors with "ben" in their username by rating in descending order
+    
+    - **Error and Invalid request handling**
+        - Entering an invalid sort will redirects back to the instructor page, with the error message "Invalid sort value displaying all instructors by rating in descending order"
+        - Invalid sort direction defaults to descending order
+        - Passing an empty query redirects back to the instructors page, with the error message "You did not enter any search query, please try again"
+    
 4. **request_instructor_status view**
-- **Valid requests**
-    - If user profile is complete and "status" is "request", the profile is updated to `profile.requested_instructor_status: True`, redirects back to profile page
-    - If user profile is complete and "status" is "unrequest" profile is updated to `profile.requested_instructor_status: False`, redirects back to profile page
-    - If user profile is complete and "status" is invalid, profile is untouched, redirects back to profile page
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - If the user profile is not completed, redirects back to the profile page with the error message "You must complete your profile first."
+    - **Valid requests**
+        - If user profile is complete and "status" is "request", the profile is updated to `profile.requested_instructor_status: True`, redirects back to profile page
+        - If user profile is complete and "status" is "unrequest" profile is updated to `profile.requested_instructor_status: False`, redirects back to profile page
+        - If user profile is complete and "status" is invalid, profile is untouched, redirects back to profile page
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - If the user profile is not completed, redirects back to the profile page with the error message "You must complete your profile first."
  
 ## **Studio App**
  
 1. **studio view**
-- **Valid requests**
-    - Given a valid lesson_id displays the lesson if it is free or has been purchased
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Submitting an invalid lesson_id redirects home, with the error message "Error, Invalid lesson"
-    - Submitting a paid lesson_id that has not been not purchased will be redirect home, with the error message "You do not own this lesson"
- 
+    - **Valid requests**
+        - Given a valid lesson_id displays the lesson if it is free or has been purchased
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Submitting an invalid lesson_id redirects home, with the error message "Error, Invalid lesson"
+        - Submitting a paid lesson_id that has not been not purchased will be redirect home, with the error message "You do not own this lesson"
+    
 ## **Basket App**
  
 1. **view_basket view**
-- **Valid requests**
-    - Viewing displays all items currently in users basket
-    - Viewing with an empty basket, shows the prompt "Your basket is empty. Browse our instructors to find a lesson to suit you!" and a Find Instructor button.
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
- 
+    - **Valid requests**
+        - Viewing displays all items currently in users basket
+        - Viewing with an empty basket, shows the prompt "Your basket is empty. Browse our instructors to find a lesson to suit you!" and a Find Instructor button.
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+    
 2. **add_to_basket view**
-- **Valid requests**
-    - Adds an item to the session basket
+    - **Valid requests**
+        - Adds an item to the session basket
+        
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - GET request are redirected to the home page with the error "Invalid request, please select lessons from the lessons page"
+        - POSTing incorrect form data redirects to the home page, with the error "Invalid request, please select lessons from the lessons page"
+        - Submitting and invalid lesson_id redirectes to the home page, with the error "Invalid lesson, please select lessons from the lessons page"
     
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - GET request are redirected to the home page with the error "Invalid request, please select lessons from the lessons page"
-    - POSTing incorrect form data redirects to the home page, with the error "Invalid request, please select lessons from the lessons page"
-    - Submitting and invalid lesson_id redirectes to the home page, with the error "Invalid lesson, please select lessons from the lessons page"
- 
 2. **remove_from_basket view**
-- **Valid requests**
-    - Removes an item from the session basket
-    
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - POSTing invalid data/lesson_id redirects to the basket with the error "Invalid request, no lesson was specified for deletion"
+    - **Valid requests**
+        - Removes an item from the session basket
+        
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - POSTing invalid data/lesson_id redirects to the basket with the error "Invalid request, no lesson was specified for deletion"
  
 ## **Checkout App**
  
 1. **checkout view**
-- **Valid requests**
-    - GET: Request renders `checkout/checkout.html` with the checkout form and card payment option
-    - POST: Request with correct field entries and card details creates an OrderForm and associated LineItems
-    - STRIPE: When processing the order, when stripe returns a webhook with patmentIntent.status = succeeded, the order form will be submitted to the checkout view and the customer will have access to their purchases (see checkout success below).
-    - A complete order sends an email with an order confirmation to the email input on the checkout page.
-    - Full name (if available) and email are auto entered into the form from the database
-    - If users profile is incomplete the full name field will be left blank
-    - A loading spinner displays while order is being processed
- 
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - GET:  Manually going to checkout with nothing in the basket, redirected home with the error message "Your basket is empty"
-    - POST:  Submitting an invalid basket redirects back to the checkout page, with the error "There was an error with your form, no charges have been made."
-    - POST:  While the order form and its associated lineitems are being created, If a lesson does not exist a warning is generated on the checkout success page
-    - STRIPE: Invalid card details fetch stripe error messages and display them below the card field and do not allow checkout submission
-    - STRIPE: If the user closes the browser or there is an issue before the app receives the STRIPE paymentIntent, the OrderForm will not be created, but the checkout.webhook_handler.py will listen for the stripe webhook and create the OrderForm there instead.
+    - **Valid requests**
+        - GET: Request renders `checkout/checkout.html` with the checkout form and card payment option
+        - POST: Request with correct field entries and card details creates an OrderForm and associated LineItems
+        - STRIPE: When processing the order, when stripe returns a webhook with patmentIntent.status = succeeded, the order form will be submitted to the checkout view and the customer will have access to their purchases (see checkout success below).
+        - A complete order sends an email with an order confirmation to the email input on the checkout page.
+        - Full name (if available) and email are auto entered into the form from the database
+        - If users profile is incomplete the full name field will be left blank
+        - A loading spinner displays while order is being processed
     
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - GET:  Manually going to checkout with nothing in the basket, redirected home with the error message "Your basket is empty"
+        - POST:  Submitting an invalid basket redirects back to the checkout page, with the error "There was an error with your form, no charges have been made."
+        - POST:  While the order form and its associated lineitems are being created, If a lesson does not exist a warning is generated on the checkout success page
+        - STRIPE: Invalid card details fetch stripe error messages and display them below the card field and do not allow checkout submission
+        - STRIPE: If the user closes the browser or there is an issue before the app receives the STRIPE paymentIntent, the OrderForm will not be created, but the checkout.webhook_handler.py will listen for the stripe webhook and create the OrderForm there instead.
  
 2. **checkout_success view**
-- **Valid requests**
-    - Given a valid order id, renders the checkout success page, with confirmation of order, order details, and buttons to start the lessons purchased.
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - Passing invalid order number redirects home, with the error message "This order was not found, please contact {settings.DEFAULT_FROM_EMAIL} for support."
-    - Passing someone else's order number redirects home , with the error message "This order does not belong to this account, if this is a mistake please contact {settings.DEFAULT_FROM_EMAIL} for support."
- 
+    - **Valid requests**
+        - Given a valid order id, renders the checkout success page, with confirmation of order, order details, and buttons to start the lessons purchased.
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - Passing invalid order number redirects home, with the error message "This order was not found, please contact {settings.DEFAULT_FROM_EMAIL} for support."
+        - Passing someone else's order number redirects home , with the error message "This order does not belong to this account, if this is a mistake please contact {settings.DEFAULT_FROM_EMAIL} for support."
+    
 3. **attach_basket_to_intent view**
-- **Valid requests**
-    - POST:  Sets up Stripe keys and adds metadata to Stripe payment intent
- 
-- **Error and Invalid request handling**
-    - Accessing while logged out redirects to the sign in page
-    - GET requests ignored by the django @require_POST decorator on this view
-    - Errors generate a toats error, "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction." along with the exception.
- 
+    - **Valid requests**
+        - POST:  Sets up Stripe keys and adds metadata to Stripe payment intent
+    
+    - **Error and Invalid request handling**
+        - Accessing while logged out redirects to the sign in page
+        - GET requests ignored by the django @require_POST decorator on this view
+        - Errors generate a toats error, "Sorry, your payment cannot be processed. please try again later. You have NOT been charged for this transaction." along with the exception.
+    
 4. **webhooks**
-- **Valid requests**
-    - Viewing the checkout page creates a payment intent for stripe and the card input is added to the checkout form
-    - On payment intent succeeded, an email is sent out to the user with order information
-    - Submitting valid form data on the checkout page flow :-
-        - attach_basket_to_intent view adds the email and basket to the payment intents "meta data"
-        - The request to make the charge is sent to stripe, if successful stripe returns "paymentIntent.status": "succeeded"
-        - Now payment has been made and the OrderForm is submitted
-        - checkout view retrieves the payment intent from stripe and checks payment has been made (and not bypassed) allowing the user to access the content.
- 
-- **Error handling**
-    - If a user closes the browser or the order form is not submitted via JavaScript, the backend will look for the order form for 5 times over 5 seconds, if still not found the Order will be created in the webhook.
- 
+    - **Valid requests**
+        - Viewing the checkout page creates a payment intent for stripe and the card input is added to the checkout form
+        - On payment intent succeeded, an email is sent out to the user with order information
+        - Submitting valid form data on the checkout page flow :-
+            - attach_basket_to_intent view adds the email and basket to the payment intents "meta data"
+            - The request to make the charge is sent to stripe, if successful stripe returns "paymentIntent.status": "succeeded"
+            - Now payment has been made and the OrderForm is submitted
+            - checkout view retrieves the payment intent from stripe and checks payment has been made (and not bypassed) allowing the user to access the content.
+    
+    - **Error handling**
+        - If a user closes the browser or the order form is not submitted via JavaScript, the backend will look for the order form for 5 times over 5 seconds, if still not found the Order will be created in the webhook.
+    
 ## **Account Pages**
  
 - **Valid requests**
@@ -656,6 +654,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     ```
  
 - Result - The lesson is removed from the basket before the user can get a 404 error.
+
 ***
 - **'Sort lesson by rating - high to low' feature had all non-rated lessons listed at the top**
 - Situation - Code would show unrated lessons higher than rated lessons
@@ -676,6 +675,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     ```
 - Result - The lessons are now sorted correctly, though I can't append a simple tag `-` to reverse the sort direction so an if else statement is used instead
  ***
+
 - **Anonymous users**
 - Situation - A lot of features on this site require a user profile to function properly, catering to anonymous users involved a lot of code to `try:` getting the user profile with `get_object_or_404` bloating code
  
@@ -694,6 +694,7 @@ To avoid duplicating too much text, the content of each page was tested by check
  
 - Result - Any part of the app where it matters if a user is logged in or not will use a single line `get_profile_or_none(request)` to return a valid profile or a None object, reducing patterns in the code.
  ***
+
 - **MEDIA_URL on a template no going through django's interpreter**
  
 - Situation - 'Lesson modal' content reviews and lesson description are retrieved through a json response, this html string is created from a template using render to string, when being created the {{ MEDIA_URL }} is not rendered into the string, giving the wrong url to the default_profile_image.jpg
@@ -704,6 +705,7 @@ To avoid duplicating too much text, the content of each page was tested by check
  
 - Result - The correct MEDIA_URL location is rendered into the string without having to hard code a location in the template.
 ***
+
 - **404 error creating a 500 internal server error on deployed project**
  
 - Situation - When deployed, testing for a 404 error page by giving an invalid URL.  I was receiving a 500 internal server error rather than the expected 404 error, with debugging turned off I had not enough information to figure out the problem.
@@ -731,6 +733,7 @@ LOGGING = {
  
 - Result - Given the extra log information I was able to find the source of the 500 internal server error and correct it, the logging can now be activated by adding an environment EXTRA_LOGGING variable if needed.
 ***
+
 - **No CSRF Token in static js file**
  
 - Situation - When moving my lesson buttons JavaScript to a static file my Ajax POST request was giving a Forbidden error because of a missing CSRF Token as the token was initially rendered into the script by a template tag.
