@@ -75,7 +75,7 @@ students to sell their premium lessons to.
 ![InstructorsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/instructors.jpg "Instructors page")
 - **Lesson Search Page** With contextual instructor header if viewing an instructors lessons
 ![LessonsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/lessons.jpg "lesson search page")
-- **Studio Page** Individial lesson
+- **Studio Page** Individual lesson
 ![StudioPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/studio.jpg "studio page")
 - **Instructor Admin Page**
 ![InstructorAdminPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/instructor-admin.jpg "instructor admin page")

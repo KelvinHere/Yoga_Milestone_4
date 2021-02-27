@@ -390,7 +390,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - **Valid requests**
         - GET request with a valid lesson_id displays a pre-filled lesson form ready for editing
         - POST request updates a lesson with the new form data
-        - Current lesson image is disaplayed
+        - Current lesson image is displayed
         - If the lesson image is updated, the current image displayed is removed from the page and replaced with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
         - When submitting a loading spinner is displayed while files are uploaded
     
@@ -763,9 +763,9 @@ warnings.warn("DateTimeField %s received a naive datetime (%s)"
 I have traced the warning back to a migration, with the help of [this article](https://www.debugcn.com/en/article/64389139.html), using `--verbosity 2` as an argument to the unit tests.
 
 The solution to this problem is [here: warning-because-of-old-migration](https://stackoverflow.com/questions/49341801/warning-because-of-old-migration-how-should-that-be-solved), and involves [squashing the migrations](https://docs.djangoproject.com/en/3.1/topics/migrations/#migration-squashing).
-This solution will squash the selected migrations and optomize them into one, canceling out opposing migrations to give just the end result rather than going through each migration one by one.
+This solution will squash the selected migrations and optimize them into one, canceling out opposing migrations to give just the end result rather than going through each migration one by one.
 
-This warning message this only affects the unit tests, and since the solution has the potential to introduce deeper issues, this minor bug is marked to be removed in a future update.
+This warning message only affects the unit tests, and since the solution has the potential to introduce deeper issues, this minor bug is marked to be removed in a future update.
 
 ## 5 - Payment Attacks
   
