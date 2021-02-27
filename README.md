@@ -205,7 +205,7 @@ The nav bar appears on every page, it is locked to the top on larger screens and
 The basket will display how many items it has inside.  Each time the navbar is loaded it uses a variable in a context 
 processor in the checkout app called `product_count`, which allows the navbar to always have the information needed, this
 context processor is documented in the 
-[Solved Interesting Bugs](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/testing.md#solved-interesting-bugs) section of testing.md as an interesting 
+[Interesting Bugs Solved](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/testing.md#4---interesting-bugs-solved) section of testing.md as an interesting 
 case "Instructor deletes lesson that is already a users basket".
  
 - Logo Brand is always a link home.
