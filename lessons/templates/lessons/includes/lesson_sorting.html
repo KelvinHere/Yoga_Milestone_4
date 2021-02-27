@@ -29,9 +29,9 @@
                 Filter
             </a>
             <div class="dropdown-menu" aria-labelledby="filterDropdownMenuLink">
-                <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter=all_lessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">All lessons  {% if filter_by == 'all_lessons' %}<i class="fas fa-check text-success"></i>{% endif %}</a>
-                <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter=subscribed_lessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">Subscribed Lessons  {% if filter_by == 'subscribed_lessons' %}<i class="fas fa-check text-success"></i>{% endif %}</a>
-                <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter=purchased_lessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}" class="dropdown-item">Purchased Lessons {% if filter_by == 'purchased_lessons' %}<i class="fas fa-check text-success"></i>{% endif %}</a>
+                <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter=all_lessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="dropdown-item">All lessons  {% if filter_by == 'all_lessons' %}<i class="fas fa-check text-success"></i>{% endif %}</a>
+                <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter=subscribed_lessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="dropdown-item">Subscribed Lessons  {% if filter_by == 'subscribed_lessons' %}<i class="fas fa-check text-success"></i>{% endif %}</a>
+                <a href="{% url 'lessons' %}?sort={{ sort_by }}&direction={{ sort_direction }}&filter=purchased_lessons{% if instructor_to_display %}&instructor={{ instructor_to_display.id }}{% endif %}{% if current_query %}&q={{ current_query }}{% endif %}#lesson-sorting" class="dropdown-item">Purchased Lessons {% if filter_by == 'purchased_lessons' %}<i class="fas fa-check text-success"></i>{% endif %}</a>
             </div>
         </div>
     </div>
