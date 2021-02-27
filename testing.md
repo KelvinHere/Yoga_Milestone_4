@@ -363,6 +363,7 @@ To avoid duplicating too much text, the content of each page was tested by check
 - **Valid requests**
     - GET request redirects to the lesson creation form
     - POST request creates a lesson from the form data, and redirects to instructor admin page
+    - When submitting a loading spinner is displayed while files are uploaded
  
 - **Error and Invalid request handling**
     - Accessing while logged out redirects to the sign in page
@@ -378,7 +379,8 @@ To avoid duplicating too much text, the content of each page was tested by check
     - GET request with a valid lesson_id displays a pre-filled lesson form ready for editing
     - POST request updates a lesson with the new form data
     - Current lesson image is disaplayed
-    - If lesson image is updated the current one is removed from the page and replaced with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
+    - If the lesson image is updated, the current image displayed is removed from the page and replaced with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
+    - When submitting a loading spinner is displayed while files are uploaded
  
 - **Error and Invalid request handling**
     - Accessing while logged out redirects to the sign in page
@@ -435,7 +437,8 @@ To avoid duplicating too much text, the content of each page was tested by check
     - GET request given a valid lesson_id displays a pre-filled lesson form ready for editing
     - POST request updates a lesson with the new form data and redirects back to the profile page
     - Current profile image is displayed
-    - Updating profile image removes profile image from the form and updates it with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
+    - Updating the profile image removes displayed image from the form and updates it with `<p>Update image to <strong>"NEW FILE NAME"</strong></p>`
+    - When submitting a loading spinner is displayed while files are uploaded
  
 - **Error and Invalid request handling**
     - Accessing while logged out redirects to the sign in page
@@ -512,6 +515,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - A complete order sends an email with an order confirmation to the email input on the checkout page.
     - Full name (if available) and email are auto entered into the form from the database
     - If users profile is incomplete the full name field will be left blank
+    - A loading spinner displays while order is being processed
  
  
 - **Error and Invalid request handling**
