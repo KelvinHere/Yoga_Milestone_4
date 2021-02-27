@@ -26,9 +26,9 @@
 4. [**Interesting Bugs Solved**](#4---interesting-bugs-solved)
 5. [**Payment Attacks**](#5---payment-attacks)
  
-# 1 - Automated Testing
+## 1 - Automated Testing
  
-## Unit Tests and Coverage
+### **Unit Tests and Coverage**
 Automated testing is carried out by unit testing.  Coverage of these tests is monitored by 
 using **Coverage** (`pip3 install coverage`), Coverage will create a report to show how much 
 of the code is covered by the unit tests.
@@ -84,7 +84,7 @@ Missing from these tests are the webhooks and webhook handlers, these have been 
 ![LessonsCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/lessons.JPG "Lessons Coverage Report")
  
  
-## Running unit tests
+### **Running unit tests**
 Create a local deployment as explained on ['Local Deployment' section of readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment)
  
 This apps unit tests use fixtures in the **profiles app**, for these to be loaded correctly the automatic creation of user profiles must be disabled, do this in settings.py by setting `RUNNING_UNIT_TESTS` to `True`
@@ -94,19 +94,19 @@ This apps unit tests use fixtures in the **profiles app**, for these to be loade
  
 You can keep narrowing the tests like this, `python3 manage.py test lessons.tests.test_views.test_create_lesson` 
  
-## Unit Test Results
+### **Unit Test Results**
 ![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/unit_tests_run_all.jpg "Unit Tests")
  
  
-## Creating Unit Tests
+### **Creating Unit Tests**
  
 - Follow [Running unit tests from the console](#running-unit-tests-from-the-console) to create a local deployment of the app.
 - In settings.py set `RUNNING_UNIT_TESTS` to true, this will disable a view to allow fixtures to be loaded properly.
 - Create your unit tests in the app you want to test, for example lessons.tests.test_mynewtests.py
 - Run the tests with `python3 manage.py test` to run the full test suite, or `python3 manage.py test lessons.tests.test_mynewtest` for just the example above.
  
-# 2 - Manual Testing
-## **Code Validation**
+## 2 - Manual Testing
+### **Code Validation**
 ### **Browser Testing**
 - This project has had all its pages, routes and **responsive states** viewed on the following browsers.
     - Chrome
@@ -203,7 +203,7 @@ even though PEP 8 suggests 72.
 """
 ```
  
-## **Site Actions Tested**
+### **Site Actions Tested**
 - User can:
     - Register / Sign In / Signout / Confirm Email / Retrieve Password
     - View their profile
@@ -248,12 +248,12 @@ even though PEP 8 suggests 72.
     - View a list of flagged reviews
         - Ignore the flag or delete the review
  
-## **Content Testing**
+### **Content Testing**
  
 To avoid duplicating too much text, the content of each page was tested by checking the page content against what was expected on the ['Features' section of the readme.md](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/README.md#local-deployment#features).
  
-# **Valid Requests and Error Handling**
-## **Home app**
+## **Valid Requests and Error Handling**
+### **Home app**
 
 1. **index view** 
     - **Valid requests**
@@ -284,7 +284,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - **Valid requests**
         - Displays the info page with contact email, info and social media buttons.
 
-## **Nav Bar**
+### **Nav Bar**
 - The nav bar branding is the link home
 - Navbar links are collapsed on small screens
 - The basket is always displayed on the navbar if logged in and absent if logged out
@@ -301,7 +301,7 @@ To avoid duplicating too much text, the content of each page was tested by check
 - If logged in as superuser
     - Superuser Admin redirects to superuser admin page
  
-## **Lessons App**
+### **Lessons App**
  
 1. **lessons view**
     - **Valid requests**
@@ -435,7 +435,7 @@ To avoid duplicating too much text, the content of each page was tested by check
         - Submitting any review primary key as a superuser deletes the review
         - Superusers whos ajax request does not return {'success': 'True} are given the message in the request card "Error: Please check this item in django's admin panel"
     
-## **Profile App**
+### **Profile App**
 1. **profile view**
     - **Valid requests**
         - None
@@ -479,7 +479,7 @@ To avoid duplicating too much text, the content of each page was tested by check
         - Accessing while logged out redirects to the sign in page
         - If the user profile is not completed, redirects back to the profile page with the error message "You must complete your profile first."
  
-## **Studio App**
+### **Studio App**
  
 1. **studio view**
     - **Valid requests**
@@ -490,7 +490,7 @@ To avoid duplicating too much text, the content of each page was tested by check
         - Submitting an invalid lesson_id redirects home, with the error message "Error, Invalid lesson"
         - Submitting a paid lesson_id that has not been not purchased will be redirect home, with the error message "You do not own this lesson"
     
-## **Basket App**
+### **Basket App**
  
 1. **view_basket view**
     - **Valid requests**
@@ -518,7 +518,7 @@ To avoid duplicating too much text, the content of each page was tested by check
         - Accessing while logged out redirects to the sign in page
         - POSTing invalid data/lesson_id redirects to the basket with the error "Invalid request, no lesson was specified for deletion"
  
-## **Checkout App**
+### **Checkout App**
  
 1. **checkout view**
     - **Valid requests**
@@ -570,7 +570,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - **Error handling**
         - If a user closes the browser or the order form is not submitted via JavaScript, the backend will look for the order form for 5 times over 5 seconds, if still not found the Order will be created in the webhook.
     
-## **Account Pages**
+### **Account Pages**
  
 - **Valid requests**
     - Logging in with correct details, logs in and receive a success message
@@ -583,7 +583,7 @@ To avoid duplicating too much text, the content of each page was tested by check
     - Invalid details will not let a user log in
     - Incorrectly input form data will display an error message on the form
  
-# 3 - User Stories Solved
+## 3 - User Stories Solved
  
 **ID** | **As A/AN** | **I want to be able to...** | **So that I can** | **Outcome**
 --- | --- | --- | --- | ---
@@ -607,7 +607,7 @@ To avoid duplicating too much text, the content of each page was tested by check
 18 | " | View flagged comments | Decide to remove the review if it is inappropriate | **Superuser Admin page displays these flags with appropriate action buttons**
  
  
-# 4 - Interesting Bugs Solved
+## 4 - Interesting Bugs Solved
  
 - **Instructor deletes lesson that is already a users basket**
 - Situation - If an instructor deletes a lesson that is already in a users basket, the user will receive a 404 error whenever the basket context processor is called.  This is because the lesson no longer exists in the database, but its ID is still in the users basket.
@@ -749,7 +749,7 @@ LOGGING = {
 ```
 - Result - The static file now has access to the CSRF Token again and the buttons function correctly
 
-## Remaining Warning Message
+### Remaining Warning Message
 
 A warning message that remains but does not affect the app.  When performing unit tests, the lessons.LessonReview model throws the warning below
 
@@ -766,9 +766,9 @@ This solution will squash the selected migrations and optomize them into one, ca
 
 This warning message this only affects the unit tests, and since the solution has the potential to introduce deeper issues, this minor bug is marked to be removed in a future update.
 
-# 5 - Payment Attacks
+## 5 - Payment Attacks
   
-## Place an order without paying
+### **Place an order without paying**
  
 - Situation: Payment system can be bypassed and orders can be completed for free
     - Steps to defeat the payment system
