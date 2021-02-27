@@ -78,7 +78,13 @@ def checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY)
 
-        order_form = OrderForm()
+        # Get full name
+        full_name = ''
+        if profile.first_name and profile.last_name:
+            full_name = f'{profile.first_name} {profile.last_name}'
+
+        order_form = OrderForm(initial={'full_name': full_name,
+                                        'email': profile.user.email})
 
     if not stripe_public_key:
         messages.warning(request, 'Missing public key for stripe')

@@ -510,6 +510,8 @@ To avoid duplicating too much text, the content of each page was tested by check
     - POST: Request with correct field entries and card details creates an OrderForm and associated LineItems
     - STRIPE: When processing the order, when stripe returns a webhook with patmentIntent.status = succeeded, the order form will be submitted to the checkout view and the customer will have access to their purchases (see checkout success below).
     - A complete order sends an email with an order confirmation to the email input on the checkout page.
+    - Full name (if available) and email are auto entered into the form from the database
+    - If users profile is incomplete the full name field will be left blank
  
  
 - **Error and Invalid request handling**
