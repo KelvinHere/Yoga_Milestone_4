@@ -10,8 +10,6 @@ tools, set lesson prices and view the details of all the sales they have made on
  
 * [Live link to site](https://ms4-yoga-kelvinhere.herokuapp.com/ 'Live website link')
 
-!!!!!! BEFORE SUBMISSION - unit tests to false, re-validate live links
-
 ## Contents
  
 1. [**UX**](#ux)

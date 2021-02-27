@@ -39,7 +39,7 @@ def lessons(request):
 
     # Search / Sort / Filter - Default values
     valid_sort_values = ['lesson_name',
-                         'instructor_profile',
+                         'instructor_profile__user__username',
                          'rating',
                          'price']
     sortby = 'rating'
