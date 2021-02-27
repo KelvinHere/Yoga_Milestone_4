@@ -100,7 +100,7 @@ You can keep narrowing the tests like this, `python3 manage.py test lessons.test
  
 ### **Creating Unit Tests**
  
-- Follow [Running unit tests from the console](#running-unit-tests-from-the-console) to create a local deployment of the app.
+- Follow [Running unit tests](#running-unit-tests) to create a local deployment of the app.
 - In settings.py set `RUNNING_UNIT_TESTS` to true, this will disable a view to allow fixtures to be loaded properly.
 - Create your unit tests in the app you want to test, for example lessons.tests.test_mynewtests.py
 - Run the tests with `python3 manage.py test` to run the full test suite, or `python3 manage.py test lessons.tests.test_mynewtest` for just the example above.
