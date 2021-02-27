@@ -152,7 +152,7 @@ and content which will become the heart of the app.
 A quick review of features on the site, more detailed descriptions further down.
  
 - **User can**:
-    - Register / Sign In / Signout / Confirm Email / Reset Password
+    - Register / Sign In / Signout / Confirm Email / Retrieve Password
     - View their profile
         - Edit their profile
         - Request to become an instructor
@@ -483,6 +483,7 @@ In making this app, there are ideas I would like to implement at a later date th
 project, they are listed below.
  
 ### Near Future
+- More comprehensive sales data for instructors, split into monthly totals.
 - Lesson history for quick links back to a lesson whose name cannot be remembered
 - Implement a time limit on uploading images so a user cannot spam images to the application.
 - Use a private video hosting service to give the site more control and better security for paid lessons (sharing of urls).

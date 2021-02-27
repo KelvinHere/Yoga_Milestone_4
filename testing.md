@@ -43,8 +43,8 @@ of the code is covered by the unit tests.
     - open the server and navigate to **htmlcov/index.html**
  
 ### Current Coverage Reports
- 
-  
+
+
 **Home Coverage Report**
  
 ![HomeCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/home.JPG "Home Coverage Report")
@@ -205,7 +205,7 @@ even though PEP 8 suggests 72.
  
 ## **Site Actions Tested**
 - User can:
-    - Register / Sign In / Signout / Confirm Email / Reset Password
+    - Register / Sign In / Signout / Confirm Email / Retrieve Password
     - View their profile
         - Edit their profile
         - Request to become an instructor
@@ -447,6 +447,7 @@ To avoid duplicating too much text, the content of each page was tested by check
 3. **instructors**
 - **Valid requests**
     - Renders a template with a card list of all instructors `profiles/instructors.html`
+    - Instructors with no lessons are excluded
     - `profiles/instructors/?sort_by=rating&sort_direction=desc` displays instructors by rating in descending order
     - `profiles/instructors/?q=ben` only shows instructors with "ben" in their username
     - `profiles/instructors/?sort_by=rating&sort_direction=desc&q=ben` only shows instructors with "ben" in their username by rating in descending order
