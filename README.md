@@ -10,6 +10,15 @@ tools, set lesson prices and view the details of all the sales they have made on
  
 * [Live link to site](https://ms4-yoga-kelvinhere.herokuapp.com/ 'Live website link')
 
+* Very brief video overviews of some features
+    * [Registered Users Searching & Buying](https://youtu.be/oa0X4AgmQUI)
+    * [Become an Instructor](https://youtu.be/R-83VFYbR3Q)
+    * [Site Admin](https://youtu.be/htbH5vWSOKU)
+    * [Rating System](https://youtu.be/6jx0el6hcJ8)
+    * [Flagging Reviews](https://youtu.be/_SdjznJ6Q3o)
+    * [Instructor Admin](https://youtu.be/-amo-LnrqjA)
+    * [Unregistered Users](https://youtu.be/2BIlXB56tBo)
+
 ## Contents
  
 1. [**UX**](#ux)
