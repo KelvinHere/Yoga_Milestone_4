@@ -13,7 +13,6 @@ tools, set lesson prices and view the details of all the sales they have made on
 * Very brief video overviews of some features
     * [Registered Users Searching & Buying](https://youtu.be/oa0X4AgmQUI)
     * [Become an Instructor](https://youtu.be/R-83VFYbR3Q)
-    * [Site Admin](https://youtu.be/htbH5vWSOKU)
     * [Rating System](https://youtu.be/6jx0el6hcJ8)
     * [Flagging Reviews](https://youtu.be/_SdjznJ6Q3o)
     * [Instructor Admin](https://youtu.be/-amo-LnrqjA)
