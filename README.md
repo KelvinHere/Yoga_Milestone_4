@@ -8,7 +8,7 @@ to or buy them.
 Instructors who decide to use this site will be able to create and manage their lessons through the apps
 tools, set lesson prices and view the details of all the sales they have made on the site.
  
-* [Live link to site](https://ms4-yoga-kelvinhere.herokuapp.com/ 'Live website link')
+* [Live link to Dockerised site on Digital Ocean](http://167.99.219.161:8080 'Live website link')
 
 * Very brief video overviews of some features
     * [Registered Users Searching & Buying](https://youtu.be/oa0X4AgmQUI)
