@@ -10,3 +10,8 @@ db.sqlite3
 datadump.json
 /coverage.data
 /coverage/
+.env
+.env.prod
+.env.prod.db
+venv/
+/data/
