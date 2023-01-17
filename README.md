@@ -74,27 +74,27 @@ students to sell their premium lessons to.
 ### **Wireframe Designs**
  
 - **Home page**
-![HomePage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/home.jpg "Home page")
+![HomePage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/wireframe/home.jpg "Home page")
 - **Signup / Register** and other account related pages
-![AccountsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/accounts.jpg "Login / out / signup page")
+![AccountsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/wireframe/accounts.jpg "Login / out / signup page")
 - **Instructors Page**
-![InstructorsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/instructors.jpg "Instructors page")
+![InstructorsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/wireframe/instructors.jpg "Instructors page")
 - **Lesson Search Page** With contextual instructor header if viewing an instructors lessons
-![LessonsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/lessons.jpg "lesson search page")
+![LessonsPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/wireframe/lessons.jpg "lesson search page")
 - **Studio Page** Individual lesson
-![StudioPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/studio.jpg "studio page")
+![StudioPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/wireframe/studio.jpg "studio page")
 - **Instructor Admin Page**
-![InstructorAdminPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/instructor-admin.jpg "instructor admin page")
+![InstructorAdminPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/wireframe/instructor-admin.jpg "instructor admin page")
 - **Superuser Admin Page**
-![SuperuserAdminPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/superuseradmin.jpg "superuser admin page")
+![SuperuserAdminPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/wireframe/superuseradmin.jpg "superuser admin page")
 - **Info Page**
-![InfoPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/wireframe/info.jpg "info admin page")
+![InfoPage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/wireframe/info.jpg "info admin page")
 
 ### **Database**
  
  - A postgres relational database is used for the app, below is the final map with all features included.
  
-![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/database/db_design.jpg "Database design")
+![Database](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/database/db_design.jpg "Database design")
  
 ### **User Stories**
  
