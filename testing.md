@@ -47,7 +47,7 @@ of the code is covered by the unit tests.
 
 **Home Coverage Report**
  
-![HomeCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/home.jpg "Home Coverage Report")
+![HomeCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/unittests/home.jpg "Home Coverage Report")
  
 Missing from these tests are the custom 404 and 500 pages, these have been tested manually on the deployed app.
  
@@ -55,19 +55,19 @@ Missing from these tests are the custom 404 and 500 pages, these have been teste
  
 **Profiles Coverage Report**
  
-![ProfilesCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/profiles.jpg "Profiles Coverage Report")
+![ProfilesCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/unittests/profiles.jpg "Profiles Coverage Report")
  
 ***
  
 **Basket Coverage Report**
  
-![BasketCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/basket.jpg "Basket Coverage Report")
+![BasketCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/unittests/basket.jpg "Basket Coverage Report")
  
 ***
  
 **Checkout Coverage Report**
  
-![CheckoutCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/checkout.jpg "Checkout Coverage Report")
+![CheckoutCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/unittests/checkout.jpg "Checkout Coverage Report")
  
 Missing from these tests are the webhooks and webhook handlers, these have been tested on the deployed app and confirmed through stripe.
  
@@ -75,13 +75,13 @@ Missing from these tests are the webhooks and webhook handlers, these have been 
  
 **Sudio Coverage Report**
  
-![StudioCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/studio.jpg "Studio Coverage Report")
+![StudioCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/unittests/studio.jpg "Studio Coverage Report")
  
 ***
  
 **Lessons Coverage Report**
  
-![LessonsCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/lessons.jpg "Lessons Coverage Report")
+![LessonsCoverage](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/unittests/lessons.jpg "Lessons Coverage Report")
  
  
 ### **Running unit tests**
@@ -95,7 +95,7 @@ This apps unit tests use fixtures in the **profiles app**, for these to be loade
 You can keep narrowing the tests like this, `python3 manage.py test lessons.tests.test_views.test_create_lesson` 
  
 ### **Unit Test Results**
-![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/documents/unittests/unit_tests_run_all.jpg "Unit Tests")
+![UnitTests](https://github.com/KelvinHere/Yoga_Milestone_4/blob/master/work/documents/unittests/unit_tests_run_all.jpg "Unit Tests")
  
  
 ### **Creating Unit Tests**
